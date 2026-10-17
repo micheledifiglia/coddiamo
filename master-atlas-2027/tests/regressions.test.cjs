@@ -27,6 +27,16 @@ test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su 
   assert.match(css,/\.dashboard-card\{[\s\S]*backdrop-filter:blur\(30px\)/);
   assert.match(css,/@media\(max-width:560px\)\{[\s\S]*\.dashboard-rail\{grid-template-columns:minmax\(0,1fr\)\}/);
 });
+
+test('La tipografia dell’interfaccia usa il sans-serif Manrope come nelle immagini di riferimento',()=>{
+  const base=fs.readFileSync(path.join(__dirname,'../dist/style.css'),'utf8');
+  const glass=fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8');
+  const auth=fs.readFileSync(path.join(__dirname,'../dist/auth.css'),'utf8');
+  assert.match(base,/--serif:'Manrope',system-ui,sans-serif/);
+  assert.match(glass,/--serif:'Manrope',system-ui,sans-serif/);
+  assert.match(auth,/auth-card h1[^}]*Manrope/);
+  assert.doesNotMatch(base,/family=Newsreader/);
+});
 test('Il catalogo contiene tutte le voci e ID univoci',()=>{
   assert.equal(catalog.programs.length,208);assert.equal(catalog.universities.length,27);
   assert.equal(new Set(catalog.programs.map(p=>p.id)).size,208);
