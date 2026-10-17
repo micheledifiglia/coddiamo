@@ -27,6 +27,7 @@ Le graduatorie sono valutazioni personali e qualitative: **non sono ranking uffi
 - Cercare e filtrare programmi per area, ateneo, tipologia e condizioni.
 - Salvare preferiti e confrontare fino a quattro percorsi.
 - Seguire ogni candidatura con scadenze, note e checklist.
+- Gestire il profilo pubblico, aggiungere passkey, cambiare nome utente o eliminare il profilo.
 - Importare ed esportare un backup dei propri progressi.
 - Consultare il dossier, le note originali e la legenda delle sigle.
 

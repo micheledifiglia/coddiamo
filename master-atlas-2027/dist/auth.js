@@ -82,11 +82,59 @@
     gate.hidden=true;document.body.classList.remove('auth-pending');
     const name=document.querySelector('#account-name');name.textContent=user.username;name.hidden=false;
     document.querySelector('#account-add-passkey').hidden=false;
+    document.querySelector('#account-manage-profile').hidden=false;
     document.querySelector('#account-logout').hidden=false;
     resolveReady(user);
   }
 
   view();
+  const profileDialog=document.querySelector('#profile-dialog');
+  const profileMessage=document.querySelector('#profile-message');
+  const profileName=document.querySelector('#profile-delete-current');
+  const showProfileMessage=(message,isError=false)=>{profileMessage.textContent=message;profileMessage.style.color=isError?'#a43c34':'#245c48';};
+  const manageProfile=()=>{
+    document.querySelector('#profile-new-username').value=auth.currentUser?.username||'';
+    document.querySelector('#profile-delete-confirm').value='';
+    profileName.textContent=auth.currentUser?.username||'';
+    showProfileMessage('');
+    profileDialog.showModal();
+  };
+  document.querySelector('#account-manage-profile').addEventListener('click',manageProfile);
+  document.querySelector('#profile-close').addEventListener('click',()=>profileDialog.close());
+  document.querySelector('#profile-rename-form').addEventListener('submit',async event=>{
+    event.preventDefault();
+    const form=event.currentTarget,button=form.querySelector('button[type="submit"]');
+    const username=document.querySelector('#profile-new-username').value.trim().toLowerCase();
+    if(username===auth.currentUser?.username){showProfileMessage('Questo nome utente è già quello attuale.',true);return;}
+    button.disabled=true;showProfileMessage('Conferma il cambio con una passkey…');
+    try{
+      const flow=await api('/api/auth/profile/rename/options',{username});
+      const credential=await navigator.credentials.get({publicKey:convertOptions(flow.publicKey,false)});
+      if(!credential){showProfileMessage('Operazione annullata.',true);return;}
+      const {user}=await api('/api/auth/profile/rename/verify',{flowId:flow.flowId,response:serializeCredential(credential)});
+      activate(user);profileName.textContent=user.username;document.querySelector('#profile-new-username').value=user.username;
+      showProfileMessage('Nome utente aggiornato.');
+    }catch(error){showProfileMessage(error.message||'Non è stato possibile rinominare il profilo.',true);}
+    finally{button.disabled=false;}
+  });
+  document.querySelector('#profile-delete-form').addEventListener('submit',async event=>{
+    event.preventDefault();
+    const form=event.currentTarget,button=form.querySelector('button[type="submit"]');
+    const confirmUsername=document.querySelector('#profile-delete-confirm').value.trim().toLowerCase();
+    if(confirmUsername!==auth.currentUser?.username){showProfileMessage('Il nome utente non corrisponde.',true);return;}
+    if(!window.confirm('Eliminare definitivamente il profilo e tutti i dati sincronizzati? Questa azione non si può annullare.'))return;
+    button.disabled=true;showProfileMessage('Conferma l’eliminazione con una passkey…');
+    try{
+      const flow=await api('/api/auth/profile/delete/options',{confirmUsername});
+      const credential=await navigator.credentials.get({publicKey:convertOptions(flow.publicKey,false)});
+      if(!credential){showProfileMessage('Operazione annullata.',true);return;}
+      await api('/api/auth/profile/delete/verify',{flowId:flow.flowId,response:serializeCredential(credential),confirmUsername});
+      const storageKey=`master-atlas-2027-v2:${auth.currentUser.id}`;
+      try{localStorage.removeItem(storageKey);localStorage.removeItem(`${storageKey}-recovery`);}catch{}
+      location.reload();
+    }catch(error){showProfileMessage(error.message||'Non è stato possibile eliminare il profilo.',true);}
+    finally{button.disabled=false;}
+  });
   document.querySelector('#account-logout').addEventListener('click',async()=>{
     try{await api('/api/auth/logout',{});}finally{location.reload();}
   });

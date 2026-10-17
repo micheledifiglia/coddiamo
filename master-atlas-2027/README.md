@@ -7,6 +7,8 @@ App per esplorare 208 percorsi e seguire le candidature. Il sito pubblico uffici
 
 Il sito pubblico Sites è la sola versione destinata ai visitatori. GitHub Pages è stato disattivato; il repository resta pubblico come codice sorgente. Nella versione profili, il nome utente identifica il profilo e il passkey sblocca la chiave del dispositivo; **Resta connesso** mantiene la sessione su quel dispositivo per 30 giorni. È possibile aggiungere fino a cinque passkey. Aggiungine uno su un secondo dispositivo: se perdi tutte le passkey, il profilo non è recuperabile automaticamente.
 
+Nel menu **Profilo** puoi cambiare nome utente o eliminare il profilo, confermando entrambe le operazioni con una passkey. L’eliminazione rimuove dati sincronizzati, sessioni, credenziali passkey registrate sul server e la copia locale del dispositivo corrente. Esporta prima un backup se vuoi conservare i progressi; passkey salvate nel gestore del dispositivo e copie locali su altri dispositivi vanno rimosse separatamente.
+
 ## Sviluppo e verifiche
 
 1. Installare le dipendenze con `npm ci` (servono solo allo sviluppo e alla generazione delle migrazioni).

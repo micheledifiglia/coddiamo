@@ -114,3 +114,72 @@ test('Storage browser-side: i dati locali sono separati per profilo e non migran
   assert.ok(entries.has('master-atlas-2027-v2:alice'));
   assert.ok(entries.has('master-atlas-2027-v1'));
 });
+
+test('Profilo: il cambio nome richiede una nuova verifica passkey e conserva account e dati',async()=>{
+  const{env,db}=database();
+  const handle=createHandler({},catalog,Core,createPasskeyAuth(fakeWebAuthn()));
+  const alice=await register(handle,env,'alice',false);
+  const aliceId=db.prepare('SELECT id FROM atlas_accounts WHERE username=?').get('alice').id;
+  const bob=await register(handle,env,'bob',false);
+  const before=await handle(request('/api/state','GET',undefined,alice.cookie),env);
+  assert.equal(before.status,200);
+  const duplicate=await handle(request('/api/auth/profile/rename/options','POST',{username:'bob'},alice.cookie),env);
+  assert.equal(duplicate.status,409);
+  assert.equal((await handle(request('/api/auth/profile/rename/options','POST',{username:'new_alice'},undefined),env)).status,401);
+
+  const options=await handle(request('/api/auth/profile/rename/options','POST',{username:'new_alice'},alice.cookie),env);
+  assert.equal(options.status,200);
+  const flow=await options.json();
+  const foreign=await handle(request('/api/auth/profile/rename/verify','POST',{flowId:flow.flowId,response:{id:'credential-bob',challenge:flow.publicKey.challenge}},alice.cookie),env);
+  assert.equal(foreign.status,401);
+  const replay=await handle(request('/api/auth/profile/rename/verify','POST',{flowId:flow.flowId,response:{id:'credential-alice',challenge:flow.publicKey.challenge}},alice.cookie),env);
+  assert.equal(replay.status,400);
+  assert.equal(db.prepare('SELECT username FROM atlas_accounts WHERE id=?').get(aliceId).username,'alice');
+
+  const retry=await handle(request('/api/auth/profile/rename/options','POST',{username:'new_alice'},alice.cookie),env);
+  const retryFlow=await retry.json();
+  const renamed=await handle(request('/api/auth/profile/rename/verify','POST',{flowId:retryFlow.flowId,response:{id:'credential-alice',challenge:retryFlow.publicKey.challenge}},alice.cookie),env);
+  assert.equal(renamed.status,200);
+  assert.equal((await renamed.json()).user.username,'new_alice');
+  assert.equal((await handle(request('/api/auth/login/options','POST',{username:'new_alice'}),env)).status,200);
+  assert.equal((await handle(request('/api/auth/login/options','POST',{username:'alice'}),env)).status,401);
+  assert.equal((await handle(request('/api/state','GET',undefined,alice.cookie),env)).status,200);
+  assert.equal((await handle(request('/api/state','GET',undefined,bob.cookie),env)).status,200);
+  db.close();
+});
+
+test('Profilo: eliminazione richiede username e passkey e cancella solo i dati dell’account',async()=>{
+  const{env,db}=database();
+  const handle=createHandler({},catalog,Core,createPasskeyAuth(fakeWebAuthn()));
+  const alice=await register(handle,env,'alice',true);
+  const bob=await register(handle,env,'bob',false);
+  const aliceId=db.prepare('SELECT id FROM atlas_accounts WHERE username=?').get('alice').id;
+  db.prepare('INSERT INTO atlas_history(owner,revision,body,created_at) VALUES(?,?,?,?)').run(aliceId,1,'{}','2026-01-01T00:00:00.000Z');
+  assert.equal((await handle(request('/api/auth/profile/delete/options','POST',{confirmUsername:'wrong'},alice.cookie),env)).status,400);
+  const options=await handle(request('/api/auth/profile/delete/options','POST',{confirmUsername:'alice'},alice.cookie),env);
+  assert.equal(options.status,200);
+  const flow=await options.json();
+  const mismatch=await handle(request('/api/auth/profile/delete/verify','POST',{flowId:flow.flowId,confirmUsername:'wrong',response:{id:'credential-alice',challenge:flow.publicKey.challenge}},alice.cookie),env);
+  assert.equal(mismatch.status,400);
+  assert.equal(db.prepare('SELECT COUNT(*) AS n FROM atlas_accounts WHERE id=?').get(aliceId).n,1);
+
+  const retry=await handle(request('/api/auth/profile/delete/options','POST',{confirmUsername:'alice'},alice.cookie),env);
+  const retryFlow=await retry.json();
+  const rejected=await handle(request('/api/auth/profile/delete/verify','POST',{flowId:retryFlow.flowId,confirmUsername:'alice',response:{id:'credential-alice',challenge:retryFlow.publicKey.challenge,bad:true}},alice.cookie),env);
+  assert.equal(rejected.status,401);
+  assert.equal(db.prepare('SELECT COUNT(*) AS n FROM atlas_accounts WHERE id=?').get(aliceId).n,1);
+
+  const finalOptions=await handle(request('/api/auth/profile/delete/options','POST',{confirmUsername:'alice'},alice.cookie),env);
+  const finalFlow=await finalOptions.json();
+  const deleted=await handle(request('/api/auth/profile/delete/verify','POST',{flowId:finalFlow.flowId,confirmUsername:'alice',response:{id:'credential-alice',challenge:finalFlow.publicKey.challenge}},alice.cookie),env);
+  assert.equal(deleted.status,200);
+  assert.match(deleted.headers.get('set-cookie'),/Max-Age=0/);
+  for(const table of ['atlas_accounts','atlas_states','atlas_history','atlas_sessions','atlas_passkeys','atlas_auth_challenges']){
+    const column=table==='atlas_accounts'?'id':'owner';
+    assert.equal(db.prepare(`SELECT COUNT(*) AS n FROM ${table} WHERE ${column}=?`).get(aliceId).n,0,table);
+  }
+  assert.equal((await handle(request('/api/auth/session','GET',undefined,alice.cookie),env)).status,401);
+  assert.equal((await handle(request('/api/state','GET',undefined,bob.cookie),env)).status,200);
+  assert.equal(db.prepare('SELECT COUNT(*) AS n FROM atlas_accounts WHERE id=?').get(db.prepare('SELECT id FROM atlas_accounts WHERE username=?').get('bob').id).n,1);
+  db.close();
+});

@@ -76,6 +76,24 @@ export function createPasskeyAuth(webauthn) {
       env.DB.prepare('DELETE FROM atlas_auth_rate_limits WHERE window_start<?').bind(now-24*60*60*1000)
     ]);
   }
+  async function actionOptions(env,authConfig,user,purpose) {
+    const rows=await env.DB.prepare('SELECT credential_id,transports FROM atlas_passkeys WHERE owner=?').bind(user.id).all();
+    if(!rows.results.length)return json({error:'Questo profilo non ha passkey registrate.'},409);
+    const options=await webauthn.generateAuthenticationOptions({rpID:authConfig.rpID,allowCredentials:rows.results.map(row=>({id:row.credential_id,transports:JSON.parse(row.transports)})),userVerification:'required'});
+    const flow=await saveChallenge(env,options.challenge,purpose,user.id,user.username);
+    return json({flowId:flow.id,publicKey:options});
+  }
+  async function verifyProfileAction(env,authConfig,input,user,purpose) {
+    const flow=await consumeChallenge(env,input.flowId,purpose);
+    if(!flow||flow.owner!==user.id||!input.response?.id)return {error:json({error:'Richiesta scaduta. Riprova.'},400)};
+    const row=await env.DB.prepare('SELECT credential_id,public_key,counter,transports FROM atlas_passkeys WHERE credential_id=? AND owner=?').bind(input.response.id,user.id).first();
+    if(!row)return {error:json({error:'Il passkey non appartiene a questo profilo.'},401)};
+    let verification;
+    try{verification=await webauthn.verifyAuthenticationResponse({response:input.response,expectedChallenge:flow.challenge,expectedOrigin:authConfig.origin,expectedRPID:authConfig.rpID,requireUserVerification:true,credential:{id:row.credential_id,publicKey:fromBase64url(row.public_key),counter:row.counter,transports:JSON.parse(row.transports)}});}
+    catch{return {error:json({error:'Verifica del passkey non riuscita. Riprova.'},401)};}
+    if(!verification.verified)return {error:json({error:'Verifica del passkey non riuscita. Riprova.'},401)};
+    return {flow,row,verification};
+  }
   async function handle(request,env) {
     const url=new URL(request.url), route=url.pathname;
     if(!route.startsWith('/api/auth/'))return null;
@@ -181,6 +199,60 @@ export function createPasskeyAuth(webauthn) {
           .bind(credential.id,user.id,toBase64url(credential.publicKey),credential.counter,JSON.stringify(credential.transports||[]),info.credentialDeviceType,info.credentialBackedUp?1:0,new Date().toISOString()).run();}
         catch{return json({error:'Questo passkey è già collegato a un profilo.'},409);}
         return json({ok:true});
+      }
+      if(route==='/api/auth/profile/rename/options'){
+        const user=await session(request,env);
+        if(!user)return json({error:'Accedi per rinominare il profilo.'},401);
+        const username=String(input.username||'').trim().toLowerCase();
+        if(!/^[a-z0-9][a-z0-9._-]{2,31}$/.test(username))return json({error:'Il nome deve contenere 3–32 caratteri: lettere, numeri, punto, trattino o underscore.'},400);
+        if(username===user.username)return json({error:'Scegli un nome utente diverso da quello attuale.'},400);
+        if(!await rate(request,env,'profile-rename',user.id,10))return json({error:'Troppi tentativi. Riprova tra 15 minuti.'},429);
+        const existing=await env.DB.prepare('SELECT id FROM atlas_accounts WHERE username=?').bind(username).first();
+        if(existing)return json({error:'Questo nome utente è già in uso.'},409);
+        return actionOptions(env,authConfig,{...user,username},'rename-username');
+      }
+      if(route==='/api/auth/profile/rename/verify'){
+        const user=await session(request,env);
+        if(!user)return json({error:'Accedi per rinominare il profilo.'},401);
+        const action=await verifyProfileAction(env,authConfig,input,user,'rename-username');
+        if(action.error)return action.error;
+        if(!/^[a-z0-9][a-z0-9._-]{2,31}$/.test(action.flow.username||''))return json({error:'Richiesta non valida.'},400);
+        try{
+          await env.DB.batch([
+            env.DB.prepare('UPDATE atlas_passkeys SET counter=? WHERE credential_id=? AND owner=?').bind(action.verification.authenticationInfo.newCounter,action.row.credential_id,user.id),
+            env.DB.prepare('UPDATE atlas_accounts SET username=?,last_login_at=? WHERE id=?').bind(action.flow.username,new Date().toISOString(),user.id)
+          ]);
+        }catch(error){
+          if(/UNIQUE constraint failed: atlas_accounts.username/i.test(error.message||''))return json({error:'Questo nome utente è già in uso.'},409);
+          return json({error:'Non è stato possibile rinominare il profilo. Riprova.'},503);
+        }
+        return json({user:{id:user.id,username:action.flow.username}});
+      }
+      if(route==='/api/auth/profile/delete/options'){
+        const user=await session(request,env);
+        if(!user)return json({error:'Accedi per eliminare il profilo.'},401);
+        if(input.confirmUsername!==user.username)return json({error:'Scrivi il nome utente esatto per confermare.'},400);
+        if(!await rate(request,env,'profile-delete',user.id,5))return json({error:'Troppi tentativi. Riprova tra 15 minuti.'},429);
+        return actionOptions(env,authConfig,user,'delete-account');
+      }
+      if(route==='/api/auth/profile/delete/verify'){
+        const user=await session(request,env);
+        if(!user)return json({error:'Accedi per eliminare il profilo.'},401);
+        const action=await verifyProfileAction(env,authConfig,input,user,'delete-account');
+        if(action.error)return action.error;
+        if(action.flow.username!==user.username||input.confirmUsername!==action.flow.username)return json({error:'La conferma non corrisponde al nome utente.'},400);
+        try{
+          await env.DB.batch([
+            env.DB.prepare('UPDATE atlas_passkeys SET counter=? WHERE credential_id=? AND owner=?').bind(action.verification.authenticationInfo.newCounter,action.row.credential_id,user.id),
+            env.DB.prepare('DELETE FROM atlas_history WHERE owner=?').bind(user.id),
+            env.DB.prepare('DELETE FROM atlas_states WHERE owner=?').bind(user.id),
+            env.DB.prepare('DELETE FROM atlas_sessions WHERE owner=?').bind(user.id),
+            env.DB.prepare('DELETE FROM atlas_passkeys WHERE owner=?').bind(user.id),
+            env.DB.prepare('DELETE FROM atlas_auth_challenges WHERE owner=?').bind(user.id),
+            env.DB.prepare('DELETE FROM atlas_accounts WHERE id=?').bind(user.id)
+          ]);
+        }catch{return json({error:'Non è stato possibile eliminare il profilo. Riprova.'},503);}
+        return json({ok:true},200,{'set-cookie':clearCookie(SESSION_COOKIE)});
       }
       return json({error:'Endpoint non trovato'},404);
     }catch(error){
