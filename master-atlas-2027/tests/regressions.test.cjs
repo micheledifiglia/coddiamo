@@ -26,8 +26,14 @@ test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su 
   assert.match(app,/class="stage-list"/);assert.match(app,/class="dashboard-card shortlist-card"/);
   assert.match(app,/function globeCard\(\)[\s\S]*globeCoordinates[\s\S]*data-globe-focus/);
   assert.match(app,/mapSamples:16000[\s\S]*mapBrightness:1\.8[\s\S]*mapBaseBrightness:0\.01/);
+  const overview=app.slice(app.indexOf('function overview(){'),app.indexOf('function card(p)'));
+  assert.ok(overview.indexOf('${globeCard()}')<overview.indexOf('class="dashboard-card distribution-card"'),'il globo è la prima scheda della panoramica');
+  assert.match(app,/theta\+\=\(e\.clientY-lastY\)\/200[\s\S]*frame\.theta=theta/);
+  assert.doesNotMatch(app,/phi\+=0\.0012/);
+  assert.match(app,/selectedNames\.has\(u\.name\)\?\.11:\.065/);
   assert.match(app,/data-globe-zoom/);
   assert.match(css,/\.dashboard-card\{[\s\S]*backdrop-filter:blur\(30px\)/);
+  assert.match(css,/\.dashboard-grid>\.university-globe-card\{grid-column:1\/-1/);
   assert.match(css,/\.university-globe-card[\s\S]*touch-action:none/);
   assert.match(css,/@media\(max-width:560px\)\{[\s\S]*\.dashboard-rail\{grid-template-columns:minmax\(0,1fr\)\}/);
 });
@@ -43,7 +49,7 @@ test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8'),/src="globe\.js" defer><\/script><script src="app\.js" defer/);
   const serviceWorker=fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8');
   assert.match(serviceWorker,/\/globe\.js/);
-  assert.match(serviceWorker,/master-atlas-shell-v4/);
+  assert.match(serviceWorker,/master-atlas-shell-v5/);
 });
 
 test('La tipografia dell’interfaccia usa il sans-serif Manrope come nelle immagini di riferimento',()=>{

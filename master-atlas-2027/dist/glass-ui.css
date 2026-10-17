@@ -348,6 +348,7 @@ footer{border-color:rgba(109,128,155,.24);color:#758297}
 
 /* Liquid-glass dashboard, inspired by native iPhone surfaces */
 .dashboard-grid{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(285px,.88fr);gap:20px;align-items:start}
+.dashboard-grid>.university-globe-card{grid-column:1/-1;margin-top:0}
 .dashboard-main,.dashboard-rail{display:grid;gap:18px;min-width:0}
 .dashboard-card{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.76);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.69),rgba(245,249,255,.44));box-shadow:0 20px 48px rgba(34,55,88,.09),inset 0 1px 0 rgba(255,255,255,.94);backdrop-filter:blur(30px) saturate(175%);-webkit-backdrop-filter:blur(30px) saturate(175%)}
 .dashboard-card:before{position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);content:"";pointer-events:none}
