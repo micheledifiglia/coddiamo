@@ -74,15 +74,12 @@ function normalizeGlobeOrientation(phi,theta){
   return {phi:((phi%circle)+circle)%circle,theta:((theta%circle)+circle)%circle};
 }
 function globeTargetAngles(longitude,latitude,currentPhi,currentTheta){
-  const lat=latitude*Math.PI/180,lon=longitude*Math.PI/180;
-  const x=-Math.cos(lat)*Math.cos(lon),y=Math.sin(lat),z=Math.cos(lat)*Math.sin(lon);
-  const basePhi=Math.atan2(-y,z),radius=Math.hypot(y,z),circle=Math.PI*2;
+  const lat=latitude*Math.PI/180,lon=longitude*Math.PI/180,circle=Math.PI*2;
+  const candidates=[{phi:-Math.PI/2-lon,theta:lat},{phi:Math.PI/2-lon,theta:Math.PI-lat}];
   let best=null,bestCost=Infinity;
-  for(let flip=0;flip<2;flip++){
-    let phi=basePhi+flip*Math.PI;
-    const theta=Math.atan2(-x,flip?-radius:radius);
-    phi+=Math.round((currentPhi-phi)/circle)*circle;
-    const nearestTheta=theta+Math.round((currentTheta-theta)/circle)*circle;
+  for(const candidate of candidates){
+    const phi=candidate.phi+Math.round((currentPhi-candidate.phi)/circle)*circle;
+    const nearestTheta=candidate.theta+Math.round((currentTheta-candidate.theta)/circle)*circle;
     const cost=Math.hypot(phi-currentPhi,nearestTheta-currentTheta);
     if(cost<bestCost){best={phi,theta:nearestTheta};bestCost=cost}
   }

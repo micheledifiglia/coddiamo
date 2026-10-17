@@ -60,9 +60,16 @@ test('Il globo mantiene una rotazione continua attraverso i poli e i giri comple
   const before=normalize(.4,Math.PI*2-1e-6),after=normalize(.4,Math.PI*2+1e-6);
   assert.ok(Math.abs(before.phi-after.phi)<1e-9,'il passaggio a 360 gradi non cambia la rotazione orizzontale');
   assert.ok(before.theta>Math.PI*2-.00001&&after.theta<.00001,'il passaggio a 360 gradi resta continuo');
-  const centered=target(120,45,.2,100*Math.PI+.3);
-  assert.ok(Number.isFinite(centered.phi)&&Number.isFinite(centered.theta),'la centratura resta valida anche dopo molte rotazioni');
-  assert.ok(Math.abs(centered.phi-(.2+Math.round((centered.phi-.2)/(Math.PI*2))*Math.PI*2))<Math.PI*2);
+  for(const [lon,lat] of [[120,45],[151.1873,-33.8886],[-74.006,40.7128]]){
+    const centered=target(lon,lat,.2,100*Math.PI+.3);
+    assert.ok(Number.isFinite(centered.phi)&&Number.isFinite(centered.theta),'la centratura resta valida anche dopo molte rotazioni');
+    const view=normalize(centered.phi,centered.theta);
+    const actualLat=Math.asin(Math.sin(view.theta))*180/Math.PI;
+    const actualLon=Math.atan2(-Math.cos(view.phi)*Math.cos(view.theta),-Math.sin(view.phi)*Math.cos(view.theta))*180/Math.PI;
+    const lonError=Math.atan2(Math.sin((actualLon-lon)*Math.PI/180),Math.cos((actualLon-lon)*Math.PI/180))*180/Math.PI;
+    assert.ok(Math.abs(actualLat-lat)<1e-7,`latitudine centrata per ${lon}, ${lat}`);
+    assert.ok(Math.abs(lonError)<1e-7,`longitudine centrata per ${lon}, ${lat}`);
+  }
 });
 test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
