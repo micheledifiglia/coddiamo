@@ -2,7 +2,8 @@ const SESSION_COOKIE = '__Host-atlas_session';
 const SESSION_LIFETIME = 12 * 60 * 60 * 1000;
 const REMEMBER_LIFETIME = 30 * 24 * 60 * 60 * 1000;
 const CHALLENGE_LIFETIME = 5 * 60 * 1000;
-const PASSWORD_ITERATIONS = 310000;
+// Cloudflare Workers currently rejects PBKDF2 requests above 100,000 rounds.
+const PASSWORD_ITERATIONS = 100000;
 const PASSWORD_MIN_LENGTH = 12;
 const text = value => new TextEncoder().encode(value);
 const toBase64url = value => {

@@ -83,7 +83,7 @@ test('Password: hash salato, requisiti minimi, accesso, sessione persistente e r
   assert.equal(created.status,201);
   assert.match(created.headers.get('set-cookie'),/Max-Age=2592000/);
   const stored=db.prepare('SELECT password_hash FROM atlas_accounts WHERE username=?').get('alice').password_hash;
-  assert.match(stored,/^pbkdf2-sha256\$310000\$/);assert.notEqual(stored,'correct horse battery staple');
+  assert.match(stored,/^pbkdf2-sha256\$100000\$/);assert.ok(Number(stored.split('$')[1])<=100000,'il runtime Cloudflare rifiuta oltre 100.000 iterazioni PBKDF2');assert.notEqual(stored,'correct horse battery staple');
   const cookie=created.headers.get('set-cookie').split(';')[0];
   const wrong=await handle(request('/api/auth/password/login','POST',{username:'alice',password:'incorrect secure phrase'}),env);
   assert.equal(wrong.status,401);assert.equal((await wrong.json()).error,'Nome utente o password non corretti.');
