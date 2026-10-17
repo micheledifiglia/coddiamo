@@ -109,6 +109,27 @@ test('La versione pubblica salva localmente senza richieste API o timer cloud',a
   await store.start();store.save(Core.normalize({records:{[first]:{notes:'Personale',updatedAt:1}}},catalog));await store.sync();
   assert.equal(requests,0);assert.equal(JSON.parse(entries.get('master-atlas-2027-v2')).records[first].notes,'Personale');
 });
+test('Le modifiche in schede pubbliche diverse vengono unite e persistite localmente',()=>{
+  const entries=new Map(),listeners=[];
+  const storage={getItem:k=>entries.get(k)||null,setItem:(k,v)=>entries.set(k,v)};
+  const makeStore=()=>{
+    const handlers={};
+    const sandbox={AtlasCore:Core,ATLAS_CONFIG:{public:true,cloudSync:false},window:{addEventListener:(name,fn)=>{handlers[name]=fn}},localStorage:storage,setTimeout,clearTimeout};
+    vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/storage.js'),'utf8')+';globalThis.Store=AtlasStore',sandbox);
+    const store=new sandbox.Store(catalog,()=>{},()=>{});listeners.push(handlers.storage);return store;
+  };
+  const a=makeStore(),b=makeStore();
+  a.save(Core.normalize({records:{[first]:{notes:'Nota dalla prima scheda',updatedAt:10}}},catalog));
+  b.save(Core.normalize({records:{[second]:{notes:'Nota dalla seconda scheda',updatedAt:20}}},catalog));
+  const bValue=entries.get('master-atlas-2027-v2');
+  listeners[0]({key:'master-atlas-2027-v2',newValue:bValue});
+  const merged=JSON.parse(entries.get('master-atlas-2027-v2'));
+  assert.equal(merged.records[first].notes,'Nota dalla prima scheda');
+  assert.equal(merged.records[second].notes,'Nota dalla seconda scheda');
+  listeners[1]({key:'master-atlas-2027-v2',newValue:entries.get('master-atlas-2027-v2')});
+  assert.equal(JSON.parse(entries.get('master-atlas-2027-v2')).records[first].notes,'Nota dalla prima scheda');
+  assert.equal(JSON.parse(entries.get('master-atlas-2027-v2')).records[second].notes,'Nota dalla seconda scheda');
+});
 test('La build Pages contiene soltanto risorse pubbliche e disabilita il cloud',()=>{
   const run=spawnSync(process.execPath,[path.join(__dirname,'../scripts/build-pages.mjs')],{encoding:'utf8'});
   assert.equal(run.status,0,run.stderr);

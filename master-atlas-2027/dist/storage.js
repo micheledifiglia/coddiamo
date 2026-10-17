@@ -14,7 +14,17 @@ class AtlasStore {
     this.writeLocal();
     this.storageListener = e => {
       if (e.key !== this.key || !e.newValue) return;
-      try {this.state = AtlasCore.merge(this.state,AtlasCore.normalize(JSON.parse(e.newValue),catalog));this.onChange(this.state);} catch {}
+      try {
+        const merged = AtlasCore.merge(this.state,AtlasCore.normalize(JSON.parse(e.newValue),catalog));
+        if (JSON.stringify(merged) === JSON.stringify(this.state)) return;
+        this.state = merged;
+        this.writeLocal();
+        this.onChange(this.state);
+        if (this.cloudSync) {
+          clearTimeout(this.timer);
+          this.timer = setTimeout(() => this.sync(),600);
+        }
+      } catch {}
     };
     window.addEventListener('storage',this.storageListener);
     window.addEventListener('online',()=>this.sync());
