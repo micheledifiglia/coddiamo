@@ -22,6 +22,19 @@ test('La testata resta essenziale e le azioni profilo sono raccolte nel menu',()
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8'),/\.sidebar>\.brand,\.sidebar>\.edition,\.sidebar>\.sidebar-bottom\{display:none\}/);
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8'),/#compare-tray\{position:fixed[\s\S]*border-radius:999px[\s\S]*backdrop-filter:blur\(28px\)/);
 });
+test('Le icone dell’interfaccia usano SVG coerenti su iOS e desktop',()=>{
+  const html=fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8');
+  const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
+  const css=fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8');
+  assert.match(html,/id="install-app"[\s\S]*class="profile-action-icon"[\s\S]*id="account-add-passkey"[\s\S]*class="profile-action-icon"[\s\S]*id="account-manage-profile"[\s\S]*class="profile-action-icon"[\s\S]*id="account-logout"[\s\S]*class="profile-action-icon"/);
+  assert.match(html,/id="theme-toggle"[\s\S]*<svg class="theme-glyph"/);
+  assert.match(app,/\.theme-glyph',button\)\.innerHTML=theme==='dark'\?/);
+  assert.match(app,/class="focus-orbit"[\s\S]*<svg viewBox="0 0 48 48"/);
+  assert.doesNotMatch(`${html}\n${app}`,/⚙|↪|⌑|✳|☀|◐/,'le icone non dipendono dai font emoji di sistema');
+  assert.match(css,/\.profile-action-icon\{display:block;width:23px;height:23px/);
+  assert.match(css,/\.focus-orbit svg\{position:relative;width:29px;height:29px/);
+  assert.match(css,/\.header-actions-glass \.theme-glyph\{display:block;width:22px;height:22px/);
+});
 test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su telefono',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
   const css=fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8');
