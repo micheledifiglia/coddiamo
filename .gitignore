@@ -3,4 +3,11 @@
 !.env.example
 node_modules/
 __pycache__/
-*-deploy.tar.gz
+*.tar.gz
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.log

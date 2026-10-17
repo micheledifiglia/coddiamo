@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">Master Atlas 2027</title>
+  <desc id="desc">Un atlante personale per esplorare percorsi magistrali in bioscienze</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#102c25"/>
+      <stop offset="1" stop-color="#245543"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9c98e" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#d9c98e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" rx="28" fill="url(#bg)"/>
+  <circle cx="1015" cy="160" r="205" fill="url(#glow)"/>
+  <circle cx="1015" cy="160" r="110" fill="none" stroke="#d9c98e" stroke-opacity=".35" stroke-width="1.5"/>
+  <circle cx="1015" cy="160" r="72" fill="none" stroke="#d9c98e" stroke-opacity=".55" stroke-width="1.5"/>
+  <circle cx="1015" cy="160" r="37" fill="#e9dfbd"/>
+  <text x="1015" y="166" fill="#173b30" font-family="Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle">2027</text>
+  <circle cx="905" cy="160" r="6" fill="#e9dfbd"/>
+  <circle cx="1087" cy="98" r="5" fill="#d9c98e"/>
+  <circle cx="1047" cy="231" r="5" fill="#d9c98e"/>
+  <path d="M920 53h18M929 44v18M1113 226h14M1120 219v14" stroke="#e9dfbd" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/>
+  <text x="78" y="88" fill="#d9c98e" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="4">BIOSCIENZE · EDIZIONE 2027</text>
+  <text x="74" y="165" fill="#fffdf5" font-family="Georgia,serif" font-size="64" font-weight="700">Master Atlas</text>
+  <text x="80" y="213" fill="#e4eadf" font-family="Arial,sans-serif" font-size="21">Esplora i percorsi. Confronta le possibilità.</text>
+  <text x="80" y="246" fill="#e4eadf" font-family="Arial,sans-serif" font-size="21">Organizza il tuo prossimo passo.</text>
+  <rect x="80" y="282" width="154" height="3" rx="1.5" fill="#d9c98e"/>
+</svg>
