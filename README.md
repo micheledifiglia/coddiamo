@@ -58,14 +58,15 @@ Apri poi `http://localhost:8000`. Per generare il Worker privato, usa `npm ci` e
 ├── docs/media/              # grafica della pagina progetto
 └── master-atlas-2027/
     ├── data/                # dossier sorgente e mappa degli ID legacy
-    ├── db/ drizzle/         # schema D1 e migrazioni
+    ├── db/                  # schema D1
+    ├── drizzle/             # migrazioni del database
     ├── dist/                # sorgenti frontend e catalogo generato
     ├── scripts/             # build, anteprima e rilascio Sites
     ├── tests/               # test di regressione
     └── worker/              # API autenticata della copia privata
 ```
 
-Il file autorevole dei contenuti è `master-atlas-2027/data/dossier.md`. Il catalogo in `dist/data.json` viene rigenerato dal parser. Gli identificativi storici in `data/legacy-ids.json` preservano i dati già salvati: non rigenerarli quando cambia l’ordine della classifica.
+Il file autorevole dei contenuti è `master-atlas-2027/data/dossier.md`. Il catalogo in `master-atlas-2027/dist/data.json` viene rigenerato dal parser. Gli identificativi storici in `master-atlas-2027/data/legacy-ids.json` preservano i dati già salvati: non rigenerarli quando cambia l’ordine della classifica.
 
 ## Pubblicazione
 
