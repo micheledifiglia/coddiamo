@@ -24,8 +24,22 @@ test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su 
   assert.match(app,/class="dashboard-grid" aria-label="Riepilogo del tuo atlante"/);
   assert.match(app,/class="distribution-donut"[\s\S]*data-region-tab="Europa"/);
   assert.match(app,/class="stage-list"/);assert.match(app,/class="dashboard-card shortlist-card"/);
+  assert.match(app,/function globeCard\(\)[\s\S]*globeCoordinates[\s\S]*data-globe-focus/);
+  assert.match(app,/mapSamples:16000[\s\S]*mapBrightness:1\.8[\s\S]*mapBaseBrightness:0\.01/);
+  assert.match(app,/data-globe-zoom/);
   assert.match(css,/\.dashboard-card\{[\s\S]*backdrop-filter:blur\(30px\)/);
+  assert.match(css,/\.university-globe-card[\s\S]*touch-action:none/);
   assert.match(css,/@media\(max-width:560px\)\{[\s\S]*\.dashboard-rail\{grid-template-columns:minmax\(0,1fr\)\}/);
+});
+test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
+  const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
+  const source=app.match(/const globeCoordinates=(\{[\s\S]*?\n\});/)?.[1];
+  assert.ok(source,'coordinate del globo presenti');
+  const locations=vm.runInNewContext('('+source+')');
+  assert.equal(Object.keys(locations).length,catalog.universities.length);
+  for(const uni of catalog.universities){const point=locations[uni.name];assert.ok(point,`coordinate per ${uni.name}`);assert.equal(point.length,2);assert.ok(point[0]>=-90&&point[0]<=90);assert.ok(point[1]>=-180&&point[1]<=180)}
+  assert.match(fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8'),/src="globe\.js" defer><\/script><script src="app\.js" defer/);
+  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/\/globe\.js/);
 });
 
 test('La tipografia dell’interfaccia usa il sans-serif Manrope come nelle immagini di riferimento',()=>{
@@ -178,12 +192,13 @@ test('La build Pages contiene soltanto risorse pubbliche e disabilita il cloud',
   const run=spawnSync(process.execPath,[path.join(__dirname,'../scripts/build-pages.mjs')],{encoding:'utf8'});
   assert.equal(run.status,0,run.stderr);
   const dir=path.join(__dirname,'../_site');
-  assert.deepEqual(fs.readdirSync(dir).sort(),['.nojekyll','app.js','auth.css','auth.js','config.js','core.js','data.json','glass-ui.css','icons','index.html','manifest.webmanifest','pwa.css','pwa.js','release.json','storage.js','style.css','sw.js'].sort());
+  assert.deepEqual(fs.readdirSync(dir).sort(),['.nojekyll','app.js','auth.css','auth.js','config.js','core.js','data.json','glass-ui.css','globe.js','icons','index.html','manifest.webmanifest','pwa.css','pwa.js','release.json','storage.js','style.css','sw.js'].sort());
   assert.deepEqual(fs.readdirSync(path.join(dir,'icons')).sort(),['atlas-180.png','atlas-192.png','atlas-512.png']);
   assert.ok(fs.readFileSync(path.join(dir,'icons/atlas-512.png')).subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])));
   const context={};vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(dir,'config.js'),'utf8'),context);
   assert.equal(context.ATLAS_CONFIG.cloudSync,false);assert.equal(context.ATLAS_CONFIG.public,true);
   const html=fs.readFileSync(path.join(dir,'index.html'),'utf8');assert.ok(html.includes('Sito pubblico'));assert.ok(!html.includes('Spazio privato'));assert.ok(html.includes('glass-ui.css'));assert.ok(html.includes('command-palette'));
   assert.ok(html.indexOf('src="config.js"')<html.indexOf('src="app.js"'));
+  assert.ok(html.indexOf('src="globe.js"')<html.indexOf('src="app.js"'));
   assert.ok(html.includes('rel="manifest"'));assert.ok(fs.readFileSync(path.join(dir,'sw.js'),'utf8').includes("url.pathname.startsWith('/api/')"));assert.ok(fs.readFileSync(path.join(dir,'sw.js'),'utf8').includes("'/glass-ui.css'"));
 });
