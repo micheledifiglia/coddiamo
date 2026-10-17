@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 const root = path.resolve(import.meta.dirname,'..');
 const dist = path.join(root,'dist');
-const files = {'index.html':'text/html; charset=utf-8','app.js':'text/javascript; charset=utf-8','core.js':'text/javascript; charset=utf-8','storage.js':'text/javascript; charset=utf-8','style.css':'text/css; charset=utf-8','data.json':'application/json; charset=utf-8'};
+const files = {'index.html':'text/html; charset=utf-8','config.js':'text/javascript; charset=utf-8','app.js':'text/javascript; charset=utf-8','core.js':'text/javascript; charset=utf-8','storage.js':'text/javascript; charset=utf-8','style.css':'text/css; charset=utf-8','data.json':'application/json; charset=utf-8'};
 const assets = Object.fromEntries(Object.entries(files).map(([f,type])=>['/'+f,{type,body:fs.readFileSync(path.join(dist,f),'utf8')}]));
 const core = fs.readFileSync(path.join(dist,'core.js'),'utf8');
 const handler = fs.readFileSync(path.join(root,'worker/handler.js'),'utf8');

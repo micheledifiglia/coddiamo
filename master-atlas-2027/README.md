@@ -1,6 +1,11 @@
 # Master Atlas 2027
 
-App privata per esplorare 208 percorsi e seguire le candidature. Frontend senza framework, API Cloudflare Worker, database D1 fornito da Sites. L'autenticazione e l'accesso al sito sono gestiti da Sites; l'API richiede l'identità autenticata e separa i dati per utente.
+App per esplorare 208 percorsi e seguire le candidature, con due pubblicazioni:
+
+- **Sito pubblico:** https://micheledifiglia.github.io/coddiamo/ — nessun account richiesto; note e progressi rimangono nel browser di ogni visitatore, con backup esportabile.
+- **Copia privata Sites:** https://master-atlas-michele-2027.fair-swan-2763.chatgpt.site — accesso ChatGPT e sincronizzazione personale tramite Worker e D1.
+
+Il sito pubblico non interroga il database privato e non pubblica le note personali.
 
 ## Sviluppo e verifiche
 
@@ -19,7 +24,17 @@ L'app mantiene fino a 10 copie locali e 20 revisioni cloud. In **Dossier e legen
 
 ## Pubblicazione verificata
 
-Un push su GitHub da solo non pubblica il Worker su Sites. Per ogni attività Codex che cambia l'app, il flusso completo è:
+### Sito pubblico: GitHub Pages automatico
+
+Ogni push su `main` avvia `.github/workflows/deploy-pages.yml`: il workflow rigenera il catalogo, esegue i test, prepara soltanto i file pubblici e li pubblica su Pages. Non sono necessari token aggiuntivi. I log e l'esito sono nella scheda **Actions** del repository; la sorgente Pages deve essere **GitHub Actions**.
+
+Per verificare la stessa build localmente: `node scripts/build-pages.mjs`. L'output `_site/` è ignorato da Git ed esclude Worker, database, configurazioni Sites e dati di runtime. `release.json` nel sito espone soltanto il commit pubblicato e la data della build, per verificare quale versione è online. Non modificare `_site/`: intervenire sui sorgenti in `dist/` o sul dossier versionato, poi fare commit e push.
+
+La pubblicazione usa la modalità locale (`cloudSync: false`). I dati salvati su un altro dominio non si trasferiscono automaticamente: esportare un backup dalla vecchia versione e importarlo nella nuova. Rendere pubblico il sito non rende pubbliche le note salvate dai visitatori.
+
+### Copia privata: Sites
+
+Un push su GitHub pubblica Pages ma non pubblica il Worker privato su Sites. Per le modifiche condivise da entrambe le versioni, il flusso Sites è:
 
 1. Eseguire test e build; creare un commit descrittivo e verificare il push automatico.
 2. Aprire il Site esistente con la skill Sites e credenziali temporanee, in un checkout separato dal repository GitHub.

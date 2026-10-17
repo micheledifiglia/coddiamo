@@ -2,6 +2,7 @@
 class AtlasStore {
   constructor(catalog, onChange, onStatus) {
     this.catalog = catalog; this.onChange = onChange; this.onStatus = onStatus;
+    this.cloudSync = globalThis.ATLAS_CONFIG?.cloudSync !== false;
     this.key = 'master-atlas-2027-v2'; this.revision = 0; this.pending = false; this.busy = false;
     this.state = AtlasCore.empty();
     try {
@@ -9,7 +10,7 @@ class AtlasStore {
       const legacy = current || localStorage.getItem('master-atlas-2027-v1');
       this.state = AtlasCore.normalize(legacy ? JSON.parse(legacy) : {}, catalog);
       if (legacy && !current) this.snapshot(this.state,'Migrazione dalla prima versione');
-    } catch { onStatus('Archivio locale non leggibile: usa un backup o il recupero cloud.'); }
+    } catch { onStatus('Archivio locale non leggibile: usa un backup per recuperare i progressi.'); }
     this.writeLocal();
     this.storageListener = e => {
       if (e.key !== this.key || !e.newValue) return;
@@ -31,18 +32,20 @@ class AtlasStore {
   }
   writeLocal() {
     try {localStorage.setItem(this.key,JSON.stringify(this.state));return true;}
-    catch {this.onStatus('Copia locale non disponibile; verifica la sincronizzazione o esporta un backup.');return false;}
+    catch {this.onStatus('Copia locale non disponibile: esporta un backup per conservare i progressi.');return false;}
   }
   save(state) {
     try {const prior=localStorage.getItem(this.key);if(prior)this.snapshot(JSON.parse(prior),'Salvataggio automatico');} catch {}
     this.state = AtlasCore.normalize(state,this.catalog); this.pending=true;
     const local=this.writeLocal();
+    if(!this.cloudSync){this.pending=false;this.onStatus(local?'Salvato su questo browser · backup disponibile':'Esporta un backup: salvataggio locale non disponibile');return local;}
     this.onStatus(local?'Salvato nel browser · sincronizzazione…':'Sincronizzazione in corso…');
     clearTimeout(this.timer);this.timer=setTimeout(()=>this.sync(),600);
     return local;
   }
-  async start() {await this.sync();this.interval=setInterval(()=>this.sync(),20000);}
+  async start() {if(!this.cloudSync){this.onStatus('Dati personali su questo browser');return;}await this.sync();this.interval=setInterval(()=>this.sync(),20000);}
   async sync() {
+    if(!this.cloudSync)return;
     if(this.busy)return;
     this.busy=true;
     try {

@@ -101,3 +101,21 @@ test('Due dispositivi sincronizzano note diverse senza sovrascriverle',async()=>
   assert.equal(devices[0].state.records[second].notes,'Telefono');
   db.close();
 });
+test('La versione pubblica salva localmente senza richieste API o timer cloud',async()=>{
+  const entries=new Map();let requests=0;
+  const sandbox={AtlasCore:Core,ATLAS_CONFIG:{public:true,cloudSync:false},window:{addEventListener(){}},localStorage:{getItem:k=>entries.get(k)||null,setItem:(k,v)=>entries.set(k,v)},fetch:()=>{requests++;throw Error('API non prevista')},setTimeout,clearTimeout,setInterval:()=>{throw Error('Polling non previsto')}};
+  vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/storage.js'),'utf8')+';globalThis.Store=AtlasStore',sandbox);
+  const store=new sandbox.Store(catalog,()=>{},()=>{});
+  await store.start();store.save(Core.normalize({records:{[first]:{notes:'Personale',updatedAt:1}}},catalog));await store.sync();
+  assert.equal(requests,0);assert.equal(JSON.parse(entries.get('master-atlas-2027-v2')).records[first].notes,'Personale');
+});
+test('La build Pages contiene soltanto risorse pubbliche e disabilita il cloud',()=>{
+  const run=spawnSync(process.execPath,[path.join(__dirname,'../scripts/build-pages.mjs')],{encoding:'utf8'});
+  assert.equal(run.status,0,run.stderr);
+  const dir=path.join(__dirname,'../_site');
+  assert.deepEqual(fs.readdirSync(dir).sort(),['.nojekyll','app.js','config.js','core.js','data.json','index.html','release.json','storage.js','style.css'].sort());
+  const context={};vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(dir,'config.js'),'utf8'),context);
+  assert.equal(context.ATLAS_CONFIG.cloudSync,false);assert.equal(context.ATLAS_CONFIG.public,true);
+  const html=fs.readFileSync(path.join(dir,'index.html'),'utf8');assert.ok(html.includes('Sito pubblico'));assert.ok(!html.includes('Spazio privato'));
+  assert.ok(html.indexOf('src="config.js"')<html.indexOf('src="app.js"'));
+});
