@@ -29,6 +29,7 @@ test('Le icone dell’interfaccia usano SVG coerenti su iOS e desktop',()=>{
   assert.match(html,/id="install-app"[\s\S]*class="profile-action-icon"[\s\S]*id="account-add-passkey"[\s\S]*class="profile-action-icon"[\s\S]*id="account-manage-profile"[\s\S]*class="profile-action-icon"[\s\S]*id="account-logout"[\s\S]*class="profile-action-icon"/);
   assert.match(html,/id="theme-toggle"[\s\S]*<svg class="theme-glyph"/);
   assert.match(app,/\.theme-glyph',button\)\.innerHTML=theme==='dark'\?/);
+  assert.match(app,/theme==='dark'\?'<circle cx="12" cy="12" r="4"\/><path d="M12 2[\s\S]*?':'<path d="M20\.1/,'il tema scuro mostra l’icona sole per indicare il passaggio al tema chiaro');
   assert.match(app,/class="focus-orbit"[\s\S]*<svg viewBox="0 0 48 48"/);
   assert.doesNotMatch(`${html}\n${app}`,/⚙|↪|⌑|✳|☀|◐/,'le icone non dipendono dai font emoji di sistema');
   assert.match(css,/\.profile-action-icon\{display:block;width:23px;height:23px/);
