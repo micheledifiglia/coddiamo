@@ -27,14 +27,15 @@ test('Le icone dell’interfaccia usano SVG coerenti su iOS e desktop',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
   const css=fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8');
   assert.match(html,/id="install-app"[\s\S]*class="profile-action-icon"[\s\S]*id="account-add-passkey"[\s\S]*class="profile-action-icon"[\s\S]*id="account-manage-profile"[\s\S]*class="profile-action-icon"[\s\S]*id="account-logout"[\s\S]*class="profile-action-icon"/);
-  assert.match(html,/id="theme-toggle"[\s\S]*<svg class="theme-glyph"/);
-  assert.match(app,/\.theme-glyph',button\)\.innerHTML=theme==='dark'\?/);
-  assert.match(app,/theme==='dark'\?'<circle cx="12" cy="12" r="4"\/><path d="M12 2[\s\S]*?':'<path d="M20\.1/,'il tema scuro mostra l’icona sole per indicare il passaggio al tema chiaro');
+  assert.match(html,/id="theme-toggle"[\s\S]*<svg class="theme-glyph theme-icon-sun"[\s\S]*<svg class="theme-glyph theme-icon-moon"/);
+  assert.match(app,/button\.title=theme==='dark'\?'Passa al tema chiaro':'Passa al tema scuro'/);
+  assert.doesNotMatch(app,/\.theme-glyph',button\)\.innerHTML/,'le icone del tema restano SVG statiche per compatibilità Safari');
   assert.match(app,/class="focus-orbit"[\s\S]*<svg viewBox="0 0 48 48"/);
   assert.doesNotMatch(`${html}\n${app}`,/⚙|↪|⌑|✳|☀|◐/,'le icone non dipendono dai font emoji di sistema');
   assert.match(css,/\.profile-action-icon\{display:block;width:23px;height:23px/);
   assert.match(css,/\.focus-orbit svg\{position:relative;width:29px;height:29px/);
-  assert.match(css,/\.header-actions-glass \.theme-glyph\{display:block;width:22px;height:22px/);
+  assert.match(css,/\.header-actions-glass \.theme-glyph\{display:none;width:22px;height:22px/);
+  assert.match(css,/:root\[data-theme="dark"\].*\.theme-icon-sun,:root\[data-theme="light"\].*\.theme-icon-moon\{display:block\}/);
 });
 test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su telefono',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');

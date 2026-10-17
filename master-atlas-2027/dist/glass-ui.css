@@ -506,7 +506,8 @@ footer{border-color:rgba(109,128,155,.24);color:#758297}
 .header-action svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.7}
 .header-actions-glass .theme-toggle{width:44px;height:44px;border:1px solid transparent;border-radius:50%;background:transparent;color:inherit;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;font-size:21px}
 .header-actions-glass .theme-toggle:hover{background:rgba(255,255,255,.58);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
-.header-actions-glass .theme-glyph{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.header-actions-glass .theme-glyph{display:none;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+:root[data-theme="dark"] .header-actions-glass .theme-icon-sun,:root[data-theme="light"] .header-actions-glass .theme-icon-moon{display:block}
 #compare-tray{position:fixed;z-index:55;bottom:22px;left:50%;display:flex;align-items:center;gap:12px;width:max-content;max-width:calc(100vw - 32px);padding:9px 12px 9px 18px;transform:translateX(-50%);border:1px solid rgba(255,255,255,.54);border-radius:999px;background:rgba(235,241,250,.78);color:#293c59;box-shadow:0 15px 38px rgba(23,39,64,.22),inset 0 1px 0 rgba(255,255,255,.85);backdrop-filter:blur(28px) saturate(185%);-webkit-backdrop-filter:blur(28px) saturate(185%)}
 #compare-tray[hidden]{display:none}
 #compare-tray .button{min-height:40px;padding:9px 15px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:rgba(255,255,255,.72);color:#263858;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
