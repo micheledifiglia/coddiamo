@@ -22,12 +22,13 @@ test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su 
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
   const css=fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8');
   assert.match(app,/class="dashboard-grid" aria-label="Riepilogo del tuo atlante"/);
+  assert.match(app,/<article class="dashboard-card atlas-hero-card" aria-label="Atlante e panoramica"><div class="atlas-hero-globe">\$\{globeCard\(\)\}<\/div>[\s\S]*?<section class="distribution-card" aria-label="Panoramica del dossier">[\s\S]*?<\/section><\/article>/,'atlante e panoramica condividono una sola hero card');
   assert.match(app,/class="distribution-donut"[\s\S]*data-region-tab="Europa"/);
   assert.match(app,/class="stage-list"/);assert.match(app,/class="dashboard-card shortlist-card"/);
   assert.match(app,/function globeCard\(\)[\s\S]*globeCoordinates[\s\S]*data-globe-focus/);
   assert.match(app,/mapSamples:16000[\s\S]*mapBrightness:1\.8[\s\S]*mapBaseBrightness:0\.01/);
   const overview=app.slice(app.indexOf('function overview(){'),app.indexOf('function card(p)'));
-  assert.ok(overview.indexOf('${globeCard()}')<overview.indexOf('class="dashboard-card distribution-card"'),'il globo è la prima scheda della panoramica');
+  assert.ok(overview.indexOf('${globeCard()}')<overview.indexOf('class="distribution-card"'),'la panoramica è integrata accanto al globo nella hero card');
   assert.match(app,/theta\+=\s*\(e\.clientY-old\.y\)\/220[\s\S]*frame\.theta=orientation\.theta/);
   assert.match(app,/theta\+=\(next\.y-before\.y\)\/240/);
   assert.doesNotMatch(app,/theta=wrapTheta/);
@@ -39,9 +40,10 @@ test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su 
   assert.match(app,/next\.distance\/before\.distance/);
   assert.match(app,/globeData\.north=[\s\S]*globeData\.reset=/);
   assert.match(css,/\.dashboard-card\{[\s\S]*backdrop-filter:blur\(30px\)/);
-  assert.match(css,/\.dashboard-grid>\.university-globe-card\{grid-column:1\/-1/);
+  assert.match(css,/\.dashboard-grid>\.atlas-hero-card\{grid-column:1\/-1\}/);
   assert.match(css,/\.university-globe-card[\s\S]*touch-action:none/);
-  assert.match(css,/\.dashboard-grid>\.university-globe-card\{grid-column:1\/-1;margin-top:0;margin-bottom:-20px\}/);
+  assert.match(css,/\.atlas-hero-card\{display:grid;grid-template-columns:minmax\(0,1\.5fr\) minmax\(260px,\.82fr\)/);
+  assert.match(css,/@media\(max-width:820px\)\{[\s\S]*\.atlas-hero-card\{grid-template-columns:minmax\(0,1fr\)\}/);
   assert.match(css,/#main:has\(>\.title-row \+ \.dashboard-grid\)>.title-row\{margin-bottom:10px\}/);
   assert.match(css,/\.globe-compass-needle\{width:21px/);
   assert.match(css,/@media\(max-width:560px\)\{[\s\S]*\.dashboard-rail\{grid-template-columns:minmax\(0,1fr\)\}/);
