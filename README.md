@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://micheledifiglia.github.io/coddiamo/"><strong>Apri l’app</strong></a>
+  <a href="https://master-atlas-profili-2027.fair-swan-2763.chatgpt.site/"><strong>Apri il sito pubblico</strong></a>
   ·
   <a href="master-atlas-2027/README.md">Guida tecnica</a>
   ·
@@ -11,8 +11,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/micheledifiglia/coddiamo/actions/workflows/deploy-pages.yml"><img src="https://github.com/micheledifiglia/coddiamo/actions/workflows/deploy-pages.yml/badge.svg?branch=main" alt="Stato del controllo e deploy"></a>
-  <a href="https://micheledifiglia.github.io/coddiamo/"><img src="https://img.shields.io/badge/demo-online-246b50" alt="Demo online"></a>
+  <a href="https://github.com/micheledifiglia/coddiamo/actions/workflows/quality.yml"><img src="https://github.com/micheledifiglia/coddiamo/actions/workflows/quality.yml/badge.svg?branch=main" alt="Stato dei controlli automatici"></a>
+  <a href="https://master-atlas-profili-2027.fair-swan-2763.chatgpt.site/"><img src="https://img.shields.io/badge/sito-pubblico-246b50" alt="Sito pubblico"></a>
   <img src="https://img.shields.io/badge/lingua-italiano-efe5c8" alt="Interfaccia in italiano">
 </p>
 
@@ -32,9 +32,7 @@ Le graduatorie sono valutazioni personali e qualitative: **non sono ranking uffi
 
 ## Versioni e dati personali
 
-La [demo pubblica](https://micheledifiglia.github.io/coddiamo/) si apre senza account. Preferiti, note e candidature rimangono nel browser di chi la usa; non vengono inviati al database privato e non si sincronizzano tra dispositivi. È possibile trasferirli con un backup JSON.
-
-È disponibile anche una [copia privata su Sites](https://master-atlas-michele-2027.fair-swan-2763.chatgpt.site), con accesso riservato e sincronizzazione autenticata. Il catalogo è pubblico in entrambe le versioni; i dati personali di utilizzo restano separati.
+Il [sito pubblico su Sites](https://master-atlas-profili-2027.fair-swan-2763.chatgpt.site/) offre profili personali con passkey e sincronizzazione cloud. Il catalogo è pubblico; i dati di ciascun profilo sono isolati e non visibili agli altri utenti. La [copia privata](https://master-atlas-michele-2027.fair-swan-2763.chatgpt.site/) resta riservata al proprietario.
 
 ## Avvio locale
 
@@ -54,7 +52,7 @@ Apri poi `http://localhost:8000`. Per generare il Worker privato, usa `npm ci` e
 
 ```text
 .
-├── .github/workflows/       # controlli e deploy automatico su GitHub Pages
+├── .github/workflows/       # controlli automatici
 ├── docs/media/              # grafica della pagina progetto
 └── master-atlas-2027/
     ├── data/                # dossier sorgente e mappa degli ID legacy
@@ -70,9 +68,7 @@ Il file autorevole dei contenuti è `master-atlas-2027/data/dossier.md`. Il cata
 
 ## Pubblicazione
 
-Ogni push su `main` avvia [GitHub Actions](https://github.com/micheledifiglia/coddiamo/actions): rigenera il catalogo, esegue i test, prepara una build con lista di file consentiti e pubblica la demo. L’esito è indicato dal badge in cima a questa pagina.
-
-GitHub Pages pubblica soltanto la versione locale, senza API o database privato. Le modifiche al codice condiviso richiedono un deploy separato della copia Sites; la procedura è descritta nella guida tecnica.
+Il sito pubblico ufficiale è [ospitato su Sites](https://master-atlas-profili-2027.fair-swan-2763.chatgpt.site/). GitHub Pages è stato disattivato; il repository rimane pubblico come sorgente del progetto. Ogni push su `main` avvia [GitHub Actions](https://github.com/micheledifiglia/coddiamo/actions) per rigenerare il catalogo ed eseguire i test, senza pubblicare un sito. Gli aggiornamenti del codice e la pubblicazione Sites sono passaggi distinti; la guida tecnica documenta il flusso.
 
 ## Origine dei dati
 

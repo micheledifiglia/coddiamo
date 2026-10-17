@@ -1,0 +1,34 @@
+name: Controlli qualità — Master Atlas
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verifica catalogo e test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: master-atlas-2027
+    steps:
+      - name: Scarica il codice
+        uses: actions/checkout@v6
+      - name: Configura Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Configura Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Rigenera e verifica il catalogo
+        run: python parse_data.py
+      - name: Esegue i test
+        run: node --test tests/*.test.cjs

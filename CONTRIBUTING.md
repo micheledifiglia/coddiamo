@@ -11,7 +11,7 @@ Grazie per voler migliorare Master Atlas. Mantieni le correzioni circoscritte, s
 
 ## Modifiche al codice
 
-Usa Node.js 24 e Python 3.12. Dalla cartella `master-atlas-2027`, esegui i test e, per le modifiche alla demo pubblica, `node scripts/build-pages.mjs`. La build deve continuare a includere solo i file autorizzati dallo script.
+Usa Node.js 24 e Python 3.12. Dalla cartella `master-atlas-2027`, esegui i test. GitHub Actions controlla catalogo e test; il sito pubblico è ospitato separatamente su Sites e non viene pubblicato dai push GitHub.
 
 Non aggiungere credenziali, file `.env`, backup personali, database locali o archivi di deploy. Non alterare le migrazioni già applicate: aggiungi una nuova migrazione quando cambia lo schema.
 
