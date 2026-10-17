@@ -12,7 +12,7 @@ const assets=Object.fromEntries(Object.entries(files).map(([file,type])=>{
   let body=fs.readFileSync(path.join(dist,file),binary?null:'utf8');
   if(binary)body={encoding:'base64',value:body.toString('base64')};
   if(file==='config.js'&&accounts)body='globalThis.ATLAS_CONFIG = Object.freeze({public: true, cloudSync: true, accounts: true});\n';
-  if(file==='index.html'&&accounts)body=body.replace('● Spazio privato','● Spazio personale').replace('<span class="avatar">MD</span>','<span class="avatar" id="account-avatar">MA</span>');
+  if(file==='index.html'&&accounts)body=body.replace('● Spazio privato','● Spazio personale').replace('<span class="avatar" id="account-avatar">MD</span>','<span class="avatar" id="account-avatar">MA</span>');
   return ['/'+file,{type,body}];
 }));
 fs.mkdirSync(out,{recursive:true});

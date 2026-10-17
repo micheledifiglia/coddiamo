@@ -6,6 +6,18 @@ const Core=require('../dist/core.js');
 const {createHandler}=require('../worker/handler.js');
 const catalog=JSON.parse(fs.readFileSync(path.join(__dirname,'../dist/data.json'),'utf8'));
 const first=catalog.legacyIds['3-1'],second=catalog.legacyIds['3-2'];
+test('La testata resta essenziale e le azioni profilo sono raccolte nel menu',()=>{
+  const html=fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8');
+  const header=html.match(/<header class="app-header">([\s\S]*?)<\/header>/)?.[1];
+  assert.ok(header,'testata applicazione presente');
+  const visibleHeader=header.split('id="profile-actions"')[0];
+  assert.match(visibleHeader,/id="command-toggle"/);
+  assert.match(visibleHeader,/id="theme-toggle"/);
+  assert.match(visibleHeader,/id="profile-toggle"/);
+  assert.doesNotMatch(visibleHeader,/id="install-app"|id="account-add-passkey"|id="account-manage-profile"|id="account-logout"/);
+  assert.match(header,/id="install-app"[\s\S]*id="account-add-passkey"[\s\S]*id="account-manage-profile"[\s\S]*id="account-logout"/);
+  assert.match(fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8'),/@media\(max-width:820px\)[\s\S]*\.command-trigger \.command-copy\{display:block/);
+});
 test('Il catalogo contiene tutte le voci e ID univoci',()=>{
   assert.equal(catalog.programs.length,208);assert.equal(catalog.universities.length,27);
   assert.equal(new Set(catalog.programs.map(p=>p.id)).size,208);

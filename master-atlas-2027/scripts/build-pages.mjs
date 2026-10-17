@@ -21,7 +21,7 @@ for(const file of files) {
   if(file.endsWith('.png')){fs.copyFileSync(source,target);continue;}
   let content = fs.readFileSync(source,'utf8');
   if(file==='config.js')content='globalThis.ATLAS_CONFIG = Object.freeze({public: true, cloudSync: false});\n';
-  if(file==='index.html')content=content.replace('● Spazio privato','● Sito pubblico').replace('<span class="avatar">MD</span>','<span class="avatar">MA</span>');
+  if(file==='index.html')content=content.replace('● Spazio privato','● Sito pubblico').replace('<span class="avatar" id="account-avatar">MD</span>','<span class="avatar" id="account-avatar">MA</span>');
   fs.writeFileSync(target,content);
 }
 fs.writeFileSync(path.join(out,'.nojekyll'),'');
