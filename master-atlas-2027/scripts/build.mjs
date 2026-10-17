@@ -30,4 +30,4 @@ if(accounts){
   fs.writeFileSync(path.join(out,'index.js'),core+'\n'+handler+'\nconst assets = '+JSON.stringify(assets)+';\nconst handle=createHandler(assets,JSON.parse(assets["/data.json"].body),globalThis.AtlasCore);\nexport default {fetch:handle};\n');
 }
 fs.copyFileSync(path.join(root,'.openai/hosting.json'),path.join(dist,'.openai/hosting.json'));
-  console.log(accounts?'Worker pubblico con accesso Google/Apple e database D1 generato.':'Worker privato e risorse generati; database D1 configurato.');
+  console.log(accounts?'Worker con accesso username, password e passkey e database D1 generato.':'Worker privato e risorse generati; database D1 configurato.');

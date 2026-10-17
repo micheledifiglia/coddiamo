@@ -29,6 +29,13 @@
       "when": 1792257948183,
       "tag": "0003_oauth_identities",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1792259904363,
+      "tag": "0004_username_password_passkeys",
+      "breakpoints": true
     }
   ]
 }

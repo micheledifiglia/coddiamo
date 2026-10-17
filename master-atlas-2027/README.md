@@ -2,12 +2,12 @@
 
 App per esplorare 208 percorsi e seguire le candidature. Il sito pubblico ufficiale è:
 
-- **Profili pubblici Sites:** https://master-atlas-profili-2027.fair-swan-2763.chatgpt.site/ — profili personali, accesso Google o Apple e sincronizzazione cloud separata.
+- **Profili pubblici Sites:** https://master-atlas-profili-2027.fair-swan-2763.chatgpt.site/ — profili personali, accesso con nome utente e password o passkey e sincronizzazione cloud separata.
 - **Copia privata Sites:** https://master-atlas-michele-2027.fair-swan-2763.chatgpt.site/ — accesso riservato al proprietario e sincronizzazione personale tramite Worker e D1.
 
-Il sito pubblico Sites è la sola versione destinata ai visitatori. GitHub Pages è stato disattivato; il repository resta pubblico come codice sorgente. L’accesso ai profili usa Google o Apple; la sessione si rinnova quando usi l’app e resta attiva su questo dispositivo finché non esci. Dopo un lungo periodo di inattività, la revoca del provider o la cancellazione dei cookie può essere richiesto di accedere di nuovo. I profili di prova precedenti vengono eliminati nella migrazione al nuovo accesso. Gli identificativi Google e Apple collegano lo stesso profilo quando entrambi comunicano lo stesso indirizzo email verificato; gli indirizzi relay Apple possono essere diversi.
+Il sito pubblico Sites è la sola versione destinata ai visitatori. GitHub Pages è stato disattivato; il repository resta pubblico come codice sorgente. Ogni persona crea un profilo con nome utente e password, poi può aggiungere una passkey per accedere con il metodo sicuro del proprio dispositivo. Le password sono conservate nel database soltanto come hash PBKDF2-SHA-256 con sale univoco. La sessione persistente si rinnova mentre usi l’app e resta attiva su questo dispositivo finché non esci o cancelli i cookie. Una password dimenticata non può essere recuperata: aggiungi una passkey sincronizzata o salva la password in un gestore sicuro.
 
-Nel menu **Profilo** puoi vedere l’email del provider o eliminare il profilo, confermando con la parola `ELIMINA`. L’eliminazione rimuove dati sincronizzati, identità collegate e sessioni. Esporta prima un backup se vuoi conservare i progressi.
+Nel menu **Profilo** puoi aggiungere una passkey, cambiare nome utente o eliminare il profilo, confermando con la parola `ELIMINA` e la password. L’eliminazione rimuove dati sincronizzati, passkey registrate e sessioni. Esporta prima un backup se vuoi conservare i progressi.
 
 ## Installazione su telefono
 
@@ -18,7 +18,7 @@ Master Atlas è una **web app installabile (PWA)** e usa lo stesso sito e profil
 1. Installare le dipendenze con `npm ci` (servono solo allo sviluppo e alla generazione delle migrazioni).
 2. `python parse_data.py` rigenera il catalogo dal file versionato `data/dossier.md`. È possibile passare `--source` e `--output`.
 3. `npm test` verifica identificativi, migrazione, filtri dei partner, conflitti dei backup, isolamento e concorrenza dell'API. Richiede Python 3 e Node.js 24 con `node:sqlite`.
-4. `npm run build` genera il Worker privato; `npm run build:accounts` genera il Worker con accesso Google/Apple. I file frontend in `dist/` sono sorgenti versionati; `dist/server/` è output ignorato.
+4. `npm run build` genera il Worker privato; `npm run build:accounts` genera il Worker con accesso account e passkey. I file frontend in `dist/` sono sorgenti versionati; `dist/server/` è output ignorato.
 
 Gli ID dei percorsi derivano da università e nome, mai dal ranking. `data/legacy-ids.json` è la mappa immutabile dei vecchi ID: non rigenerarla dopo un riordino. Se si rinomina un programma o cambia l'ateneo di riferimento, mantenere esplicitamente il precedente ID o predisporre una migrazione; non assegnare silenziosamente le note a un nuovo corso.
 
@@ -32,7 +32,7 @@ L'app mantiene fino a 10 copie locali e 20 revisioni cloud. In **Dossier e legen
 
 ### Profili pubblici: Sites
 
-Il progetto Sites dei profili è separato dalla copia privata. Per aggiornarlo, fare prima commit e push su GitHub, poi usare un checkout Sites separato. `npm run prepare:public-accounts-release -- <checkout-sites>` copia i soli file tracciati dal commit verificato, preserva l'identità del progetto Sites e configura il binding D1 `DB`; non riutilizzare il `.openai/hosting.json` della copia privata. Configurare nel runtime Sites i segreti `ATLAS_GOOGLE_CLIENT_ID`, `ATLAS_GOOGLE_CLIENT_SECRET`, `ATLAS_APPLE_CLIENT_ID`, `ATLAS_APPLE_TEAM_ID`, `ATLAS_APPLE_KEY_ID`, `ATLAS_APPLE_PRIVATE_KEY`, gli URL callback `ATLAS_GOOGLE_REDIRECT_URI` e `ATLAS_APPLE_REDIRECT_URI`, e `ATLAS_AUTH_MODE=oauth`. I callback devono essere registrati nei pannelli Google e Apple e usare l'origine HTTPS assegnata. I segreti non vanno inseriti nel repository. Eseguire `npm run build:accounts`, passare test e build al source helper Sites e pubblicare. La migrazione `0003` elimina gli account e i dati di prova prima di creare le nuove tabelle. L'accesso pubblico al sito non rende pubblici i dati nel database: ogni richiesta richiede una sessione valida e le query sono isolate per profilo.
+Il progetto Sites dei profili è separato dalla copia privata. Per aggiornarlo, fare prima commit e push su GitHub, poi usare un checkout Sites separato. `npm run prepare:public-accounts-release -- <checkout-sites>` copia i soli file tracciati dal commit verificato, preserva l'identità del progetto Sites e configura il binding D1 `DB`; non riutilizzare il `.openai/hosting.json` della copia privata. Il runtime richiede `ATLAS_AUTH_ORIGIN` e `ATLAS_RP_ID`, senza credenziali esterne. Eseguire `npm run build:accounts`, passare test e build al source helper Sites e pubblicare. La migrazione `0003` azzera i profili di prova già autorizzati; la `0004` aggiunge hash password e credenziali passkey. Il sito pubblico non rende pubblici i dati nel database: ogni richiesta richiede una sessione valida e le query sono isolate per profilo.
 
 ### Copia privata: Sites
 

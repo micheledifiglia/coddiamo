@@ -27,5 +27,5 @@ for(const file of files){
   fs.copyFileSync(path.join(source,file),dest);
 }
 fs.writeFileSync(targetConfigPath,JSON.stringify(targetConfig,null,2)+'\n');
-fs.writeFileSync(path.join(target,'.openai/release.json'),JSON.stringify({github_commit:sha,prepared_at:new Date().toISOString(),mode:'public-google-apple-accounts'},null,2)+'\n');
+fs.writeFileSync(path.join(target,'.openai/release.json'),JSON.stringify({github_commit:sha,prepared_at:new Date().toISOString(),mode:'public-password-passkey-accounts'},null,2)+'\n');
 console.log(JSON.stringify({project_id:targetConfig.project_id,github_commit:sha,checkout:target,files:files.length}));

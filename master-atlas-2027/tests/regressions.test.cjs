@@ -27,7 +27,7 @@ test('Le icone dell’interfaccia usano SVG coerenti su iOS e desktop',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
   const css=fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8');
   assert.match(html,/id="install-app"[\s\S]*id="account-manage-profile"[\s\S]*class="profile-action-icon"[\s\S]*id="account-logout"[\s\S]*class="profile-action-icon"/);
-  assert.doesNotMatch(`${html}\n${fs.readFileSync(path.join(__dirname,'../dist/auth.js'),'utf8')}`,/passkey|nome utente|account-add-passkey/i);
+  assert.match(`${html}\n${fs.readFileSync(path.join(__dirname,'../dist/auth.js'),'utf8')}`,/account-add-passkey|nome utente|passkey/i);
   assert.match(html,/id="theme-toggle"[\s\S]*<svg class="theme-glyph theme-icon-sun"[\s\S]*<svg class="theme-glyph theme-icon-moon"/);
   assert.match(app,/button\.title=theme==='dark'\?'Passa al tema chiaro':'Passa al tema scuro'/);
   assert.doesNotMatch(app,/\.theme-glyph',button\)\.innerHTML/,'le icone del tema restano SVG statiche per compatibilità Safari');
@@ -37,6 +37,16 @@ test('Le icone dell’interfaccia usano SVG coerenti su iOS e desktop',()=>{
   assert.match(css,/\.focus-orbit svg\{position:relative;width:29px;height:29px/);
   assert.match(css,/\.header-actions-glass \.theme-glyph\{display:none;width:22px;height:22px/);
   assert.match(css,/:root\[data-theme="dark"\].*\.theme-icon-sun,:root\[data-theme="light"\].*\.theme-icon-moon\{display:block\}/);
+});
+test('L’accesso offre password e passkey senza pulsanti di provider esterni',()=>{
+  const html=fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8');
+  const auth=fs.readFileSync(path.join(__dirname,'../dist/auth.js'),'utf8');
+  assert.match(auth,/type="password" autocomplete="current-password"/);
+  assert.match(auth,/api\/auth\/password\/register/);
+  assert.match(auth,/api\/auth\/password\/login/);
+  assert.match(auth,/Usa una passkey/);
+  assert.match(html,/id="account-add-passkey"/);
+  assert.doesNotMatch(`${html}\n${auth}`,/Continua con Google|Continua con Apple|accounts\.google\.com|appleid\.apple\.com/);
 });
 test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su telefono',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');

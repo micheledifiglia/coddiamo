@@ -13,6 +13,8 @@ export const history = sqliteTable('atlas_history', {
 
 export const accounts = sqliteTable('atlas_accounts', {
   id: text('id').primaryKey(),
+  username: text('username').unique(),
+  passwordHash: text('password_hash'),
   createdAt: text('created_at').notNull(),
   lastLoginAt: text('last_login_at')
 });
@@ -32,9 +34,21 @@ export const authChallenges = sqliteTable('atlas_auth_challenges', {
   challenge: text('challenge').notNull(),
   purpose: text('purpose').notNull(),
   owner: text('owner'),
+  username: text('username'),
   expiresAt: integer('expires_at').notNull(),
   consumedAt: integer('consumed_at')
 });
+
+export const passkeys = sqliteTable('atlas_passkeys', {
+  credentialId: text('credential_id').primaryKey(),
+  owner: text('owner').notNull().references(() => accounts.id, {onDelete:'cascade'}),
+  publicKey: text('public_key').notNull(),
+  counter: integer('counter').notNull().default(0),
+  transports: text('transports').notNull().default('[]'),
+  deviceType: text('device_type').notNull(),
+  backedUp: integer('backed_up').notNull().default(0),
+  createdAt: text('created_at').notNull()
+}, table => [index('atlas_passkeys_owner_idx').on(table.owner)]);
 
 export const sessions = sqliteTable('atlas_sessions', {
   tokenHash: text('token_hash').primaryKey(),
