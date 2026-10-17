@@ -147,12 +147,12 @@ test('La build Pages contiene soltanto risorse pubbliche e disabilita il cloud',
   const run=spawnSync(process.execPath,[path.join(__dirname,'../scripts/build-pages.mjs')],{encoding:'utf8'});
   assert.equal(run.status,0,run.stderr);
   const dir=path.join(__dirname,'../_site');
-  assert.deepEqual(fs.readdirSync(dir).sort(),['.nojekyll','app.js','auth.css','auth.js','config.js','core.js','data.json','icons','index.html','manifest.webmanifest','pwa.css','pwa.js','release.json','storage.js','style.css','sw.js'].sort());
+  assert.deepEqual(fs.readdirSync(dir).sort(),['.nojekyll','app.js','auth.css','auth.js','config.js','core.js','data.json','glass-ui.css','icons','index.html','manifest.webmanifest','pwa.css','pwa.js','release.json','storage.js','style.css','sw.js'].sort());
   assert.deepEqual(fs.readdirSync(path.join(dir,'icons')).sort(),['atlas-180.png','atlas-192.png','atlas-512.png']);
   assert.ok(fs.readFileSync(path.join(dir,'icons/atlas-512.png')).subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])));
   const context={};vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(dir,'config.js'),'utf8'),context);
   assert.equal(context.ATLAS_CONFIG.cloudSync,false);assert.equal(context.ATLAS_CONFIG.public,true);
-  const html=fs.readFileSync(path.join(dir,'index.html'),'utf8');assert.ok(html.includes('Sito pubblico'));assert.ok(!html.includes('Spazio privato'));
+  const html=fs.readFileSync(path.join(dir,'index.html'),'utf8');assert.ok(html.includes('Sito pubblico'));assert.ok(!html.includes('Spazio privato'));assert.ok(html.includes('glass-ui.css'));assert.ok(html.includes('command-palette'));
   assert.ok(html.indexOf('src="config.js"')<html.indexOf('src="app.js"'));
-  assert.ok(html.includes('rel="manifest"'));assert.ok(fs.readFileSync(path.join(dir,'sw.js'),'utf8').includes("url.pathname.startsWith('/api/')"));
+  assert.ok(html.includes('rel="manifest"'));assert.ok(fs.readFileSync(path.join(dir,'sw.js'),'utf8').includes("url.pathname.startsWith('/api/')"));assert.ok(fs.readFileSync(path.join(dir,'sw.js'),'utf8').includes("'/glass-ui.css'"));
 });

@@ -7,6 +7,10 @@ let store, pendingImport;
 const updateSync=t=>{const el=document.querySelector('#sync-status');if(el)el.textContent=t;};
 const labels={overview:'Panoramica',programs:'Esplora i percorsi',universities:'Università',favorites:'La mia selezione',compare:'Confronta',applications:'Candidature',source:'Dossier e legenda'};
 const stages=['Da valutare','In preparazione','Inviata','Esito ricevuto'];
+const commandPages=[['overview','Panoramica','La tua home · riepilogo e classifiche','⌂'],['programs','Esplora i percorsi','208 programmi · ricerca e filtri','⌕'],['universities','Università','27 atenei nel dossier','⌂'],['favorites','La mia selezione','Percorsi salvati e candidature','♡'],['compare','Confronta','Affianca fino a quattro percorsi','⇄'],['applications','Candidature','Checklist e prossime scadenze','↗'],['source','Dossier e legenda','Fonti, note e backup','≡']];
+function setTheme(theme,persist=false){theme=theme==='dark'?'dark':'light';document.documentElement.dataset.theme=theme;if(persist){try{localStorage.setItem('atlas-appearance',theme)}catch{}}const meta=$('meta[name="theme-color"]');if(meta)meta.content=theme==='dark'?'#0c1422':'#eef3f9';const button=$('#theme-toggle');if(button){button.setAttribute('aria-label',theme==='dark'?'Passa al tema chiaro':'Passa al tema scuro');button.title=theme==='dark'?'Passa al tema chiaro':'Passa al tema scuro';$('.theme-glyph',button).textContent=theme==='dark'?'☀':'◐'}}
+function renderCommandResults(){const output=$('#command-results'),input=$('#command-search');if(!output)return;const q=(input?.value||'').trim().toLocaleLowerCase('it');const pages=commandPages.filter(([,name,meta])=>!q||`${name} ${meta}`.toLocaleLowerCase('it').includes(q));const programs=q&&D?D.programs.filter(p=>[p.name,p.university,p.city,p.region,...(p.partners||[]),...(p.notes||[])].join(' ').toLocaleLowerCase('it').includes(q)).slice(0,6):[];let html='';if(pages.length)html+=`<div class="command-section-label">Sezioni</div>${pages.map(([view,name,meta,icon])=>`<button type="button" class="command-option" data-command-view="${view}"><span class="command-option-icon" aria-hidden="true">${icon}</span><span class="command-option-text"><span class="command-option-title">${name}</span><span class="command-option-meta">${meta}</span></span><kbd>↵</kbd></button>`).join('')}`;if(programs.length)html+=`<div class="command-section-label">Percorsi</div>${programs.map(p=>`<button type="button" class="command-option" data-command-program="${esc(p.id)}"><span class="command-option-icon" aria-hidden="true">↗</span><span class="command-option-text"><span class="command-option-title">${esc(p.name)}</span><span class="command-option-meta">${esc(p.university)} · ${esc(p.city)}</span></span><kbd>#${p.rank}</kbd></button>`).join('')}`;output.innerHTML=html||`<div class="command-empty">${q?'Nessun risultato. Prova con un altro nome o una città.':'Digita per cercare percorsi o università.'}</div>`}
+function openCommandPalette(){const dialog=$('#command-palette');if(!dialog)return;if(!dialog.open)dialog.showModal();const input=$('#command-search');if(input){input.value='';renderCommandResults();requestAnimationFrame(()=>input.focus())}}
 const legend={M:'Master autonomo o contenitore. La ricerca dipende anche dal laboratorio.',T:'Track, major o concentrazione interna: non un titolo autonomo.',M1:'Primo anno francese; normalmente è il punto di ingresso dopo L-2.',M2:'Secondo anno francese; accesso diretto dopo L-2 non automatico.',J:'Titolo congiunto.',D:'Doppio o multiplo titolo.',C:'Collaborazione didattica: doppio titolo non verificato.','·M':'Mobilità strutturata.',DE:'Tedesco richiesto.',L:'Lingua da verificare; intero percorso in inglese non confermato.',E:'Piano in inglese da costruire e confermare nei moduli.',A:'Accesso particolare o equivalenza L-2 da verificare.','?':'Offerta, struttura o ingresso 2027 da riconfermare.',CN:'Ateneo europeo, programma in Cina.'};
 let D,state={favorites:[],compare:[],records:{}},view='overview',homeTab='3',region='Tutte',query='',uni='',kind='',condition='',sort='rank',favoritesOnly=false,layout='cards',toastTimer;
 const save=()=>store ? store.save(state) : false;
@@ -71,6 +75,10 @@ function download(name,body,type){const url=URL.createObjectURL(new Blob([body],
 function backup(){download('master-atlas-backup.json',JSON.stringify({app:'master-atlas-2027',version:2,exported:new Date().toISOString(),state},null,2),'application/json');toast('Backup esportato')}
 function csv(){const lines=[['Area','Posizione','Programma','Università','Città','Tipo','Condizioni','URL','Preferito','Stato candidatura','Scadenza personale','Note personali'],...filtered().map(p=>[p.region,p.rank,p.name,p.university,p.city,p.type,p.conditions,p.url,state.favorites.includes(p.id)?'Sì':'No',rec(p.id).stage||'',rec(p.id).deadline||'',rec(p.id).notes||''])];const safe=v=>{let s=String(v??'');if(/^[=+@\-\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};download('master-atlas-selezione.csv','\uFEFF'+lines.map(row=>row.map(safe).join(';')).join('\r\n'),'text/csv;charset=utf-8')}
 document.addEventListener('click',e=>{const b=e.target.closest('button,[data-university]');if(!b)return;
+ if(b.id==='theme-toggle'){setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark',true);return}
+ if(b.id==='command-toggle'){openCommandPalette();return}
+ if(b.dataset.commandView){$('#command-palette').close();location.hash=b.dataset.commandView;return}
+ if(b.dataset.commandProgram){$('#command-palette').close();openDetail(b.dataset.commandProgram);return}
  if(b.dataset.detail){openDetail(b.dataset.detail);return}
  if(b.hasAttribute('data-close')){flushDraft();$('#detail').close();return}
  if(b.dataset.fav){const id=b.dataset.fav;state.favoritesUpdated[id]={selected:!state.favorites.includes(id),updatedAt:Date.now()};state.favorites=state.favorites.includes(id)?state.favorites.filter(x=>x!==id):[...state.favorites,id];save();b.classList.toggle('selected',state.favorites.includes(id));b.textContent=state.favorites.includes(id)?'♥':'♡';b.setAttribute('aria-pressed',state.favorites.includes(id));b.setAttribute('aria-label',`${state.favorites.includes(id)?'Rimuovi dai':'Aggiungi ai'} preferiti: ${find(id).name}`);if(!$('#detail').open)render();else updateChrome();return}
@@ -87,7 +95,8 @@ document.addEventListener('click',e=>{const b=e.target.closest('button,[data-uni
  if(b.id==='import-button'||b.hasAttribute('data-import')){$('#import-file').click();return}
  if(b.hasAttribute('data-download-source'))download('Quattro_classifiche_complete_Master_2027.md',D.source,'text/markdown;charset=utf-8');
 });
-document.addEventListener('input',e=>{if(e.target.id==='search'){query=e.target.value;renderResults()}else if(e.target.closest('#record-form'))scheduleDraft()});
+document.addEventListener('input',e=>{if(e.target.id==='command-search'){renderCommandResults()}else if(e.target.id==='search'){query=e.target.value;renderResults()}else if(e.target.closest('#record-form'))scheduleDraft()});
+document.addEventListener('keydown',e=>{const typing=['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName);if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommandPalette();return}if(e.key==='/'&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&!typing){e.preventDefault();openCommandPalette();return}const dialog=$('#command-palette');if(!dialog?.open)return;if(e.key==='Enter'&&document.activeElement===$('#command-search')){e.preventDefault();$('.command-option',dialog)?.click();return}if(!['ArrowDown','ArrowUp'].includes(e.key))return;const options=$$('.command-option',dialog);if(!options.length)return;e.preventDefault();const current=options.indexOf(document.activeElement),delta=e.key==='ArrowDown'?1:-1;options[current<0?(delta>0?0:options.length-1):(current+delta+options.length)%options.length].focus()});
 document.addEventListener('change',e=>{const t=e.target;if(t.closest('#record-form')&&!t.dataset.compare)scheduleDraft();if(t.dataset.compare){const id=t.dataset.compare;if(t.checked&&state.compare.length>=4){t.checked=false;toast('Puoi confrontare fino a quattro percorsi. Rimuovine uno per continuare.');return}state.compare=t.checked?[...new Set([...state.compare,id])]:state.compare.filter(x=>x!==id);state.compareUpdated=Date.now();save();updateChrome();return}
  if(t.dataset.stage){state.records[t.dataset.stage]={...rec(t.dataset.stage),stage:t.value,updatedAt:Date.now()};save();applications();return}
  if(['university-filter','type-filter','condition-filter','sort'].includes(t.id)){if(t.id==='university-filter')uni=t.value;if(t.id==='type-filter')kind=t.value;if(t.id==='condition-filter')condition=t.value;if(t.id==='sort')sort=t.value;renderResults()}
@@ -101,6 +110,7 @@ $('#import-file').addEventListener('change',async e=>{
 $('#detail').addEventListener('click',e=>{if(e.target===$('#detail')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close()}});
 $('#detail').addEventListener('close',()=>{flushDraft();if(D)render()});
 $('#detail').addEventListener('cancel',flushDraft);
+$('#command-palette').addEventListener('click',e=>{if(e.target===$('#command-palette')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close()}});
 window.addEventListener('pagehide',flushDraft);
 document.addEventListener('visibilitychange',()=>{if(document.hidden)flushDraft()});
 function route(){
@@ -108,7 +118,7 @@ function route(){
   flushDraft();
   if($('#detail').open)$('#detail').close();
   if(target!==view){query='';uni='';kind='';condition='';sort='rank';region='Tutte';}
-  view=Object.hasOwn(labels,target)?target:'overview';render();window.scrollTo(0,0);
+  view=Object.hasOwn(labels,target)?target:'overview';const paint=()=>render();const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!reduced)document.startViewTransition(paint);else paint();window.scrollTo(0,0);
 }
 window.addEventListener('hashchange',route);
 const appReady=globalThis.ATLAS_CONFIG?.accounts===true?globalThis.AtlasAuth.ready:Promise.resolve(null);
@@ -120,3 +130,4 @@ appReady.then(user=>{
     state=store.state;route();await store.start();
   });
 }).catch(()=>{$('#main').innerHTML='<div class="empty"><h2>Non riesco a caricare il dossier.</h2><p>Ricarica la pagina per riprovare.</p><button class="button" onclick="location.reload()">Ricarica</button></div>'});
+if(document.documentElement?.dataset)setTheme(document.documentElement.dataset.theme||'light');

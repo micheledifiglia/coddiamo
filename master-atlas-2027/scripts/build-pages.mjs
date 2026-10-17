@@ -4,7 +4,7 @@ import {execFileSync} from 'node:child_process';
 
 const root = path.resolve(import.meta.dirname,'..');
 const out = path.join(root,'_site');
-const files = ['index.html','style.css','app.js','core.js','storage.js','config.js','auth.js','auth.css','pwa.js','pwa.css','sw.js','manifest.webmanifest','data.json','icons/atlas-180.png','icons/atlas-192.png','icons/atlas-512.png'];
+const files = ['index.html','style.css','glass-ui.css','app.js','core.js','storage.js','config.js','auth.js','auth.css','pwa.js','pwa.css','sw.js','manifest.webmanifest','data.json','icons/atlas-180.png','icons/atlas-192.png','icons/atlas-512.png'];
 const allowed = new Set([...files,'.nojekyll','release.json']);
 fs.mkdirSync(out,{recursive:true});
 for(const file of fs.readdirSync(out)) {
