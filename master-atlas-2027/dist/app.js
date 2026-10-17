@@ -70,20 +70,21 @@ const globeCoordinates={
   'Queensland — UQ':[-27.4975,153.0137],'NUS':[1.2966,103.7764],'Sydney':[-33.8886,151.1873]
 };
 function normalizeGlobeOrientation(phi,theta){
-  const turns=Math.floor(theta/Math.PI),fraction=theta-turns*Math.PI;
-  const renderedPhi=phi+turns*Math.PI;
-  return {phi:((renderedPhi+Math.PI)%(Math.PI*2)+Math.PI*2)%(Math.PI*2)-Math.PI,theta:Math.abs(turns%2)===1?Math.PI-fraction:fraction};
+  const circle=Math.PI*2;
+  return {phi:((phi%circle)+circle)%circle,theta:((theta%circle)+circle)%circle};
 }
 function globeTargetAngles(longitude,latitude,currentPhi,currentTheta){
-  const targetPhi=-(longitude*Math.PI/180),targetTheta=Math.PI/2-latitude*Math.PI/180;
+  const lat=latitude*Math.PI/180,lon=longitude*Math.PI/180;
+  const x=-Math.cos(lat)*Math.cos(lon),y=Math.sin(lat),z=Math.cos(lat)*Math.sin(lon);
+  const basePhi=Math.atan2(-y,z),radius=Math.hypot(y,z),circle=Math.PI*2;
   let best=null,bestCost=Infinity;
-  const first=Math.floor(currentTheta/Math.PI)-2;
-  for(let turn=first;turn<=first+4;turn++){
-    const theta=Math.abs(turn%2)===0?turn*Math.PI+targetTheta:(turn+1)*Math.PI-targetTheta;
-    let phi=targetPhi-turn*Math.PI;
-    phi+=Math.round((currentPhi-phi)/(Math.PI*2))*Math.PI*2;
-    const cost=Math.abs(theta-currentTheta)+Math.abs(phi-currentPhi);
-    if(cost<bestCost){best={phi,theta};bestCost=cost}
+  for(let flip=0;flip<2;flip++){
+    let phi=basePhi+flip*Math.PI;
+    const theta=Math.atan2(-x,flip?-radius:radius);
+    phi+=Math.round((currentPhi-phi)/circle)*circle;
+    const nearestTheta=theta+Math.round((currentTheta-theta)/circle)*circle;
+    const cost=Math.hypot(phi-currentPhi,nearestTheta-currentTheta);
+    if(cost<bestCost){best={phi,theta:nearestTheta};bestCost=cost}
   }
   return best;
 }
@@ -99,7 +100,6 @@ function mountDashboardGlobe(){
   const pointers=new Map(),twoPi=Math.PI*2;
   const clampScale=value=>Math.max(.72,Math.min(2.4,value));
   const wrapPhi=value=>((value+Math.PI)%twoPi+twoPi)%twoPi-Math.PI;
-  const wrapTheta=value=>((value%twoPi)+twoPi)%twoPi;
   const wrapDelta=value=>Math.atan2(Math.sin(value),Math.cos(value));
   const markers=places.map(u=>({location:u.location,size:selectedNames.has(u.name)?.12:.075,color:selectedNames.has(u.name)?[.015,.28,1]:[.05,.27,.68]}));
   const globeData={canvas,resizeTimer:0,resize:null};
@@ -110,17 +110,17 @@ function mountDashboardGlobe(){
   const setTarget=(longitude,latitude)=>{const next=globeTargetAngles(longitude,latitude,phi,theta);targetPhi=next.phi;targetTheta=next.theta};
   const measureGesture=()=>{const pts=[...pointers.values()];if(!pts.length)return null;if(pts.length===1)return {count:1,x:pts[0].x,y:pts[0].y};const [a,b]=pts;return {count:2,x:(a.x+b.x)/2,y:(a.y+b.y)/2,distance:Math.max(1,Math.hypot(b.x-a.x,b.y-a.y)),angle:Math.atan2(b.y-a.y,b.x-a.x)}};
   const pointerDown=e=>{if(e.pointerType==='mouse'&&e.button!==0)return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});dragging=true;targetPhi=null;targetTheta=null;gesture=measureGesture();canvas.classList.add('is-dragging');try{canvas.setPointerCapture(e.pointerId)}catch{}};
-  const pointerMove=e=>{if(!pointers.has(e.pointerId))return;const before=gesture,old=pointers.get(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const next=measureGesture();if(before&&next&&before.count===1&&next.count===1){phi=wrapPhi(phi+(e.clientX-old.x)/220);theta=wrapTheta(theta+(e.clientY-old.y)/220)}else if(before&&next&&before.count===2&&next.count===2){phi=wrapPhi(phi+(next.x-before.x)/260+wrapDelta(next.angle-before.angle));theta=wrapTheta(theta+(next.y-before.y)/240);scale=clampScale(scale*next.distance/before.distance);updateReadout()}gesture=next};
+  const pointerMove=e=>{if(!pointers.has(e.pointerId))return;const before=gesture,old=pointers.get(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const next=measureGesture();if(before&&next&&before.count===1&&next.count===1){phi=wrapPhi(phi+(e.clientX-old.x)/220);theta+= (e.clientY-old.y)/220}else if(before&&next&&before.count===2&&next.count===2){phi=wrapPhi(phi+(next.x-before.x)/260+wrapDelta(next.angle-before.angle));theta+=(next.y-before.y)/240;scale=clampScale(scale*next.distance/before.distance);updateReadout()}gesture=next};
   const pointerUp=e=>{if(e.pointerId!==undefined&&!pointers.has(e.pointerId))return;if(e.pointerId!==undefined)pointers.delete(e.pointerId);else pointers.clear();if(pointers.size){gesture=measureGesture();return}dragging=false;gesture=null;canvas.classList.remove('is-dragging')};
   const wheel=e=>{e.preventDefault();scale=clampScale(scale*Math.exp(-e.deltaY*.001));updateReadout()};
-  const keyDown=e=>{const key=e.key.toLowerCase();if(key==='arrowleft'||key==='arrowright'||key==='arrowup'||key==='arrowdown'){e.preventDefault();targetPhi=null;targetTheta=null;if(key==='arrowleft')phi=wrapPhi(phi-.14);if(key==='arrowright')phi=wrapPhi(phi+.14);if(key==='arrowup')theta=wrapTheta(theta-.14);if(key==='arrowdown')theta=wrapTheta(theta+.14)}else if(key==='+'||key==='='){scale=clampScale(scale+.12);updateReadout()}else if(key==='-'){scale=clampScale(scale-.12);updateReadout()}else if(key==='n'){const current=normalizeGlobeOrientation(phi,theta);setTarget(0,90-current.theta*180/Math.PI)}else if(key==='r'){setTarget(0,90-.3*180/Math.PI);scale=1;updateReadout()}};
+  const keyDown=e=>{const key=e.key.toLowerCase();if(key==='arrowleft'||key==='arrowright'||key==='arrowup'||key==='arrowdown'){e.preventDefault();targetPhi=null;targetTheta=null;if(key==='arrowleft')phi=wrapPhi(phi-.14);if(key==='arrowright')phi=wrapPhi(phi+.14);if(key==='arrowup')theta-=.14;if(key==='arrowdown')theta+=.14}else if(key==='+'||key==='='){scale=clampScale(scale+.12);updateReadout()}else if(key==='-'){scale=clampScale(scale-.12);updateReadout()}else if(key==='n'){targetPhi=0;targetTheta=theta}else if(key==='r'){setTarget(0,90-.3*180/Math.PI);scale=1;updateReadout()}};
   globeData.pointerDown=pointerDown;globeData.pointerMove=pointerMove;globeData.pointerUp=pointerUp;globeData.wheel=wheel;globeData.keyDown=keyDown;
   globeData.zoom=delta=>{scale=delta===0?1:clampScale(scale+delta);updateReadout()};
   globeData.center=(longitude,latitude=0)=>setTarget(longitude,latitude);
-  globeData.north=()=>{const current=normalizeGlobeOrientation(phi,theta);setTarget(0,90-current.theta*180/Math.PI)};
+  globeData.north=()=>{targetPhi=0;targetTheta=theta};
   globeData.reset=()=>{setTarget(0,90-.3*180/Math.PI);scale=1;updateReadout()};
   canvas.addEventListener('pointerdown',pointerDown);canvas.addEventListener('pointermove',pointerMove);canvas.addEventListener('pointerup',pointerUp);canvas.addEventListener('pointercancel',pointerUp);canvas.addEventListener('lostpointercapture',pointerUp);canvas.addEventListener('wheel',wheel,{passive:false});canvas.addEventListener('keydown',keyDown);canvas.style.opacity='0';
-  try{dashboardGlobe=api.createGlobe(canvas,{devicePixelRatio:2,width:width*2,height:width*2,phi,theta,dark:0,diffuse:0.8,mapSamples:16000,mapBrightness:1.8,mapBaseBrightness:0.01,baseColor:[0.95,0.95,0.97],markerColor:[.02,.35,1],glowColor:[.82,.82,.86],markers,onRender:frame=>{if(!dragging&&targetPhi!==null){const difference=wrapDelta(targetPhi-phi);if(Math.abs(difference)<.001)targetPhi=null;else phi=wrapPhi(phi+difference*.09)}if(!dragging&&targetTheta!==null){const difference=targetTheta-theta;if(Math.abs(difference)<.001)targetTheta=null;else theta+=difference*.09}const orientation=normalizeGlobeOrientation(phi,theta);frame.phi=orientation.phi;frame.theta=orientation.theta;frame.scale=scale;const needle=$('#globe-compass-needle');if(needle)needle.style.transform=`rotate(${-orientation.phi*180/Math.PI}deg)`}});setTimeout(()=>{if(document.body.contains(canvas))canvas.style.opacity='1'},100)}catch{canvas.replaceWith(Object.assign(document.createElement('p'),{className:'globe-unavailable',textContent:'Il globo 3D non è disponibile in questo browser. Puoi consultare le sedi nell’elenco qui sotto.'}))}
+  try{dashboardGlobe=api.createGlobe(canvas,{devicePixelRatio:2,width:width*2,height:width*2,phi,theta,dark:0,diffuse:0.8,mapSamples:16000,mapBrightness:1.8,mapBaseBrightness:0.01,baseColor:[0.95,0.95,0.97],markerColor:[.02,.35,1],glowColor:[.82,.82,.86],markers,onRender:frame=>{if(!dragging&&targetPhi!==null){const difference=wrapDelta(targetPhi-phi);if(Math.abs(difference)<.001)targetPhi=null;else phi=wrapPhi(phi+difference*.09)}if(!dragging&&targetTheta!==null){const difference=wrapDelta(targetTheta-theta);if(Math.abs(difference)<.001)targetTheta=null;else theta+=difference*.09}const orientation=normalizeGlobeOrientation(phi,theta);frame.phi=orientation.phi;frame.theta=orientation.theta;frame.scale=scale;const needle=$('#globe-compass-needle');if(needle)needle.style.transform=`rotate(${-orientation.phi*180/Math.PI}deg)`}});setTimeout(()=>{if(document.body.contains(canvas))canvas.style.opacity='1'},100)}catch{canvas.replaceWith(Object.assign(document.createElement('p'),{className:'globe-unavailable',textContent:'Il globo 3D non è disponibile in questo browser. Puoi consultare le sedi nell’elenco qui sotto.'}))}
 }
 function focusGlobePlace(name){const place=D.universities.find(u=>u.name===name),canvas=$('#university-globe');if(!place||!canvas)return;const position=globeCoordinates[name];if(!position)return;const selected=state.favorites.map(find).filter(Boolean).some(p=>AtlasCore.belongsTo(p,name));const status=$('#globe-status');if(status)status.textContent=`${place.name} · ${place.city}${selected?' · nella tua selezione':''}`;for(const b of $$('[data-globe-focus]'))b.setAttribute('aria-pressed',String(b.dataset.globeFocus===name));globeState?.center?.(position[1],position[0]);const stage=canvas.closest('.globe-stage');stage?.classList.add('is-focused');setTimeout(()=>stage?.classList.remove('is-focused'),850)}
 function overview(){
