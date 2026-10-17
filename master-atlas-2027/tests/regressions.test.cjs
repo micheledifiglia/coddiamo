@@ -33,6 +33,8 @@ test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su 
 });
 test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
+  assert.match(app,/favorites=state\.favorites[\s\S]*const globeData=\{canvas,resizeTimer:0,resize:null\}/);
+  assert.doesNotMatch(app,/const state=\{canvas,resizeTimer:0,resize:null\}/);
   const source=app.match(/const globeCoordinates=(\{[\s\S]*?\n\});/)?.[1];
   assert.ok(source,'coordinate del globo presenti');
   const locations=vm.runInNewContext('('+source+')');
