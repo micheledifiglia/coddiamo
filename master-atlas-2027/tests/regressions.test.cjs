@@ -11,6 +11,19 @@ test('Il catalogo contiene tutte le voci e ID univoci',()=>{
   assert.equal(new Set(catalog.programs.map(p=>p.id)).size,208);
   assert.equal(Object.keys(catalog.legacyIds).length,208);
 });
+test('Le risorse PWA sono servite dal Worker con manifest e icone PNG validi',async()=>{
+  const manifest=JSON.parse(fs.readFileSync(path.join(__dirname,'../dist/manifest.webmanifest'),'utf8'));
+  assert.equal(manifest.display,'standalone');assert.equal(manifest.start_url,'/');
+  assert.ok(manifest.icons.some(icon=>icon.sizes==='192x192'));
+  assert.ok(manifest.icons.some(icon=>icon.sizes==='512x512'&&icon.purpose.includes('maskable')));
+  const assets={'/manifest.webmanifest':{type:'application/manifest+json',body:JSON.stringify(manifest)},'/icons/atlas-192.png':{type:'image/png',body:{encoding:'base64',value:fs.readFileSync(path.join(__dirname,'../dist/icons/atlas-192.png')).toString('base64')}}};
+  const handle=createHandler(assets,catalog,Core);
+  const json=await handle(new Request('https://atlas.test/manifest.webmanifest'),{});
+  assert.match(json.headers.get('content-type'),/application\/manifest\+json/);
+  const icon=await handle(new Request('https://atlas.test/icons/atlas-192.png'),{});
+  assert.equal(icon.headers.get('content-type'),'image/png');
+  assert.deepEqual([...new Uint8Array(await icon.arrayBuffer()).slice(0,8)],[137,80,78,71,13,10,26,10]);
+});
 test('Migrazione v1 preserva note, candidature, preferiti e confronto',()=>{
   const out=Core.normalize({favorites:['3-1'],compare:['4-1'],records:{'3-1':{notes:'Le mie note',stage:'In preparazione',checklist:[0,4]}}},catalog);
   assert.deepEqual(out.favorites,[first]);assert.deepEqual(out.compare,[catalog.legacyIds['4-1']]);
@@ -134,9 +147,12 @@ test('La build Pages contiene soltanto risorse pubbliche e disabilita il cloud',
   const run=spawnSync(process.execPath,[path.join(__dirname,'../scripts/build-pages.mjs')],{encoding:'utf8'});
   assert.equal(run.status,0,run.stderr);
   const dir=path.join(__dirname,'../_site');
-  assert.deepEqual(fs.readdirSync(dir).sort(),['.nojekyll','app.js','auth.css','auth.js','config.js','core.js','data.json','index.html','release.json','storage.js','style.css'].sort());
+  assert.deepEqual(fs.readdirSync(dir).sort(),['.nojekyll','app.js','auth.css','auth.js','config.js','core.js','data.json','icons','index.html','manifest.webmanifest','pwa.css','pwa.js','release.json','storage.js','style.css','sw.js'].sort());
+  assert.deepEqual(fs.readdirSync(path.join(dir,'icons')).sort(),['atlas-180.png','atlas-192.png','atlas-512.png']);
+  assert.ok(fs.readFileSync(path.join(dir,'icons/atlas-512.png')).subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])));
   const context={};vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(dir,'config.js'),'utf8'),context);
   assert.equal(context.ATLAS_CONFIG.cloudSync,false);assert.equal(context.ATLAS_CONFIG.public,true);
   const html=fs.readFileSync(path.join(dir,'index.html'),'utf8');assert.ok(html.includes('Sito pubblico'));assert.ok(!html.includes('Spazio privato'));
   assert.ok(html.indexOf('src="config.js"')<html.indexOf('src="app.js"'));
+  assert.ok(html.includes('rel="manifest"'));assert.ok(fs.readFileSync(path.join(dir,'sw.js'),'utf8').includes("url.pathname.startsWith('/api/')"));
 });

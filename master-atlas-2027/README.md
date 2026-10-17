@@ -9,6 +9,10 @@ Il sito pubblico Sites è la sola versione destinata ai visitatori. GitHub Pages
 
 Nel menu **Profilo** puoi cambiare nome utente o eliminare il profilo, confermando entrambe le operazioni con una passkey. L’eliminazione rimuove dati sincronizzati, sessioni, credenziali passkey registrate sul server e la copia locale del dispositivo corrente. Esporta prima un backup se vuoi conservare i progressi; passkey salvate nel gestore del dispositivo e copie locali su altri dispositivi vanno rimosse separatamente.
 
+## Installazione su telefono
+
+Master Atlas è una **web app installabile (PWA)** e usa lo stesso sito e profilo su iPhone e Android. Su iPhone apri il sito in Safari, tocca **Condividi → Aggiungi alla schermata Home**, attiva **Apri come app web** e conferma. Su Android usa il pulsante **Installa app** nell’interfaccia, oppure il menu del browser e scegli **Installa app** o **Aggiungi a schermata Home**. Non serve scaricarla da App Store o Play Store. La schermata dell’app può essere memorizzata per l’apertura offline, ma accesso e sincronizzazione dei dati personali richiedono Internet.
+
 ## Sviluppo e verifiche
 
 1. Installare le dipendenze con `npm ci` (servono solo allo sviluppo e alla generazione delle migrazioni).

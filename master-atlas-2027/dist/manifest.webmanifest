@@ -1,0 +1,17 @@
+{
+  "id": "/",
+  "name": "Master Atlas 2027",
+  "short_name": "Master Atlas",
+  "description": "Il tuo atlante personale per esplorare percorsi magistrali in bioscienze.",
+  "lang": "it",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6f7f3",
+  "theme_color": "#152e27",
+  "prefer_related_applications": false,
+  "icons": [
+    { "src": "/icons/atlas-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/atlas-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

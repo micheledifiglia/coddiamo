@@ -1,0 +1,13 @@
+.install-app{padding:9px 13px;font-size:11px;border-color:#d8e6a2;background:#eef3df;color:#245c48}
+.install-app[hidden]{display:none}
+.install-dialog{width:min(440px,calc(100vw - 32px));padding:0;border:1px solid #e3e7de;border-radius:14px;color:#20332d;box-shadow:0 24px 70px #172c2440}
+.install-dialog::backdrop{background:#12241dcc;backdrop-filter:blur(3px)}
+.install-dialog .dialog-head{padding:22px 25px 13px;border-bottom:1px solid #e3e7de}
+.install-dialog .dialog-head h2{font:30px/1.05 var(--serif);margin:0}
+.install-dialog-content{padding:9px 25px 22px}
+.install-dialog-content>p{font-size:12px;line-height:1.7;color:#657168}
+.install-steps{display:grid;gap:5px;margin:17px 0}
+.install-steps p{display:flex;gap:12px;align-items:center;margin:0;padding:10px 0;font-size:12px;line-height:1.5}
+.install-step-number{flex:none;width:25px;height:25px;display:grid;place-items:center;border-radius:50%;background:#edf2e8;color:#245c48;font-weight:700}
+.install-dialog-content .install-note{padding-top:12px;border-top:1px solid #e3e7de;font-size:10px}
+@media(max-width:520px){.header-right{gap:12px}.install-app{padding:8px 10px;font-size:10px}.install-dialog .dialog-head{padding:20px}.install-dialog-content{padding:8px 20px 19px}}

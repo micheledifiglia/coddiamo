@@ -8,7 +8,8 @@ function createHandler(assets, catalog, Core, passkeyAuth = null) {
       if (!['GET','HEAD'].includes(request.method)) return new Response('Method not allowed',{status:405});
       const asset = assets[url.pathname === '/' ? '/index.html' : url.pathname];
       if (!asset) return new Response('Not found', {status:404});
-      return new Response(request.method === 'HEAD' ? null : asset.body, {headers:{'content-type':asset.type,'cache-control':'no-cache','x-content-type-options':'nosniff'}});
+      const body=asset.body?.encoding==='base64' ? Uint8Array.from(atob(asset.body.value),char=>char.charCodeAt(0)) : asset.body;
+      return new Response(request.method === 'HEAD' ? null : body, {headers:{'content-type':asset.type,'cache-control':'no-cache','x-content-type-options':'nosniff'}});
     }
     const owner = passkeyAuth
       ? await passkeyAuth.resolveOwner(request,env)

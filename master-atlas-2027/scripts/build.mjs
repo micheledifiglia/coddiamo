@@ -6,9 +6,11 @@ const root=path.resolve(import.meta.dirname,'..');
 const dist=path.join(root,'dist');
 const out=path.join(dist,'server');
 const accounts=process.argv.includes('--accounts');
-const files={'index.html':'text/html; charset=utf-8','config.js':'text/javascript; charset=utf-8','app.js':'text/javascript; charset=utf-8','core.js':'text/javascript; charset=utf-8','storage.js':'text/javascript; charset=utf-8','style.css':'text/css; charset=utf-8','auth.js':'text/javascript; charset=utf-8','auth.css':'text/css; charset=utf-8','data.json':'application/json'};
+const files={'index.html':'text/html; charset=utf-8','config.js':'text/javascript; charset=utf-8','app.js':'text/javascript; charset=utf-8','core.js':'text/javascript; charset=utf-8','storage.js':'text/javascript; charset=utf-8','style.css':'text/css; charset=utf-8','auth.js':'text/javascript; charset=utf-8','auth.css':'text/css; charset=utf-8','pwa.js':'text/javascript; charset=utf-8','pwa.css':'text/css; charset=utf-8','sw.js':'text/javascript; charset=utf-8','manifest.webmanifest':'application/manifest+json','data.json':'application/json','icons/atlas-180.png':'image/png','icons/atlas-192.png':'image/png','icons/atlas-512.png':'image/png'};
 const assets=Object.fromEntries(Object.entries(files).map(([file,type])=>{
-  let body=fs.readFileSync(path.join(dist,file),'utf8');
+  const binary=type.startsWith('image/');
+  let body=fs.readFileSync(path.join(dist,file),binary?null:'utf8');
+  if(binary)body={encoding:'base64',value:body.toString('base64')};
   if(file==='config.js'&&accounts)body='globalThis.ATLAS_CONFIG = Object.freeze({public: true, cloudSync: true, accounts: true});\n';
   if(file==='index.html'&&accounts)body=body.replace('● Spazio privato','● Spazio personale').replace('<span class="avatar">MD</span>','<span class="avatar" id="account-avatar">MA</span>');
   return ['/'+file,{type,body}];
