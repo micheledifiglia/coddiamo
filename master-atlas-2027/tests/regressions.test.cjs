@@ -18,6 +18,15 @@ test('La testata resta essenziale e le azioni profilo sono raccolte nel menu',()
   assert.match(header,/id="install-app"[\s\S]*id="account-add-passkey"[\s\S]*id="account-manage-profile"[\s\S]*id="account-logout"/);
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8'),/@media\(max-width:820px\)[\s\S]*\.command-trigger \.command-copy\{display:block/);
 });
+test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su telefono',()=>{
+  const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
+  const css=fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8');
+  assert.match(app,/class="dashboard-grid" aria-label="Riepilogo del tuo atlante"/);
+  assert.match(app,/class="distribution-donut"[\s\S]*data-region-tab="Europa"/);
+  assert.match(app,/class="stage-list"/);assert.match(app,/class="dashboard-card shortlist-card"/);
+  assert.match(css,/\.dashboard-card\{[\s\S]*backdrop-filter:blur\(30px\)/);
+  assert.match(css,/@media\(max-width:560px\)\{[\s\S]*\.dashboard-rail\{grid-template-columns:minmax\(0,1fr\)\}/);
+});
 test('Il catalogo contiene tutte le voci e ID univoci',()=>{
   assert.equal(catalog.programs.length,208);assert.equal(catalog.universities.length,27);
   assert.equal(new Set(catalog.programs.map(p=>p.id)).size,208);
