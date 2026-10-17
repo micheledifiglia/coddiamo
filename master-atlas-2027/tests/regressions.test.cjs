@@ -16,7 +16,7 @@ test('La testata resta essenziale e le azioni profilo sono raccolte nel menu',()
   assert.match(right,/href="#programs" aria-label="Esplora e aggiungi percorsi"/);
   assert.match(right,/id="command-toggle"[^>]*aria-label="Apri ricerca rapida"[\s\S]*id="theme-toggle"/);
   assert.ok(right.indexOf('href="#programs"')<right.indexOf('id="command-toggle"')&&right.indexOf('id="command-toggle"')<right.indexOf('id="theme-toggle"'),'azioni in ordine +, ricerca, tema');
-  assert.match(header,/id="install-app"[\s\S]*id="account-add-passkey"[\s\S]*id="account-manage-profile"[\s\S]*id="account-logout"/);
+  assert.match(header,/id="install-app"[\s\S]*id="account-manage-profile"[\s\S]*id="account-logout"/);
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8'),/@media\(max-width:820px\)[\s\S]*\.command-trigger \.command-copy\{display:block/);
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8'),/\.header-actions-glass\{display:flex[\s\S]*backdrop-filter:blur\(26px\)/);
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8'),/\.sidebar>\.brand,\.sidebar>\.edition,\.sidebar>\.sidebar-bottom\{display:none\}/);
@@ -26,7 +26,8 @@ test('Le icone dell’interfaccia usano SVG coerenti su iOS e desktop',()=>{
   const html=fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8');
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
   const css=fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8');
-  assert.match(html,/id="install-app"[\s\S]*class="profile-action-icon"[\s\S]*id="account-add-passkey"[\s\S]*class="profile-action-icon"[\s\S]*id="account-manage-profile"[\s\S]*class="profile-action-icon"[\s\S]*id="account-logout"[\s\S]*class="profile-action-icon"/);
+  assert.match(html,/id="install-app"[\s\S]*id="account-manage-profile"[\s\S]*class="profile-action-icon"[\s\S]*id="account-logout"[\s\S]*class="profile-action-icon"/);
+  assert.doesNotMatch(`${html}\n${fs.readFileSync(path.join(__dirname,'../dist/auth.js'),'utf8')}`,/passkey|nome utente|account-add-passkey/i);
   assert.match(html,/id="theme-toggle"[\s\S]*<svg class="theme-glyph theme-icon-sun"[\s\S]*<svg class="theme-glyph theme-icon-moon"/);
   assert.match(app,/button\.title=theme==='dark'\?'Passa al tema chiaro':'Passa al tema scuro'/);
   assert.doesNotMatch(app,/\.theme-glyph',button\)\.innerHTML/,'le icone del tema restano SVG statiche per compatibilità Safari');
@@ -104,7 +105,7 @@ test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8'),/src="globe\.js" defer><\/script><script src="app\.js" defer/);
   const serviceWorker=fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8');
   assert.match(serviceWorker,/\/globe\.js/);
-  assert.match(serviceWorker,/master-atlas-shell-v6/);
+  assert.match(serviceWorker,/master-atlas-shell-v7/);
 });
 
 test('La tipografia dell’interfaccia usa il sans-serif Manrope come nelle immagini di riferimento',()=>{

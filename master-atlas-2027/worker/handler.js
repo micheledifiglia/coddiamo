@@ -1,9 +1,9 @@
 /* API authorization uses the identity supplied by Sites' authenticated dispatch. */
-function createHandler(assets, catalog, Core, passkeyAuth = null) {
+function createHandler(assets, catalog, Core, accountAuth = null) {
   const json = (value, status = 200) => new Response(JSON.stringify(value), {status, headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store','x-content-type-options':'nosniff'}});
   return async function handle(request, env) {
     const url = new URL(request.url);
-    if (passkeyAuth && url.pathname.startsWith('/api/auth/')) return passkeyAuth.handle(request,env);
+    if (accountAuth && url.pathname.startsWith('/api/auth/')) return accountAuth.handle(request,env);
     if (!url.pathname.startsWith('/api/')) {
       if (!['GET','HEAD'].includes(request.method)) return new Response('Method not allowed',{status:405});
       const asset = assets[url.pathname === '/' ? '/index.html' : url.pathname];
@@ -11,8 +11,8 @@ function createHandler(assets, catalog, Core, passkeyAuth = null) {
       const body=asset.body?.encoding==='base64' ? Uint8Array.from(atob(asset.body.value),char=>char.charCodeAt(0)) : asset.body;
       return new Response(request.method === 'HEAD' ? null : body, {headers:{'content-type':asset.type,'cache-control':'no-cache','x-content-type-options':'nosniff'}});
     }
-    const owner = passkeyAuth
-      ? await passkeyAuth.resolveOwner(request,env)
+    const owner = accountAuth
+      ? await accountAuth.resolveOwner(request,env)
       : request.headers.get('oai-authenticated-user-id');
     if (!owner) return json({error:'Accesso ChatGPT richiesto'},401);
     if (!env.DB) return json({error:'Database non disponibile'},503);
