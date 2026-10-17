@@ -134,7 +134,7 @@ test('La build Pages contiene soltanto risorse pubbliche e disabilita il cloud',
   const run=spawnSync(process.execPath,[path.join(__dirname,'../scripts/build-pages.mjs')],{encoding:'utf8'});
   assert.equal(run.status,0,run.stderr);
   const dir=path.join(__dirname,'../_site');
-  assert.deepEqual(fs.readdirSync(dir).sort(),['.nojekyll','app.js','config.js','core.js','data.json','index.html','release.json','storage.js','style.css'].sort());
+  assert.deepEqual(fs.readdirSync(dir).sort(),['.nojekyll','app.js','auth.css','auth.js','config.js','core.js','data.json','index.html','release.json','storage.js','style.css'].sort());
   const context={};vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(dir,'config.js'),'utf8'),context);
   assert.equal(context.ATLAS_CONFIG.cloudSync,false);assert.equal(context.ATLAS_CONFIG.public,true);
   const html=fs.readFileSync(path.join(dir,'index.html'),'utf8');assert.ok(html.includes('Sito pubblico'));assert.ok(!html.includes('Spazio privato'));

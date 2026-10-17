@@ -111,8 +111,12 @@ function route(){
   view=Object.hasOwn(labels,target)?target:'overview';render();window.scrollTo(0,0);
 }
 window.addEventListener('hashchange',route);
-fetch('data.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(async d=>{
-  D=d;
-  store=new AtlasStore(D,next=>{const changed=JSON.stringify(state)!==JSON.stringify(next);state=next;if(changed&&!$('#detail').open)render();else updateChrome();},updateSync);
-  state=store.state;route();await store.start();
+const appReady=globalThis.ATLAS_CONFIG?.accounts===true?globalThis.AtlasAuth.ready:Promise.resolve(null);
+appReady.then(user=>{
+  if(globalThis.ATLAS_CONFIG?.accounts===true&&!user)return;
+  return fetch('data.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(async d=>{
+    D=d;
+    store=new AtlasStore(D,next=>{const changed=JSON.stringify(state)!==JSON.stringify(next);state=next;if(changed&&!$('#detail').open)render();else updateChrome();},updateSync);
+    state=store.state;route();await store.start();
+  });
 }).catch(()=>{$('#main').innerHTML='<div class="empty"><h2>Non riesco a caricare il dossier.</h2><p>Ricarica la pagina per riprovare.</p><button class="button" onclick="location.reload()">Ricarica</button></div>'});

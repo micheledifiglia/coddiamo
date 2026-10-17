@@ -3,11 +3,12 @@ class AtlasStore {
   constructor(catalog, onChange, onStatus) {
     this.catalog = catalog; this.onChange = onChange; this.onStatus = onStatus;
     this.cloudSync = globalThis.ATLAS_CONFIG?.cloudSync !== false;
-    this.key = 'master-atlas-2027-v2'; this.revision = 0; this.pending = false; this.busy = false;
+    const accountId=globalThis.ATLAS_CONFIG?.accounts===true?globalThis.AtlasAuth?.currentUser?.id:null;
+    this.key = 'master-atlas-2027-v2'+(accountId?':'+accountId:''); this.revision = 0; this.pending = false; this.busy = false;
     this.state = AtlasCore.empty();
     try {
       const current = localStorage.getItem(this.key);
-      const legacy = current || localStorage.getItem('master-atlas-2027-v1');
+      const legacy = current || (accountId?null:localStorage.getItem('master-atlas-2027-v1'));
       this.state = AtlasCore.normalize(legacy ? JSON.parse(legacy) : {}, catalog);
       if (legacy && !current) this.snapshot(this.state,'Migrazione dalla prima versione');
     } catch { onStatus('Archivio locale non leggibile: usa un backup per recuperare i progressi.'); }
@@ -61,7 +62,7 @@ class AtlasStore {
     try {
       for(let attempt=0;attempt<4;attempt++) {
         const response=await fetch('/api/state',{cache:'no-store',signal:AbortSignal.timeout(10000)});
-        if(!response.ok)throw Error(response.status===401?'Accedi con ChatGPT per sincronizzare.':'Offline · progressi conservati nel browser');
+        if(!response.ok){if(response.status===401&&globalThis.ATLAS_CONFIG?.accounts===true){this.onStatus('Sessione terminata · riaccedi per sincronizzare.');setTimeout(()=>location.reload(),1200);return;}throw Error(response.status===401?'Accedi con ChatGPT per sincronizzare.':'Offline · progressi conservati nel browser');}
         const remote=await response.json();
         const merged=AtlasCore.merge(this.state,AtlasCore.normalize(remote.state,this.catalog));
         this.state=merged;this.revision=remote.revision;this.writeLocal();this.onChange(this.state);

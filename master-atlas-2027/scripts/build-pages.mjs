@@ -4,7 +4,7 @@ import {execFileSync} from 'node:child_process';
 
 const root = path.resolve(import.meta.dirname,'..');
 const out = path.join(root,'_site');
-const files = ['index.html','style.css','app.js','core.js','storage.js','config.js','data.json'];
+const files = ['index.html','style.css','app.js','core.js','storage.js','config.js','auth.js','auth.css','data.json'];
 const allowed = new Set([...files,'.nojekyll','release.json']);
 fs.mkdirSync(out,{recursive:true});
 for(const file of fs.readdirSync(out)) {

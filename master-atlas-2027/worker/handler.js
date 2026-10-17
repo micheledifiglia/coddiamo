@@ -1,15 +1,18 @@
 /* API authorization uses the identity supplied by Sites' authenticated dispatch. */
-function createHandler(assets, catalog, Core) {
+function createHandler(assets, catalog, Core, passkeyAuth = null) {
   const json = (value, status = 200) => new Response(JSON.stringify(value), {status, headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store','x-content-type-options':'nosniff'}});
   return async function handle(request, env) {
     const url = new URL(request.url);
+    if (passkeyAuth && url.pathname.startsWith('/api/auth/')) return passkeyAuth.handle(request,env);
     if (!url.pathname.startsWith('/api/')) {
       if (!['GET','HEAD'].includes(request.method)) return new Response('Method not allowed',{status:405});
       const asset = assets[url.pathname === '/' ? '/index.html' : url.pathname];
       if (!asset) return new Response('Not found', {status:404});
       return new Response(request.method === 'HEAD' ? null : asset.body, {headers:{'content-type':asset.type,'cache-control':'no-cache','x-content-type-options':'nosniff'}});
     }
-    const owner = request.headers.get('oai-authenticated-user-id');
+    const owner = passkeyAuth
+      ? await passkeyAuth.resolveOwner(request,env)
+      : request.headers.get('oai-authenticated-user-id');
     if (!owner) return json({error:'Accesso ChatGPT richiesto'},401);
     if (!env.DB) return json({error:'Database non disponibile'},503);
     if (!['GET','PUT'].includes(request.method)) return json({error:'Metodo non consentito'},405);

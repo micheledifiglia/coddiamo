@@ -1,18 +1,19 @@
 # Master Atlas 2027
 
-App per esplorare 208 percorsi e seguire le candidature, con due pubblicazioni:
+App per esplorare 208 percorsi e seguire le candidature, con tre pubblicazioni indipendenti:
 
-- **Sito pubblico:** https://micheledifiglia.github.io/coddiamo/ — nessun account richiesto; note e progressi rimangono nel browser di ogni visitatore, con backup esportabile.
+- **GitHub Pages:** https://micheledifiglia.github.io/coddiamo/ — demo pubblica senza account; note e progressi restano nel browser del visitatore, con backup esportabile.
+- **Profili pubblici Sites:** https://master-atlas-profili-2027.fair-swan-2763.chatgpt.site — profili personali, accesso con passkey e sincronizzazione cloud separata.
 - **Copia privata Sites:** https://master-atlas-michele-2027.fair-swan-2763.chatgpt.site — accesso ChatGPT e sincronizzazione personale tramite Worker e D1.
 
-Il sito pubblico non interroga il database privato e non pubblica le note personali.
+I tre siti usano progetti e database distinti. GitHub Pages non richiede login né interroga i database Sites. Nella versione profili, il nome utente identifica il profilo e il passkey sblocca la chiave del dispositivo; **Resta connesso** mantiene la sessione su quel dispositivo per 30 giorni. È possibile aggiungere fino a cinque passkey. Aggiungine uno su un secondo dispositivo: se perdi tutte le passkey, il profilo non è recuperabile automaticamente.
 
 ## Sviluppo e verifiche
 
 1. Installare le dipendenze con `npm ci` (servono solo allo sviluppo e alla generazione delle migrazioni).
 2. `python parse_data.py` rigenera il catalogo dal file versionato `data/dossier.md`. È possibile passare `--source` e `--output`.
 3. `npm test` verifica identificativi, migrazione, filtri dei partner, conflitti dei backup, isolamento e concorrenza dell'API. Richiede Python 3 e Node.js 24 con `node:sqlite`.
-4. `npm run build` genera `dist/server/index.js`. I file frontend in `dist/` sono sorgenti versionati; `dist/server/` è output ignorato.
+4. `npm run build` genera il Worker privato; `npm run build:accounts` genera il Worker con passkey. I file frontend in `dist/` sono sorgenti versionati; `dist/server/` è output ignorato.
 
 Gli ID dei percorsi derivano da università e nome, mai dal ranking. `data/legacy-ids.json` è la mappa immutabile dei vecchi ID: non rigenerarla dopo un riordino. Se si rinomina un programma o cambia l'ateneo di riferimento, mantenere esplicitamente il precedente ID o predisporre una migrazione; non assegnare silenziosamente le note a un nuovo corso.
 
@@ -31,6 +32,10 @@ Ogni push su `main` avvia `.github/workflows/deploy-pages.yml`: il workflow rige
 Per verificare la stessa build localmente: `node scripts/build-pages.mjs`. L'output `_site/` è ignorato da Git ed esclude Worker, database, configurazioni Sites e dati di runtime. `release.json` nel sito espone soltanto il commit pubblicato e la data della build, per verificare quale versione è online. Non modificare `_site/`: intervenire sui sorgenti in `dist/` o sul dossier versionato, poi fare commit e push.
 
 La pubblicazione usa la modalità locale (`cloudSync: false`). I dati salvati su un altro dominio non si trasferiscono automaticamente: esportare un backup dalla vecchia versione e importarlo nella nuova. Rendere pubblico il sito non rende pubbliche le note salvate dai visitatori.
+
+### Profili pubblici: Sites
+
+Il progetto Sites dei profili è separato dalla copia privata. Per aggiornarlo, fare prima commit e push su GitHub, poi usare un checkout Sites separato. `npm run prepare:public-accounts-release -- <checkout-sites>` copia i soli file tracciati dal commit verificato, preserva l'identità del nuovo progetto Sites e configura il binding D1 `DB`; non riutilizzare il `.openai/hosting.json` della copia privata. Eseguire `npm run build:accounts`, passare test e build al source helper Sites e pubblicare sul progetto con URL `master-atlas-profili-2027`. I valori `ATLAS_AUTH_ORIGIN` e `ATLAS_RP_ID` devono corrispondere all'origine HTTPS assegnata. L'accesso pubblico al sito non rende pubblici i dati nel database: ogni richiesta richiede una sessione valida e le query sono isolate per profilo.
 
 ### Copia privata: Sites
 
