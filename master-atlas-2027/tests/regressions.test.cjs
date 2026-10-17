@@ -41,7 +41,9 @@ test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   assert.equal(Object.keys(locations).length,catalog.universities.length);
   for(const uni of catalog.universities){const point=locations[uni.name];assert.ok(point,`coordinate per ${uni.name}`);assert.equal(point.length,2);assert.ok(point[0]>=-90&&point[0]<=90);assert.ok(point[1]>=-180&&point[1]<=180)}
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8'),/src="globe\.js" defer><\/script><script src="app\.js" defer/);
-  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/\/globe\.js/);
+  const serviceWorker=fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8');
+  assert.match(serviceWorker,/\/globe\.js/);
+  assert.match(serviceWorker,/master-atlas-shell-v4/);
 });
 
 test('La tipografia dell’interfaccia usa il sans-serif Manrope come nelle immagini di riferimento',()=>{
