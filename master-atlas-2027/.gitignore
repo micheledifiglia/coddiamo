@@ -6,3 +6,6 @@ node_modules/
 *.log
 .openai/local/
 __pycache__/
+dist/server/
+dist/.openai/
+.wrangler/

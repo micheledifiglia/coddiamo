@@ -1,0 +1,17 @@
+{
+  "name": "master-atlas-2027",
+  "private": true,
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.cjs",
+    "preview": "node scripts/preview.mjs"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.0",
+    "drizzle-orm": "^0.45.4"
+  },
+  "overrides": {
+    "esbuild": "^0.25.0"
+  }
+}
