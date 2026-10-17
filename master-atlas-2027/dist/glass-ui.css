@@ -489,3 +489,51 @@ footer{border-color:rgba(109,128,155,.24);color:#758297}
 @media(max-width:820px){.globe-stage{height:clamp(300px,67vw,430px)}.globe-place-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:560px){.globe-heading{gap:8px}.globe-heading h2{max-width:250px;font-size:20px}.globe-heading .glass-chip{max-width:108px;padding:6px 8px;font-size:7px;white-space:normal;text-align:center}.globe-subtitle{max-width:275px;font-size:10px}.globe-stage{height:clamp(285px,90vw,370px);margin:0 -8px}.globe-controls{right:8px;bottom:13px}.globe-controls button{width:33px;height:33px}.globe-zoom-readout{right:14px;bottom:56px}.globe-caption{align-items:flex-start;flex-direction:column;gap:3px;padding:0 4px}.globe-shortlist{gap:6px;margin-top:12px}.globe-selected-place{font-size:8px}.globe-place-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}.globe-place{padding:8px 6px}}
 @media(prefers-reduced-motion:reduce){#university-globe,.globe-controls button,.globe-place{transition:none!important}}
+
+/* Cornice Liquid Glass ispirata alla schermata iPhone di riferimento */
+.app-header{justify-content:space-between;gap:16px}
+.app-header .header-start{flex:0 0 auto;min-width:0}
+.app-profile-trigger{width:52px;min-width:52px;height:52px;min-height:52px;justify-content:center;padding:0;border:0;border-radius:18px;background:transparent;box-shadow:none}
+.app-profile-trigger:hover{background:transparent;box-shadow:none}
+.app-profile-icon.brand-mark{display:flex;width:50px;height:50px;align-items:center;justify-content:center;padding:0;border:1px solid rgba(255,255,255,.78);border-radius:17px;background:linear-gradient(145deg,#778df4,#5066d4 58%,#394fbd);color:#fff;font:700 30px/1 'Manrope',system-ui,sans-serif;letter-spacing:-2px;text-shadow:0 1px 3px rgba(20,35,82,.24);box-shadow:inset 0 1px 0 rgba(255,255,255,.52),0 8px 22px rgba(30,47,92,.2)}
+.app-profile-icon.brand-mark span{color:#dce6ff}
+.app-header .profile-actions{left:0;right:auto}
+.header-right{gap:0}
+.header-actions-glass{display:flex;align-items:center;gap:5px;padding:5px;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:rgba(231,238,249,.68);color:#263a57;box-shadow:0 10px 30px rgba(28,45,72,.14),inset 0 1px 0 rgba(255,255,255,.88);backdrop-filter:blur(26px) saturate(185%);-webkit-backdrop-filter:blur(26px) saturate(185%)}
+.header-action{display:grid;width:44px;height:44px;flex:none;place-items:center;padding:0;border:1px solid transparent;border-radius:50%;background:transparent;color:inherit;text-decoration:none;transition:background .18s ease,transform .18s ease,box-shadow .18s ease}
+.header-action:hover{transform:scale(1.04);background:rgba(255,255,255,.58);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
+.header-action svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.7}
+.header-actions-glass .theme-toggle{width:44px;height:44px;border:1px solid transparent;border-radius:50%;background:transparent;color:inherit;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;font-size:21px}
+.header-actions-glass .theme-toggle:hover{background:rgba(255,255,255,.58);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
+.header-actions-glass .theme-glyph{line-height:1}
+#compare-tray{position:fixed;z-index:55;bottom:22px;left:50%;display:flex;align-items:center;gap:12px;width:max-content;max-width:calc(100vw - 32px);padding:9px 12px 9px 18px;transform:translateX(-50%);border:1px solid rgba(255,255,255,.54);border-radius:999px;background:rgba(235,241,250,.78);color:#293c59;box-shadow:0 15px 38px rgba(23,39,64,.22),inset 0 1px 0 rgba(255,255,255,.85);backdrop-filter:blur(28px) saturate(185%);-webkit-backdrop-filter:blur(28px) saturate(185%)}
+#compare-tray[hidden]{display:none}
+#compare-tray .button{min-height:40px;padding:9px 15px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:rgba(255,255,255,.72);color:#263858;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+#compare-tray .text-button{display:grid;width:36px;height:36px;flex:none;place-items:center;border:1px solid rgba(89,110,147,.14);border-radius:50%;background:rgba(255,255,255,.3);color:#62738c;font-size:20px}
+:root[data-theme="dark"] .header-actions-glass{border-color:rgba(221,234,255,.2);background:rgba(39,54,76,.72);color:#f1f5fb;box-shadow:0 10px 30px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.12)}
+:root[data-theme="dark"] .header-action:hover,:root[data-theme="dark"] .header-actions-glass .theme-toggle:hover{background:rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+:root[data-theme="dark"] #compare-tray{border-color:rgba(218,233,255,.2);background:rgba(24,38,58,.86);color:#eef3fb;box-shadow:0 15px 38px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.12)}
+:root[data-theme="dark"] #compare-tray .button{border-color:rgba(225,236,255,.17);background:rgba(234,240,251,.16);color:#f1f5fb}
+:root[data-theme="dark"] #compare-tray .text-button{border-color:rgba(225,236,255,.15);background:rgba(255,255,255,.08);color:#d3deee}
+@media(max-width:820px){
+  .sidebar{height:0;padding:0;border:0;background:transparent;box-shadow:none}
+  .sidebar>.brand,.sidebar>.edition,.sidebar>.sidebar-bottom{display:none}
+  header{top:calc(7px + env(safe-area-inset-top));height:62px;margin:0 12px;padding:0 10px;border-radius:24px}
+  .app-header{gap:8px}
+  .app-profile-trigger{width:48px;min-width:48px;height:48px;min-height:48px}
+  .app-profile-icon.brand-mark{width:46px;height:46px;border-radius:16px}
+  .header-actions-glass{gap:2px;padding:4px}
+  .header-action,.header-actions-glass .theme-toggle{width:42px;height:42px}
+  #compare-tray{bottom:calc(79px + env(safe-area-inset-bottom));max-width:calc(100vw - 24px);padding:8px 9px 8px 14px}
+  :root[data-theme="dark"] #compare-tray{bottom:calc(79px + env(safe-area-inset-bottom))}
+}
+@media(max-width:560px){
+  header{margin-inline:10px;padding-inline:9px}
+  .header-actions-glass{gap:0;padding:4px}
+  .header-action,.header-actions-glass .theme-toggle{width:39px;height:42px}
+  .header-action svg{width:21px;height:21px}
+  #compare-tray{gap:8px}
+  #compare-tray>span{font-size:12px;white-space:nowrap}
+  #compare-tray .button{min-height:38px;padding:8px 12px;font-size:11px}
+}
+@media(prefers-reduced-transparency:reduce){.header-actions-glass,#compare-tray{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(239,243,249,.97)}:root[data-theme="dark"] .header-actions-glass,:root[data-theme="dark"] #compare-tray{background:rgba(22,36,55,.97)}}

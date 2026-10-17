@@ -10,13 +10,17 @@ test('La testata resta essenziale e le azioni profilo sono raccolte nel menu',()
   const html=fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8');
   const header=html.match(/<header class="app-header">([\s\S]*?)<\/header>/)?.[1];
   assert.ok(header,'testata applicazione presente');
-  const visibleHeader=header.split('id="profile-actions"')[0];
-  assert.match(visibleHeader,/id="command-toggle"/);
-  assert.match(visibleHeader,/id="theme-toggle"/);
-  assert.match(visibleHeader,/id="profile-toggle"/);
-  assert.doesNotMatch(visibleHeader,/id="install-app"|id="account-add-passkey"|id="account-manage-profile"|id="account-logout"/);
+  const left=header.split('<div class="header-right">')[0],right=header.split('<div class="header-right">')[1];
+  assert.match(left,/id="profile-toggle"[^>]*aria-label="Apri profilo"[\s\S]*class="brand-mark app-profile-icon"/);
+  assert.doesNotMatch(left,/id="command-toggle"|id="theme-toggle"|Cerca percorsi/);
+  assert.match(right,/href="#programs" aria-label="Esplora e aggiungi percorsi"/);
+  assert.match(right,/id="command-toggle"[^>]*aria-label="Apri ricerca rapida"[\s\S]*id="theme-toggle"/);
+  assert.ok(right.indexOf('href="#programs"')<right.indexOf('id="command-toggle"')&&right.indexOf('id="command-toggle"')<right.indexOf('id="theme-toggle"'),'azioni in ordine +, ricerca, tema');
   assert.match(header,/id="install-app"[\s\S]*id="account-add-passkey"[\s\S]*id="account-manage-profile"[\s\S]*id="account-logout"/);
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8'),/@media\(max-width:820px\)[\s\S]*\.command-trigger \.command-copy\{display:block/);
+  assert.match(fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8'),/\.header-actions-glass\{display:flex[\s\S]*backdrop-filter:blur\(26px\)/);
+  assert.match(fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8'),/\.sidebar>\.brand,\.sidebar>\.edition,\.sidebar>\.sidebar-bottom\{display:none\}/);
+  assert.match(fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8'),/#compare-tray\{position:fixed[\s\S]*border-radius:999px[\s\S]*backdrop-filter:blur\(28px\)/);
 });
 test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su telefono',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
