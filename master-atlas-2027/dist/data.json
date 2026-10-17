@@ -1,0 +1,3509 @@
+{
+  "updated": "16 ottobre 2026",
+  "universities": [
+    {
+      "id": "1-1",
+      "rank": 1,
+      "name": "Utrecht",
+      "region": "Europa",
+      "url": "",
+      "city": "Utrecht / Eindhoven",
+      "offer": "CSDB, MCLS, RMT, Biofabrication"
+    },
+    {
+      "id": "1-2",
+      "rank": 2,
+      "name": "Sorbonne",
+      "region": "Europa",
+      "url": "",
+      "city": "Parigi + partner internazionali",
+      "offer": "BMC, Biosciences to Biotherapies, staminali e sviluppo"
+    },
+    {
+      "id": "1-3",
+      "rank": 3,
+      "name": "UZH",
+      "region": "Europa",
+      "url": "",
+      "city": "Zurigo",
+      "offer": "Biology cellulare/sviluppo, Biochemistry"
+    },
+    {
+      "id": "1-4",
+      "rank": 4,
+      "name": "Basel",
+      "region": "Europa",
+      "url": "",
+      "city": "Basilea",
+      "offer": "Molecular Biology, ricerca cellulare e rigenerativa"
+    },
+    {
+      "id": "1-5",
+      "rank": 5,
+      "name": "ETH",
+      "region": "Europa",
+      "url": "",
+      "city": "Zurigo / Basilea",
+      "offer": "Biotechnology, Biology, Molecular Bioengineering"
+    },
+    {
+      "id": "1-6",
+      "rank": 6,
+      "name": "Vienna",
+      "region": "Europa",
+      "url": "",
+      "city": "Vienna",
+      "offer": "Molecular Biology–Stem Cells, Molecular Precision Medicine"
+    },
+    {
+      "id": "1-7",
+      "rank": 7,
+      "name": "UvA",
+      "region": "Europa",
+      "url": "",
+      "city": "Amsterdam",
+      "offer": "Medical Biology–Cell Biology/Developmental and Therapeutic Biology"
+    },
+    {
+      "id": "1-8",
+      "rank": 8,
+      "name": "Erasmus University / Erasmus MC",
+      "region": "Europa",
+      "url": "",
+      "city": "Rotterdam",
+      "offer": "Molecular Medicine, ricerca biomedica"
+    },
+    {
+      "id": "1-9",
+      "rank": 9,
+      "name": "Karolinska",
+      "region": "Europa",
+      "url": "",
+      "city": "Stoccolma",
+      "offer": "Biomedicine, Molecular Techniques in Life Science"
+    },
+    {
+      "id": "1-10",
+      "rank": 10,
+      "name": "Paris-Saclay",
+      "region": "Europa",
+      "url": "",
+      "city": "Évry / area Paris-Saclay",
+      "offer": "Staminali, bioterapie, genetica e biologia sintetica"
+    },
+    {
+      "id": "1-11",
+      "rank": 11,
+      "name": "EPFL",
+      "region": "Europa",
+      "url": "",
+      "city": "Losanna",
+      "offer": "Life Sciences Engineering e bioingegneria"
+    },
+    {
+      "id": "1-12",
+      "rank": 12,
+      "name": "Copenhagen",
+      "region": "Europa",
+      "url": "",
+      "city": "Copenaghen",
+      "offer": "Molecular Biomedicine, Biochemistry, Immunology"
+    },
+    {
+      "id": "1-13",
+      "rank": 13,
+      "name": "Helsinki",
+      "region": "Europa",
+      "url": "",
+      "city": "Helsinki",
+      "offer": "Cellular and Developmental Biology, Translational Medicine"
+    },
+    {
+      "id": "1-14",
+      "rank": 14,
+      "name": "Paris Cité",
+      "region": "Europa",
+      "url": "",
+      "city": "Parigi",
+      "offer": "BME–Biotherapies, genetica, sviluppo ed epiteli"
+    },
+    {
+      "id": "1-15",
+      "rank": 15,
+      "name": "TUM",
+      "region": "Europa",
+      "url": "",
+      "city": "Freising / Garching / Straubing",
+      "offer": "Biology e più percorsi biotech; lingua da distinguere"
+    },
+    {
+      "id": "1-16",
+      "rank": 16,
+      "name": "LMU",
+      "region": "Europa",
+      "url": "",
+      "city": "Monaco / Martinsried",
+      "offer": "Molecular Principles of Life, Biochemistry"
+    },
+    {
+      "id": "1-17",
+      "rank": 17,
+      "name": "Geneva",
+      "region": "Europa",
+      "url": "",
+      "city": "Ginevra",
+      "offer": "Biochemistry, Biology, Chemical Biology"
+    },
+    {
+      "id": "1-18",
+      "rank": 18,
+      "name": "Aarhus",
+      "region": "Europa",
+      "url": "",
+      "city": "Aarhus",
+      "offer": "Molecular Biology e ricerca sperimentale"
+    },
+    {
+      "id": "1-19",
+      "rank": 19,
+      "name": "UNIL",
+      "region": "Europa",
+      "url": "",
+      "city": "Losanna",
+      "offer": "Molecular Life Sciences, Medical Biology; verifiche 2027 da completare"
+    },
+    {
+      "id": "1-20",
+      "rank": 20,
+      "name": "Oslo",
+      "region": "Europa",
+      "url": "",
+      "city": "Oslo",
+      "offer": "Bioscience–Genetics/Development/Cell Biology"
+    },
+    {
+      "id": "2-1",
+      "rank": 1,
+      "name": "UBC",
+      "region": "Extra-Europa",
+      "url": "",
+      "city": "Vancouver",
+      "offer": "Cell and Developmental Biology, Biochemistry and Molecular Biology"
+    },
+    {
+      "id": "2-2",
+      "rank": 2,
+      "name": "Toronto",
+      "region": "Extra-Europa",
+      "url": "",
+      "city": "Toronto / Mississauga",
+      "offer": "Cell and Systems Biology, Molecular Genetics, Medical Biophysics"
+    },
+    {
+      "id": "2-3",
+      "rank": 3,
+      "name": "Melbourne",
+      "region": "Extra-Europa",
+      "url": "",
+      "city": "Melbourne",
+      "offer": "Biomedical Science, BioSciences"
+    },
+    {
+      "id": "2-4",
+      "rank": 4,
+      "name": "Monash",
+      "region": "Extra-Europa",
+      "url": "",
+      "city": "Melbourne / Clayton",
+      "offer": "Rigenerazione e staminali, Biotechnology"
+    },
+    {
+      "id": "2-5",
+      "rank": 5,
+      "name": "Queensland — UQ",
+      "region": "Extra-Europa",
+      "url": "",
+      "city": "Brisbane",
+      "offer": "Biotechnology Research Extensive e Molecular Biology Research Extensive"
+    },
+    {
+      "id": "2-6",
+      "rank": 6,
+      "name": "NUS",
+      "region": "Extra-Europa",
+      "url": "",
+      "city": "Singapore",
+      "offer": "Ricerca biomedica e biotechnology; requisiti da verificare"
+    },
+    {
+      "id": "2-7",
+      "rank": 7,
+      "name": "Sydney",
+      "region": "Extra-Europa",
+      "url": "",
+      "city": "Sydney",
+      "offer": "Opzioni più specialistiche e MPhil subordinati all'accesso"
+    }
+  ],
+  "programs": [
+    {
+      "id": "3-1",
+      "rank": 1,
+      "name": "Cancer, Stem Cells and Developmental Biology",
+      "region": "Europa",
+      "url": "https://www.uu.nl/en/masters/cancer-stem-cells-and-developmental-biology/study-programme",
+      "university": "Utrecht",
+      "city": "Utrecht",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-2",
+      "rank": 2,
+      "name": "Molecular and Cellular Life Sciences — Molecules & Cells / Genes to Organisms / Biophysics & Molecular Imaging",
+      "region": "Europa",
+      "url": "https://www.uu.nl/en/masters/molecular-and-cellular-life-sciences",
+      "university": "Utrecht",
+      "city": "Utrecht",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Priorità molto alta. Tre track: Genes to Organisms; Molecules & Cells; Biophysics & Molecular Imaging. Uno o due progetti di ricerca; inglese, 120 ECTS."
+      ]
+    },
+    {
+      "id": "3-3",
+      "rank": 3,
+      "name": "From Fundamental Molecular Biosciences to Biotherapies",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/en/study/our-programmes-0/programs-french/masters/masters-degree-molecular-and-cellular-biology-bmc-7",
+      "university": "Sorbonne",
+      "city": "Parigi + partner scelto",
+      "type": "M1–M2·M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-4",
+      "rank": 4,
+      "name": "Cell Biology, Development, Cancer: from stem cells to organisms",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/en/study/our-programmes-0/programs-french/masters/masters-degree-molecular-and-cellular-biology-bmc-3",
+      "university": "Sorbonne",
+      "city": "Parigi",
+      "type": "M2",
+      "conditions": "L",
+      "notes": []
+    },
+    {
+      "id": "3-5",
+      "rank": 5,
+      "name": "Biology — Molecular and Cellular Biology",
+      "region": "Europa",
+      "url": "https://www.biologie.uzh.ch/de/Studium/Masterstudium/MasterStudies/MolecularCellularBiology.html",
+      "university": "UZH",
+      "city": "Zurigo",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-6",
+      "rank": 6,
+      "name": "Biology — Genetics and Development",
+      "region": "Europa",
+      "url": "https://www.biologie.uzh.ch/de/Studium/Masterstudium/MasterStudies/GeneticsAndDevelopment.html",
+      "university": "UZH",
+      "city": "Zurigo",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-7",
+      "rank": 7,
+      "name": "Molecular Biology",
+      "region": "Europa",
+      "url": "https://bio.unibas.ch/en/studies/msc-molecular-biology/",
+      "university": "Basel",
+      "city": "Basilea",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-8",
+      "rank": 8,
+      "name": "Biotechnology",
+      "region": "Europa",
+      "url": "https://master-biotech.ethz.ch/the-programme.html",
+      "university": "ETH",
+      "city": "Basilea",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-9",
+      "rank": 9,
+      "name": "Molecular Biology — Stem Cells and Developmental Biology",
+      "region": "Europa",
+      "url": "https://studieren.univie.ac.at/en/find-you-degree-programme/masters-programmes/molecular-biology-masters-programme",
+      "university": "Vienna",
+      "city": "Vienna",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-10",
+      "rank": 10,
+      "name": "Medical Biology — Developmental and Therapeutic Biology",
+      "region": "Europa",
+      "url": "https://www.uva.nl/shared-content/programmas/en/masters/biomedical-sciences-medical-biology/study-programme/developmental-and-therapeutic-biology/developmental-and-therapeutic-biology.html",
+      "university": "UvA",
+      "city": "Amsterdam",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-11",
+      "rank": 11,
+      "name": "Medical Biology — Cell Biology and Advanced Microscopy",
+      "region": "Europa",
+      "url": "https://www.uva.nl/shared-content/programmas/en/masters/biomedical-sciences-medical-biology/study-programme/study-programme.html",
+      "university": "UvA",
+      "city": "Amsterdam",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-12",
+      "rank": 12,
+      "name": "Molecular Medicine",
+      "region": "Europa",
+      "url": "https://www.erasmusmc.nl/en/education/programs-and-courses/master-molecular-medicine",
+      "university": "Erasmus MC",
+      "city": "Rotterdam",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-13",
+      "rank": 13,
+      "name": "Regenerative Medicine and Technology",
+      "region": "Europa",
+      "url": "https://www.uu.nl/en/masters/regenerative-medicine-and-technology",
+      "university": "Utrecht",
+      "city": "Utrecht/Eindhoven",
+      "type": "M·C",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-14",
+      "rank": 14,
+      "name": "Biomedicine",
+      "region": "Europa",
+      "url": "https://education.ki.se/bachelors-masters-studies/programmes-and-courses/masters-programme-in-biomedicine",
+      "university": "Karolinska",
+      "city": "Stoccolma",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-15",
+      "rank": 15,
+      "name": "Life Sciences Engineering — Biomedical Engineering",
+      "region": "Europa",
+      "url": "https://www.epfl.ch/schools/sv/education/master-in-life-sciences-engineering/specializations/",
+      "university": "EPFL",
+      "city": "Losanna",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-16",
+      "rank": 16,
+      "name": "Life Sciences Engineering — Molecular Health",
+      "region": "Europa",
+      "url": "https://www.epfl.ch/schools/sv/education/master-in-life-sciences-engineering/specializations/",
+      "university": "EPFL",
+      "city": "Losanna",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-17",
+      "rank": 17,
+      "name": "Molecular Biomedicine",
+      "region": "Europa",
+      "url": "https://www.ku.dk/studies/masters/molecular-biomedicine",
+      "university": "Copenhagen",
+      "city": "Copenaghen",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-18",
+      "rank": 18,
+      "name": "Biotherapies and Stem Cells — Évry",
+      "region": "Europa",
+      "url": "https://www.universite-paris-saclay.fr/en/education/masters-degree/biologie-moleculaire-et-cellulaire/m1-biotherapies-and-stem-cells-evry-campus",
+      "university": "Paris-Saclay",
+      "city": "Évry-Courcouronnes",
+      "type": "M1",
+      "conditions": "L",
+      "notes": []
+    },
+    {
+      "id": "3-19",
+      "rank": 19,
+      "name": "Stem Cells, Development, Cancer",
+      "region": "Europa",
+      "url": "https://www.universite-paris-saclay.fr/en/education/masters-degree/biologie-moleculaire-et-cellulaire/m2-stem-cells-development-cancer",
+      "university": "Paris-Saclay",
+      "city": "Area Paris-Saclay",
+      "type": "M2",
+      "conditions": "L",
+      "notes": []
+    },
+    {
+      "id": "3-20",
+      "rank": 20,
+      "name": "Tissue, Cell, and Gene Biotherapies",
+      "region": "Europa",
+      "url": "https://www.universite-paris-saclay.fr/en/education/masters-degree/biologie-moleculaire-et-cellulaire/m2-tissue-cell-and-gene-biotherapies-btcg",
+      "university": "Paris-Saclay",
+      "city": "Area Paris-Saclay",
+      "type": "M2",
+      "conditions": "L",
+      "notes": []
+    },
+    {
+      "id": "3-21",
+      "rank": 21,
+      "name": "BME Paris — Molecular & Cellular Biotherapies",
+      "region": "Europa",
+      "url": "https://www.bme-paris.com/program/master-2/molecular-cellular-biotherapies-mcb/",
+      "university": "Paris Cité",
+      "city": "Parigi",
+      "type": "M2·C",
+      "conditions": "L",
+      "notes": []
+    },
+    {
+      "id": "3-22",
+      "rank": 22,
+      "name": "Biofabrication",
+      "region": "Europa",
+      "url": "https://www.uu.nl/en/masters/biofabrication",
+      "university": "Utrecht",
+      "city": "Utrecht",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-23",
+      "rank": 23,
+      "name": "Genetics and Molecular Biosciences — Cell/Cellular and Developmental Biology",
+      "region": "Europa",
+      "url": "https://www.helsinki.fi/en/degree-programmes/genetics-and-molecular-biosciences-masters-programme/studying/structure-content-and-study-tracks",
+      "university": "Helsinki",
+      "city": "Helsinki",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-24",
+      "rank": 24,
+      "name": "Biochemistry",
+      "region": "Europa",
+      "url": "https://www.uzh.ch/en/studies/programs/master/biochemistry.html",
+      "university": "UZH",
+      "city": "Zurigo",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Nuova priorità: biochimica sperimentale e life sciences."
+      ]
+    },
+    {
+      "id": "3-25",
+      "rank": 25,
+      "name": "Biochemistry",
+      "region": "Europa",
+      "url": "https://www.unige.ch/bachelor-master/en/masters/biochemistry",
+      "university": "Geneva",
+      "city": "Ginevra",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Nuova priorità: membrane, trasporto, biochimica, biologia cellulare e molecolare."
+      ]
+    },
+    {
+      "id": "3-26",
+      "rank": 26,
+      "name": "Biochemistry",
+      "region": "Europa",
+      "url": "https://www.ku.dk/studies/masters/biochemistry",
+      "university": "Copenhagen",
+      "city": "Copenaghen",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Nuova priorità per biochimica, proteine e biologia cellulare; inglese."
+      ]
+    },
+    {
+      "id": "3-27",
+      "rank": 27,
+      "name": "Biology",
+      "region": "Europa",
+      "url": "https://www.tum.de/en/studies/degree-programs/detail/biology-master-of-science-msc",
+      "university": "TUM",
+      "city": "Freising/Garching",
+      "type": "M",
+      "conditions": "E",
+      "notes": [
+        "Nuova priorità. Medical Biology, biochemistry/cell biology, colture cellulari, genetica e immunologia. Inglese possibile secondo piano e moduli; verificarne la combinazione completa."
+      ]
+    },
+    {
+      "id": "3-28",
+      "rank": 28,
+      "name": "Molecular Principles of Life",
+      "region": "Europa",
+      "url": "https://www.bio.lmu.de/de/studium/fuer-studierende/masterstudiengaenge/mpl/",
+      "university": "LMU",
+      "city": "Monaco/Martinsried",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-29",
+      "rank": 29,
+      "name": "Human Biology — Principles of Health and Disease",
+      "region": "Europa",
+      "url": "https://www.bio.lmu.de/de/studium/fuer-studierende/masterstudiengaenge/mhb/",
+      "university": "LMU",
+      "city": "Monaco/Martinsried",
+      "type": "M",
+      "conditions": "?",
+      "notes": []
+    },
+    {
+      "id": "3-30",
+      "rank": 30,
+      "name": "Molecular Techniques in Life Science",
+      "region": "Europa",
+      "url": "https://education.ki.se/bachelors-masters-studies/programmes-and-courses/masters-programme-in-molecular-techniques-in-life-science",
+      "university": "Karolinska–KTH–Stockholm",
+      "city": "Stoccolma",
+      "type": "J",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-31",
+      "rank": 31,
+      "name": "Molecular Precision Medicine",
+      "region": "Europa",
+      "url": "https://molekularebiologie.univie.ac.at/en/master-studies/",
+      "university": "Vienna–MedUni",
+      "city": "Vienna",
+      "type": "J",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-32",
+      "rank": 32,
+      "name": "Molecular Biology",
+      "region": "Europa",
+      "url": "https://masters.au.dk/molecularbiology",
+      "university": "Aarhus",
+      "city": "Aarhus",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-33",
+      "rank": 33,
+      "name": "Molecular Life Sciences",
+      "region": "Europa",
+      "url": "https://www.orientation.ch/fr/formations/universite-de-lausanne-unil/molecular-life-sciences-sciences-moleculaires-du-vivant",
+      "university": "UNIL",
+      "city": "Losanna",
+      "type": "M",
+      "conditions": "?",
+      "notes": []
+    },
+    {
+      "id": "3-34",
+      "rank": 34,
+      "name": "Biology — Molecular Genetics and Biosciences",
+      "region": "Europa",
+      "url": "https://www.unige.ch/bachelor-master/en/masters/biology",
+      "university": "Geneva",
+      "city": "Ginevra",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-35",
+      "rank": 35,
+      "name": "Bioscience — Genetics and Developmental Biology",
+      "region": "Europa",
+      "url": "https://www.uio.no/english/studies/programmes/bioscience-master/",
+      "university": "Oslo",
+      "city": "Oslo",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-36",
+      "rank": 36,
+      "name": "Bioscience — Cell Biology, Physiology and Neuroscience",
+      "region": "Europa",
+      "url": "https://www.uio.no/english/studies/programmes/bioscience-master/",
+      "university": "Oslo",
+      "city": "Oslo",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-37",
+      "rank": 37,
+      "name": "Bioscience — Molecular Biology and Biochemistry",
+      "region": "Europa",
+      "url": "https://www.uio.no/english/studies/programmes/bioscience-master/programme-options/molecular-biology/",
+      "university": "Oslo",
+      "city": "Oslo",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-38",
+      "rank": 38,
+      "name": "Biochemistry",
+      "region": "Europa",
+      "url": "https://www.cup.lmu.de/en/study/study-programs/master-biochemistry/",
+      "university": "LMU",
+      "city": "Monaco/Martinsried",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-39",
+      "rank": 39,
+      "name": "Molecular Biotechnology",
+      "region": "Europa",
+      "url": "https://www.ls.tum.de/en/ls/studies/courses-and-programs/molecular-biotechnology-msc/",
+      "university": "TUM",
+      "city": "Freising",
+      "type": "M",
+      "conditions": "DE",
+      "notes": []
+    },
+    {
+      "id": "3-40",
+      "rank": 40,
+      "name": "Biochemistry",
+      "region": "Europa",
+      "url": "https://www.tum.de/en/studies/degree-programs/detail/biochemistry-master-of-science-msc",
+      "university": "TUM",
+      "city": "Garching",
+      "type": "M",
+      "conditions": "DE",
+      "notes": [
+        "Molecular/cell biology pertinente, ma lingua d'insegnamento e requisito d'accesso: tedesco. Sede Garching."
+      ]
+    },
+    {
+      "id": "3-41",
+      "rank": 41,
+      "name": "BMC — Biochimie & Biologie moléculaire",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc",
+      "university": "Sorbonne",
+      "city": "Parigi",
+      "type": "M2",
+      "conditions": "L",
+      "notes": [
+        "Da confrontare per ricerca biochimica e molecolare."
+      ]
+    },
+    {
+      "id": "3-42",
+      "rank": 42,
+      "name": "BMC — Génétique et Épigénétique",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc/m2-1",
+      "university": "Sorbonne",
+      "city": "Parigi",
+      "type": "M2",
+      "conditions": "L",
+      "notes": [
+        "Oncogenesi, RNA, genetica medica, genoma ed epigenetica."
+      ]
+    },
+    {
+      "id": "3-43",
+      "rank": 43,
+      "name": "Génétique",
+      "region": "Europa",
+      "url": "https://u-paris.fr/sdv/les-masters/",
+      "university": "Paris Cité",
+      "city": "Parigi",
+      "type": "M",
+      "conditions": "L",
+      "notes": [
+        "Nuova priorità per genetica ed epigenetica; la facoltà descrive lunghi stage di laboratorio e opportunità internazionali."
+      ]
+    },
+    {
+      "id": "3-44",
+      "rank": 44,
+      "name": "Genetics, Genomics, Epigenetics and Evolution (GenE2)",
+      "region": "Europa",
+      "url": "https://www.universite-paris-saclay.fr/en/education/masters-degree/biologie-moleculaire-et-cellulaire/m2-genetics-genomics-epigenetics-and-evolution-gene2",
+      "university": "Paris-Saclay",
+      "city": "Area Paris-Saclay",
+      "type": "M2",
+      "conditions": "—",
+      "notes": [
+        "Nuova priorità per genetica molecolare, genomica funzionale ed epigenetica."
+      ]
+    },
+    {
+      "id": "3-45",
+      "rank": 45,
+      "name": "Human Genomics in Biotherapies, Health and Disease (HuGeInBio)",
+      "region": "Europa",
+      "url": "https://www.universite-paris-saclay.fr/en/education/masters-programmes-taught-english",
+      "university": "Paris-Saclay",
+      "city": "Area Paris-Saclay",
+      "type": "M2",
+      "conditions": "—",
+      "notes": [
+        "Genomica umana collegata a bioterapie e malattia; elencato nell'offerta in inglese."
+      ]
+    },
+    {
+      "id": "3-46",
+      "rank": 46,
+      "name": "Biology — Molecular Mechanisms of Disease",
+      "region": "Europa",
+      "url": "https://biol.ethz.ch/en/studies/master-in-biologie/master-degree-majors/molekulare-mechanismen-der-krankheitsentstehung.html",
+      "university": "ETH",
+      "city": "Zurigo",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-47",
+      "rank": 47,
+      "name": "Translational Medicine",
+      "region": "Europa",
+      "url": "https://www.helsinki.fi/en/degree-programmes/translational-medicine-masters-programme",
+      "university": "Helsinki",
+      "city": "Helsinki",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-48",
+      "rank": 48,
+      "name": "Biomedical Engineering",
+      "region": "Europa",
+      "url": "https://biomedicalengineering.ch/",
+      "university": "Basel–FHNW",
+      "city": "Basilea/Muttenz",
+      "type": "J",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-49",
+      "rank": 49,
+      "name": "Biomedical Engineering — Molecular Bioengineering",
+      "region": "Europa",
+      "url": "https://master-biomed.ethz.ch/education/molecular-bioengineering.html",
+      "university": "ETH",
+      "city": "Zurigo",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-50",
+      "rank": 50,
+      "name": "Drug Innovation",
+      "region": "Europa",
+      "url": "https://www.uu.nl/en/masters/drug-innovation",
+      "university": "Utrecht",
+      "city": "Utrecht",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Biomolecular drugs, nuove strategie terapeutiche e ricerca sul farmaco."
+      ]
+    },
+    {
+      "id": "3-51",
+      "rank": 51,
+      "name": "Infection and Immunity",
+      "region": "Europa",
+      "url": "https://www.uu.nl/en/masters/infection-and-immunity/study-programme",
+      "university": "Utrecht",
+      "city": "Utrecht",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Immunologia, modelli cellulari, tecniche molecolari e ricerca sperimentale."
+      ]
+    },
+    {
+      "id": "3-52",
+      "rank": 52,
+      "name": "Immunology and Inflammation",
+      "region": "Europa",
+      "url": "https://www.ku.dk/studies/masters/immunology-and-inflammation",
+      "university": "Copenhagen",
+      "city": "Copenaghen",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Ricerca immunologica sperimentale e strategie terapeutiche."
+      ]
+    },
+    {
+      "id": "3-53",
+      "rank": 53,
+      "name": "Biology — Cancer Biology",
+      "region": "Europa",
+      "url": "https://www.biologie.uzh.ch/de/Studium/Masterstudium/MasterStudies/CancerBiology.html",
+      "university": "UZH",
+      "city": "Zurigo",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Biologia cellulare tumorale e ricerca oncologica."
+      ]
+    },
+    {
+      "id": "3-54",
+      "rank": 54,
+      "name": "Biology — Immunology",
+      "region": "Europa",
+      "url": "https://www.biologie.uzh.ch/de/Studium/Masterstudium/MasterStudies/Immunology.html",
+      "university": "UZH",
+      "city": "Zurigo",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Immunologia cellulare e molecolare."
+      ]
+    },
+    {
+      "id": "3-55",
+      "rank": 55,
+      "name": "BIP — Reproduction et Développement (ReproDev)",
+      "region": "Europa",
+      "url": "https://u-paris.fr/sdv/les-masters/",
+      "university": "Paris Cité",
+      "city": "Parigi",
+      "type": "M2",
+      "conditions": "L",
+      "notes": [
+        "Riproduzione e sviluppo; priorità scientifica elevata, lingua e ingresso M1 da verificare."
+      ]
+    },
+    {
+      "id": "3-56",
+      "rank": 56,
+      "name": "BIP — Epithéliums: Structures d'Interface (ESI)",
+      "region": "Europa",
+      "url": "https://u-paris.fr/sdv/les-masters/",
+      "university": "Paris Cité",
+      "city": "Parigi",
+      "type": "M2",
+      "conditions": "L",
+      "notes": [
+        "Organizzazione e funzione degli epiteli: particolarmente interessante per la biologia cellulare e dei tessuti."
+      ]
+    },
+    {
+      "id": "3-57",
+      "rank": 57,
+      "name": "BIP — Biologie du Vieillissement (BioVie)",
+      "region": "Europa",
+      "url": "https://u-paris.fr/sdv/les-masters/",
+      "university": "Paris Cité",
+      "city": "Parigi",
+      "type": "M2",
+      "conditions": "L",
+      "notes": [
+        "Meccanismi cellulari e molecolari dell'invecchiamento."
+      ]
+    },
+    {
+      "id": "3-58",
+      "rank": 58,
+      "name": "Chemical Biology",
+      "region": "Europa",
+      "url": "https://www.unige.ch/bachelor-master/en/masters/chemical-biology",
+      "university": "Geneva",
+      "city": "Ginevra/Losanna",
+      "type": "M·C",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-59",
+      "rank": 59,
+      "name": "Molecular and Cellular Biology — Cell Biology and Development",
+      "region": "Europa",
+      "url": "https://www.master-bmc-universite-paris.fr/biologie-et-developpement-cellulaires-bdc/?lang=en",
+      "university": "Paris Cité",
+      "city": "Parigi",
+      "type": "M2",
+      "conditions": "L",
+      "notes": []
+    },
+    {
+      "id": "3-60",
+      "rank": 60,
+      "name": "Medical Biology — Medical Biochemistry and Biotechnology",
+      "region": "Europa",
+      "url": "https://www.uva.nl/shared-content/programmas/en/masters/biomedical-sciences-medical-biology/study-programme/study-programme.html",
+      "university": "UvA",
+      "city": "Amsterdam",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-61",
+      "rank": 61,
+      "name": "Medical Biology",
+      "region": "Europa",
+      "url": "https://www.orientation.ch/fr/formations/universite-de-lausanne-unil/medical-biology-biologie-medicale",
+      "university": "UNIL",
+      "city": "Losanna",
+      "type": "M",
+      "conditions": "?",
+      "notes": []
+    },
+    {
+      "id": "3-62",
+      "rank": 62,
+      "name": "Biomedicine",
+      "region": "Europa",
+      "url": "https://www.biomedizin.uzh.ch/en/Master-english.html",
+      "university": "UZH",
+      "city": "Zurigo",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-63",
+      "rank": 63,
+      "name": "Biomedical Sciences",
+      "region": "Europa",
+      "url": "https://www.unige.ch/bachelor-master/en/masters/biomedical-sciences",
+      "university": "Geneva",
+      "city": "Ginevra",
+      "type": "M",
+      "conditions": "L",
+      "notes": []
+    },
+    {
+      "id": "3-64",
+      "rank": 64,
+      "name": "Genetics and Molecular Biosciences — Molecular and Physiological Basis of Health",
+      "region": "Europa",
+      "url": "https://www.helsinki.fi/en/degree-programmes/genetics-and-molecular-biosciences-masters-programme/studying/structure-content-and-study-tracks",
+      "university": "Helsinki",
+      "city": "Helsinki",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-65",
+      "rank": 65,
+      "name": "Biology — Molecular and Structural Biology",
+      "region": "Europa",
+      "url": "https://biol.ethz.ch/en/studies/master-in-biologie/master-degree-majors/structural-biology-and-biophysics.html",
+      "university": "ETH",
+      "city": "Zurigo",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-66",
+      "rank": 66,
+      "name": "Biology — Biochemistry",
+      "region": "Europa",
+      "url": "https://biol.ethz.ch/en/studies/master-in-biologie/master-degree-majors/biochemistry.html",
+      "university": "ETH",
+      "city": "Zurigo",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Meccanismi biochimici, macromolecole e ricerca molecolare."
+      ]
+    },
+    {
+      "id": "3-67",
+      "rank": 67,
+      "name": "Molecular and Biological Chemistry",
+      "region": "Europa",
+      "url": "https://www.epfl.ch/education/master/programs/molecular-and-biological-chemistry/",
+      "university": "EPFL",
+      "city": "Losanna",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Forte ricerca pratica in laboratorio all'interfaccia chimica-biologia."
+      ]
+    },
+    {
+      "id": "3-68",
+      "rank": 68,
+      "name": "Interfaces Chimie-Biologie: Ingénierie Moléculaire du Vivant (IMoV)",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc/m1m2-1",
+      "university": "Sorbonne",
+      "city": "Parigi",
+      "type": "M1–M2",
+      "conditions": "L",
+      "notes": [
+        "Dal 2025: interfaccia chimica-biologia, sonde, biosensori e approcci biotecnologici; solida preparazione chimica."
+      ]
+    },
+    {
+      "id": "3-69",
+      "rank": 69,
+      "name": "Systems and Synthetic Biology",
+      "region": "Europa",
+      "url": "https://www.universite-paris-saclay.fr/en/education/masters-degree/biologie-agrosciences/m2-systems-and-synthetic-biology",
+      "university": "Paris-Saclay",
+      "city": "Area Paris-Saclay",
+      "type": "M2",
+      "conditions": "—",
+      "notes": [
+        "Hands-on experimental biology, modellazione e progettazione di sistemi biologici."
+      ]
+    },
+    {
+      "id": "3-70",
+      "rank": 70,
+      "name": "International Track in France — M1, Orsay",
+      "region": "Europa",
+      "url": "https://www.universite-paris-saclay.fr/formation/master/microbiologie/m1-international-track-france-site-orsay",
+      "university": "Paris-Saclay",
+      "city": "Area Paris-Saclay",
+      "type": "M1",
+      "conditions": "—",
+      "notes": [
+        "Possibile porta d'ingresso in inglese per proseguire verso diversi M2; non dà accesso automatico a ogni M2."
+      ]
+    },
+    {
+      "id": "3-71",
+      "rank": 71,
+      "name": "Human Biology",
+      "region": "Europa",
+      "url": "https://www.ku.dk/studies/masters/human-biology",
+      "university": "Copenhagen",
+      "city": "Copenaghen",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-72",
+      "rank": 72,
+      "name": "Translational Physiology and Pharmacology",
+      "region": "Europa",
+      "url": "https://education.ki.se/course-and-programme-syllabi/programme-syllabus-4FF26",
+      "university": "Karolinska",
+      "city": "Stoccolma",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-73",
+      "rank": 73,
+      "name": "Biologie Intégrative et Physiologie (BIP)",
+      "region": "Europa",
+      "url": "https://u-paris.fr/sdv/les-masters/",
+      "university": "Paris Cité",
+      "city": "Parigi",
+      "type": "M",
+      "conditions": "L",
+      "notes": [
+        "Contenitore di percorsi fisiologici, cellulari e dello sviluppo."
+      ]
+    },
+    {
+      "id": "3-74",
+      "rank": 74,
+      "name": "Drug Sciences",
+      "region": "Europa",
+      "url": "https://pharma.unibas.ch/de/education/msc-drug-sciences/",
+      "university": "Basel",
+      "city": "Basilea",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Master in inglese, con tesi di ricerca lunga. Eventuali corsi integrativi possono essere in tedesco."
+      ]
+    },
+    {
+      "id": "3-75",
+      "rank": 75,
+      "name": "Pharmaceutical Research, Development and Safety",
+      "region": "Europa",
+      "url": "https://www.helsinki.fi/en/degree-programmes/pharmaceutical-research-development-and-safety-masters-programme",
+      "university": "Helsinki",
+      "city": "Helsinki",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Drug discovery/design/pharmacology; drug delivery/development; safety/regulation."
+      ]
+    },
+    {
+      "id": "3-76",
+      "rank": 76,
+      "name": "Drug Discovery and Development",
+      "region": "Europa",
+      "url": "https://studieren.univie.ac.at/en/admission-procedure/master-programmes/",
+      "university": "Vienna",
+      "city": "Vienna",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Master in inglese con procedura di selezione; chimica e farmacologia da confrontare con i tuoi CFU."
+      ]
+    },
+    {
+      "id": "3-77",
+      "rank": 77,
+      "name": "Toxicology",
+      "region": "Europa",
+      "url": "https://education.ki.se/bachelors-masters-studies/programmes-and-courses/masters-programme-in-toxicology",
+      "university": "Karolinska",
+      "city": "Stoccolma",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Ricerca sui meccanismi di tossicità e valutazione della sicurezza; pagina autunno 2027 disponibile."
+      ]
+    },
+    {
+      "id": "3-78",
+      "rank": 78,
+      "name": "Medical Biology — Oncology",
+      "region": "Europa",
+      "url": "https://www.uva.nl/shared-content/programmas/en/masters/biomedical-sciences-medical-biology/study-programme/study-programme.html",
+      "university": "UvA",
+      "city": "Amsterdam",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-79",
+      "rank": 79,
+      "name": "BMC — Immunologie",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc",
+      "university": "Sorbonne",
+      "city": "Parigi",
+      "type": "M2",
+      "conditions": "L",
+      "notes": [
+        "Alternativa per immunoterapia e ricerca immunologica."
+      ]
+    },
+    {
+      "id": "3-80",
+      "rank": 80,
+      "name": "Infection & Immunity",
+      "region": "Europa",
+      "url": "https://www.erasmusmc.nl/en/education/programs-and-courses/master-infection-immunity",
+      "university": "Erasmus MC",
+      "city": "Rotterdam",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-81",
+      "rank": 81,
+      "name": "Infection Biology",
+      "region": "Europa",
+      "url": "https://bio.unibas.ch/en/studies/msc-infection-biology/",
+      "university": "Basel",
+      "city": "Basilea/Allschwil",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-82",
+      "rank": 82,
+      "name": "BMC — Microbiologie",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc/m2-3",
+      "university": "Sorbonne",
+      "city": "Parigi",
+      "type": "M2",
+      "conditions": "L",
+      "notes": [
+        "Microbiologia e virologia, con applicazioni biotech."
+      ]
+    },
+    {
+      "id": "3-83",
+      "rank": 83,
+      "name": "Biology — Microbiology and Immunology",
+      "region": "Europa",
+      "url": "https://biol.ethz.ch/en/studies/master-in-biologie/master-degree-majors/microbiology-and-immunology.html",
+      "university": "ETH",
+      "city": "Zurigo",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Microbiologia, immunologia e processi molecolari; è un major del MSc Biology."
+      ]
+    },
+    {
+      "id": "3-84",
+      "rank": 84,
+      "name": "Biology — Microbiology",
+      "region": "Europa",
+      "url": "https://www.uzh.ch/de/studies/programs/master/biology.html",
+      "university": "UZH",
+      "city": "Zurigo",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Specializzazione del MSc Biology."
+      ]
+    },
+    {
+      "id": "3-85",
+      "rank": 85,
+      "name": "Biology — Virology",
+      "region": "Europa",
+      "url": "https://www.uzh.ch/de/studies/programs/master/biology.html",
+      "university": "UZH",
+      "city": "Zurigo",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Specializzazione del MSc Biology; pertinente a vettori, infezioni e ricerca molecolare secondo progetto."
+      ]
+    },
+    {
+      "id": "3-86",
+      "rank": 86,
+      "name": "Microbiology and Microbial Biotechnology",
+      "region": "Europa",
+      "url": "https://www.helsinki.fi/en/degree-programmes/microbiology-and-microbial-biotechnology-masters-programme",
+      "university": "Helsinki",
+      "city": "Helsinki",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Nuova aggiunta direttamente biotech: microbiologia medica/alimentare/ambientale, virologia e biotecnologie microbiche."
+      ]
+    },
+    {
+      "id": "3-87",
+      "rank": 87,
+      "name": "Microbiome Science",
+      "region": "Europa",
+      "url": "https://molekularebiologie.univie.ac.at/en/master-studies/",
+      "university": "Vienna",
+      "city": "Vienna",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Programma attuale in inglese; microbiomi e microbiologia."
+      ]
+    },
+    {
+      "id": "3-88",
+      "rank": 88,
+      "name": "BMC — Biotechnologies: R&D Biotech",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc/m2-4",
+      "university": "Sorbonne",
+      "city": "Parigi",
+      "type": "M2",
+      "conditions": "L",
+      "notes": [
+        "M2 orientato all'industria biotech con stage di sei mesi; preceduto da M1 pertinente."
+      ]
+    },
+    {
+      "id": "3-89",
+      "rank": 89,
+      "name": "BMC — Innovation en Biotechnologies",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc/m1m2",
+      "university": "Sorbonne",
+      "city": "Parigi",
+      "type": "M1–M2",
+      "conditions": "L",
+      "notes": [
+        "Percorso in alternance/apprentissage: serve un contratto con un'impresa."
+      ]
+    },
+    {
+      "id": "3-90",
+      "rank": 90,
+      "name": "Chemical Engineering and Biotechnology",
+      "region": "Europa",
+      "url": "https://www.epfl.ch/education/master/programs/chemical-engineering-and-biotechnology/",
+      "university": "EPFL",
+      "city": "Losanna",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Master autonomo prima omesso: biotecnologie di processo e ingegneria chimica; requisiti quantitativi importanti."
+      ]
+    },
+    {
+      "id": "3-91",
+      "rank": 91,
+      "name": "Chemical Engineering and Biotechnology — doppio titolo",
+      "region": "Europa",
+      "url": "https://www.epfl.ch/education/master/double-degrees/double-degree-epfl-ens-lyon-biotechnology-and-chemical-engineering/",
+      "university": "EPFL–ENS de Lyon",
+      "city": "Losanna e Lione",
+      "type": "D",
+      "conditions": "A",
+      "notes": [
+        "Master autonomo prima omesso: biotecnologie di processo e ingegneria chimica; requisiti quantitativi importanti."
+      ]
+    },
+    {
+      "id": "3-92",
+      "rank": 92,
+      "name": "Biotechnology and Chemical Engineering",
+      "region": "Europa",
+      "url": "https://masters.au.dk/biotechchemical?campaign=studyeu2023-2024",
+      "university": "Aarhus",
+      "city": "Aarhus",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-93",
+      "rank": 93,
+      "name": "Chemical Biotechnology",
+      "region": "Europa",
+      "url": "https://www.tum.de/en/studies/degree-programs/detail/chemical-biotechnology-master-of-science-msc/",
+      "university": "TUM",
+      "city": "Straubing",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-94",
+      "rank": 94,
+      "name": "Biotechnology",
+      "region": "Europa",
+      "url": "https://www.ku.dk/studies/masters/biotechnology",
+      "university": "Copenhagen",
+      "city": "Copenaghen",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-95",
+      "rank": 95,
+      "name": "Biology",
+      "region": "Europa",
+      "url": "https://www.ku.dk/studies/masters/biology",
+      "university": "Copenhagen",
+      "city": "Copenaghen",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Programma ampio da personalizzare: verificare piano e specializzazione."
+      ]
+    },
+    {
+      "id": "3-96",
+      "rank": 96,
+      "name": "Biology",
+      "region": "Europa",
+      "url": "https://masters.au.dk/biology",
+      "university": "Aarhus",
+      "city": "Aarhus",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Percorso ampio, da costruire scegliendo progetto e corsi molecolari."
+      ]
+    },
+    {
+      "id": "3-97",
+      "rank": 97,
+      "name": "Pharmaceutical Sciences — English/GB programme",
+      "region": "Europa",
+      "url": "https://www.ku.dk/studies/masters/pharmaceutical-sciences",
+      "university": "Copenhagen",
+      "city": "Copenaghen",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Drug discovery, sviluppo e ricerca farmaceutica; distinguere dalla versione danese."
+      ]
+    },
+    {
+      "id": "3-98",
+      "rank": 98,
+      "name": "Medicinal Chemistry",
+      "region": "Europa",
+      "url": "https://www.ku.dk/studies/masters/medicinal-chemistry",
+      "university": "Copenhagen",
+      "city": "Copenaghen",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Più chimico: prerequisiti di chimica organica e preparazione specifica."
+      ]
+    },
+    {
+      "id": "3-99",
+      "rank": 99,
+      "name": "Medicinal Chemistry",
+      "region": "Europa",
+      "url": "https://masters.au.dk/medicinal-chemistry",
+      "university": "Aarhus",
+      "city": "Aarhus",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Drug discovery, sintesi e ricerca farmaceutica; preparazione chimica determinante."
+      ]
+    },
+    {
+      "id": "3-100",
+      "rank": 100,
+      "name": "BMC — Systèmes biologiques et concepts physiques",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc/m2-2",
+      "university": "Sorbonne",
+      "city": "Parigi",
+      "type": "M2",
+      "conditions": "L",
+      "notes": [
+        "Biologia quantitativa e biofisica; distinto dal percorso in staminali."
+      ]
+    },
+    {
+      "id": "3-101",
+      "rank": 101,
+      "name": "Nanosciences",
+      "region": "Europa",
+      "url": "https://nanoscience.unibas.ch/en/studium/masterstudium/",
+      "university": "Basel",
+      "city": "Basilea",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Nanobiologia e applicazioni mediche possibili; bisogna soddisfare requisiti interdisciplinari."
+      ]
+    },
+    {
+      "id": "3-102",
+      "rank": 102,
+      "name": "Biomedical Engineering and Medical Physics",
+      "region": "Europa",
+      "url": "https://www.bioengineering.tum.de/en/teaching/master-programs/biomedical-engineering-and-medical-physics",
+      "university": "TUM",
+      "city": "Garching",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-103",
+      "rank": 103,
+      "name": "Nutrition and Biomedicine",
+      "region": "Europa",
+      "url": "https://www.tum.de/en/studies/degree-programs/detail/nutrition-and-biomedicine-master-of-science-msc",
+      "university": "TUM",
+      "city": "Freising",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "In inglese; metabolismo e meccanismi molecolari delle malattie nutrizionali."
+      ]
+    },
+    {
+      "id": "3-104",
+      "rank": 104,
+      "name": "NANOMED — Nanomedicine for Drug Delivery",
+      "region": "Europa",
+      "url": "https://u-paris.fr/language/en/erasmus-mundus-joint-master-degree-nanomedicine-for-drug-delivery/",
+      "university": "Paris Cité–Angers–Pavia–Patras",
+      "city": "Parigi/Angers/Pavia/Patrasso, secondo percorso",
+      "type": "D",
+      "conditions": "?",
+      "notes": []
+    },
+    {
+      "id": "3-105",
+      "rank": 105,
+      "name": "Nanobiology",
+      "region": "Europa",
+      "url": "https://www.tudelft.nl/en/education/programmes/masters/nb/msc-nanobiology",
+      "university": "Erasmus MC–TU Delft",
+      "city": "Delft e Rotterdam",
+      "type": "J",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-106",
+      "rank": 106,
+      "name": "Bioinformatics and Systems Biology",
+      "region": "Europa",
+      "url": "https://www.uva.nl/shared-content/programmas/en/masters/bioinformatics-and-systems-biology/bioinformatics-and-systems-biology.html",
+      "university": "UvA–VU",
+      "city": "Amsterdam",
+      "type": "J",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-107",
+      "rank": 107,
+      "name": "Computational Biology and Bioinformatics",
+      "region": "Europa",
+      "url": "https://cbb.ethz.ch/studies.html",
+      "university": "ETH–UZH–Basel",
+      "city": "Zurigo e Basilea",
+      "type": "J",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-108",
+      "rank": 108,
+      "name": "Biology — Quantitative Biology and Systems Biology",
+      "region": "Europa",
+      "url": "https://www.uzh.ch/de/studies/programs/master/biology.html",
+      "university": "UZH",
+      "city": "Zurigo",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Direzione computazionale e quantitativa."
+      ]
+    },
+    {
+      "id": "3-109",
+      "rank": 109,
+      "name": "Bioinformatics and Biocomplexity",
+      "region": "Europa",
+      "url": "https://www.uu.nl/en/masters/bioinformatics-and-biocomplexity",
+      "university": "Utrecht",
+      "city": "Utrecht",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Biologia dei sistemi e analisi computazionale; meno orientato al banco."
+      ]
+    },
+    {
+      "id": "3-110",
+      "rank": 110,
+      "name": "Bioinformatics",
+      "region": "Europa",
+      "url": "https://www.ku.dk/studies/masters/bioinformatics",
+      "university": "Copenhagen",
+      "city": "Copenaghen",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Due specializzazioni: Computational Biology e Computer Science."
+      ]
+    },
+    {
+      "id": "3-111",
+      "rank": 111,
+      "name": "Bioinformatics",
+      "region": "Europa",
+      "url": "https://masters.au.dk/bioinformatics",
+      "university": "Aarhus",
+      "city": "Aarhus",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Programma aperto a background scientifici pertinenti; confronto di matematica, biologia e informatica."
+      ]
+    },
+    {
+      "id": "3-112",
+      "rank": 112,
+      "name": "Bioinformatique & Modélisation (BIM-BMC)",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc",
+      "university": "Sorbonne",
+      "city": "Parigi",
+      "type": "M1–M2",
+      "conditions": "L",
+      "notes": [
+        "Percorso computazionale del BMC."
+      ]
+    },
+    {
+      "id": "3-113",
+      "rank": 113,
+      "name": "BMC — Artificial Intelligence and Data Analysis (AIDA)",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc",
+      "university": "Sorbonne",
+      "city": "Parigi",
+      "type": "M2",
+      "conditions": "L",
+      "notes": [
+        "Analisi dei dati e AI: verificare i prerequisiti quantitativi."
+      ]
+    },
+    {
+      "id": "3-114",
+      "rank": 114,
+      "name": "Genomics Informatics Mathematics and Artificial Intelligence for Health and Environment (GENIOMHE)",
+      "region": "Europa",
+      "url": "https://www.universite-paris-saclay.fr/en/education/masters-programmes-taught-english",
+      "university": "Paris-Saclay",
+      "city": "Area Paris-Saclay",
+      "type": "M2",
+      "conditions": "—",
+      "notes": [
+        "Genomica computazionale e AI; più quantitativo."
+      ]
+    },
+    {
+      "id": "3-115",
+      "rank": 115,
+      "name": "Bio-informatique",
+      "region": "Europa",
+      "url": "https://u-paris.fr/sdv/les-masters/",
+      "university": "Paris Cité",
+      "city": "Parigi",
+      "type": "M",
+      "conditions": "L",
+      "notes": [
+        "Contenitore per biologia computazionale, piattaforme biologiche e drug design."
+      ]
+    },
+    {
+      "id": "3-116",
+      "rank": 116,
+      "name": "Bioinformatique — Ingénierie de plateforme en biologie",
+      "region": "Europa",
+      "url": "https://odf.u-paris.fr/fr/offre-de-formation/master-XB/sciences-technologies-sante-STS/bio-informatique-K2VO60MU/master-bioinformatique-parcours-ingenierie-de-plateforme-en-biologie-JS0EW8X6.html",
+      "university": "Paris Cité",
+      "city": "Parigi",
+      "type": "T",
+      "conditions": "L",
+      "notes": [
+        "Piattaforme e strumenti biologici; catalogo: francese/inglese."
+      ]
+    },
+    {
+      "id": "3-117",
+      "rank": 117,
+      "name": "Bioinformatique — In Silico Drug Design (ISDD)",
+      "region": "Europa",
+      "url": "https://u-paris.fr/sdv/les-masters/",
+      "university": "Paris Cité",
+      "city": "Parigi",
+      "type": "T",
+      "conditions": "L",
+      "notes": [
+        "Opzione internazionale citata dal catalogo; partner e accordi attivi vanno riconfermati prima di promettere un doppio titolo."
+      ]
+    },
+    {
+      "id": "3-118",
+      "rank": 118,
+      "name": "Molecular Life Sciences — Bioinformatics",
+      "region": "Europa",
+      "url": "https://www.orientation.ch/fr/en/programs/universite-de-lausanne-unil/molecular-life-sciences-sciences-moleculaires-du-vivant",
+      "university": "UNIL",
+      "city": "Losanna",
+      "type": "T",
+      "conditions": "?",
+      "notes": [
+        "Specializzazione interna: non un nuovo Master."
+      ]
+    },
+    {
+      "id": "3-119",
+      "rank": 119,
+      "name": "Molecular Life Sciences — Microbiology",
+      "region": "Europa",
+      "url": "https://www.orientation.ch/fr/en/programs/universite-de-lausanne-unil/molecular-life-sciences-sciences-moleculaires-du-vivant",
+      "university": "UNIL",
+      "city": "Losanna",
+      "type": "T",
+      "conditions": "?",
+      "notes": [
+        "Specializzazione interna: non un nuovo Master."
+      ]
+    },
+    {
+      "id": "3-120",
+      "rank": 120,
+      "name": "Fundamental Microbiology",
+      "region": "Europa",
+      "url": "https://www.universite-paris-saclay.fr/en/education/masters-programmes-taught-english",
+      "university": "Paris-Saclay",
+      "city": "Area Paris-Saclay",
+      "type": "M2",
+      "conditions": "—",
+      "notes": [
+        "Microbiologia fondamentale e molecolare; offerta internazionale da confrontare."
+      ]
+    },
+    {
+      "id": "3-121",
+      "rank": 121,
+      "name": "BMC — Microbiologie et Génie Biologique",
+      "region": "Europa",
+      "url": "https://u-paris.fr/sdv/les-masters/",
+      "university": "Paris Cité",
+      "city": "Parigi",
+      "type": "T",
+      "conditions": "L",
+      "notes": [
+        "R&D microbiologica e biotech, prodotti/processi e qualità."
+      ]
+    },
+    {
+      "id": "3-122",
+      "rank": 122,
+      "name": "Interdisciplinary Brain Sciences",
+      "region": "Europa",
+      "url": "https://www.neuroscience.uzh.ch/en/Master-Studies/Program.html",
+      "university": "UZH–ETH",
+      "city": "Zurigo",
+      "type": "J",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-123",
+      "rank": 123,
+      "name": "Biomedical Sciences — Neurobiology",
+      "region": "Europa",
+      "url": "https://www.uva.nl/en/education/master-s/master-s-programmes/masters-programmes.html",
+      "university": "UvA",
+      "city": "Amsterdam",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Altro cluster dello stesso MSc Biomedical Sciences, da approfondire se ti interessa la neurobiologia cellulare."
+      ]
+    },
+    {
+      "id": "3-124",
+      "rank": 124,
+      "name": "Neuroscience",
+      "region": "Europa",
+      "url": "https://www.eur.nl/en/erasmusmc/education/master/overview",
+      "university": "Erasmus MC",
+      "city": "Rotterdam",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Research Master; pertinente se scegli la neurobiologia cellulare."
+      ]
+    },
+    {
+      "id": "3-125",
+      "rank": 125,
+      "name": "Neuroscience",
+      "region": "Europa",
+      "url": "https://www.helsinki.fi/en/degree-programmes/neuroscience-masters-programme",
+      "university": "Helsinki",
+      "city": "Helsinki",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Comprende approcci cellulari e fisiologici; inglese, pagina candidature gennaio 2027."
+      ]
+    },
+    {
+      "id": "3-126",
+      "rank": 126,
+      "name": "Neuroscience",
+      "region": "Europa",
+      "url": "https://www.unige.ch/bachelor-master/en/masters/neuroscience",
+      "university": "Geneva",
+      "city": "Ginevra",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Programma interdisciplinare di tre facoltà UNIGE; non è per questo un joint degree con un'altra università."
+      ]
+    },
+    {
+      "id": "3-127",
+      "rank": 127,
+      "name": "Neuroscience",
+      "region": "Europa",
+      "url": "https://molekularebiologie.univie.ac.at/en/master-studies/",
+      "university": "Vienna",
+      "city": "Vienna",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Programma in inglese con selezione; interessante se scegli neurobiologia."
+      ]
+    },
+    {
+      "id": "3-128",
+      "rank": 128,
+      "name": "Neuro-X",
+      "region": "Europa",
+      "url": "https://www.epfl.ch/education/master/programs/neuro-x/",
+      "university": "EPFL",
+      "city": "Losanna",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Neuroscienze e neurotecnologie; secondario rispetto alle tue priorità attuali."
+      ]
+    },
+    {
+      "id": "3-129",
+      "rank": 129,
+      "name": "Neuroscience and Neuroimaging",
+      "region": "Europa",
+      "url": "https://kandidat.au.dk/neuroscienceandneuroimaging",
+      "university": "Aarhus–UCAS",
+      "city": "Pechino–Huairou",
+      "type": "D",
+      "conditions": "CN",
+      "notes": []
+    },
+    {
+      "id": "3-130",
+      "rank": 130,
+      "name": "Percorso UNAM Vision Science → Sorbonne iSENSE",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-neurosciences/international-master-integrative",
+      "university": "Sorbonne–UNAM",
+      "city": "Città del Messico e Parigi",
+      "type": "D",
+      "conditions": "?",
+      "notes": []
+    },
+    {
+      "id": "3-131",
+      "rank": 131,
+      "name": "Brain and Mind Sciences",
+      "region": "Europa",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-neurosciences/international-master-brain-and",
+      "university": "Sorbonne–UCL, con ENS",
+      "city": "Londra e Parigi",
+      "type": "D",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-132",
+      "rank": 132,
+      "name": "Nanoscience and Technology",
+      "region": "Europa",
+      "url": "https://www.ku.dk/studies/masters/nanoscience-and-technology",
+      "university": "Copenhagen–UCAS",
+      "city": "Pechino",
+      "type": "D",
+      "conditions": "CN",
+      "notes": []
+    },
+    {
+      "id": "3-133",
+      "rank": 133,
+      "name": "Molecular Plant Sciences",
+      "region": "Europa",
+      "url": "https://www.bio.lmu.de/en/study/for-students/master-programs/",
+      "university": "LMU",
+      "city": "Monaco/Martinsried",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Nuovo nome per gli ingressi dal 2027/28, al posto di Plant Sciences. Biologia molecolare vegetale, più distante dalla tua direzione biomedica."
+      ]
+    },
+    {
+      "id": "3-134",
+      "rank": 134,
+      "name": "Biological Sciences — Green Life Sciences",
+      "region": "Europa",
+      "url": "https://www.uva.nl/en/education/master-s/master-s-programmes/masters-programmes.html",
+      "university": "UvA",
+      "city": "Amsterdam",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Biotecnologie vegetali, biologia cellulare, plant breeding e phytopathology; interesse secondario."
+      ]
+    },
+    {
+      "id": "3-135",
+      "rank": 135,
+      "name": "Industrial Biotechnology",
+      "region": "Europa",
+      "url": "https://www.tum.de/en/studies/degree-programs/detail/industrial-biotechnology-master-of-science-msc",
+      "university": "TUM",
+      "city": "Garching",
+      "type": "M",
+      "conditions": "DE",
+      "notes": [
+        "Biocatalisi e bioprocessi; richiede tedesco. Sede Garching; programma interdisciplinare aperto anche a bioscienze pertinenti."
+      ]
+    },
+    {
+      "id": "3-136",
+      "rank": 136,
+      "name": "Pharmaceutical Bioprocess Engineering",
+      "region": "Europa",
+      "url": "https://www.ls.tum.de/en/ls/studies/courses-and-programs/pharmaceutical-bioprocess-engineering-msc/",
+      "university": "TUM",
+      "city": "Freising",
+      "type": "M",
+      "conditions": "DE",
+      "notes": [
+        "Bioproduzione farmaceutica e process engineering; in tedesco, sede Freising-Weihenstephan."
+      ]
+    },
+    {
+      "id": "3-137",
+      "rank": 137,
+      "name": "Bio Inspired Innovation",
+      "region": "Europa",
+      "url": "https://www.uu.nl/en/masters/bio-inspired-innovation",
+      "university": "Utrecht",
+      "city": "Utrecht",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Innovazione ispirata ai sistemi biologici; orientamento anche ambientale e progettuale."
+      ]
+    },
+    {
+      "id": "3-138",
+      "rank": 138,
+      "name": "BIOCEB — Biological and Chemical Engineering for a Sustainable Bioeconomy",
+      "region": "Europa",
+      "url": "https://forge.bioceb.eu/master-s-degrees-215.html",
+      "university": "Paris-Saclay/AgroParisTech e consorzio",
+      "city": "Reims/area parigina/Gembloux/Espoo/Tallinn, secondo track",
+      "type": "D",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "3-139",
+      "rank": 139,
+      "name": "Biostatistics and Data Science",
+      "region": "Europa",
+      "url": "https://education.ki.se/bachelors-masters-studies/programmes-and-courses/masters-programmes",
+      "university": "Karolinska",
+      "city": "Stoccolma",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Via quantitativa, da valutare per requisiti matematici; non un percorso di biologia cellulare sperimentale."
+      ]
+    },
+    {
+      "id": "3-140",
+      "rank": 140,
+      "name": "Computational Science — Bioscience",
+      "region": "Europa",
+      "url": "https://www.uio.no/studier/program/computational-science-master/studieretninger/bioscience/index.html",
+      "university": "Oslo",
+      "city": "Oslo",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Via computazionale; controllare requisiti di matematica e programmazione."
+      ]
+    },
+    {
+      "id": "3-141",
+      "rank": 141,
+      "name": "Bioscience — Toxicology and Environmental Science",
+      "region": "Europa",
+      "url": "https://www.uio.no/english/studies/programmes/bioscience-master/",
+      "university": "Oslo",
+      "city": "Oslo",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Tossicologia e meccanismi biologici; più ambientale delle priorità cellulari già trovate."
+      ]
+    },
+    {
+      "id": "3-142",
+      "rank": 142,
+      "name": "Bioinformatics",
+      "region": "Europa",
+      "url": "https://www.cit.tum.de/cit/studium/studiengaenge/master-bioinformatik/",
+      "university": "LMU–TUM",
+      "city": "Monaco e Garching",
+      "type": "J",
+      "conditions": "DE",
+      "notes": []
+    },
+    {
+      "id": "3-143",
+      "rank": 143,
+      "name": "Evolutionary Biology — MEME",
+      "region": "Europa",
+      "url": "https://www.evobio.eu/",
+      "university": "LMU / rete MEME",
+      "city": "Groningen/Uppsala/Montpellier/Monaco, secondo percorso",
+      "type": "D",
+      "conditions": "?",
+      "notes": []
+    },
+    {
+      "id": "3-144",
+      "rank": 144,
+      "name": "Genomics in Society",
+      "region": "Europa",
+      "url": "https://www.eur.nl/en/erasmusmc/education/master/overview",
+      "university": "Erasmus MC",
+      "city": "Rotterdam",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Secondario: genomica con forte componente sociale e interdisciplinare."
+      ]
+    },
+    {
+      "id": "3-145",
+      "rank": 145,
+      "name": "Health Sciences",
+      "region": "Europa",
+      "url": "https://www.eur.nl/en/erasmusmc/education/master/overview",
+      "university": "Erasmus MC",
+      "city": "Rotterdam",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Più epidemiologia/ricerca sanitaria che biotecnologie sperimentali; valutare la major."
+      ]
+    },
+    {
+      "id": "3-146",
+      "rank": 146,
+      "name": "Bioentrepreneurship",
+      "region": "Europa",
+      "url": "https://education.ki.se/bachelors-masters-studies/programmes-and-courses/masters-programme-in-bioentrepreneurship",
+      "university": "Karolinska",
+      "city": "Stoccolma",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Biotech industriale, sviluppo e gestione: secondario rispetto al tuo obiettivo sperimentale."
+      ]
+    },
+    {
+      "id": "4-1",
+      "rank": 1,
+      "name": "Cell and Developmental Biology",
+      "region": "Extra-Europa",
+      "url": "https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-cell-developmental-biology",
+      "university": "UBC",
+      "city": "Vancouver",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-2",
+      "rank": 2,
+      "name": "Biochemistry and Molecular Biology",
+      "region": "Extra-Europa",
+      "url": "https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-biochemistry-molecular-biology",
+      "university": "UBC",
+      "city": "Vancouver",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Nuova priorità molto alta: gene regulation, epigenetics, membrane e cellular regulation; programma research-intensive."
+      ]
+    },
+    {
+      "id": "4-3",
+      "rank": 3,
+      "name": "Cell and Systems Biology",
+      "region": "Extra-Europa",
+      "url": "https://www.sgs.utoronto.ca/programs/cell-and-systems-biology/",
+      "university": "Toronto",
+      "city": "Toronto",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Nuova priorità molto alta per biologia cellulare sperimentale."
+      ]
+    },
+    {
+      "id": "4-4",
+      "rank": 4,
+      "name": "Molecular Genetics",
+      "region": "Extra-Europa",
+      "url": "https://moleculargenetics.utoronto.ca/graduate-studies-research",
+      "university": "Toronto",
+      "city": "Toronto",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-5",
+      "rank": 5,
+      "name": "Medical Biophysics",
+      "region": "Extra-Europa",
+      "url": "https://www.sgs.utoronto.ca/programs/medical-biophysics/",
+      "university": "Toronto",
+      "city": "Toronto",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Nuova priorità: comprende stem cells, segnalazione, modelli cellulari, cancro e imaging. Non dedurre dal nome una sola formazione fisica."
+      ]
+    },
+    {
+      "id": "4-6",
+      "rank": 6,
+      "name": "Biomedical Science",
+      "region": "Extra-Europa",
+      "url": "https://study.unimelb.edu.au/find/courses/graduate/master-of-biomedical-science/",
+      "university": "Melbourne",
+      "city": "Melbourne",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-7",
+      "rank": 7,
+      "name": "Laboratory Medicine and Pathobiology",
+      "region": "Extra-Europa",
+      "url": "https://lmp.utoronto.ca/master-science-msc-program",
+      "university": "Toronto",
+      "city": "Toronto",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-8",
+      "rank": 8,
+      "name": "Biochemistry",
+      "region": "Extra-Europa",
+      "url": "https://www.sgs.utoronto.ca/programs/biochemistry/",
+      "university": "Toronto",
+      "city": "Toronto",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Molecole, membrane, organelli e meccanismi cellulari."
+      ]
+    },
+    {
+      "id": "4-9",
+      "rank": 9,
+      "name": "Medical Genetics",
+      "region": "Extra-Europa",
+      "url": "https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-medical-genetics",
+      "university": "UBC",
+      "city": "Vancouver",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Genetica e genomica con progetto sperimentale secondo laboratorio."
+      ]
+    },
+    {
+      "id": "4-10",
+      "rank": 10,
+      "name": "Biomedical Engineering",
+      "region": "Extra-Europa",
+      "url": "https://bme.utoronto.ca/prospective-student/master-of-applied-science/",
+      "university": "Toronto",
+      "city": "Toronto",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-11",
+      "rank": 11,
+      "name": "Biomedical Engineering",
+      "region": "Extra-Europa",
+      "url": "https://bme.ubc.ca/education/graduate-programs/",
+      "university": "UBC",
+      "city": "Vancouver",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-12",
+      "rank": 12,
+      "name": "Experimental Medicine",
+      "region": "Extra-Europa",
+      "url": "https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-experimental-medicine",
+      "university": "UBC",
+      "city": "Vancouver",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-13",
+      "rank": 13,
+      "name": "Biomedical and Health Science — Regenerative Medicine and Stem Cells",
+      "region": "Extra-Europa",
+      "url": "https://www.monash.edu/study/courses/find-a-course/biomedical-and-health-science-m6003?international=true",
+      "university": "Monash",
+      "city": "Melbourne/Clayton",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-14",
+      "rank": 14,
+      "name": "Biotechnology Research Extensive — Medical Biotechnology",
+      "region": "Extra-Europa",
+      "url": "https://study.uq.edu.au/study-options/programs/master-biotechnology-research-extensive-5627/medical-biotechnology-medbix5627",
+      "university": "UQ",
+      "city": "Brisbane",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Stem cells, cell labelling/tracking, gene therapy, artificial organs e biopharmaceuticals."
+      ]
+    },
+    {
+      "id": "4-15",
+      "rank": 15,
+      "name": "Biotechnology",
+      "region": "Extra-Europa",
+      "url": "https://www.monash.edu/study/courses/find-a-course/biotechnology-m6030",
+      "university": "Monash",
+      "city": "Melbourne/Clayton",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-16",
+      "rank": 16,
+      "name": "Molecular Biology Research Extensive",
+      "region": "Extra-Europa",
+      "url": "https://study.uq.edu.au/study-options/programs/master-molecular-biology-research-extensive-5625?year=2027",
+      "university": "UQ",
+      "city": "Brisbane",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-17",
+      "rank": 17,
+      "name": "Science (BioSciences)",
+      "region": "Extra-Europa",
+      "url": "https://study.unimelb.edu.au/find/courses/graduate/master-of-science-biosciences",
+      "university": "Melbourne",
+      "city": "Melbourne",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-18",
+      "rank": 18,
+      "name": "Medical Science — campo Biomedical Science",
+      "region": "Extra-Europa",
+      "url": "https://www.sgs.utoronto.ca/programs/medical-science/",
+      "university": "Toronto",
+      "city": "Toronto",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Research MSc ampio: per candidati internazionali il sito richiede un supervisore al momento della domanda."
+      ]
+    },
+    {
+      "id": "4-19",
+      "rank": 19,
+      "name": "Biomedical Science",
+      "region": "Extra-Europa",
+      "url": "https://www.monash.edu/study/courses/find-a-course/biomedical-science-2977",
+      "university": "Monash",
+      "city": "Melbourne/Clayton",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-20",
+      "rank": 20,
+      "name": "Medicine — Master of Science by research",
+      "region": "Extra-Europa",
+      "url": "https://medicine.nus.edu.sg/graduatestudies/education/master-of-science/",
+      "university": "NUS",
+      "city": "Singapore",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-21",
+      "rank": 21,
+      "name": "Immunology",
+      "region": "Extra-Europa",
+      "url": "https://www.sgs.utoronto.ca/programs/immunology/",
+      "university": "Toronto",
+      "city": "Toronto",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Sviluppo e interazioni cellulari, trasduzione del segnale e immunoterapia."
+      ]
+    },
+    {
+      "id": "4-22",
+      "rank": 22,
+      "name": "Women+ and Children's Health Sciences — Reproductive and Developmental Sciences",
+      "region": "Extra-Europa",
+      "url": "https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-women-children-health-sciences",
+      "university": "UBC",
+      "city": "Vancouver",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Contenitore attuale con specializzazione in riproduzione e sviluppo. Non duplicare il vecchio nome Reproductive and Developmental Sciences come Master aggiuntivo."
+      ]
+    },
+    {
+      "id": "4-23",
+      "rank": 23,
+      "name": "Pathology and Laboratory Medicine",
+      "region": "Extra-Europa",
+      "url": "https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-pathology-laboratory-medicine",
+      "university": "UBC",
+      "city": "Vancouver",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Ricerca sulle malattie e meccanismi cellulari/molecolari."
+      ]
+    },
+    {
+      "id": "4-24",
+      "rank": 24,
+      "name": "Interdisciplinary Oncology",
+      "region": "Extra-Europa",
+      "url": "https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-interdisciplinary-oncology",
+      "university": "UBC",
+      "city": "Vancouver",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Possibile lavoro su biologia cellulare tumorale, secondo supervisore."
+      ]
+    },
+    {
+      "id": "4-25",
+      "rank": 25,
+      "name": "Biotechnology",
+      "region": "Extra-Europa",
+      "url": "https://www.dbs.nus.edu.sg/education/graduates/masters-by-coursework/biotechnology/",
+      "university": "NUS",
+      "city": "Singapore",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-26",
+      "rank": 26,
+      "name": "Biotechnology Research Extensive",
+      "region": "Extra-Europa",
+      "url": "https://study.uq.edu.au/study-options/programs/master-biotechnology-research-extensive-5627",
+      "university": "UQ",
+      "city": "Brisbane",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Nuova aggiunta molto importante: immersione laboratoriale maggiore rispetto al Master standard."
+      ]
+    },
+    {
+      "id": "4-27",
+      "rank": 27,
+      "name": "Biotechnology — Medical Biotechnology",
+      "region": "Extra-Europa",
+      "url": "https://study.uq.edu.au/study-options/programs/master-biotechnology-5599?year=2027",
+      "university": "UQ",
+      "city": "Brisbane",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-28",
+      "rank": 28,
+      "name": "Molecular Biology",
+      "region": "Extra-Europa",
+      "url": "https://study.uq.edu.au/study-options/programs/master-molecular-biology-5600?year=2027",
+      "university": "UQ",
+      "city": "Brisbane",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-29",
+      "rank": 29,
+      "name": "Genome Science and Technology",
+      "region": "Extra-Europa",
+      "url": "https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-genome-science-technology",
+      "university": "UBC",
+      "city": "Vancouver",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-30",
+      "rank": 30,
+      "name": "Physiology",
+      "region": "Extra-Europa",
+      "url": "https://www.sgs.utoronto.ca/programs/physiology/",
+      "university": "Toronto",
+      "city": "Toronto",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Ricerca fisiologica e meccanismi cellulari secondo laboratorio."
+      ]
+    },
+    {
+      "id": "4-31",
+      "rank": 31,
+      "name": "Pharmaceutical Sciences — campo Biomolecular Science",
+      "region": "Extra-Europa",
+      "url": "https://www.sgs.utoronto.ca/programs/pharmaceutical-sciences/",
+      "university": "Toronto",
+      "city": "Toronto",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Target, terapie, vaccini e diagnostica. Il sito segnala pochi posti finanziati per internazionali 2027/28 e impegno del supervisore prima della valutazione."
+      ]
+    },
+    {
+      "id": "4-32",
+      "rank": 32,
+      "name": "Microbiology and Immunology",
+      "region": "Extra-Europa",
+      "url": "https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-microbiology-immunology",
+      "university": "UBC",
+      "city": "Vancouver",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Microbiologia, immunologia e ricerca biologica."
+      ]
+    },
+    {
+      "id": "4-33",
+      "rank": 33,
+      "name": "Pharmacology",
+      "region": "Extra-Europa",
+      "url": "https://www.sgs.utoronto.ca/programs/pharmacology/",
+      "university": "Toronto",
+      "city": "Toronto",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Farmacologia molecolare, recettori, segnalazione e farmacogenetica."
+      ]
+    },
+    {
+      "id": "4-34",
+      "rank": 34,
+      "name": "Applied Biomedicine",
+      "region": "Extra-Europa",
+      "url": "https://medicine.nus.edu.sg/graduatestudies/education/msc-in-applied-biomedicine/",
+      "university": "NUS",
+      "city": "Singapore",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-35",
+      "rank": 35,
+      "name": "Biomedical Engineering",
+      "region": "Extra-Europa",
+      "url": "https://cde.nus.edu.sg/bme/master-of-science-msc-in-biomedical-engineering/",
+      "university": "NUS",
+      "city": "Singapore",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-36",
+      "rank": 36,
+      "name": "Biomedical Engineering — Master Plus",
+      "region": "Extra-Europa",
+      "url": "https://cde.nus.edu.sg/bme/graduate/nus-bme-tsu-bme-dual-masters-degree-program-master-plus-programme/",
+      "university": "NUS–Tsinghua",
+      "city": "Singapore e Pechino",
+      "type": "D",
+      "conditions": "A",
+      "notes": []
+    },
+    {
+      "id": "4-37",
+      "rank": 37,
+      "name": "Biotechnology Research Extensive — Synthetic Biology and Industrial Biotechnology",
+      "region": "Extra-Europa",
+      "url": "https://study.uq.edu.au/study-options/programs/master-biotechnology-research-extensive-5627/synthetic-biology-and-industrial-biotechnology-sybibx5627",
+      "university": "UQ",
+      "city": "Brisbane",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Progettazione e riprogrammazione di processi biologici."
+      ]
+    },
+    {
+      "id": "4-38",
+      "rank": 38,
+      "name": "Biomedical Engineering",
+      "region": "Extra-Europa",
+      "url": "https://study.unimelb.edu.au/find/courses/graduate/master-of-biomedical-engineering/",
+      "university": "Melbourne",
+      "city": "Melbourne",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Ingegneria biomedica; valutare matematica, fisica e percorso d'ingresso."
+      ]
+    },
+    {
+      "id": "4-39",
+      "rank": 39,
+      "name": "Clinical Embryology",
+      "region": "Extra-Europa",
+      "url": "https://www.monash.edu/study/courses/find-a-course/clinical-embryology-m6010",
+      "university": "Monash",
+      "city": "Melbourne/Clayton",
+      "type": "M",
+      "conditions": "A",
+      "notes": [
+        "Embriologia e manipolazione di gameti/embrioni; molto pratico ma clinico e professionalizzante. La sola L-2 non è un ingresso già dimostrato: previste ulteriori qualifiche/esperienza o vie specifiche."
+      ]
+    },
+    {
+      "id": "4-40",
+      "rank": 40,
+      "name": "Philosophy (Medicine and Health)",
+      "region": "Extra-Europa",
+      "url": "https://www.sydney.edu.au/courses/courses/pr/master-of-philosophy-medicine-and-health.html",
+      "university": "Sydney",
+      "city": "Sydney",
+      "type": "M",
+      "conditions": "A",
+      "notes": []
+    },
+    {
+      "id": "4-41",
+      "rank": 41,
+      "name": "Philosophy (Science)",
+      "region": "Extra-Europa",
+      "url": "https://www.sydney.edu.au/courses/courses/pr/master-of-philosophy-science0.html",
+      "university": "Sydney",
+      "city": "Sydney",
+      "type": "M",
+      "conditions": "A",
+      "notes": []
+    },
+    {
+      "id": "4-42",
+      "rank": 42,
+      "name": "Master of Philosophy — Science",
+      "region": "Extra-Europa",
+      "url": "https://study.unimelb.edu.au/find/courses/graduate/master-of-philosophy-science/",
+      "university": "Melbourne",
+      "city": "Melbourne",
+      "type": "M",
+      "conditions": "A",
+      "notes": [
+        "Ricerca originale: progetto, supervisione e preparazione alla ricerca determinanti; non automaticamente accessibile dopo L-2."
+      ]
+    },
+    {
+      "id": "4-43",
+      "rank": 43,
+      "name": "Master of Biotechnology (MBiotech)",
+      "region": "Extra-Europa",
+      "url": "https://www.sgs.utoronto.ca/programs/biotechnology/",
+      "university": "Toronto",
+      "city": "Mississauga",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Master professionale con componente industriale; distinto dagli MSc con tesi. Sede Mississauga."
+      ]
+    },
+    {
+      "id": "4-44",
+      "rank": 44,
+      "name": "Bioinformatics Research Extensive",
+      "region": "Extra-Europa",
+      "url": "https://study.uq.edu.au/study-options/programs/master-bioinformatics-research-extensive-5598",
+      "university": "UQ",
+      "city": "Brisbane",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Versione con ricerca estesa, da confrontare con quella standard."
+      ]
+    },
+    {
+      "id": "4-45",
+      "rank": 45,
+      "name": "Bioinformatics",
+      "region": "Extra-Europa",
+      "url": "https://study.uq.edu.au/study-options/programs/master-bioinformatics-5755",
+      "university": "UQ",
+      "city": "Brisbane",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Percorso computazionale."
+      ]
+    },
+    {
+      "id": "4-46",
+      "rank": 46,
+      "name": "Science (Bioinformatics)",
+      "region": "Extra-Europa",
+      "url": "https://study.unimelb.edu.au/find/courses/graduate/master-of-science-bioinformatics/",
+      "university": "Melbourne",
+      "city": "Melbourne",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Coursework con progetto di ricerca sostanziale; genomica e dati biologici."
+      ]
+    },
+    {
+      "id": "4-47",
+      "rank": 47,
+      "name": "Genome Analytics",
+      "region": "Extra-Europa",
+      "url": "https://handbook.monash.edu/2026/courses/S6005",
+      "university": "Monash",
+      "city": "Melbourne/Clayton",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Bioinformatica, genetica e genomica; controllare l'edizione 2027 del handbook."
+      ]
+    },
+    {
+      "id": "4-48",
+      "rank": 48,
+      "name": "Genomics and Health",
+      "region": "Extra-Europa",
+      "url": "https://study.unimelb.edu.au/find/courses/graduate/master-of-genomics-and-health/",
+      "university": "Melbourne",
+      "city": "Melbourne",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Genomica applicata alla salute, meno orientato alla coltura cellulare."
+      ]
+    },
+    {
+      "id": "4-49",
+      "rank": 49,
+      "name": "Precision Health and Medicine x Artificial Intelligence",
+      "region": "Extra-Europa",
+      "url": "https://medicine.nus.edu.sg/bch/msc-phm/",
+      "university": "NUS",
+      "city": "Singapore",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Medicina di precisione, AI e dati; il sito annuncia candidature 2027. Più computazionale e traslazionale che colture cellulari."
+      ]
+    },
+    {
+      "id": "4-50",
+      "rank": 50,
+      "name": "Biomedical Science — Genomics and Precision Medicine",
+      "region": "Extra-Europa",
+      "url": "https://www.sydney.edu.au/courses/courses/pc/master-of-biomedical-science-genomics-and-precision-medicine.html",
+      "university": "Sydney",
+      "city": "Sydney",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-51",
+      "rank": 51,
+      "name": "Neuroscience",
+      "region": "Extra-Europa",
+      "url": "https://www.grad.ubc.ca/prospective-students/faculties/faculty-medicine",
+      "university": "UBC",
+      "city": "Vancouver",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Alternativa per neurobiologia cellulare; scegliere laboratorio."
+      ]
+    },
+    {
+      "id": "4-52",
+      "rank": 52,
+      "name": "Brain and Mind Sciences",
+      "region": "Extra-Europa",
+      "url": "https://www.sydney.edu.au/courses/courses/pc/master-of-brain-and-mind-sciences.html",
+      "university": "Sydney",
+      "city": "Sydney",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Neuroscienze e componente clinica; meno direttamente biotech cellulare."
+      ]
+    },
+    {
+      "id": "4-53",
+      "rank": 53,
+      "name": "Biotechnology",
+      "region": "Extra-Europa",
+      "url": "https://study.unimelb.edu.au/find/courses/graduate/master-of-biotechnology/",
+      "university": "Melbourne",
+      "city": "Melbourne",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-54",
+      "rank": 54,
+      "name": "Pharmaceutical Science and Technology",
+      "region": "Extra-Europa",
+      "url": "https://pharmacy.nus.edu.sg/study/postgraduate-programmes/msc-pharmaceutical-science-technology-programme/",
+      "university": "NUS",
+      "city": "Singapore",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Biopharma, sviluppo e tecnologie farmaceutiche; modalità, esperienza richiesta e intake da controllare."
+      ]
+    },
+    {
+      "id": "4-55",
+      "rank": 55,
+      "name": "Professional Engineering — Biomedical Engineering",
+      "region": "Extra-Europa",
+      "url": "https://www.sydney.edu.au/content/courses/courses/pc/master-of-professional-engineering-biomedical-engineering.html",
+      "university": "Sydney",
+      "city": "Sydney",
+      "type": "M",
+      "conditions": "—",
+      "notes": [
+        "Percorso ingegneristico; non considerare la L-2 idonea senza verifica di matematica e requisiti."
+      ]
+    },
+    {
+      "id": "4-56",
+      "rank": 56,
+      "name": "Biotechnology Research Extensive — Animal Agricultural Biotechnology",
+      "region": "Extra-Europa",
+      "url": "https://study.uq.edu.au/study-options/programs/master-biotechnology-research-extensive-5627/animal-agricultural-biotechnology-anagbx5627",
+      "university": "UQ",
+      "city": "Brisbane",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Riproduzione animale, vaccini, genetica e diagnostica; distinto dal field della versione standard."
+      ]
+    },
+    {
+      "id": "4-57",
+      "rank": 57,
+      "name": "Biotechnology — Animal Agricultural Biotechnology",
+      "region": "Extra-Europa",
+      "url": "https://study.uq.edu.au/study-options/programs/master-biotechnology-5599?year=2027",
+      "university": "UQ",
+      "city": "Brisbane",
+      "type": "T",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-58",
+      "rank": 58,
+      "name": "Biotechnology Research Extensive — Molecular Imaging Technology",
+      "region": "Extra-Europa",
+      "url": "https://study.uq.edu.au/study-options/programs/master-biotechnology-research-extensive-5627/molecular-imaging-technology-molitx5627",
+      "university": "UQ",
+      "city": "Brisbane",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Imaging e theranostics; non equivale necessariamente a microscopia cellulare."
+      ]
+    },
+    {
+      "id": "4-59",
+      "rank": 59,
+      "name": "Biotechnology Research Extensive — Plant Agricultural Biotechnology",
+      "region": "Extra-Europa",
+      "url": "https://study.uq.edu.au/study-options/programs/master-biotechnology-research-extensive-5627/plant-agricultural-biotechnology-plagbx5627",
+      "university": "UQ",
+      "city": "Brisbane",
+      "type": "T",
+      "conditions": "—",
+      "notes": [
+        "Biologia molecolare vegetale e ingegneria genetica."
+      ]
+    },
+    {
+      "id": "4-60",
+      "rank": 60,
+      "name": "Biomedical Science — Infection and Immunity",
+      "region": "Extra-Europa",
+      "url": "https://www.sydney.edu.au/courses/courses/pc/master-of-biomedical-science-infection-and-immunity.html",
+      "university": "Sydney",
+      "city": "Sydney",
+      "type": "M",
+      "conditions": "—",
+      "notes": []
+    },
+    {
+      "id": "4-61",
+      "rank": 61,
+      "name": "Health Science",
+      "region": "Extra-Europa",
+      "url": "https://handbook.monash.edu/2025/courses/m6034",
+      "university": "Monash–Southeast University",
+      "city": "Suzhou",
+      "type": "D",
+      "conditions": "A",
+      "notes": []
+    },
+    {
+      "id": "4-62",
+      "rank": 62,
+      "name": "Green Business",
+      "region": "Extra-Europa",
+      "url": "https://www.helsinki.fi/en/admissions-and-education/apply-bachelors-and-masters-programmes/joint-degree-programmes",
+      "university": "UBC–Helsinki",
+      "city": "Vancouver e Helsinki",
+      "type": "D",
+      "conditions": "—",
+      "notes": []
+    }
+  ],
+  "archived": [
+    {
+      "name": "Integrative Plant Sciences",
+      "url": "https://www.helsinki.fi/en/degree-programmes/integrative-plant-sciences-masters-programme",
+      "university": "Helsinki",
+      "city": "Helsinki",
+      "status": "Non ammette più nuovi studenti."
+    },
+    {
+      "name": "Molecular Microbiology, Microbial Ecology and Immunobiology",
+      "url": "https://molekularebiologie.univie.ac.at/en/master-studies/",
+      "university": "Vienna",
+      "city": "Vienna",
+      "status": "In esaurimento, senza nuove ammissioni dal 2025."
+    },
+    {
+      "name": "Advanced Spectroscopy in Chemistry — ASC",
+      "url": "https://www.helsinki.fi/en/admissions-and-education/apply-bachelors-and-masters-programmes/joint-degree-programmes",
+      "university": "Helsinki e consorzio",
+      "city": "Helsinki/Lille/Bologna/Cracovia/Lipsia, secondo percorso",
+      "status": "Nessun nuovo ingresso nel 2027."
+    },
+    {
+      "name": "Biomedical Neuroscience",
+      "url": "https://www.tum.de/en/studies/degree-programs",
+      "university": "TUM",
+      "city": "Monaco",
+      "status": "Ristrutturazione: non confermato nella forma precedente per il 2027."
+    },
+    {
+      "name": "Vecchio doppio titolo Biofabrication con Wollongong/QUT",
+      "url": "https://courses.uow.edu.au/courses/2027/2135",
+      "university": "Utrecht e partner australiani",
+      "city": "Utrecht/Australia",
+      "status": "Wollongong indica il corso come chiuso a nuove iscrizioni; opzione QUT 2027 da riconfermare. Il Master Utrecht è in classifica."
+    },
+    {
+      "name": "Molecular and Cellular Biology — vecchio nome",
+      "url": "https://www.bio.lmu.de/en/study/for-students/master-programs/",
+      "university": "LMU",
+      "city": "Monaco",
+      "status": "Dal 2027/28 è sostituito da Molecular Principles of Life, già classificato."
+    },
+    {
+      "name": "Plant Sciences — vecchio nome",
+      "url": "https://www.bio.lmu.de/en/study/for-students/master-programs/",
+      "university": "LMU",
+      "city": "Monaco",
+      "status": "Dal 2027/28 è sostituito da Molecular Plant Sciences, già classificato."
+    },
+    {
+      "name": "Reproductive and Developmental Sciences — vecchio contenitore",
+      "url": "https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-women-children-health-sciences",
+      "university": "UBC",
+      "city": "Vancouver",
+      "status": "Area inclusa nel programma corrente Women+ and Children's Health Sciences, già classificato."
+    },
+    {
+      "name": "iMOV / International Master of Vision Sciences — denominazione precedente",
+      "url": "https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-neurosciences/international-master-integrative",
+      "university": "Sorbonne–UNAM",
+      "city": "Parigi/Città del Messico",
+      "status": "La pagina corrente rimanda al percorso iSENSE, già classificato. Non confonderlo con IMoV Chimie-Biologie."
+    },
+    {
+      "name": "IMaC–Okayama",
+      "url": "https://sciences.sorbonne-universite.fr/en/french-japanese-imac-okayama-programme",
+      "university": "Sorbonne–Okayama",
+      "city": "Parigi/Okayama",
+      "status": "Mobilità con certificato, non un Master autonomo aggiuntivo."
+    },
+    {
+      "name": "BEAM — EU–Australia Biomedical Engineering mobility",
+      "url": "https://sydney-au-sa.terradotta.com/index.cfm?Announcement_ID=3005&FuseAction=Announcements.Announcement",
+      "university": "Sydney e partner europei",
+      "city": "Sydney/Trento/Braga-Halle secondo accordo",
+      "status": "Mobilità di un semestre: non dimostra un doppio titolo. Stato 2027 da riconfermare."
+    },
+    {
+      "name": "Three-Two Programme in Chemistry",
+      "url": "https://sciences.sorbonne-universite.fr/en/french-canadian-three-two-programme-chemistry",
+      "university": "Sorbonne–UBC",
+      "city": "Parigi/Vancouver",
+      "status": "Accordo specifico Bachelor/Master in chimica: non una normale candidatura post-L-2 a un doppio MSc biotech."
+    }
+  ],
+  "notes": [
+    {
+      "key": "Utrecht — Molecular and Cellular Life Sciences — Molecules & Cells / Genes to Organisms / Biophysics & Molecular Imaging",
+      "text": "Priorità molto alta. Tre track: Genes to Organisms; Molecules & Cells; Biophysics & Molecular Imaging. Uno o due progetti di ricerca; inglese, 120 ECTS."
+    },
+    {
+      "key": "UZH — Biochemistry",
+      "text": "Nuova priorità: biochimica sperimentale e life sciences."
+    },
+    {
+      "key": "Geneva — Biochemistry",
+      "text": "Nuova priorità: membrane, trasporto, biochimica, biologia cellulare e molecolare."
+    },
+    {
+      "key": "Copenhagen — Biochemistry",
+      "text": "Nuova priorità per biochimica, proteine e biologia cellulare; inglese."
+    },
+    {
+      "key": "TUM — Biology",
+      "text": "Nuova priorità. Medical Biology, biochemistry/cell biology, colture cellulari, genetica e immunologia. Inglese possibile secondo piano e moduli; verificarne la combinazione completa."
+    },
+    {
+      "key": "TUM — Biochemistry",
+      "text": "Molecular/cell biology pertinente, ma lingua d'insegnamento e requisito d'accesso: tedesco. Sede Garching."
+    },
+    {
+      "key": "Sorbonne — BMC — Biochimie & Biologie moléculaire",
+      "text": "Da confrontare per ricerca biochimica e molecolare."
+    },
+    {
+      "key": "Sorbonne — BMC — Génétique et Épigénétique",
+      "text": "Oncogenesi, RNA, genetica medica, genoma ed epigenetica."
+    },
+    {
+      "key": "Paris Cité — Génétique",
+      "text": "Nuova priorità per genetica ed epigenetica; la facoltà descrive lunghi stage di laboratorio e opportunità internazionali."
+    },
+    {
+      "key": "Paris-Saclay — Genetics, Genomics, Epigenetics and Evolution (GenE2)",
+      "text": "Nuova priorità per genetica molecolare, genomica funzionale ed epigenetica."
+    },
+    {
+      "key": "Paris-Saclay — Human Genomics in Biotherapies, Health and Disease (HuGeInBio)",
+      "text": "Genomica umana collegata a bioterapie e malattia; elencato nell'offerta in inglese."
+    },
+    {
+      "key": "Utrecht — Drug Innovation",
+      "text": "Biomolecular drugs, nuove strategie terapeutiche e ricerca sul farmaco."
+    },
+    {
+      "key": "Utrecht — Infection and Immunity",
+      "text": "Immunologia, modelli cellulari, tecniche molecolari e ricerca sperimentale."
+    },
+    {
+      "key": "Copenhagen — Immunology and Inflammation",
+      "text": "Ricerca immunologica sperimentale e strategie terapeutiche."
+    },
+    {
+      "key": "UZH — Biology — Cancer Biology",
+      "text": "Biologia cellulare tumorale e ricerca oncologica."
+    },
+    {
+      "key": "UZH — Biology — Immunology",
+      "text": "Immunologia cellulare e molecolare."
+    },
+    {
+      "key": "Paris Cité — BIP — Reproduction et Développement (ReproDev)",
+      "text": "Riproduzione e sviluppo; priorità scientifica elevata, lingua e ingresso M1 da verificare."
+    },
+    {
+      "key": "Paris Cité — BIP — Epithéliums: Structures d'Interface (ESI)",
+      "text": "Organizzazione e funzione degli epiteli: particolarmente interessante per la biologia cellulare e dei tessuti."
+    },
+    {
+      "key": "Paris Cité — BIP — Biologie du Vieillissement (BioVie)",
+      "text": "Meccanismi cellulari e molecolari dell'invecchiamento."
+    },
+    {
+      "key": "ETH — Biology — Biochemistry",
+      "text": "Meccanismi biochimici, macromolecole e ricerca molecolare."
+    },
+    {
+      "key": "EPFL — Molecular and Biological Chemistry",
+      "text": "Forte ricerca pratica in laboratorio all'interfaccia chimica-biologia."
+    },
+    {
+      "key": "Sorbonne — Interfaces Chimie-Biologie: Ingénierie Moléculaire du Vivant (IMoV)",
+      "text": "Dal 2025: interfaccia chimica-biologia, sonde, biosensori e approcci biotecnologici; solida preparazione chimica."
+    },
+    {
+      "key": "Paris-Saclay — Systems and Synthetic Biology",
+      "text": "Hands-on experimental biology, modellazione e progettazione di sistemi biologici."
+    },
+    {
+      "key": "Paris-Saclay — International Track in France — M1, Orsay",
+      "text": "Possibile porta d'ingresso in inglese per proseguire verso diversi M2; non dà accesso automatico a ogni M2."
+    },
+    {
+      "key": "Paris Cité — Biologie Intégrative et Physiologie (BIP)",
+      "text": "Contenitore di percorsi fisiologici, cellulari e dello sviluppo."
+    },
+    {
+      "key": "Basel — Drug Sciences",
+      "text": "Master in inglese, con tesi di ricerca lunga. Eventuali corsi integrativi possono essere in tedesco."
+    },
+    {
+      "key": "Helsinki — Pharmaceutical Research, Development and Safety",
+      "text": "Drug discovery/design/pharmacology; drug delivery/development; safety/regulation."
+    },
+    {
+      "key": "Vienna — Drug Discovery and Development",
+      "text": "Master in inglese con procedura di selezione; chimica e farmacologia da confrontare con i tuoi CFU."
+    },
+    {
+      "key": "Karolinska — Toxicology",
+      "text": "Ricerca sui meccanismi di tossicità e valutazione della sicurezza; pagina autunno 2027 disponibile."
+    },
+    {
+      "key": "Sorbonne — BMC — Immunologie",
+      "text": "Alternativa per immunoterapia e ricerca immunologica."
+    },
+    {
+      "key": "Sorbonne — BMC — Microbiologie",
+      "text": "Microbiologia e virologia, con applicazioni biotech."
+    },
+    {
+      "key": "ETH — Biology — Microbiology and Immunology",
+      "text": "Microbiologia, immunologia e processi molecolari; è un major del MSc Biology."
+    },
+    {
+      "key": "UZH — Biology — Microbiology",
+      "text": "Specializzazione del MSc Biology."
+    },
+    {
+      "key": "UZH — Biology — Virology",
+      "text": "Specializzazione del MSc Biology; pertinente a vettori, infezioni e ricerca molecolare secondo progetto."
+    },
+    {
+      "key": "Helsinki — Microbiology and Microbial Biotechnology",
+      "text": "Nuova aggiunta direttamente biotech: microbiologia medica/alimentare/ambientale, virologia e biotecnologie microbiche."
+    },
+    {
+      "key": "Vienna — Microbiome Science",
+      "text": "Programma attuale in inglese; microbiomi e microbiologia."
+    },
+    {
+      "key": "Sorbonne — BMC — Biotechnologies: R&D Biotech",
+      "text": "M2 orientato all'industria biotech con stage di sei mesi; preceduto da M1 pertinente."
+    },
+    {
+      "key": "Sorbonne — BMC — Innovation en Biotechnologies",
+      "text": "Percorso in alternance/apprentissage: serve un contratto con un'impresa."
+    },
+    {
+      "key": "EPFL — Chemical Engineering and Biotechnology",
+      "text": "Master autonomo prima omesso: biotecnologie di processo e ingegneria chimica; requisiti quantitativi importanti."
+    },
+    {
+      "key": "Copenhagen — Biology",
+      "text": "Programma ampio da personalizzare: verificare piano e specializzazione."
+    },
+    {
+      "key": "Aarhus — Biology",
+      "text": "Percorso ampio, da costruire scegliendo progetto e corsi molecolari."
+    },
+    {
+      "key": "Copenhagen — Pharmaceutical Sciences — English/GB programme",
+      "text": "Drug discovery, sviluppo e ricerca farmaceutica; distinguere dalla versione danese."
+    },
+    {
+      "key": "Copenhagen — Medicinal Chemistry",
+      "text": "Più chimico: prerequisiti di chimica organica e preparazione specifica."
+    },
+    {
+      "key": "Aarhus — Medicinal Chemistry",
+      "text": "Drug discovery, sintesi e ricerca farmaceutica; preparazione chimica determinante."
+    },
+    {
+      "key": "Sorbonne — BMC — Systèmes biologiques et concepts physiques",
+      "text": "Biologia quantitativa e biofisica; distinto dal percorso in staminali."
+    },
+    {
+      "key": "Basel — Nanosciences",
+      "text": "Nanobiologia e applicazioni mediche possibili; bisogna soddisfare requisiti interdisciplinari."
+    },
+    {
+      "key": "TUM — Nutrition and Biomedicine",
+      "text": "In inglese; metabolismo e meccanismi molecolari delle malattie nutrizionali."
+    },
+    {
+      "key": "UZH — Biology — Quantitative Biology and Systems Biology",
+      "text": "Direzione computazionale e quantitativa."
+    },
+    {
+      "key": "Utrecht — Bioinformatics and Biocomplexity",
+      "text": "Biologia dei sistemi e analisi computazionale; meno orientato al banco."
+    },
+    {
+      "key": "Copenhagen — Bioinformatics",
+      "text": "Due specializzazioni: Computational Biology e Computer Science."
+    },
+    {
+      "key": "Aarhus — Bioinformatics",
+      "text": "Programma aperto a background scientifici pertinenti; confronto di matematica, biologia e informatica."
+    },
+    {
+      "key": "Sorbonne — Bioinformatique & Modélisation (BIM-BMC)",
+      "text": "Percorso computazionale del BMC."
+    },
+    {
+      "key": "Sorbonne — BMC — Artificial Intelligence and Data Analysis (AIDA)",
+      "text": "Analisi dei dati e AI: verificare i prerequisiti quantitativi."
+    },
+    {
+      "key": "Paris-Saclay — Genomics Informatics Mathematics and Artificial Intelligence for Health and Environment (GENIOMHE)",
+      "text": "Genomica computazionale e AI; più quantitativo."
+    },
+    {
+      "key": "Paris Cité — Bio-informatique",
+      "text": "Contenitore per biologia computazionale, piattaforme biologiche e drug design."
+    },
+    {
+      "key": "Paris Cité — Bioinformatique — Ingénierie de plateforme en biologie",
+      "text": "Piattaforme e strumenti biologici; catalogo: francese/inglese."
+    },
+    {
+      "key": "Paris Cité — Bioinformatique — In Silico Drug Design (ISDD)",
+      "text": "Opzione internazionale citata dal catalogo; partner e accordi attivi vanno riconfermati prima di promettere un doppio titolo."
+    },
+    {
+      "key": "UNIL — Molecular Life Sciences — Bioinformatics",
+      "text": "Specializzazione interna: non un nuovo Master."
+    },
+    {
+      "key": "UNIL — Molecular Life Sciences — Microbiology",
+      "text": "Specializzazione interna: non un nuovo Master."
+    },
+    {
+      "key": "Paris-Saclay — Fundamental Microbiology",
+      "text": "Microbiologia fondamentale e molecolare; offerta internazionale da confrontare."
+    },
+    {
+      "key": "Paris Cité — BMC — Microbiologie et Génie Biologique",
+      "text": "R&D microbiologica e biotech, prodotti/processi e qualità."
+    },
+    {
+      "key": "UvA — Biomedical Sciences — Neurobiology",
+      "text": "Altro cluster dello stesso MSc Biomedical Sciences, da approfondire se ti interessa la neurobiologia cellulare."
+    },
+    {
+      "key": "Erasmus MC — Neuroscience",
+      "text": "Research Master; pertinente se scegli la neurobiologia cellulare."
+    },
+    {
+      "key": "Helsinki — Neuroscience",
+      "text": "Comprende approcci cellulari e fisiologici; inglese, pagina candidature gennaio 2027."
+    },
+    {
+      "key": "Geneva — Neuroscience",
+      "text": "Programma interdisciplinare di tre facoltà UNIGE; non è per questo un joint degree con un'altra università."
+    },
+    {
+      "key": "Vienna — Neuroscience",
+      "text": "Programma in inglese con selezione; interessante se scegli neurobiologia."
+    },
+    {
+      "key": "EPFL — Neuro-X",
+      "text": "Neuroscienze e neurotecnologie; secondario rispetto alle tue priorità attuali."
+    },
+    {
+      "key": "LMU — Molecular Plant Sciences",
+      "text": "Nuovo nome per gli ingressi dal 2027/28, al posto di Plant Sciences. Biologia molecolare vegetale, più distante dalla tua direzione biomedica."
+    },
+    {
+      "key": "UvA — Biological Sciences — Green Life Sciences",
+      "text": "Biotecnologie vegetali, biologia cellulare, plant breeding e phytopathology; interesse secondario."
+    },
+    {
+      "key": "TUM — Industrial Biotechnology",
+      "text": "Biocatalisi e bioprocessi; richiede tedesco. Sede Garching; programma interdisciplinare aperto anche a bioscienze pertinenti."
+    },
+    {
+      "key": "TUM — Pharmaceutical Bioprocess Engineering",
+      "text": "Bioproduzione farmaceutica e process engineering; in tedesco, sede Freising-Weihenstephan."
+    },
+    {
+      "key": "Utrecht — Bio Inspired Innovation",
+      "text": "Innovazione ispirata ai sistemi biologici; orientamento anche ambientale e progettuale."
+    },
+    {
+      "key": "Karolinska — Biostatistics and Data Science",
+      "text": "Via quantitativa, da valutare per requisiti matematici; non un percorso di biologia cellulare sperimentale."
+    },
+    {
+      "key": "Oslo — Computational Science — Bioscience",
+      "text": "Via computazionale; controllare requisiti di matematica e programmazione."
+    },
+    {
+      "key": "Oslo — Bioscience — Toxicology and Environmental Science",
+      "text": "Tossicologia e meccanismi biologici; più ambientale delle priorità cellulari già trovate."
+    },
+    {
+      "key": "Erasmus MC — Genomics in Society",
+      "text": "Secondario: genomica con forte componente sociale e interdisciplinare."
+    },
+    {
+      "key": "Erasmus MC — Health Sciences",
+      "text": "Più epidemiologia/ricerca sanitaria che biotecnologie sperimentali; valutare la major."
+    },
+    {
+      "key": "Karolinska — Bioentrepreneurship",
+      "text": "Biotech industriale, sviluppo e gestione: secondario rispetto al tuo obiettivo sperimentale."
+    },
+    {
+      "key": "UBC — Biochemistry and Molecular Biology",
+      "text": "Nuova priorità molto alta: gene regulation, epigenetics, membrane e cellular regulation; programma research-intensive."
+    },
+    {
+      "key": "Toronto — Cell and Systems Biology",
+      "text": "Nuova priorità molto alta per biologia cellulare sperimentale."
+    },
+    {
+      "key": "Toronto — Medical Biophysics",
+      "text": "Nuova priorità: comprende stem cells, segnalazione, modelli cellulari, cancro e imaging. Non dedurre dal nome una sola formazione fisica."
+    },
+    {
+      "key": "Toronto — Biochemistry",
+      "text": "Molecole, membrane, organelli e meccanismi cellulari."
+    },
+    {
+      "key": "UBC — Medical Genetics",
+      "text": "Genetica e genomica con progetto sperimentale secondo laboratorio."
+    },
+    {
+      "key": "UQ — Biotechnology Research Extensive — Medical Biotechnology",
+      "text": "Stem cells, cell labelling/tracking, gene therapy, artificial organs e biopharmaceuticals."
+    },
+    {
+      "key": "Toronto — Medical Science — campo Biomedical Science",
+      "text": "Research MSc ampio: per candidati internazionali il sito richiede un supervisore al momento della domanda."
+    },
+    {
+      "key": "Toronto — Immunology",
+      "text": "Sviluppo e interazioni cellulari, trasduzione del segnale e immunoterapia."
+    },
+    {
+      "key": "UBC — Women+ and Children's Health Sciences — Reproductive and Developmental Sciences",
+      "text": "Contenitore attuale con specializzazione in riproduzione e sviluppo. Non duplicare il vecchio nome Reproductive and Developmental Sciences come Master aggiuntivo."
+    },
+    {
+      "key": "UBC — Pathology and Laboratory Medicine",
+      "text": "Ricerca sulle malattie e meccanismi cellulari/molecolari."
+    },
+    {
+      "key": "UBC — Interdisciplinary Oncology",
+      "text": "Possibile lavoro su biologia cellulare tumorale, secondo supervisore."
+    },
+    {
+      "key": "UQ — Biotechnology Research Extensive",
+      "text": "Nuova aggiunta molto importante: immersione laboratoriale maggiore rispetto al Master standard."
+    },
+    {
+      "key": "Toronto — Physiology",
+      "text": "Ricerca fisiologica e meccanismi cellulari secondo laboratorio."
+    },
+    {
+      "key": "Toronto — Pharmaceutical Sciences — campo Biomolecular Science",
+      "text": "Target, terapie, vaccini e diagnostica. Il sito segnala pochi posti finanziati per internazionali 2027/28 e impegno del supervisore prima della valutazione."
+    },
+    {
+      "key": "UBC — Microbiology and Immunology",
+      "text": "Microbiologia, immunologia e ricerca biologica."
+    },
+    {
+      "key": "Toronto — Pharmacology",
+      "text": "Farmacologia molecolare, recettori, segnalazione e farmacogenetica."
+    },
+    {
+      "key": "UQ — Biotechnology Research Extensive — Synthetic Biology and Industrial Biotechnology",
+      "text": "Progettazione e riprogrammazione di processi biologici."
+    },
+    {
+      "key": "Melbourne — Biomedical Engineering",
+      "text": "Ingegneria biomedica; valutare matematica, fisica e percorso d'ingresso."
+    },
+    {
+      "key": "Monash — Clinical Embryology",
+      "text": "Embriologia e manipolazione di gameti/embrioni; molto pratico ma clinico e professionalizzante. La sola L-2 non è un ingresso già dimostrato: previste ulteriori qualifiche/esperienza o vie specifiche."
+    },
+    {
+      "key": "Melbourne — Master of Philosophy — Science",
+      "text": "Ricerca originale: progetto, supervisione e preparazione alla ricerca determinanti; non automaticamente accessibile dopo L-2."
+    },
+    {
+      "key": "Toronto — Master of Biotechnology (MBiotech)",
+      "text": "Master professionale con componente industriale; distinto dagli MSc con tesi. Sede Mississauga."
+    },
+    {
+      "key": "UQ — Bioinformatics Research Extensive",
+      "text": "Versione con ricerca estesa, da confrontare con quella standard."
+    },
+    {
+      "key": "UQ — Bioinformatics",
+      "text": "Percorso computazionale."
+    },
+    {
+      "key": "Melbourne — Science (Bioinformatics)",
+      "text": "Coursework con progetto di ricerca sostanziale; genomica e dati biologici."
+    },
+    {
+      "key": "Monash — Genome Analytics",
+      "text": "Bioinformatica, genetica e genomica; controllare l'edizione 2027 del handbook."
+    },
+    {
+      "key": "Melbourne — Genomics and Health",
+      "text": "Genomica applicata alla salute, meno orientato alla coltura cellulare."
+    },
+    {
+      "key": "NUS — Precision Health and Medicine x Artificial Intelligence",
+      "text": "Medicina di precisione, AI e dati; il sito annuncia candidature 2027. Più computazionale e traslazionale che colture cellulari."
+    },
+    {
+      "key": "UBC — Neuroscience",
+      "text": "Alternativa per neurobiologia cellulare; scegliere laboratorio."
+    },
+    {
+      "key": "Sydney — Brain and Mind Sciences",
+      "text": "Neuroscienze e componente clinica; meno direttamente biotech cellulare."
+    },
+    {
+      "key": "NUS — Pharmaceutical Science and Technology",
+      "text": "Biopharma, sviluppo e tecnologie farmaceutiche; modalità, esperienza richiesta e intake da controllare."
+    },
+    {
+      "key": "Sydney — Professional Engineering — Biomedical Engineering",
+      "text": "Percorso ingegneristico; non considerare la L-2 idonea senza verifica di matematica e requisiti."
+    },
+    {
+      "key": "UQ — Biotechnology Research Extensive — Animal Agricultural Biotechnology",
+      "text": "Riproduzione animale, vaccini, genetica e diagnostica; distinto dal field della versione standard."
+    },
+    {
+      "key": "UQ — Biotechnology Research Extensive — Molecular Imaging Technology",
+      "text": "Imaging e theranostics; non equivale necessariamente a microscopia cellulare."
+    },
+    {
+      "key": "UQ — Biotechnology Research Extensive — Plant Agricultural Biotechnology",
+      "text": "Biologia molecolare vegetale e ingegneria genetica."
+    }
+  ],
+  "source": "# Quattro classifiche complete — università e programmi\n\nAggiornamento: 16 ottobre 2026. Profilo: Michele, L-2 Biotecnologie italiana. Interessi centrali: biologia cellulare/molecolare, staminali, sviluppo, rigenerazione e tissue engineering.\n\nLe graduatorie combinano qualità dell'ambiente di ricerca, formazione sperimentale e pertinenza scientifica. Non sono medie ufficiali dei ranking né classifiche di facilità d'accesso. Le posizioni vicine sono indicative. Le università sono valutate per l'insieme delle opportunità; i programmi per il percorso specifico. La classifica dei programmi riproduce l'ultimo elenco completo, senza riduzioni.\n\n## 1. Università europee — 20\n\n| # | Università | Città | Offerta più pertinente |\n|---:|---|---|---|\n| 1 | Utrecht | Utrecht / Eindhoven | CSDB, MCLS, RMT, Biofabrication |\n| 2 | Sorbonne | Parigi + partner internazionali | BMC, Biosciences to Biotherapies, staminali e sviluppo |\n| 3 | UZH | Zurigo | Biology cellulare/sviluppo, Biochemistry |\n| 4 | Basel | Basilea | Molecular Biology, ricerca cellulare e rigenerativa |\n| 5 | ETH | Zurigo / Basilea | Biotechnology, Biology, Molecular Bioengineering |\n| 6 | Vienna | Vienna | Molecular Biology–Stem Cells, Molecular Precision Medicine |\n| 7 | UvA | Amsterdam | Medical Biology–Cell Biology/Developmental and Therapeutic Biology |\n| 8 | Erasmus University / Erasmus MC | Rotterdam | Molecular Medicine, ricerca biomedica |\n| 9 | Karolinska | Stoccolma | Biomedicine, Molecular Techniques in Life Science |\n| 10 | Paris-Saclay | Évry / area Paris-Saclay | Staminali, bioterapie, genetica e biologia sintetica |\n| 11 | EPFL | Losanna | Life Sciences Engineering e bioingegneria |\n| 12 | Copenhagen | Copenaghen | Molecular Biomedicine, Biochemistry, Immunology |\n| 13 | Helsinki | Helsinki | Cellular and Developmental Biology, Translational Medicine |\n| 14 | Paris Cité | Parigi | BME–Biotherapies, genetica, sviluppo ed epiteli |\n| 15 | TUM | Freising / Garching / Straubing | Biology e più percorsi biotech; lingua da distinguere |\n| 16 | LMU | Monaco / Martinsried | Molecular Principles of Life, Biochemistry |\n| 17 | Geneva | Ginevra | Biochemistry, Biology, Chemical Biology |\n| 18 | Aarhus | Aarhus | Molecular Biology e ricerca sperimentale |\n| 19 | UNIL | Losanna | Molecular Life Sciences, Medical Biology; verifiche 2027 da completare |\n| 20 | Oslo | Oslo | Bioscience–Genetics/Development/Cell Biology |\n\n## 2. Università extraeuropee — 7\n\n| # | Università | Città | Offerta più pertinente |\n|---:|---|---|---|\n| 1 | UBC | Vancouver | Cell and Developmental Biology, Biochemistry and Molecular Biology |\n| 2 | Toronto | Toronto / Mississauga | Cell and Systems Biology, Molecular Genetics, Medical Biophysics |\n| 3 | Melbourne | Melbourne | Biomedical Science, BioSciences |\n| 4 | Monash | Melbourne / Clayton | Rigenerazione e staminali, Biotechnology |\n| 5 | Queensland — UQ | Brisbane | Biotechnology Research Extensive e Molecular Biology Research Extensive |\n| 6 | NUS | Singapore | Ricerca biomedica e biotechnology; requisiti da verificare |\n| 7 | Sydney | Sydney | Opzioni più specialistiche e MPhil subordinati all'accesso |\n\n\n# Programmi: metodo, legenda e classifiche complete\n\nAggiornamento: 16 ottobre 2026.\n\n## Ambito e criterio\n\nSono incluse tutte le 80 voci del primo catalogo, tutte le 112 schede dell'ampliamento e 16 ulteriori programmi/varianti joint, double o internazionali già esaminati: **208 voci classificate, 146 nella lista Europa e 62 nella lista extra-Europa**. Il controllo di copertura non ha voci mancanti o ripetizioni di identificativi. Questi numeri NON indicano 208 titoli autonomi: possono comparire sia un contenitore di Master sia i suoi track specifici; le varianti sono dichiarate, non presentate come diplomi indipendenti.\n\nL'ordinamento combina, in modo qualitativo, affinità con biologia cellulare/molecolare, staminali e sviluppo, rigenerazione/tissue engineering, profondità della ricerca sperimentale e ambiente scientifico del programma. Non è una media dei ranking degli atenei, una misura di ammissibilità o un tasso ufficiale di qualità. Differenze fra posizioni vicine sono piccole e dipendono dal progetto/supervisore. La qualifica joint/double non conferisce da sola un vantaggio.\n\nLe graduatorie sono riferite agli atenei della selezione: un accordo transcontinentale compare una volta sola nella lista dell'ateneo di riferimento usato nel dossier. Per esempio Aarhus–UCAS rimane nella lista europea ma si studia in Cina; UBC–Helsinki compare nella lista extraeuropea ma prevede anche Helsinki. Questo evita duplicazioni e non descrive la geografia esclusivamente fisica del corso.\n\n## Legenda\n\n- M: Master autonomo o contenitore di Master; per quelli di ricerca l'esito dipende dal laboratorio. MASc e MPhil sono specificati nel titolo o nella nota.\n- T: track/major/concentrazione/modulo interno al Master indicato.\n- M1/M2: primo o secondo anno francese; dopo L-2 si valuta normalmente M1, non accesso automatico al M2.\n- J: titolo congiunto. D: doppio/multiplo titolo. C: collaborazione didattica senza doppio titolo verificato. M dopo il punto mediano: mobilità strutturata.\n- DE: tedesco richiesto. L: lingua del percorso da verificare, oppure francese/inglese; non è confermato un intero percorso in inglese.\n- E: piano interamente in inglese da costruire e confermare secondo moduli.\n- A: accesso particolare/equivalenza della L-2 o ingresso attraverso un partner da verificare; non è confermata una candidatura diretta.\n- ?: offerta, struttura o ingresso 2027 da riconfermare. Per UNIL la verifica è basata sul catalogo svizzero, non sulla pagina diretta dell'ateneo.\n- CN: titolo con ateneo europeo, ma programma in Cina.\n\nUn campo vuoto NON certifica l'idoneità: transcript, CFU, inglese e bandi vanno controllati per tutti. Le sigle non rappresentano una penalità automatica di qualità.\n\n## 3. Master e percorsi in Europa — tutte le 146 voci\n\n| # | Programma / percorso | Università | Città | Tipo | Condizioni |\n|---:|---|---|---|---|---|\n| 1 | [Cancer, Stem Cells and Developmental Biology](https://www.uu.nl/en/masters/cancer-stem-cells-and-developmental-biology/study-programme) | Utrecht | Utrecht | M | — |\n| 2 | [Molecular and Cellular Life Sciences — Molecules & Cells / Genes to Organisms / Biophysics & Molecular Imaging](https://www.uu.nl/en/masters/molecular-and-cellular-life-sciences) | Utrecht | Utrecht | M | — |\n| 3 | [From Fundamental Molecular Biosciences to Biotherapies](https://sciences.sorbonne-universite.fr/en/study/our-programmes-0/programs-french/masters/masters-degree-molecular-and-cellular-biology-bmc-7) | Sorbonne | Parigi + partner scelto | M1–M2·M | — |\n| 4 | [Cell Biology, Development, Cancer: from stem cells to organisms](https://sciences.sorbonne-universite.fr/en/study/our-programmes-0/programs-french/masters/masters-degree-molecular-and-cellular-biology-bmc-3) | Sorbonne | Parigi | M2 | L |\n| 5 | [Biology — Molecular and Cellular Biology](https://www.biologie.uzh.ch/de/Studium/Masterstudium/MasterStudies/MolecularCellularBiology.html) | UZH | Zurigo | T | — |\n| 6 | [Biology — Genetics and Development](https://www.biologie.uzh.ch/de/Studium/Masterstudium/MasterStudies/GeneticsAndDevelopment.html) | UZH | Zurigo | T | — |\n| 7 | [Molecular Biology](https://bio.unibas.ch/en/studies/msc-molecular-biology/) | Basel | Basilea | M | — |\n| 8 | [Biotechnology](https://master-biotech.ethz.ch/the-programme.html) | ETH | Basilea | M | — |\n| 9 | [Molecular Biology — Stem Cells and Developmental Biology](https://studieren.univie.ac.at/en/find-you-degree-programme/masters-programmes/molecular-biology-masters-programme) | Vienna | Vienna | T | — |\n| 10 | [Medical Biology — Developmental and Therapeutic Biology](https://www.uva.nl/shared-content/programmas/en/masters/biomedical-sciences-medical-biology/study-programme/developmental-and-therapeutic-biology/developmental-and-therapeutic-biology.html) | UvA | Amsterdam | T | — |\n| 11 | [Medical Biology — Cell Biology and Advanced Microscopy](https://www.uva.nl/shared-content/programmas/en/masters/biomedical-sciences-medical-biology/study-programme/study-programme.html) | UvA | Amsterdam | T | — |\n| 12 | [Molecular Medicine](https://www.erasmusmc.nl/en/education/programs-and-courses/master-molecular-medicine) | Erasmus MC | Rotterdam | M | — |\n| 13 | [Regenerative Medicine and Technology](https://www.uu.nl/en/masters/regenerative-medicine-and-technology) | Utrecht | Utrecht/Eindhoven | M·C | — |\n| 14 | [Biomedicine](https://education.ki.se/bachelors-masters-studies/programmes-and-courses/masters-programme-in-biomedicine) | Karolinska | Stoccolma | M | — |\n| 15 | [Life Sciences Engineering — Biomedical Engineering](https://www.epfl.ch/schools/sv/education/master-in-life-sciences-engineering/specializations/) | EPFL | Losanna | T | — |\n| 16 | [Life Sciences Engineering — Molecular Health](https://www.epfl.ch/schools/sv/education/master-in-life-sciences-engineering/specializations/) | EPFL | Losanna | T | — |\n| 17 | [Molecular Biomedicine](https://www.ku.dk/studies/masters/molecular-biomedicine) | Copenhagen | Copenaghen | M | — |\n| 18 | [Biotherapies and Stem Cells — Évry](https://www.universite-paris-saclay.fr/en/education/masters-degree/biologie-moleculaire-et-cellulaire/m1-biotherapies-and-stem-cells-evry-campus) | Paris-Saclay | Évry-Courcouronnes | M1 | L |\n| 19 | [Stem Cells, Development, Cancer](https://www.universite-paris-saclay.fr/en/education/masters-degree/biologie-moleculaire-et-cellulaire/m2-stem-cells-development-cancer) | Paris-Saclay | Area Paris-Saclay | M2 | L |\n| 20 | [Tissue, Cell, and Gene Biotherapies](https://www.universite-paris-saclay.fr/en/education/masters-degree/biologie-moleculaire-et-cellulaire/m2-tissue-cell-and-gene-biotherapies-btcg) | Paris-Saclay | Area Paris-Saclay | M2 | L |\n| 21 | [BME Paris — Molecular & Cellular Biotherapies](https://www.bme-paris.com/program/master-2/molecular-cellular-biotherapies-mcb/) | Paris Cité | Parigi | M2·C | L |\n| 22 | [Biofabrication](https://www.uu.nl/en/masters/biofabrication) | Utrecht | Utrecht | M | — |\n| 23 | [Genetics and Molecular Biosciences — Cell/Cellular and Developmental Biology](https://www.helsinki.fi/en/degree-programmes/genetics-and-molecular-biosciences-masters-programme/studying/structure-content-and-study-tracks) | Helsinki | Helsinki | T | — |\n| 24 | [Biochemistry](https://www.uzh.ch/en/studies/programs/master/biochemistry.html) | UZH | Zurigo | M | — |\n| 25 | [Biochemistry](https://www.unige.ch/bachelor-master/en/masters/biochemistry) | Geneva | Ginevra | M | — |\n| 26 | [Biochemistry](https://www.ku.dk/studies/masters/biochemistry) | Copenhagen | Copenaghen | M | — |\n| 27 | [Biology](https://www.tum.de/en/studies/degree-programs/detail/biology-master-of-science-msc) | TUM | Freising/Garching | M | E |\n| 28 | [Molecular Principles of Life](https://www.bio.lmu.de/de/studium/fuer-studierende/masterstudiengaenge/mpl/) | LMU | Monaco/Martinsried | M | — |\n| 29 | [Human Biology — Principles of Health and Disease](https://www.bio.lmu.de/de/studium/fuer-studierende/masterstudiengaenge/mhb/) | LMU | Monaco/Martinsried | M | ? |\n| 30 | [Molecular Techniques in Life Science](https://education.ki.se/bachelors-masters-studies/programmes-and-courses/masters-programme-in-molecular-techniques-in-life-science) | Karolinska–KTH–Stockholm | Stoccolma | J | — |\n| 31 | [Molecular Precision Medicine](https://molekularebiologie.univie.ac.at/en/master-studies/) | Vienna–MedUni | Vienna | J | — |\n| 32 | [Molecular Biology](https://masters.au.dk/molecularbiology) | Aarhus | Aarhus | M | — |\n| 33 | [Molecular Life Sciences](https://www.orientation.ch/fr/formations/universite-de-lausanne-unil/molecular-life-sciences-sciences-moleculaires-du-vivant) | UNIL | Losanna | M | ? |\n| 34 | [Biology — Molecular Genetics and Biosciences](https://www.unige.ch/bachelor-master/en/masters/biology) | Geneva | Ginevra | T | — |\n| 35 | [Bioscience — Genetics and Developmental Biology](https://www.uio.no/english/studies/programmes/bioscience-master/) | Oslo | Oslo | T | — |\n| 36 | [Bioscience — Cell Biology, Physiology and Neuroscience](https://www.uio.no/english/studies/programmes/bioscience-master/) | Oslo | Oslo | T | — |\n| 37 | [Bioscience — Molecular Biology and Biochemistry](https://www.uio.no/english/studies/programmes/bioscience-master/programme-options/molecular-biology/) | Oslo | Oslo | T | — |\n| 38 | [Biochemistry](https://www.cup.lmu.de/en/study/study-programs/master-biochemistry/) | LMU | Monaco/Martinsried | M | — |\n| 39 | [Molecular Biotechnology](https://www.ls.tum.de/en/ls/studies/courses-and-programs/molecular-biotechnology-msc/) | TUM | Freising | M | DE |\n| 40 | [Biochemistry](https://www.tum.de/en/studies/degree-programs/detail/biochemistry-master-of-science-msc) | TUM | Garching | M | DE |\n| 41 | [BMC — Biochimie & Biologie moléculaire](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc) | Sorbonne | Parigi | M2 | L |\n| 42 | [BMC — Génétique et Épigénétique](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc/m2-1) | Sorbonne | Parigi | M2 | L |\n| 43 | [Génétique](https://u-paris.fr/sdv/les-masters/) | Paris Cité | Parigi | M | L |\n| 44 | [Genetics, Genomics, Epigenetics and Evolution (GenE2)](https://www.universite-paris-saclay.fr/en/education/masters-degree/biologie-moleculaire-et-cellulaire/m2-genetics-genomics-epigenetics-and-evolution-gene2) | Paris-Saclay | Area Paris-Saclay | M2 | — |\n| 45 | [Human Genomics in Biotherapies, Health and Disease (HuGeInBio)](https://www.universite-paris-saclay.fr/en/education/masters-programmes-taught-english) | Paris-Saclay | Area Paris-Saclay | M2 | — |\n| 46 | [Biology — Molecular Mechanisms of Disease](https://biol.ethz.ch/en/studies/master-in-biologie/master-degree-majors/molekulare-mechanismen-der-krankheitsentstehung.html) | ETH | Zurigo | T | — |\n| 47 | [Translational Medicine](https://www.helsinki.fi/en/degree-programmes/translational-medicine-masters-programme) | Helsinki | Helsinki | M | — |\n| 48 | [Biomedical Engineering](https://biomedicalengineering.ch/) | Basel–FHNW | Basilea/Muttenz | J | — |\n| 49 | [Biomedical Engineering — Molecular Bioengineering](https://master-biomed.ethz.ch/education/molecular-bioengineering.html) | ETH | Zurigo | T | — |\n| 50 | [Drug Innovation](https://www.uu.nl/en/masters/drug-innovation) | Utrecht | Utrecht | M | — |\n| 51 | [Infection and Immunity](https://www.uu.nl/en/masters/infection-and-immunity/study-programme) | Utrecht | Utrecht | M | — |\n| 52 | [Immunology and Inflammation](https://www.ku.dk/studies/masters/immunology-and-inflammation) | Copenhagen | Copenaghen | M | — |\n| 53 | [Biology — Cancer Biology](https://www.biologie.uzh.ch/de/Studium/Masterstudium/MasterStudies/CancerBiology.html) | UZH | Zurigo | T | — |\n| 54 | [Biology — Immunology](https://www.biologie.uzh.ch/de/Studium/Masterstudium/MasterStudies/Immunology.html) | UZH | Zurigo | T | — |\n| 55 | [BIP — Reproduction et Développement (ReproDev)](https://u-paris.fr/sdv/les-masters/) | Paris Cité | Parigi | M2 | L |\n| 56 | [BIP — Epithéliums: Structures d'Interface (ESI)](https://u-paris.fr/sdv/les-masters/) | Paris Cité | Parigi | M2 | L |\n| 57 | [BIP — Biologie du Vieillissement (BioVie)](https://u-paris.fr/sdv/les-masters/) | Paris Cité | Parigi | M2 | L |\n| 58 | [Chemical Biology](https://www.unige.ch/bachelor-master/en/masters/chemical-biology) | Geneva | Ginevra/Losanna | M·C | — |\n| 59 | [Molecular and Cellular Biology — Cell Biology and Development](https://www.master-bmc-universite-paris.fr/biologie-et-developpement-cellulaires-bdc/?lang=en) | Paris Cité | Parigi | M2 | L |\n| 60 | [Medical Biology — Medical Biochemistry and Biotechnology](https://www.uva.nl/shared-content/programmas/en/masters/biomedical-sciences-medical-biology/study-programme/study-programme.html) | UvA | Amsterdam | T | — |\n| 61 | [Medical Biology](https://www.orientation.ch/fr/formations/universite-de-lausanne-unil/medical-biology-biologie-medicale) | UNIL | Losanna | M | ? |\n| 62 | [Biomedicine](https://www.biomedizin.uzh.ch/en/Master-english.html) | UZH | Zurigo | M | — |\n| 63 | [Biomedical Sciences](https://www.unige.ch/bachelor-master/en/masters/biomedical-sciences) | Geneva | Ginevra | M | L |\n| 64 | [Genetics and Molecular Biosciences — Molecular and Physiological Basis of Health](https://www.helsinki.fi/en/degree-programmes/genetics-and-molecular-biosciences-masters-programme/studying/structure-content-and-study-tracks) | Helsinki | Helsinki | T | — |\n| 65 | [Biology — Molecular and Structural Biology](https://biol.ethz.ch/en/studies/master-in-biologie/master-degree-majors/structural-biology-and-biophysics.html) | ETH | Zurigo | T | — |\n| 66 | [Biology — Biochemistry](https://biol.ethz.ch/en/studies/master-in-biologie/master-degree-majors/biochemistry.html) | ETH | Zurigo | T | — |\n| 67 | [Molecular and Biological Chemistry](https://www.epfl.ch/education/master/programs/molecular-and-biological-chemistry/) | EPFL | Losanna | M | — |\n| 68 | [Interfaces Chimie-Biologie: Ingénierie Moléculaire du Vivant (IMoV)](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc/m1m2-1) | Sorbonne | Parigi | M1–M2 | L |\n| 69 | [Systems and Synthetic Biology](https://www.universite-paris-saclay.fr/en/education/masters-degree/biologie-agrosciences/m2-systems-and-synthetic-biology) | Paris-Saclay | Area Paris-Saclay | M2 | — |\n| 70 | [International Track in France — M1, Orsay](https://www.universite-paris-saclay.fr/formation/master/microbiologie/m1-international-track-france-site-orsay) | Paris-Saclay | Area Paris-Saclay | M1 | — |\n| 71 | [Human Biology](https://www.ku.dk/studies/masters/human-biology) | Copenhagen | Copenaghen | M | — |\n| 72 | [Translational Physiology and Pharmacology](https://education.ki.se/course-and-programme-syllabi/programme-syllabus-4FF26) | Karolinska | Stoccolma | M | — |\n| 73 | [Biologie Intégrative et Physiologie (BIP)](https://u-paris.fr/sdv/les-masters/) | Paris Cité | Parigi | M | L |\n| 74 | [Drug Sciences](https://pharma.unibas.ch/de/education/msc-drug-sciences/) | Basel | Basilea | M | — |\n| 75 | [Pharmaceutical Research, Development and Safety](https://www.helsinki.fi/en/degree-programmes/pharmaceutical-research-development-and-safety-masters-programme) | Helsinki | Helsinki | M | — |\n| 76 | [Drug Discovery and Development](https://studieren.univie.ac.at/en/admission-procedure/master-programmes/) | Vienna | Vienna | M | — |\n| 77 | [Toxicology](https://education.ki.se/bachelors-masters-studies/programmes-and-courses/masters-programme-in-toxicology) | Karolinska | Stoccolma | M | — |\n| 78 | [Medical Biology — Oncology](https://www.uva.nl/shared-content/programmas/en/masters/biomedical-sciences-medical-biology/study-programme/study-programme.html) | UvA | Amsterdam | T | — |\n| 79 | [BMC — Immunologie](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc) | Sorbonne | Parigi | M2 | L |\n| 80 | [Infection & Immunity](https://www.erasmusmc.nl/en/education/programs-and-courses/master-infection-immunity) | Erasmus MC | Rotterdam | M | — |\n| 81 | [Infection Biology](https://bio.unibas.ch/en/studies/msc-infection-biology/) | Basel | Basilea/Allschwil | M | — |\n| 82 | [BMC — Microbiologie](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc/m2-3) | Sorbonne | Parigi | M2 | L |\n| 83 | [Biology — Microbiology and Immunology](https://biol.ethz.ch/en/studies/master-in-biologie/master-degree-majors/microbiology-and-immunology.html) | ETH | Zurigo | T | — |\n| 84 | [Biology — Microbiology](https://www.uzh.ch/de/studies/programs/master/biology.html) | UZH | Zurigo | T | — |\n| 85 | [Biology — Virology](https://www.uzh.ch/de/studies/programs/master/biology.html) | UZH | Zurigo | T | — |\n| 86 | [Microbiology and Microbial Biotechnology](https://www.helsinki.fi/en/degree-programmes/microbiology-and-microbial-biotechnology-masters-programme) | Helsinki | Helsinki | M | — |\n| 87 | [Microbiome Science](https://molekularebiologie.univie.ac.at/en/master-studies/) | Vienna | Vienna | M | — |\n| 88 | [BMC — Biotechnologies: R&D Biotech](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc/m2-4) | Sorbonne | Parigi | M2 | L |\n| 89 | [BMC — Innovation en Biotechnologies](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc/m1m2) | Sorbonne | Parigi | M1–M2 | L |\n| 90 | [Chemical Engineering and Biotechnology](https://www.epfl.ch/education/master/programs/chemical-engineering-and-biotechnology/) | EPFL | Losanna | M | — |\n| 91 | [Chemical Engineering and Biotechnology — doppio titolo](https://www.epfl.ch/education/master/double-degrees/double-degree-epfl-ens-lyon-biotechnology-and-chemical-engineering/) | EPFL–ENS de Lyon | Losanna e Lione | D | A |\n| 92 | [Biotechnology and Chemical Engineering](https://masters.au.dk/biotechchemical?campaign=studyeu2023-2024) | Aarhus | Aarhus | M | — |\n| 93 | [Chemical Biotechnology](https://www.tum.de/en/studies/degree-programs/detail/chemical-biotechnology-master-of-science-msc/) | TUM | Straubing | M | — |\n| 94 | [Biotechnology](https://www.ku.dk/studies/masters/biotechnology) | Copenhagen | Copenaghen | M | — |\n| 95 | [Biology](https://www.ku.dk/studies/masters/biology) | Copenhagen | Copenaghen | M | — |\n| 96 | [Biology](https://masters.au.dk/biology) | Aarhus | Aarhus | M | — |\n| 97 | [Pharmaceutical Sciences — English/GB programme](https://www.ku.dk/studies/masters/pharmaceutical-sciences) | Copenhagen | Copenaghen | M | — |\n| 98 | [Medicinal Chemistry](https://www.ku.dk/studies/masters/medicinal-chemistry) | Copenhagen | Copenaghen | M | — |\n| 99 | [Medicinal Chemistry](https://masters.au.dk/medicinal-chemistry) | Aarhus | Aarhus | M | — |\n| 100 | [BMC — Systèmes biologiques et concepts physiques](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc/m2-2) | Sorbonne | Parigi | M2 | L |\n| 101 | [Nanosciences](https://nanoscience.unibas.ch/en/studium/masterstudium/) | Basel | Basilea | M | — |\n| 102 | [Biomedical Engineering and Medical Physics](https://www.bioengineering.tum.de/en/teaching/master-programs/biomedical-engineering-and-medical-physics) | TUM | Garching | M | — |\n| 103 | [Nutrition and Biomedicine](https://www.tum.de/en/studies/degree-programs/detail/nutrition-and-biomedicine-master-of-science-msc) | TUM | Freising | M | — |\n| 104 | [NANOMED — Nanomedicine for Drug Delivery](https://u-paris.fr/language/en/erasmus-mundus-joint-master-degree-nanomedicine-for-drug-delivery/) | Paris Cité–Angers–Pavia–Patras | Parigi/Angers/Pavia/Patrasso, secondo percorso | D | ? |\n| 105 | [Nanobiology](https://www.tudelft.nl/en/education/programmes/masters/nb/msc-nanobiology) | Erasmus MC–TU Delft | Delft e Rotterdam | J | — |\n| 106 | [Bioinformatics and Systems Biology](https://www.uva.nl/shared-content/programmas/en/masters/bioinformatics-and-systems-biology/bioinformatics-and-systems-biology.html) | UvA–VU | Amsterdam | J | — |\n| 107 | [Computational Biology and Bioinformatics](https://cbb.ethz.ch/studies.html) | ETH–UZH–Basel | Zurigo e Basilea | J | — |\n| 108 | [Biology — Quantitative Biology and Systems Biology](https://www.uzh.ch/de/studies/programs/master/biology.html) | UZH | Zurigo | T | — |\n| 109 | [Bioinformatics and Biocomplexity](https://www.uu.nl/en/masters/bioinformatics-and-biocomplexity) | Utrecht | Utrecht | M | — |\n| 110 | [Bioinformatics](https://www.ku.dk/studies/masters/bioinformatics) | Copenhagen | Copenaghen | M | — |\n| 111 | [Bioinformatics](https://masters.au.dk/bioinformatics) | Aarhus | Aarhus | M | — |\n| 112 | [Bioinformatique & Modélisation (BIM-BMC)](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc) | Sorbonne | Parigi | M1–M2 | L |\n| 113 | [BMC — Artificial Intelligence and Data Analysis (AIDA)](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-biologie-moleculaire-et-cellulaire-bmc) | Sorbonne | Parigi | M2 | L |\n| 114 | [Genomics Informatics Mathematics and Artificial Intelligence for Health and Environment (GENIOMHE)](https://www.universite-paris-saclay.fr/en/education/masters-programmes-taught-english) | Paris-Saclay | Area Paris-Saclay | M2 | — |\n| 115 | [Bio-informatique](https://u-paris.fr/sdv/les-masters/) | Paris Cité | Parigi | M | L |\n| 116 | [Bioinformatique — Ingénierie de plateforme en biologie](https://odf.u-paris.fr/fr/offre-de-formation/master-XB/sciences-technologies-sante-STS/bio-informatique-K2VO60MU/master-bioinformatique-parcours-ingenierie-de-plateforme-en-biologie-JS0EW8X6.html) | Paris Cité | Parigi | T | L |\n| 117 | [Bioinformatique — In Silico Drug Design (ISDD)](https://u-paris.fr/sdv/les-masters/) | Paris Cité | Parigi | T | L |\n| 118 | [Molecular Life Sciences — Bioinformatics](https://www.orientation.ch/fr/en/programs/universite-de-lausanne-unil/molecular-life-sciences-sciences-moleculaires-du-vivant) | UNIL | Losanna | T | ? |\n| 119 | [Molecular Life Sciences — Microbiology](https://www.orientation.ch/fr/en/programs/universite-de-lausanne-unil/molecular-life-sciences-sciences-moleculaires-du-vivant) | UNIL | Losanna | T | ? |\n| 120 | [Fundamental Microbiology](https://www.universite-paris-saclay.fr/en/education/masters-programmes-taught-english) | Paris-Saclay | Area Paris-Saclay | M2 | — |\n| 121 | [BMC — Microbiologie et Génie Biologique](https://u-paris.fr/sdv/les-masters/) | Paris Cité | Parigi | T | L |\n| 122 | [Interdisciplinary Brain Sciences](https://www.neuroscience.uzh.ch/en/Master-Studies/Program.html) | UZH–ETH | Zurigo | J | — |\n| 123 | [Biomedical Sciences — Neurobiology](https://www.uva.nl/en/education/master-s/master-s-programmes/masters-programmes.html) | UvA | Amsterdam | T | — |\n| 124 | [Neuroscience](https://www.eur.nl/en/erasmusmc/education/master/overview) | Erasmus MC | Rotterdam | M | — |\n| 125 | [Neuroscience](https://www.helsinki.fi/en/degree-programmes/neuroscience-masters-programme) | Helsinki | Helsinki | M | — |\n| 126 | [Neuroscience](https://www.unige.ch/bachelor-master/en/masters/neuroscience) | Geneva | Ginevra | M | — |\n| 127 | [Neuroscience](https://molekularebiologie.univie.ac.at/en/master-studies/) | Vienna | Vienna | M | — |\n| 128 | [Neuro-X](https://www.epfl.ch/education/master/programs/neuro-x/) | EPFL | Losanna | M | — |\n| 129 | [Neuroscience and Neuroimaging](https://kandidat.au.dk/neuroscienceandneuroimaging) | Aarhus–UCAS | Pechino–Huairou | D | CN |\n| 130 | [Percorso UNAM Vision Science → Sorbonne iSENSE](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-neurosciences/international-master-integrative) | Sorbonne–UNAM | Città del Messico e Parigi | D | ? |\n| 131 | [Brain and Mind Sciences](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-neurosciences/international-master-brain-and) | Sorbonne–UCL, con ENS | Londra e Parigi | D | — |\n| 132 | [Nanoscience and Technology](https://www.ku.dk/studies/masters/nanoscience-and-technology) | Copenhagen–UCAS | Pechino | D | CN |\n| 133 | [Molecular Plant Sciences](https://www.bio.lmu.de/en/study/for-students/master-programs/) | LMU | Monaco/Martinsried | M | — |\n| 134 | [Biological Sciences — Green Life Sciences](https://www.uva.nl/en/education/master-s/master-s-programmes/masters-programmes.html) | UvA | Amsterdam | T | — |\n| 135 | [Industrial Biotechnology](https://www.tum.de/en/studies/degree-programs/detail/industrial-biotechnology-master-of-science-msc) | TUM | Garching | M | DE |\n| 136 | [Pharmaceutical Bioprocess Engineering](https://www.ls.tum.de/en/ls/studies/courses-and-programs/pharmaceutical-bioprocess-engineering-msc/) | TUM | Freising | M | DE |\n| 137 | [Bio Inspired Innovation](https://www.uu.nl/en/masters/bio-inspired-innovation) | Utrecht | Utrecht | M | — |\n| 138 | [BIOCEB — Biological and Chemical Engineering for a Sustainable Bioeconomy](https://forge.bioceb.eu/master-s-degrees-215.html) | Paris-Saclay/AgroParisTech e consorzio | Reims/area parigina/Gembloux/Espoo/Tallinn, secondo track | D | — |\n| 139 | [Biostatistics and Data Science](https://education.ki.se/bachelors-masters-studies/programmes-and-courses/masters-programmes) | Karolinska | Stoccolma | M | — |\n| 140 | [Computational Science — Bioscience](https://www.uio.no/studier/program/computational-science-master/studieretninger/bioscience/index.html) | Oslo | Oslo | T | — |\n| 141 | [Bioscience — Toxicology and Environmental Science](https://www.uio.no/english/studies/programmes/bioscience-master/) | Oslo | Oslo | T | — |\n| 142 | [Bioinformatics](https://www.cit.tum.de/cit/studium/studiengaenge/master-bioinformatik/) | LMU–TUM | Monaco e Garching | J | DE |\n| 143 | [Evolutionary Biology — MEME](https://www.evobio.eu/) | LMU / rete MEME | Groningen/Uppsala/Montpellier/Monaco, secondo percorso | D | ? |\n| 144 | [Genomics in Society](https://www.eur.nl/en/erasmusmc/education/master/overview) | Erasmus MC | Rotterdam | M | — |\n| 145 | [Health Sciences](https://www.eur.nl/en/erasmusmc/education/master/overview) | Erasmus MC | Rotterdam | M | — |\n| 146 | [Bioentrepreneurship](https://education.ki.se/bachelors-masters-studies/programmes-and-courses/masters-programme-in-bioentrepreneurship) | Karolinska | Stoccolma | M | — |\n\n## 4. Master e percorsi extra-Europa — tutte le 62 voci\n\n| # | Programma / percorso | Università | Città | Tipo | Condizioni |\n|---:|---|---|---|---|---|\n| 1 | [Cell and Developmental Biology](https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-cell-developmental-biology) | UBC | Vancouver | M | — |\n| 2 | [Biochemistry and Molecular Biology](https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-biochemistry-molecular-biology) | UBC | Vancouver | M | — |\n| 3 | [Cell and Systems Biology](https://www.sgs.utoronto.ca/programs/cell-and-systems-biology/) | Toronto | Toronto | M | — |\n| 4 | [Molecular Genetics](https://moleculargenetics.utoronto.ca/graduate-studies-research) | Toronto | Toronto | M | — |\n| 5 | [Medical Biophysics](https://www.sgs.utoronto.ca/programs/medical-biophysics/) | Toronto | Toronto | M | — |\n| 6 | [Biomedical Science](https://study.unimelb.edu.au/find/courses/graduate/master-of-biomedical-science/) | Melbourne | Melbourne | M | — |\n| 7 | [Laboratory Medicine and Pathobiology](https://lmp.utoronto.ca/master-science-msc-program) | Toronto | Toronto | M | — |\n| 8 | [Biochemistry](https://www.sgs.utoronto.ca/programs/biochemistry/) | Toronto | Toronto | M | — |\n| 9 | [Medical Genetics](https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-medical-genetics) | UBC | Vancouver | M | — |\n| 10 | [Biomedical Engineering](https://bme.utoronto.ca/prospective-student/master-of-applied-science/) | Toronto | Toronto | M | — |\n| 11 | [Biomedical Engineering](https://bme.ubc.ca/education/graduate-programs/) | UBC | Vancouver | M | — |\n| 12 | [Experimental Medicine](https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-experimental-medicine) | UBC | Vancouver | M | — |\n| 13 | [Biomedical and Health Science — Regenerative Medicine and Stem Cells](https://www.monash.edu/study/courses/find-a-course/biomedical-and-health-science-m6003?international=true) | Monash | Melbourne/Clayton | T | — |\n| 14 | [Biotechnology Research Extensive — Medical Biotechnology](https://study.uq.edu.au/study-options/programs/master-biotechnology-research-extensive-5627/medical-biotechnology-medbix5627) | UQ | Brisbane | T | — |\n| 15 | [Biotechnology](https://www.monash.edu/study/courses/find-a-course/biotechnology-m6030) | Monash | Melbourne/Clayton | M | — |\n| 16 | [Molecular Biology Research Extensive](https://study.uq.edu.au/study-options/programs/master-molecular-biology-research-extensive-5625?year=2027) | UQ | Brisbane | M | — |\n| 17 | [Science (BioSciences)](https://study.unimelb.edu.au/find/courses/graduate/master-of-science-biosciences) | Melbourne | Melbourne | M | — |\n| 18 | [Medical Science — campo Biomedical Science](https://www.sgs.utoronto.ca/programs/medical-science/) | Toronto | Toronto | M | — |\n| 19 | [Biomedical Science](https://www.monash.edu/study/courses/find-a-course/biomedical-science-2977) | Monash | Melbourne/Clayton | M | — |\n| 20 | [Medicine — Master of Science by research](https://medicine.nus.edu.sg/graduatestudies/education/master-of-science/) | NUS | Singapore | M | — |\n| 21 | [Immunology](https://www.sgs.utoronto.ca/programs/immunology/) | Toronto | Toronto | M | — |\n| 22 | [Women+ and Children's Health Sciences — Reproductive and Developmental Sciences](https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-women-children-health-sciences) | UBC | Vancouver | M | — |\n| 23 | [Pathology and Laboratory Medicine](https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-pathology-laboratory-medicine) | UBC | Vancouver | M | — |\n| 24 | [Interdisciplinary Oncology](https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-interdisciplinary-oncology) | UBC | Vancouver | M | — |\n| 25 | [Biotechnology](https://www.dbs.nus.edu.sg/education/graduates/masters-by-coursework/biotechnology/) | NUS | Singapore | M | — |\n| 26 | [Biotechnology Research Extensive](https://study.uq.edu.au/study-options/programs/master-biotechnology-research-extensive-5627) | UQ | Brisbane | M | — |\n| 27 | [Biotechnology — Medical Biotechnology](https://study.uq.edu.au/study-options/programs/master-biotechnology-5599?year=2027) | UQ | Brisbane | T | — |\n| 28 | [Molecular Biology](https://study.uq.edu.au/study-options/programs/master-molecular-biology-5600?year=2027) | UQ | Brisbane | M | — |\n| 29 | [Genome Science and Technology](https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-genome-science-technology) | UBC | Vancouver | M | — |\n| 30 | [Physiology](https://www.sgs.utoronto.ca/programs/physiology/) | Toronto | Toronto | M | — |\n| 31 | [Pharmaceutical Sciences — campo Biomolecular Science](https://www.sgs.utoronto.ca/programs/pharmaceutical-sciences/) | Toronto | Toronto | M | — |\n| 32 | [Microbiology and Immunology](https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-microbiology-immunology) | UBC | Vancouver | M | — |\n| 33 | [Pharmacology](https://www.sgs.utoronto.ca/programs/pharmacology/) | Toronto | Toronto | M | — |\n| 34 | [Applied Biomedicine](https://medicine.nus.edu.sg/graduatestudies/education/msc-in-applied-biomedicine/) | NUS | Singapore | M | — |\n| 35 | [Biomedical Engineering](https://cde.nus.edu.sg/bme/master-of-science-msc-in-biomedical-engineering/) | NUS | Singapore | M | — |\n| 36 | [Biomedical Engineering — Master Plus](https://cde.nus.edu.sg/bme/graduate/nus-bme-tsu-bme-dual-masters-degree-program-master-plus-programme/) | NUS–Tsinghua | Singapore e Pechino | D | A |\n| 37 | [Biotechnology Research Extensive — Synthetic Biology and Industrial Biotechnology](https://study.uq.edu.au/study-options/programs/master-biotechnology-research-extensive-5627/synthetic-biology-and-industrial-biotechnology-sybibx5627) | UQ | Brisbane | T | — |\n| 38 | [Biomedical Engineering](https://study.unimelb.edu.au/find/courses/graduate/master-of-biomedical-engineering/) | Melbourne | Melbourne | M | — |\n| 39 | [Clinical Embryology](https://www.monash.edu/study/courses/find-a-course/clinical-embryology-m6010) | Monash | Melbourne/Clayton | M | A |\n| 40 | [Philosophy (Medicine and Health)](https://www.sydney.edu.au/courses/courses/pr/master-of-philosophy-medicine-and-health.html) | Sydney | Sydney | M | A |\n| 41 | [Philosophy (Science)](https://www.sydney.edu.au/courses/courses/pr/master-of-philosophy-science0.html) | Sydney | Sydney | M | A |\n| 42 | [Master of Philosophy — Science](https://study.unimelb.edu.au/find/courses/graduate/master-of-philosophy-science/) | Melbourne | Melbourne | M | A |\n| 43 | [Master of Biotechnology (MBiotech)](https://www.sgs.utoronto.ca/programs/biotechnology/) | Toronto | Mississauga | M | — |\n| 44 | [Bioinformatics Research Extensive](https://study.uq.edu.au/study-options/programs/master-bioinformatics-research-extensive-5598) | UQ | Brisbane | M | — |\n| 45 | [Bioinformatics](https://study.uq.edu.au/study-options/programs/master-bioinformatics-5755) | UQ | Brisbane | M | — |\n| 46 | [Science (Bioinformatics)](https://study.unimelb.edu.au/find/courses/graduate/master-of-science-bioinformatics/) | Melbourne | Melbourne | M | — |\n| 47 | [Genome Analytics](https://handbook.monash.edu/2026/courses/S6005) | Monash | Melbourne/Clayton | M | — |\n| 48 | [Genomics and Health](https://study.unimelb.edu.au/find/courses/graduate/master-of-genomics-and-health/) | Melbourne | Melbourne | M | — |\n| 49 | [Precision Health and Medicine x Artificial Intelligence](https://medicine.nus.edu.sg/bch/msc-phm/) | NUS | Singapore | M | — |\n| 50 | [Biomedical Science — Genomics and Precision Medicine](https://www.sydney.edu.au/courses/courses/pc/master-of-biomedical-science-genomics-and-precision-medicine.html) | Sydney | Sydney | M | — |\n| 51 | [Neuroscience](https://www.grad.ubc.ca/prospective-students/faculties/faculty-medicine) | UBC | Vancouver | M | — |\n| 52 | [Brain and Mind Sciences](https://www.sydney.edu.au/courses/courses/pc/master-of-brain-and-mind-sciences.html) | Sydney | Sydney | M | — |\n| 53 | [Biotechnology](https://study.unimelb.edu.au/find/courses/graduate/master-of-biotechnology/) | Melbourne | Melbourne | M | — |\n| 54 | [Pharmaceutical Science and Technology](https://pharmacy.nus.edu.sg/study/postgraduate-programmes/msc-pharmaceutical-science-technology-programme/) | NUS | Singapore | M | — |\n| 55 | [Professional Engineering — Biomedical Engineering](https://www.sydney.edu.au/content/courses/courses/pc/master-of-professional-engineering-biomedical-engineering.html) | Sydney | Sydney | M | — |\n| 56 | [Biotechnology Research Extensive — Animal Agricultural Biotechnology](https://study.uq.edu.au/study-options/programs/master-biotechnology-research-extensive-5627/animal-agricultural-biotechnology-anagbx5627) | UQ | Brisbane | T | — |\n| 57 | [Biotechnology — Animal Agricultural Biotechnology](https://study.uq.edu.au/study-options/programs/master-biotechnology-5599?year=2027) | UQ | Brisbane | T | — |\n| 58 | [Biotechnology Research Extensive — Molecular Imaging Technology](https://study.uq.edu.au/study-options/programs/master-biotechnology-research-extensive-5627/molecular-imaging-technology-molitx5627) | UQ | Brisbane | T | — |\n| 59 | [Biotechnology Research Extensive — Plant Agricultural Biotechnology](https://study.uq.edu.au/study-options/programs/master-biotechnology-research-extensive-5627/plant-agricultural-biotechnology-plagbx5627) | UQ | Brisbane | T | — |\n| 60 | [Biomedical Science — Infection and Immunity](https://www.sydney.edu.au/courses/courses/pc/master-of-biomedical-science-infection-and-immunity.html) | Sydney | Sydney | M | — |\n| 61 | [Health Science](https://handbook.monash.edu/2025/courses/m6034) | Monash–Southeast University | Suzhou | D | A |\n| 62 | [Green Business](https://www.helsinki.fi/en/admissions-and-education/apply-bachelors-and-masters-programmes/joint-degree-programmes) | UBC–Helsinki | Vancouver e Helsinki | D | — |\n\n## Offerte storiche, rinominate, non attive o sole mobilità\n\nSono mantenute qui perché erano emerse nella ricerca, ma non costituiscono nuove candidature autonome attive da aggiungere alla graduatoria 2027.\n\n| Voce | Università | Città | Stato |\n|---|---|---|---|\n| [Integrative Plant Sciences](https://www.helsinki.fi/en/degree-programmes/integrative-plant-sciences-masters-programme) | Helsinki | Helsinki | Non ammette più nuovi studenti. |\n| [Molecular Microbiology, Microbial Ecology and Immunobiology](https://molekularebiologie.univie.ac.at/en/master-studies/) | Vienna | Vienna | In esaurimento, senza nuove ammissioni dal 2025. |\n| [Advanced Spectroscopy in Chemistry — ASC](https://www.helsinki.fi/en/admissions-and-education/apply-bachelors-and-masters-programmes/joint-degree-programmes) | Helsinki e consorzio | Helsinki/Lille/Bologna/Cracovia/Lipsia, secondo percorso | Nessun nuovo ingresso nel 2027. |\n| [Biomedical Neuroscience](https://www.tum.de/en/studies/degree-programs) | TUM | Monaco | Ristrutturazione: non confermato nella forma precedente per il 2027. |\n| [Vecchio doppio titolo Biofabrication con Wollongong/QUT](https://courses.uow.edu.au/courses/2027/2135) | Utrecht e partner australiani | Utrecht/Australia | Wollongong indica il corso come chiuso a nuove iscrizioni; opzione QUT 2027 da riconfermare. Il Master Utrecht è in classifica. |\n| [Molecular and Cellular Biology — vecchio nome](https://www.bio.lmu.de/en/study/for-students/master-programs/) | LMU | Monaco | Dal 2027/28 è sostituito da Molecular Principles of Life, già classificato. |\n| [Plant Sciences — vecchio nome](https://www.bio.lmu.de/en/study/for-students/master-programs/) | LMU | Monaco | Dal 2027/28 è sostituito da Molecular Plant Sciences, già classificato. |\n| [Reproductive and Developmental Sciences — vecchio contenitore](https://www.grad.ubc.ca/prospective-students/graduate-degree-programs/master-of-science-women-children-health-sciences) | UBC | Vancouver | Area inclusa nel programma corrente Women+ and Children's Health Sciences, già classificato. |\n| [iMOV / International Master of Vision Sciences — denominazione precedente](https://sciences.sorbonne-universite.fr/formation-sciences/offre-de-formation/masters/master-neurosciences/international-master-integrative) | Sorbonne–UNAM | Parigi/Città del Messico | La pagina corrente rimanda al percorso iSENSE, già classificato. Non confonderlo con IMoV Chimie-Biologie. |\n| [IMaC–Okayama](https://sciences.sorbonne-universite.fr/en/french-japanese-imac-okayama-programme) | Sorbonne–Okayama | Parigi/Okayama | Mobilità con certificato, non un Master autonomo aggiuntivo. |\n| [BEAM — EU–Australia Biomedical Engineering mobility](https://sydney-au-sa.terradotta.com/index.cfm?Announcement_ID=3005&FuseAction=Announcements.Announcement) | Sydney e partner europei | Sydney/Trento/Braga-Halle secondo accordo | Mobilità di un semestre: non dimostra un doppio titolo. Stato 2027 da riconfermare. |\n| [Three-Two Programme in Chemistry](https://sciences.sorbonne-universite.fr/en/french-canadian-three-two-programme-chemistry) | Sorbonne–UBC | Parigi/Vancouver | Accordo specifico Bachelor/Master in chimica: non una normale candidatura post-L-2 a un doppio MSc biotech. |\n\n## Note sui programmi\n\n- **Utrecht — Molecular and Cellular Life Sciences — Molecules & Cells / Genes to Organisms / Biophysics & Molecular Imaging:** Priorità molto alta. Tre track: Genes to Organisms; Molecules & Cells; Biophysics & Molecular Imaging. Uno o due progetti di ricerca; inglese, 120 ECTS.\n- **UZH — Biochemistry:** Nuova priorità: biochimica sperimentale e life sciences.\n- **Geneva — Biochemistry:** Nuova priorità: membrane, trasporto, biochimica, biologia cellulare e molecolare.\n- **Copenhagen — Biochemistry:** Nuova priorità per biochimica, proteine e biologia cellulare; inglese.\n- **TUM — Biology:** Nuova priorità. Medical Biology, biochemistry/cell biology, colture cellulari, genetica e immunologia. Inglese possibile secondo piano e moduli; verificarne la combinazione completa.\n- **TUM — Biochemistry:** Molecular/cell biology pertinente, ma lingua d'insegnamento e requisito d'accesso: tedesco. Sede Garching.\n- **Sorbonne — BMC — Biochimie & Biologie moléculaire:** Da confrontare per ricerca biochimica e molecolare.\n- **Sorbonne — BMC — Génétique et Épigénétique:** Oncogenesi, RNA, genetica medica, genoma ed epigenetica.\n- **Paris Cité — Génétique:** Nuova priorità per genetica ed epigenetica; la facoltà descrive lunghi stage di laboratorio e opportunità internazionali.\n- **Paris-Saclay — Genetics, Genomics, Epigenetics and Evolution (GenE2):** Nuova priorità per genetica molecolare, genomica funzionale ed epigenetica.\n- **Paris-Saclay — Human Genomics in Biotherapies, Health and Disease (HuGeInBio):** Genomica umana collegata a bioterapie e malattia; elencato nell'offerta in inglese.\n- **Utrecht — Drug Innovation:** Biomolecular drugs, nuove strategie terapeutiche e ricerca sul farmaco.\n- **Utrecht — Infection and Immunity:** Immunologia, modelli cellulari, tecniche molecolari e ricerca sperimentale.\n- **Copenhagen — Immunology and Inflammation:** Ricerca immunologica sperimentale e strategie terapeutiche.\n- **UZH — Biology — Cancer Biology:** Biologia cellulare tumorale e ricerca oncologica.\n- **UZH — Biology — Immunology:** Immunologia cellulare e molecolare.\n- **Paris Cité — BIP — Reproduction et Développement (ReproDev):** Riproduzione e sviluppo; priorità scientifica elevata, lingua e ingresso M1 da verificare.\n- **Paris Cité — BIP — Epithéliums: Structures d'Interface (ESI):** Organizzazione e funzione degli epiteli: particolarmente interessante per la biologia cellulare e dei tessuti.\n- **Paris Cité — BIP — Biologie du Vieillissement (BioVie):** Meccanismi cellulari e molecolari dell'invecchiamento.\n- **ETH — Biology — Biochemistry:** Meccanismi biochimici, macromolecole e ricerca molecolare.\n- **EPFL — Molecular and Biological Chemistry:** Forte ricerca pratica in laboratorio all'interfaccia chimica-biologia.\n- **Sorbonne — Interfaces Chimie-Biologie: Ingénierie Moléculaire du Vivant (IMoV):** Dal 2025: interfaccia chimica-biologia, sonde, biosensori e approcci biotecnologici; solida preparazione chimica.\n- **Paris-Saclay — Systems and Synthetic Biology:** Hands-on experimental biology, modellazione e progettazione di sistemi biologici.\n- **Paris-Saclay — International Track in France — M1, Orsay:** Possibile porta d'ingresso in inglese per proseguire verso diversi M2; non dà accesso automatico a ogni M2.\n- **Paris Cité — Biologie Intégrative et Physiologie (BIP):** Contenitore di percorsi fisiologici, cellulari e dello sviluppo.\n- **Basel — Drug Sciences:** Master in inglese, con tesi di ricerca lunga. Eventuali corsi integrativi possono essere in tedesco.\n- **Helsinki — Pharmaceutical Research, Development and Safety:** Drug discovery/design/pharmacology; drug delivery/development; safety/regulation.\n- **Vienna — Drug Discovery and Development:** Master in inglese con procedura di selezione; chimica e farmacologia da confrontare con i tuoi CFU.\n- **Karolinska — Toxicology:** Ricerca sui meccanismi di tossicità e valutazione della sicurezza; pagina autunno 2027 disponibile.\n- **Sorbonne — BMC — Immunologie:** Alternativa per immunoterapia e ricerca immunologica.\n- **Sorbonne — BMC — Microbiologie:** Microbiologia e virologia, con applicazioni biotech.\n- **ETH — Biology — Microbiology and Immunology:** Microbiologia, immunologia e processi molecolari; è un major del MSc Biology.\n- **UZH — Biology — Microbiology:** Specializzazione del MSc Biology.\n- **UZH — Biology — Virology:** Specializzazione del MSc Biology; pertinente a vettori, infezioni e ricerca molecolare secondo progetto.\n- **Helsinki — Microbiology and Microbial Biotechnology:** Nuova aggiunta direttamente biotech: microbiologia medica/alimentare/ambientale, virologia e biotecnologie microbiche.\n- **Vienna — Microbiome Science:** Programma attuale in inglese; microbiomi e microbiologia.\n- **Sorbonne — BMC — Biotechnologies: R&D Biotech:** M2 orientato all'industria biotech con stage di sei mesi; preceduto da M1 pertinente.\n- **Sorbonne — BMC — Innovation en Biotechnologies:** Percorso in alternance/apprentissage: serve un contratto con un'impresa.\n- **EPFL — Chemical Engineering and Biotechnology:** Master autonomo prima omesso: biotecnologie di processo e ingegneria chimica; requisiti quantitativi importanti.\n- **Copenhagen — Biology:** Programma ampio da personalizzare: verificare piano e specializzazione.\n- **Aarhus — Biology:** Percorso ampio, da costruire scegliendo progetto e corsi molecolari.\n- **Copenhagen — Pharmaceutical Sciences — English/GB programme:** Drug discovery, sviluppo e ricerca farmaceutica; distinguere dalla versione danese.\n- **Copenhagen — Medicinal Chemistry:** Più chimico: prerequisiti di chimica organica e preparazione specifica.\n- **Aarhus — Medicinal Chemistry:** Drug discovery, sintesi e ricerca farmaceutica; preparazione chimica determinante.\n- **Sorbonne — BMC — Systèmes biologiques et concepts physiques:** Biologia quantitativa e biofisica; distinto dal percorso in staminali.\n- **Basel — Nanosciences:** Nanobiologia e applicazioni mediche possibili; bisogna soddisfare requisiti interdisciplinari.\n- **TUM — Nutrition and Biomedicine:** In inglese; metabolismo e meccanismi molecolari delle malattie nutrizionali.\n- **UZH — Biology — Quantitative Biology and Systems Biology:** Direzione computazionale e quantitativa.\n- **Utrecht — Bioinformatics and Biocomplexity:** Biologia dei sistemi e analisi computazionale; meno orientato al banco.\n- **Copenhagen — Bioinformatics:** Due specializzazioni: Computational Biology e Computer Science.\n- **Aarhus — Bioinformatics:** Programma aperto a background scientifici pertinenti; confronto di matematica, biologia e informatica.\n- **Sorbonne — Bioinformatique & Modélisation (BIM-BMC):** Percorso computazionale del BMC.\n- **Sorbonne — BMC — Artificial Intelligence and Data Analysis (AIDA):** Analisi dei dati e AI: verificare i prerequisiti quantitativi.\n- **Paris-Saclay — Genomics Informatics Mathematics and Artificial Intelligence for Health and Environment (GENIOMHE):** Genomica computazionale e AI; più quantitativo.\n- **Paris Cité — Bio-informatique:** Contenitore per biologia computazionale, piattaforme biologiche e drug design.\n- **Paris Cité — Bioinformatique — Ingénierie de plateforme en biologie:** Piattaforme e strumenti biologici; catalogo: francese/inglese.\n- **Paris Cité — Bioinformatique — In Silico Drug Design (ISDD):** Opzione internazionale citata dal catalogo; partner e accordi attivi vanno riconfermati prima di promettere un doppio titolo.\n- **UNIL — Molecular Life Sciences — Bioinformatics:** Specializzazione interna: non un nuovo Master.\n- **UNIL — Molecular Life Sciences — Microbiology:** Specializzazione interna: non un nuovo Master.\n- **Paris-Saclay — Fundamental Microbiology:** Microbiologia fondamentale e molecolare; offerta internazionale da confrontare.\n- **Paris Cité — BMC — Microbiologie et Génie Biologique:** R&D microbiologica e biotech, prodotti/processi e qualità.\n- **UvA — Biomedical Sciences — Neurobiology:** Altro cluster dello stesso MSc Biomedical Sciences, da approfondire se ti interessa la neurobiologia cellulare.\n- **Erasmus MC — Neuroscience:** Research Master; pertinente se scegli la neurobiologia cellulare.\n- **Helsinki — Neuroscience:** Comprende approcci cellulari e fisiologici; inglese, pagina candidature gennaio 2027.\n- **Geneva — Neuroscience:** Programma interdisciplinare di tre facoltà UNIGE; non è per questo un joint degree con un'altra università.\n- **Vienna — Neuroscience:** Programma in inglese con selezione; interessante se scegli neurobiologia.\n- **EPFL — Neuro-X:** Neuroscienze e neurotecnologie; secondario rispetto alle tue priorità attuali.\n- **LMU — Molecular Plant Sciences:** Nuovo nome per gli ingressi dal 2027/28, al posto di Plant Sciences. Biologia molecolare vegetale, più distante dalla tua direzione biomedica.\n- **UvA — Biological Sciences — Green Life Sciences:** Biotecnologie vegetali, biologia cellulare, plant breeding e phytopathology; interesse secondario.\n- **TUM — Industrial Biotechnology:** Biocatalisi e bioprocessi; richiede tedesco. Sede Garching; programma interdisciplinare aperto anche a bioscienze pertinenti.\n- **TUM — Pharmaceutical Bioprocess Engineering:** Bioproduzione farmaceutica e process engineering; in tedesco, sede Freising-Weihenstephan.\n- **Utrecht — Bio Inspired Innovation:** Innovazione ispirata ai sistemi biologici; orientamento anche ambientale e progettuale.\n- **Karolinska — Biostatistics and Data Science:** Via quantitativa, da valutare per requisiti matematici; non un percorso di biologia cellulare sperimentale.\n- **Oslo — Computational Science — Bioscience:** Via computazionale; controllare requisiti di matematica e programmazione.\n- **Oslo — Bioscience — Toxicology and Environmental Science:** Tossicologia e meccanismi biologici; più ambientale delle priorità cellulari già trovate.\n- **Erasmus MC — Genomics in Society:** Secondario: genomica con forte componente sociale e interdisciplinare.\n- **Erasmus MC — Health Sciences:** Più epidemiologia/ricerca sanitaria che biotecnologie sperimentali; valutare la major.\n- **Karolinska — Bioentrepreneurship:** Biotech industriale, sviluppo e gestione: secondario rispetto al tuo obiettivo sperimentale.\n- **UBC — Biochemistry and Molecular Biology:** Nuova priorità molto alta: gene regulation, epigenetics, membrane e cellular regulation; programma research-intensive.\n- **Toronto — Cell and Systems Biology:** Nuova priorità molto alta per biologia cellulare sperimentale.\n- **Toronto — Medical Biophysics:** Nuova priorità: comprende stem cells, segnalazione, modelli cellulari, cancro e imaging. Non dedurre dal nome una sola formazione fisica.\n- **Toronto — Biochemistry:** Molecole, membrane, organelli e meccanismi cellulari.\n- **UBC — Medical Genetics:** Genetica e genomica con progetto sperimentale secondo laboratorio.\n- **UQ — Biotechnology Research Extensive — Medical Biotechnology:** Stem cells, cell labelling/tracking, gene therapy, artificial organs e biopharmaceuticals.\n- **Toronto — Medical Science — campo Biomedical Science:** Research MSc ampio: per candidati internazionali il sito richiede un supervisore al momento della domanda.\n- **Toronto — Immunology:** Sviluppo e interazioni cellulari, trasduzione del segnale e immunoterapia.\n- **UBC — Women+ and Children's Health Sciences — Reproductive and Developmental Sciences:** Contenitore attuale con specializzazione in riproduzione e sviluppo. Non duplicare il vecchio nome Reproductive and Developmental Sciences come Master aggiuntivo.\n- **UBC — Pathology and Laboratory Medicine:** Ricerca sulle malattie e meccanismi cellulari/molecolari.\n- **UBC — Interdisciplinary Oncology:** Possibile lavoro su biologia cellulare tumorale, secondo supervisore.\n- **UQ — Biotechnology Research Extensive:** Nuova aggiunta molto importante: immersione laboratoriale maggiore rispetto al Master standard.\n- **Toronto — Physiology:** Ricerca fisiologica e meccanismi cellulari secondo laboratorio.\n- **Toronto — Pharmaceutical Sciences — campo Biomolecular Science:** Target, terapie, vaccini e diagnostica. Il sito segnala pochi posti finanziati per internazionali 2027/28 e impegno del supervisore prima della valutazione.\n- **UBC — Microbiology and Immunology:** Microbiologia, immunologia e ricerca biologica.\n- **Toronto — Pharmacology:** Farmacologia molecolare, recettori, segnalazione e farmacogenetica.\n- **UQ — Biotechnology Research Extensive — Synthetic Biology and Industrial Biotechnology:** Progettazione e riprogrammazione di processi biologici.\n- **Melbourne — Biomedical Engineering:** Ingegneria biomedica; valutare matematica, fisica e percorso d'ingresso.\n- **Monash — Clinical Embryology:** Embriologia e manipolazione di gameti/embrioni; molto pratico ma clinico e professionalizzante. La sola L-2 non è un ingresso già dimostrato: previste ulteriori qualifiche/esperienza o vie specifiche.\n- **Melbourne — Master of Philosophy — Science:** Ricerca originale: progetto, supervisione e preparazione alla ricerca determinanti; non automaticamente accessibile dopo L-2.\n- **Toronto — Master of Biotechnology (MBiotech):** Master professionale con componente industriale; distinto dagli MSc con tesi. Sede Mississauga.\n- **UQ — Bioinformatics Research Extensive:** Versione con ricerca estesa, da confrontare con quella standard.\n- **UQ — Bioinformatics:** Percorso computazionale.\n- **Melbourne — Science (Bioinformatics):** Coursework con progetto di ricerca sostanziale; genomica e dati biologici.\n- **Monash — Genome Analytics:** Bioinformatica, genetica e genomica; controllare l'edizione 2027 del handbook.\n- **Melbourne — Genomics and Health:** Genomica applicata alla salute, meno orientato alla coltura cellulare.\n- **NUS — Precision Health and Medicine x Artificial Intelligence:** Medicina di precisione, AI e dati; il sito annuncia candidature 2027. Più computazionale e traslazionale che colture cellulari.\n- **UBC — Neuroscience:** Alternativa per neurobiologia cellulare; scegliere laboratorio.\n- **Sydney — Brain and Mind Sciences:** Neuroscienze e componente clinica; meno direttamente biotech cellulare.\n- **NUS — Pharmaceutical Science and Technology:** Biopharma, sviluppo e tecnologie farmaceutiche; modalità, esperienza richiesta e intake da controllare.\n- **Sydney — Professional Engineering — Biomedical Engineering:** Percorso ingegneristico; non considerare la L-2 idonea senza verifica di matematica e requisiti.\n- **UQ — Biotechnology Research Extensive — Animal Agricultural Biotechnology:** Riproduzione animale, vaccini, genetica e diagnostica; distinto dal field della versione standard.\n- **UQ — Biotechnology Research Extensive — Molecular Imaging Technology:** Imaging e theranostics; non equivale necessariamente a microscopia cellulare.\n- **UQ — Biotechnology Research Extensive — Plant Agricultural Biotechnology:** Biologia molecolare vegetale e ingegneria genetica.\n\n### Precisazioni aggiuntive\n\n- Toronto Biomedical Engineering e UBC Biomedical Engineering indicano il MASc di ricerca, non MEng o altre versioni professionali.\n- Sydney e Melbourne MPhil: il progetto potrebbe essere perfettamente pertinente, ma non è dimostrata l'ammissione con la sola L-2.\n- ETH Biotechnology ha sede a Basilea; gli altri percorsi ETH indicati hanno sede generale a Zurigo o nelle sedi specificate.\n- Sorbonne Biosciences to Biotherapies: per staminali/sviluppo sono indicate Heidelberg o Lisbona; altri rami includono Praga e São Paulo. Non sono tutte tappe obbligatorie.\n- Paris-Saclay M1 e M2 sono componenti di un percorso da costruire. Non è garantita la progressione a un M2, né l'intero biennio in inglese.\n- Basel Drug Sciences: inglese nel Master, ma integrazioni possibili in tedesco.\n- Monash Clinical Embryology: specifica formazione clinico-professionale con qualifiche/esperienza aggiuntiva nelle vie di accesso previste.\n- EPFL–ENS de Lyon: accordo distinto dall'ordinario Master; EPFL esclude dalla normale procedura double-degree chi arriva al Master da un Bachelor esterno.\n- MEME e NANOMED: verificare espressamente bando/intake 2027. La presenza di pagine di coorti precedenti non è sufficiente.\n- Green Business, Genomics in Society e Bioentrepreneurship sono mantenuti per completezza ma hanno bassa affinità con l'obiettivo di ricerca cellulare sperimentale.\n\n"
+}
