@@ -11,3 +11,13 @@
 .install-step-number{flex:none;width:25px;height:25px;display:grid;place-items:center;border-radius:50%;background:#edf2e8;color:#245c48;font-weight:700}
 .install-dialog-content .install-note{padding-top:12px;border-top:1px solid #e3e7de;font-size:10px}
 @media(max-width:520px){.header-right{gap:12px}.install-app{padding:8px 10px;font-size:10px}.install-dialog .dialog-head{padding:20px}.install-dialog-content{padding:8px 20px 19px}}
+
+/* Installazione coordinata con il visual system dell'atlante. */
+.install-app{border-color:#c4ad79;background:#eaddbb;color:#37332a;border-radius:2px}
+.install-dialog{border-color:#bdb3a3;border-radius:2px;background:#fbf8f0;color:#242b29;box-shadow:0 20px 80px #191c1a40}
+.install-dialog::backdrop{background:#202926ad;backdrop-filter:blur(2px)}
+.install-dialog .dialog-head{background:#e9e2d6;border-color:#d8d1c5}
+.install-dialog .dialog-head h2{color:#242b29}
+.install-dialog-content>p{color:#686a63}
+.install-step-number{border-radius:2px;background:#e4ddcf;color:#34463f}
+.install-dialog-content .install-note{border-color:#d8d1c5}
