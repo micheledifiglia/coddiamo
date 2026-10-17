@@ -28,6 +28,8 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      - name: Installa dipendenze
+        run: npm ci
       - name: Rigenera e verifica il catalogo
         run: python parse_data.py
       - name: Esegue i test
