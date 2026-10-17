@@ -28,14 +28,37 @@ test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su 
   assert.match(app,/mapSamples:16000[\s\S]*mapBrightness:1\.8[\s\S]*mapBaseBrightness:0\.01/);
   const overview=app.slice(app.indexOf('function overview(){'),app.indexOf('function card(p)'));
   assert.ok(overview.indexOf('${globeCard()}')<overview.indexOf('class="dashboard-card distribution-card"'),'il globo è la prima scheda della panoramica');
-  assert.match(app,/theta\+\=\(e\.clientY-lastY\)\/200[\s\S]*frame\.theta=theta/);
+  assert.match(app,/theta=wrapTheta\(theta\+\(e\.clientY-old\.y\)\/220\)[\s\S]*frame\.theta=orientation\.theta/);
   assert.doesNotMatch(app,/phi\+=0\.0012/);
-  assert.match(app,/selectedNames\.has\(u\.name\)\?\.11:\.065/);
+  assert.match(app,/selectedNames\.has\(u\.name\)\?\.12:\.075/);
   assert.match(app,/data-globe-zoom/);
+  assert.match(app,/data-globe-north[\s\S]*globe-compass-needle/);
+  assert.match(app,/pointerType==='mouse'[\s\S]*setPointerCapture/);
+  assert.match(app,/next\.distance\/before\.distance/);
+  assert.match(app,/globeData\.north=[\s\S]*globeData\.reset=/);
   assert.match(css,/\.dashboard-card\{[\s\S]*backdrop-filter:blur\(30px\)/);
   assert.match(css,/\.dashboard-grid>\.university-globe-card\{grid-column:1\/-1/);
   assert.match(css,/\.university-globe-card[\s\S]*touch-action:none/);
+  assert.match(css,/\.dashboard-grid>\.university-globe-card\{grid-column:1\/-1;margin-top:0;margin-bottom:-20px\}/);
+  assert.match(css,/#main:has\(>\.title-row \+ \.dashboard-grid\)>.title-row\{margin-bottom:10px\}/);
+  assert.match(css,/\.globe-compass-needle\{width:21px/);
   assert.match(css,/@media\(max-width:560px\)\{[\s\S]*\.dashboard-rail\{grid-template-columns:minmax\(0,1fr\)\}/);
+});
+test('Il globo attraversa i poli senza discontinuità o coordinate bloccate',()=>{
+  const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
+  const normalizeSource=app.match(/function normalizeGlobeOrientation\(phi,theta\)\{[\s\S]*?\n\}/)?.[0];
+  const targetSource=app.match(/function globeTargetAngles\(longitude,latitude,currentPhi,currentTheta\)\{[\s\S]*?\n\}/)?.[0];
+  assert.ok(normalizeSource&&targetSource,'funzioni di normalizzazione e centratura presenti');
+  const normalize=vm.runInNewContext(`(${normalizeSource})`);
+  const target=vm.runInNewContext(`(${targetSource})`);
+  const north=normalize(.4,-.25),south=normalize(.4,Math.PI+.25),manyTurns=normalize(.4,40*Math.PI+.3);
+  assert.ok(Math.abs(north.theta-.25)<1e-9);assert.ok(Math.abs(Math.abs(north.phi-.4)-Math.PI)<1e-9);
+  assert.ok(Math.abs(south.theta-(Math.PI-.25))<1e-9);assert.ok(Math.abs(Math.abs(south.phi-.4)-Math.PI)<1e-9);
+  assert.ok(Math.abs(manyTurns.theta-.3)<1e-9);assert.ok(Math.abs(manyTurns.phi-.4)<1e-9);
+  const centered=target(120,45,.2,100*Math.PI+.3);
+  assert.ok(Math.abs(centered.theta-(100*Math.PI+.3))<2,'centratura sceglie un passaggio vicino anche dopo molte rotazioni');
+  const result=normalize(centered.phi,centered.theta);
+  assert.ok(Math.abs(result.theta-Math.PI/4)<1e-9);assert.ok(Math.abs(Math.atan2(Math.sin(result.phi+120*Math.PI/180),Math.cos(result.phi+120*Math.PI/180)))<1e-9);
 });
 test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
@@ -49,7 +72,7 @@ test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8'),/src="globe\.js" defer><\/script><script src="app\.js" defer/);
   const serviceWorker=fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8');
   assert.match(serviceWorker,/\/globe\.js/);
-  assert.match(serviceWorker,/master-atlas-shell-v5/);
+  assert.match(serviceWorker,/master-atlas-shell-v6/);
 });
 
 test('La tipografia dell’interfaccia usa il sans-serif Manrope come nelle immagini di riferimento',()=>{
