@@ -47,6 +47,8 @@ test('L’accesso offre password e passkey senza pulsanti di provider esterni',(
   assert.match(auth,/Usa una passkey/);
   assert.match(html,/id="account-add-passkey"/);
   assert.doesNotMatch(`${html}\n${auth}`,/Continua con Google|Continua con Apple|accounts\.google\.com|appleid\.apple\.com/);
+  assert.ok(html.indexOf('href="glass-ui.css"')<html.indexOf('href="auth.css"'),'lo stile di accesso prevale sulle regole generali liquid glass');
+  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/master-atlas-shell-v8/,'la cache PWA viene invalidata dopo il cambio stile');
 });
 test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su telefono',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
@@ -115,7 +117,7 @@ test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8'),/src="globe\.js" defer><\/script><script src="app\.js" defer/);
   const serviceWorker=fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8');
   assert.match(serviceWorker,/\/globe\.js/);
-  assert.match(serviceWorker,/master-atlas-shell-v7/);
+  assert.match(serviceWorker,/master-atlas-shell-v8/);
 });
 
 test('La tipografia dell’interfaccia usa il sans-serif Manrope come nelle immagini di riferimento',()=>{
