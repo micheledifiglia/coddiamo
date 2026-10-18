@@ -5,6 +5,7 @@ const REFRESH_LIFETIME = 30 * 24 * 60 * 60 * 1000;
 const REQUEST_LIFETIME = 10 * 60 * 1000;
 const CODE_LIFETIME = 90 * 1000;
 const MCP_ENDPOINT = '/api/atlas-mcp';
+const RESOURCE_METADATA_PATH = `/.well-known/oauth-protected-resource${MCP_ENDPOINT}`;
 const utf8 = value => new TextEncoder().encode(value);
 const b64url = value => {
   const bytes = value instanceof Uint8Array ? value : new Uint8Array(value);
@@ -533,7 +534,7 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
     if (request.method === 'OPTIONS') return new Response(null, {status: 204, headers});
     if (request.method !== 'POST') return json({error: 'Usa POST per le richieste MCP.'}, 405, headers);
     const auth = await getToken(request, env, origin);
-    if (!auth) return json({error: 'Accesso OAuth richiesto.'}, 401, {...headers, 'www-authenticate': `Bearer resource_metadata="${origin}/.well-known/oauth-protected-resource", scope="atlas:read atlas:write"`});
+    if (!auth) return json({error: 'Accesso OAuth richiesto.'}, 401, {...headers, 'www-authenticate': `Bearer resource_metadata="${origin}${RESOURCE_METADATA_PATH}", scope="atlas:read atlas:write"`});
     if (!hasScope(auth.scopes, 'atlas:read')) return json({error: 'Permesso atlas:read mancante.'}, 403, headers);
     let input; try {const raw = await request.text(); if (raw.length > 100000) return json({error: 'Richiesta troppo grande.'}, 413, headers); input = JSON.parse(raw);} catch {return json({error: 'JSON-RPC non valido.'}, 400, headers);}
     if (!input || input.jsonrpc !== '2.0' || typeof input.method !== 'string') return json({error: 'Richiesta JSON-RPC non valida.'}, 400, headers);
@@ -556,7 +557,7 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
   }
   return {async handle(request, env) {
     const url = new URL(request.url), path = url.pathname;
-    const mcpPaths = new Set(['/.well-known/oauth-protected-resource', '/.well-known/oauth-protected-resource/mcp', '/.well-known/oauth-authorization-server', '/oauth/register', '/oauth/authorize', '/oauth/confirm', '/oauth/consent', '/oauth/token', '/oauth/revoke', MCP_ENDPOINT, '/mcp', '/api/auth/mcp/clients', '/api/auth/mcp/site-link-code']);
+    const mcpPaths = new Set(['/.well-known/oauth-protected-resource', '/.well-known/oauth-protected-resource/mcp', RESOURCE_METADATA_PATH, '/.well-known/oauth-authorization-server', '/oauth/register', '/oauth/authorize', '/oauth/confirm', '/oauth/consent', '/oauth/token', '/oauth/revoke', MCP_ENDPOINT, '/mcp', '/api/auth/mcp/clients', '/api/auth/mcp/site-link-code']);
     if (!mcpPaths.has(path)) return null;
     if (!dbReady(env)) return json({error: 'Database non disponibile.'}, 503);
     const origin = expectedOrigin(request, env);
@@ -600,7 +601,7 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
       ]);
       return json({ok: true});
     }
-    if (path === '/.well-known/oauth-protected-resource' || path === '/.well-known/oauth-protected-resource/mcp') return json(resourceMetadata(origin), 200, {'access-control-allow-origin': '*'});
+    if (path === '/.well-known/oauth-protected-resource' || path === '/.well-known/oauth-protected-resource/mcp' || path === RESOURCE_METADATA_PATH) return json(resourceMetadata(origin), 200, {'access-control-allow-origin': '*'});
     if (path === '/.well-known/oauth-authorization-server') return json(metadata(origin), 200, {'access-control-allow-origin': '*'});
     if (path === '/oauth/register' && request.method === 'POST') return register(request, env, origin);
     if (path === '/oauth/authorize' && request.method === 'GET') return authorize(request, env, origin);

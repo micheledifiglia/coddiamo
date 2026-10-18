@@ -40,8 +40,11 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   assert.equal(discovery.status,200);const oauthMetadata=await discovery.json();assert.equal(oauthMetadata.issuer,'https://atlas.test');assert.equal(oauthMetadata.authorization_endpoint,'https://atlas.test/oauth/authorize');assert.ok(oauthMetadata.authorization_response_iss_parameter_supported);assert.ok(oauthMetadata.code_challenge_methods_supported.includes('S256'));
   const resource=await handle(request('/.well-known/oauth-protected-resource'),env);
   const resourceMetadata=await resource.json();assert.equal(resourceMetadata.resource,'https://atlas.test/api/atlas-mcp');assert.deepEqual(resourceMetadata.authorization_servers,[oauthMetadata.issuer]);
+  const pathResource=await handle(request('/.well-known/oauth-protected-resource/api/atlas-mcp'),env);
+  assert.equal(pathResource.status,200,'RFC 9728 richiede i metadati nel percorso derivato dalla risorsa MCP');
+  const pathResourceMetadata=await pathResource.json();assert.equal(pathResourceMetadata.resource,'https://atlas.test/api/atlas-mcp');assert.deepEqual(pathResourceMetadata.authorization_servers,[oauthMetadata.issuer]);
   const unauth=await handle(request('/api/atlas-mcp',{method:'POST',body:{jsonrpc:'2.0',id:1,method:'initialize',params:{protocolVersion:'2025-11-25'}}}),env);
-  assert.equal(unauth.status,401);assert.match(unauth.headers.get('www-authenticate'),/oauth-protected-resource/);
+  assert.equal(unauth.status,401);assert.equal(unauth.headers.get('www-authenticate'),'Bearer resource_metadata="https://atlas.test/.well-known/oauth-protected-resource/api/atlas-mcp", scope="atlas:read atlas:write"');
 
   const registered=await handle(request('/oauth/register',{method:'POST',body:{client_name:'Assistente test',redirect_uris:['https://ai.example/callback']}}),env);
   assert.equal(registered.status,201);const client=await registered.json();
