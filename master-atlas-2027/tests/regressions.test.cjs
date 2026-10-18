@@ -44,11 +44,14 @@ test('La lingua si cambia dal profilo e resta salvata tra le sessioni',()=>{
   const css=fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8');
   const sw=fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8');
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
+  const workerBuild=fs.readFileSync(path.join(__dirname,'../scripts/build.mjs'),'utf8');
   assert.match(html,/class="profile-language"[^>]*for="language-select"[\s\S]*id="language-select" aria-label="Lingua"[\s\S]*<option value="it">Italiano<\/option>[\s\S]*<option value="en">English<\/option>[\s\S]*<option value="es">Español<\/option>[\s\S]*<option value="fr">Français<\/option>[\s\S]*<option value="de">Deutsch<\/option>/);
   assert.ok(html.indexOf('src="i18n.js" defer')<html.indexOf('src="auth.js" defer'),'la lingua è pronta prima dei contenuti dinamici del profilo');
   assert.match(i18n,/localStorage\.getItem\('atlas-language'\)/);
   assert.match(i18n,/localStorage\.setItem\('atlas-language', locale\)/);
   assert.match(i18n,/new MutationObserver/,'anche le schermate renderizzate in seguito vengono tradotte');
+  assert.match(workerBuild,/['"]i18n\.js['"]:\s*['"]text\/javascript; charset=utf-8['"]/,'il Worker pubblica anche lo script delle traduzioni');
+  assert.match(sw,/master-atlas-shell-v10/,'la shell aggiorna la cache dopo la correzione del Worker');
   assert.match(css,/\.profile-language select\{[\s\S]*border-radius:11px/);
   assert.match(css,/:root\[data-theme="dark"\] \.profile-language select/);
   assert.match(app,/option value="\$\{esc\(s\)\}" \$\{r\.stage===s\?'selected':''\}/,'le traduzioni delle candidature non alterano il valore salvato');
@@ -96,7 +99,7 @@ test('L’accesso offre password e passkey senza pulsanti di provider esterni',(
   assert.match(html,/id="account-add-passkey"/);
   assert.doesNotMatch(`${html}\n${auth}`,/Continua con Google|Continua con Apple|accounts\.google\.com|appleid\.apple\.com/);
   assert.ok(html.indexOf('href="glass-ui.css"')<html.indexOf('href="auth.css"'),'lo stile di accesso prevale sulle regole generali liquid glass');
-  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/master-atlas-shell-v9/,'la cache PWA viene invalidata per caricare le lingue');
+  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/master-atlas-shell-v10/,'la cache PWA viene invalidata per caricare le lingue');
 });
 test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su telefono',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
@@ -165,7 +168,7 @@ test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8'),/src="globe\.js" defer><\/script><script src="app\.js" defer/);
   const serviceWorker=fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8');
   assert.match(serviceWorker,/\/globe\.js/);
-  assert.match(serviceWorker,/master-atlas-shell-v9/);
+  assert.match(serviceWorker,/master-atlas-shell-v10/);
   assert.match(serviceWorker,/\/i18n\.js/);
 });
 
