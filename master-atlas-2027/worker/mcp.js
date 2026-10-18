@@ -192,7 +192,8 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
   }
   const toolDefinitions = [
     {name: 'get_my_atlas', description: 'Leggi le preferenze, i percorsi selezionati e le candidature dell’account Master Atlas collegato.', inputSchema: {type: 'object', properties: {}, additionalProperties: false}, annotations: {readOnlyHint: true}},
-    {name: 'search_master_programs', description: 'Cerca nel catalogo Master Atlas e nei percorsi personali dell’utente.', inputSchema: {type: 'object', properties: {query: {type: 'string', minLength: 2, maxLength: 120}, limit: {type: 'integer', minimum: 1, maximum: 25}}, required: ['query'], additionalProperties: false}, annotations: {readOnlyHint: true}},
+    {name: 'search_master_programs', description: 'Cerca esclusivamente nel catalogo pubblico dei master di Master Atlas. Non legge il profilo personale, i percorsi privati o le candidature.', inputSchema: {type: 'object', properties: {query: {type: 'string', minLength: 2, maxLength: 120}, limit: {type: 'integer', minimum: 1, maximum: 25}}, required: ['query'], additionalProperties: false}, annotations: {readOnlyHint: true}},
+    {name: 'search_my_custom_programs', description: 'Cerca esclusivamente nei percorsi personali salvati nel profilo Master Atlas collegato. Legge i dati personali del profilo e richiede il permesso di lettura.', inputSchema: {type: 'object', properties: {query: {type: 'string', minLength: 2, maxLength: 120}, limit: {type: 'integer', minimum: 1, maximum: 25}}, required: ['query'], additionalProperties: false}, annotations: {readOnlyHint: true}},
     {name: 'set_my_preferences', description: 'Aggiorna la descrizione personale degli obiettivi e dei criteri di ricerca dell’utente.', inputSchema: {type: 'object', properties: {preferences: {type: 'string', maxLength: 2000}}, required: ['preferences'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: true}},
     {name: 'apply_atlas_plan', description: 'Applica in una sola modifica coerente le scelte esplicite dell’utente: preferenze, shortlist completa o aggiunte/rimozioni, confronto, percorsi personali e candidature. Non inventare requisiti o scadenze e chiedi conferma all’utente se una modifica non è esplicita.', inputSchema: {type: 'object', properties: {preferences: {type: 'string', maxLength: 2000}, selectedProgramIds: {type: 'array', items: {type: 'string', maxLength: 100}, maxItems: 308}, addProgramIds: {type: 'array', items: {type: 'string', maxLength: 100}, maxItems: 308}, removeProgramIds: {type: 'array', items: {type: 'string', maxLength: 100}, maxItems: 308}, compareProgramIds: {type: 'array', items: {type: 'string', maxLength: 100}, maxItems: 4}, customProgramsToAdd: {type: 'array', maxItems: 30, items: {type: 'object', properties: {name: {type: 'string', minLength: 2, maxLength: 180}, university: {type: 'string', minLength: 2, maxLength: 140}, city: {type: 'string', maxLength: 100}, country: {type: 'string', maxLength: 100}, region: {type: 'string', enum: ['Europa', 'Extra-Europa']}, degree: {type: 'string', maxLength: 100}, field: {type: 'string', maxLength: 180}, url: {type: 'string', maxLength: 1200}, notes: {type: 'string', maxLength: 3000}}, required: ['name', 'university'], additionalProperties: false}}, applicationUpdates: {type: 'array', maxItems: 50, items: {type: 'object', properties: {programId: {type: 'string', maxLength: 100}, stage: {type: 'string', enum: ['', 'Da valutare', 'In preparazione', 'Inviata', 'Esito ricevuto']}, deadline: {type: 'string', pattern: '^$|^\\d{4}-\\d{2}-\\d{2}$'}, deadlineUrl: {type: 'string', maxLength: 1200}, notes: {type: 'string', maxLength: 5000}, checklist: {type: 'array', items: {type: 'integer', minimum: 0, maximum: 4}, maxItems: 5}}, required: ['programId'], additionalProperties: false}}}, additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: true}},
     {name: 'add_program_to_shortlist', description: 'Aggiungi al profilo un percorso esistente del catalogo o un percorso personale già salvato.', inputSchema: {type: 'object', properties: {programId: {type: 'string', maxLength: 100}}, required: ['programId'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: true}},
@@ -232,7 +233,7 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
   async function callTool(name, args, context, env) {
     const {owner, scopes} = context;
     if (!args || typeof args !== 'object' || Array.isArray(args)) return failedTool('Argomenti non validi.');
-    const read = name === 'get_my_atlas' || name === 'search_master_programs';
+    const read = name === 'get_my_atlas' || name === 'search_master_programs' || name === 'search_my_custom_programs';
     if (!hasScope(scopes, read ? 'atlas:read' : 'atlas:write')) return failedTool(`Il collegamento non ha il permesso ${read ? 'di lettura' : 'di modifica'} necessario. Ricollega l’account concedendo il permesso richiesto.`);
     if (name === 'get_my_atlas') {
       const {state} = await readState(env, owner), active = state.customPrograms.filter(p => !p.deletedAt);
@@ -247,9 +248,16 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
     if (name === 'search_master_programs') {
       const query = typeof args.query === 'string' ? args.query.trim().toLocaleLowerCase() : '';
       if (query.length < 2) return failedTool('Scrivi almeno due caratteri per cercare.');
+      const results = catalog.programs.filter(p => [p.name, p.university, p.city, p.region, p.field, p.degree, ...(p.notes instanceof Array ? p.notes : [p.notes || ''])].join(' ').toLocaleLowerCase().includes(query))
+        .slice(0, Math.max(1, Math.min(25, Number(args.limit) || 15))).map(p => ({id: p.id, name: p.name, university: p.university, city: p.city, region: p.region, field: p.field || '', degree: p.degree || '', url: p.url || '', custom: false}));
+      return textResult({count: results.length, results});
+    }
+    if (name === 'search_my_custom_programs') {
+      const query = typeof args.query === 'string' ? args.query.trim().toLocaleLowerCase() : '';
+      if (query.length < 2) return failedTool('Scrivi almeno due caratteri per cercare.');
       const {state} = await readState(env, owner), custom = state.customPrograms.filter(p => !p.deletedAt);
-      const results = [...catalog.programs, ...custom].filter(p => [p.name, p.university, p.city, p.region, p.field, p.degree, ...(p.notes instanceof Array ? p.notes : [p.notes || ''])].join(' ').toLocaleLowerCase().includes(query))
-        .slice(0, Math.max(1, Math.min(25, Number(args.limit) || 15))).map(p => ({id: p.id, name: p.name, university: p.university, city: p.city, region: p.region, field: p.field || '', degree: p.degree || '', url: p.url || '', custom: p.custom === true}));
+      const results = custom.filter(p => [p.name, p.university, p.city, p.region, p.field, p.degree, ...(p.notes instanceof Array ? p.notes : [p.notes || ''])].join(' ').toLocaleLowerCase().includes(query))
+        .slice(0, Math.max(1, Math.min(25, Number(args.limit) || 15))).map(p => ({id: p.id, name: p.name, university: p.university, city: p.city, region: p.region, field: p.field || '', degree: p.degree || '', url: p.url || '', custom: true}));
       return textResult({count: results.length, results});
     }
     if (name === 'set_my_preferences') {

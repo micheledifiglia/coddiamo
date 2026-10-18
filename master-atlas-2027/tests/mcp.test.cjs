@@ -74,12 +74,16 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   const mcpRequest=async(payload,cookieToken=tokens.access_token)=>handle(request('/api/atlas-mcp',{method:'POST',body:payload,headers:{authorization:`Bearer ${cookieToken}`}}),env);
   const listed=await mcpRequest({jsonrpc:'2.0',id:2,method:'tools/list',params:{}});
   assert.equal(listed.status,200);const tools=(await listed.json()).result.tools.map(tool=>tool.name);
-  assert.ok(tools.includes('apply_atlas_plan'));assert.ok(tools.includes('add_custom_program'));
+  assert.ok(tools.includes('apply_atlas_plan'));assert.ok(tools.includes('add_custom_program'));assert.ok(tools.includes('search_my_custom_programs'));
   const programId=catalog.programs[0].id;
   const applied=await mcpRequest({jsonrpc:'2.0',id:3,method:'tools/call',params:{name:'apply_atlas_plan',arguments:{preferences:'Neuroscienze e ricerca sperimentale',addProgramIds:[programId],compareProgramIds:[programId],customProgramsToAdd:[{name:'Master di prova',university:'Università personale',city:'Perugia',country:'Italia',region:'Europa',notes:'Da verificare'},],applicationUpdates:[{programId,stage:'In preparazione',deadline:'2027-06-15',notes:'Preparare il dossier'}]}}});
   assert.equal(applied.status,200);const appliedResult=await applied.json();assert.equal(appliedResult.result?.structuredContent?.updated,true,JSON.stringify(appliedResult));
   const aliceState=Core.normalize(JSON.parse(db.prepare('SELECT body FROM atlas_states WHERE owner=?').get(alice).body),catalog);
   assert.equal(aliceState.preferences,'Neuroscienze e ricerca sperimentale');assert.ok(aliceState.favorites.includes(programId));assert.equal(aliceState.compare[0],programId);assert.equal(aliceState.customPrograms[0].university,'Università personale');assert.equal(aliceState.records[programId].deadline,'2027-06-15');
+  const publicSearch=await mcpRequest({jsonrpc:'2.0',id:31,method:'tools/call',params:{name:'search_master_programs',arguments:{query:'Università personale'}}});
+  assert.deepEqual((await publicSearch.json()).result.structuredContent,{count:0,results:[]},'la ricerca del catalogo pubblico non restituisce né consulta i percorsi personali');
+  const personalSearch=await mcpRequest({jsonrpc:'2.0',id:32,method:'tools/call',params:{name:'search_my_custom_programs',arguments:{query:'Università personale'}}});
+  const personalResults=(await personalSearch.json()).result.structuredContent;assert.equal(personalResults.count,1);assert.equal(personalResults.results[0].name,'Master di prova');assert.equal(personalResults.results[0].custom,true);
   const bobState=await handle(request('/api/state',{cookie:'session=bob'}),env);
   assert.deepEqual((await bobState.json()).state,Core.empty());
   const visible=await mcpRequest({jsonrpc:'2.0',id:4,method:'tools/call',params:{name:'get_my_atlas',arguments:{}}});
@@ -128,7 +132,7 @@ test('MCP Sites dichiara gli strumenti e li collega al solo profilo verificato',
   assert.deepEqual((await discover.json()).result.supportedVersions,['2026-07-28']);
   const listed=await handle(request('/mcp',{method:'POST',body:{jsonrpc:'2.0',id:2,method:'tools/list'}}),env);
   const tools=(await listed.json()).result.tools.map(item=>item.name);
-  assert.ok(tools.includes('get_my_atlas'));assert.ok(tools.includes('apply_atlas_plan'));assert.ok(tools.includes('link_my_atlas_profile'));
+  assert.ok(tools.includes('get_my_atlas'));assert.ok(tools.includes('apply_atlas_plan'));assert.ok(tools.includes('link_my_atlas_profile'));assert.ok(tools.includes('search_my_custom_programs'));
 
   const deniedCode=await handle(request('/api/auth/mcp/site-link-code',{method:'POST'}),env);assert.equal(deniedCode.status,401);
   const crossOrigin=await handle(request('/api/auth/mcp/site-link-code',{method:'POST',cookie:'session=alice',origin:'https://evil.example'}),env);assert.equal(crossOrigin.status,403);
