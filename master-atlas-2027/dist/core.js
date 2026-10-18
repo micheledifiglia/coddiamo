@@ -2,7 +2,7 @@
 (function (root) {
   'use strict';
   const stages = ['Da valutare', 'In preparazione', 'Inviata', 'Esito ricevuto'];
-  const empty = () => ({favorites: [], compare: [], records: {}, favoritesUpdated: {}, compareUpdated: 0, preferences: '', preferencesUpdatedAt: 0, customPrograms: [], customUniversities: [], catalogPrograms: {}, catalogUniversities: {}});
+  const empty = () => ({favorites: [], compare: [], records: {}, favoritesUpdated: {}, compareUpdated: 0, preferences: '', preferencesUpdatedAt: 0, customPrograms: [], customUniversities: [], catalogVersion: 1, catalogPrograms: {}, catalogUniversities: {}});
   const timestamp = v => Number.isFinite(Number(v)) && Number(v) >= 0 ? Number(v) : 0;
   const clean = (value, limit) => typeof value === 'string' ? value.trim().slice(0, limit) : '';
   const normalizeUniversityKey = value => clean(value, 140).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').toLocaleLowerCase('it');
@@ -39,8 +39,8 @@
     }
     return result;
   }
-  function normalizeCatalogMembership(raw, validIds, legacyIds) {
-    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return Object.fromEntries(legacyIds.map(id => [id,{included:true,updatedAt:0}]));
+  function normalizeCatalogMembership(raw, validIds) {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return {};
     const result = {};
     for (const [id, value] of Object.entries(raw).slice(-400)) {
       if (!validIds.has(id) || !value || typeof value !== 'object' || typeof value.included !== 'boolean') continue;
@@ -56,8 +56,12 @@
     result.customPrograms = normalizeCustomPrograms(raw.customPrograms);
     result.customUniversities = normalizeCustomUniversities(raw.customUniversities);
     const catalogIds = new Set(catalog.programs.map(p => p.id)), universityIds = new Set(catalog.universities.map(u => u.id));
-    result.catalogPrograms = normalizeCatalogMembership(raw.catalogPrograms, catalogIds, catalog.programs.map(p => p.id));
-    result.catalogUniversities = normalizeCatalogMembership(raw.catalogUniversities, universityIds, catalog.universities.map(u => u.id));
+    // Rollout 1 briefly inferred a full catalog for old profiles. Missing catalogVersion
+    // identifies those states and resets only catalog membership, preserving user data.
+    const hasPersonalCatalog = Number(raw.catalogVersion) >= 1;
+    result.catalogVersion = 1;
+    result.catalogPrograms = normalizeCatalogMembership(hasPersonalCatalog ? raw.catalogPrograms : null, catalogIds);
+    result.catalogUniversities = normalizeCatalogMembership(hasPersonalCatalog ? raw.catalogUniversities : null, universityIds);
     const activeCustom = result.customPrograms.filter(p => !p.deletedAt);
     const customIds = new Set(activeCustom.map(p => p.id));
     const ids = new Set([...catalog.programs.map(p => p.id), ...customIds]);

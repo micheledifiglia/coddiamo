@@ -241,11 +241,12 @@ test('Catalogo personale: il profilo nuovo parte vuoto e mostra solo le voci agg
   assert.match(sandbox.universityMarkup,/Rimuovi dal mio catalogo/,'le università del profilo si possono eliminare dalla sezione');
   assert.deepEqual(JSON.parse(JSON.stringify(sandbox.afterRemoval)),[['custom-program-1'],['Università personale']],'rimuovere una voce condivisa la toglie solo dal catalogo corrente');
 });
-test('Migrazione e merge: i profili esistenti conservano il catalogo e prevale la modifica più recente',()=>{
+test('Migrazione catalogo: i profili esistenti partono vuoti conservando i dati e le modifiche successive si uniscono',()=>{
   const program=catalog.programs[0].id,university=catalog.universities[0].id;
-  const legacy=Core.normalize({},catalog);assert.equal(legacy.catalogPrograms[program].included,true);assert.equal(legacy.catalogUniversities[university].included,true);
-  const old=Core.normalize({catalogPrograms:{[program]:{included:false,updatedAt:20}},catalogUniversities:{[university]:{included:false,updatedAt:20}}},catalog);
-  const newer=Core.normalize({catalogPrograms:{[program]:{included:true,updatedAt:30}},catalogUniversities:{[university]:{included:true,updatedAt:30}}},catalog);
+  const legacy=Core.normalize({favorites:[program],preferences:'Biotecnologie',records:{[program]:{notes:'Nota da conservare',updatedAt:10}},catalogPrograms:{[program]:{included:true,updatedAt:10}},catalogUniversities:{[university]:{included:true,updatedAt:10}}},catalog);
+  assert.deepEqual(legacy.catalogPrograms,{});assert.deepEqual(legacy.catalogUniversities,{});assert.deepEqual(legacy.favorites,[program]);assert.equal(legacy.records[program].notes,'Nota da conservare');assert.equal(legacy.preferences,'Biotecnologie');
+  const old=Core.normalize({catalogVersion:1,catalogPrograms:{[program]:{included:false,updatedAt:20}},catalogUniversities:{[university]:{included:false,updatedAt:20}}},catalog);
+  const newer=Core.normalize({catalogVersion:1,catalogPrograms:{[program]:{included:true,updatedAt:30}},catalogUniversities:{[university]:{included:true,updatedAt:30}}},catalog);
   const merged=Core.merge(old,newer);assert.equal(merged.catalogPrograms[program].included,true);assert.equal(merged.catalogUniversities[university].included,true);
 });
 test('Importazione: conflitti visibili e note attuali preservate per default',()=>{
