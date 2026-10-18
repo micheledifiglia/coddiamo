@@ -573,3 +573,10 @@ footer{border-color:rgba(109,128,155,.24);color:#758297}
   #compare-tray .button{min-height:38px;padding:8px 12px;font-size:11px}
 }
 @media(prefers-reduced-transparency:reduce){.header-actions-glass,#compare-tray{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(239,243,249,.97)}:root[data-theme="dark"] .header-actions-glass,:root[data-theme="dark"] #compare-tray{background:rgba(22,36,55,.97)}}
+.site-mcp-step{border-color:rgba(86,110,220,.34);background:linear-gradient(145deg,rgba(86,110,220,.12),var(--glass-fill))}
+.mcp-link-row{display:grid;grid-template-columns:1fr auto;gap:9px;align-items:center}
+.mcp-link-code{grid-column:1/-1;min-height:0;padding:0;border-radius:13px;color:var(--ink);font-size:13px}
+.mcp-link-code:empty{display:none}
+.mcp-link-code code{display:inline-block;padding:10px 13px;border:1px solid rgba(123,145,174,.28);border-radius:12px;background:rgba(255,255,255,.58);font:700 16px/1.3 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.08em;user-select:all}
+:root[data-theme="dark"] .mcp-link-code code{border-color:rgba(195,214,240,.19);background:rgba(14,23,38,.72);color:#eef3fc}
+@media(max-width:600px){.mcp-link-row{grid-template-columns:1fr}.mcp-link-code{grid-column:1}.mcp-link-row .button{width:100%}}

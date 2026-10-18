@@ -201,6 +201,7 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
     {name: 'update_application', description: 'Aggiorna note, stato e scadenza personale per un percorso del profilo.', inputSchema: {type: 'object', properties: {programId: {type: 'string', maxLength: 100}, stage: {type: 'string', enum: ['', 'Da valutare', 'In preparazione', 'Inviata', 'Esito ricevuto']}, deadline: {type: 'string', pattern: '^$|^\d{4}-\d{2}-\d{2}$'}, deadlineUrl: {type: 'string', maxLength: 1200}, notes: {type: 'string', maxLength: 5000}, checklist: {type: 'array', items: {type: 'integer', minimum: 0, maximum: 4}, maxItems: 5}}, required: ['programId'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: true}},
     {name: 'remove_custom_program', description: 'Rimuovi un percorso creato personalmente dal tuo atlante e dalla shortlist.', inputSchema: {type: 'object', properties: {programId: {type: 'string', maxLength: 100}}, required: ['programId'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: true, idempotentHint: true}}
   ];
+  const siteToolDefinitions = [...toolDefinitions, {name: 'link_my_atlas_profile', description: 'Collega questa app ChatGPT al profilo Master Atlas dell’utente. L’utente deve prima accedere al sito, aprire Profilo → Personalizza con IA e generare un codice monouso; il codice scade dopo 10 minuti.', inputSchema: {type: 'object', properties: {code: {type: 'string', minLength: 12, maxLength: 24}}, required: ['code'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: false}}];
   const tool = name => toolDefinitions.find(item => item.name === name);
   const textResult = data => ({content: [{type: 'text', text: JSON.stringify(data)}], structuredContent: data});
   const failedTool = message => ({isError: true, content: [{type: 'text', text: message}]});
@@ -364,6 +365,48 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
     }
     return failedTool('Strumento MCP non riconosciuto.');
   }
+  async function linkSiteProfile(env, siteUserId, rawCode) {
+    const code = typeof rawCode === 'string' ? rawCode.trim() : '';
+    if (!/^[A-Za-z0-9_-]{12,24}$/.test(code)) return failedTool('Codice di collegamento non valido. Generane uno nuovo dal profilo Master Atlas.');
+    const now = Date.now(), codeHash = await digest(code);
+    const challenge = await env.DB.prepare(`UPDATE atlas_auth_challenges SET consumed_at=?
+      WHERE challenge=? AND purpose='sites-mcp-link' AND consumed_at IS NULL AND expires_at>? RETURNING owner`)
+      .bind(now, codeHash, now).first();
+    if (!challenge?.owner) return failedTool('Codice scaduto o già utilizzato. Generane uno nuovo dal profilo Master Atlas.');
+    const timestamp = new Date(now).toISOString();
+    await env.DB.prepare(`INSERT INTO atlas_identities(provider,subject,owner,email,display_name,created_at,last_login_at)
+      VALUES('sites-mcp',?,?,NULL,NULL,?,?)
+      ON CONFLICT(provider,subject) DO UPDATE SET owner=excluded.owner,last_login_at=excluded.last_login_at`)
+      .bind(siteUserId, challenge.owner, timestamp, timestamp).run();
+    return textResult({linked: true, message: 'Profilo collegato. Gli strumenti useranno il tuo atlante personale.'});
+  }
+  async function siteMcp(request, env) {
+    if (request.method !== 'POST') return json({error: 'Usa POST per le richieste MCP.'}, 405);
+    let input;
+    try {
+      const raw = await request.text();
+      if (raw.length > 100000) return json({error: 'Richiesta troppo grande.'}, 413);
+      input = JSON.parse(raw);
+    } catch { return json({error: 'JSON-RPC non valido.'}, 400); }
+    if (!input || input.jsonrpc !== '2.0' || typeof input.method !== 'string') return json({error: 'Richiesta JSON-RPC non valida.'}, 400);
+    const id = input.id ?? null;
+    if (input.method === 'notifications/initialized' || input.method === 'notifications/cancelled') return new Response(null, {status: 202});
+    if (input.method === 'server/discover') return json({jsonrpc: '2.0', id, result: {supportedVersions: ['2026-07-28'], capabilities: {tools: {}}}});
+    if (input.method === 'initialize') return json({jsonrpc: '2.0', id, result: {protocolVersion: '2026-07-28', capabilities: {tools: {listChanged: false}}, serverInfo: {name: 'master-atlas', version: '1.0.0'}}});
+    if (input.method === 'ping') return json({jsonrpc: '2.0', id, result: {}});
+    if (input.method === 'tools/list') return json({jsonrpc: '2.0', id, result: {tools: siteToolDefinitions}});
+    if (input.method !== 'tools/call') return json({jsonrpc: '2.0', id, error: {code: -32601, message: 'Metodo non supportato.'}});
+    const name = input.params?.name, args = input.params?.arguments || {};
+    if (name !== 'link_my_atlas_profile' && !tool(name)) return json({jsonrpc: '2.0', id, error: {code: -32602, message: 'Strumento sconosciuto.'}});
+    const siteUserId = (request.headers.get('oai-authenticated-user-id') || '').trim();
+    if (!siteUserId || siteUserId.length > 200) return json({jsonrpc: '2.0', id, result: failedTool('Non riesco a verificare l’identità ChatGPT di questa richiesta.')});
+    try {
+      if (name === 'link_my_atlas_profile') return json({jsonrpc: '2.0', id, result: await linkSiteProfile(env, siteUserId, args.code)});
+      const identity = await env.DB.prepare("SELECT owner FROM atlas_identities WHERE provider='sites-mcp' AND subject=?").bind(siteUserId).first();
+      if (!identity?.owner) return json({jsonrpc: '2.0', id, result: failedTool('Profilo non collegato. Accedi a Master Atlas, apri Profilo → Personalizza con IA, genera un codice monouso e chiedimi di collegare il profilo.')});
+      return json({jsonrpc: '2.0', id, result: await callTool(name, args, {owner: identity.owner, scopes: 'atlas:read atlas:write'}, env)});
+    } catch { return json({jsonrpc: '2.0', id, result: failedTool('Operazione temporaneamente non disponibile. Riprova.')}); }
+  }
   async function mcp(request, env, origin) {
     const headers = {'access-control-allow-origin': '*', 'access-control-allow-headers': 'authorization,content-type,mcp-protocol-version', 'access-control-allow-methods': 'GET,POST,OPTIONS', 'access-control-expose-headers': 'www-authenticate,mcp-session-id', 'cache-control': 'no-store'};
     if (request.method === 'OPTIONS') return new Response(null, {status: 204, headers});
@@ -392,11 +435,25 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
   }
   return {async handle(request, env) {
     const url = new URL(request.url), path = url.pathname;
-    const mcpPaths = new Set(['/.well-known/oauth-protected-resource', '/.well-known/oauth-protected-resource/mcp', '/.well-known/oauth-authorization-server', '/oauth/register', '/oauth/authorize', '/oauth/consent', '/oauth/token', '/oauth/revoke', MCP_ENDPOINT, '/api/auth/mcp/clients']);
+    const mcpPaths = new Set(['/.well-known/oauth-protected-resource', '/.well-known/oauth-protected-resource/mcp', '/.well-known/oauth-authorization-server', '/oauth/register', '/oauth/authorize', '/oauth/consent', '/oauth/token', '/oauth/revoke', MCP_ENDPOINT, '/mcp', '/api/auth/mcp/clients', '/api/auth/mcp/site-link-code']);
     if (!mcpPaths.has(path)) return null;
     if (!dbReady(env)) return json({error: 'Database non disponibile.'}, 503);
     const origin = expectedOrigin(request, env);
     if (!validHost(request, env)) return json({error: 'Origine del sito non valida.'}, 421);
+    if (path === '/mcp') return siteMcp(request, env);
+    if (path === '/api/auth/mcp/site-link-code') {
+      if (request.method !== 'POST') return json({error: 'Metodo non consentito.'}, 405);
+      if (request.headers.get('origin') !== origin) return json({error: 'Origine non consentita.'}, 403);
+      const owner = await accountAuth.resolveOwner(request, env);
+      if (!owner) return json({error: 'Accedi al tuo profilo per generare un codice.'}, 401);
+      if (!await rate(request, env, 'mcp-site-link-code', 5)) return json({error: 'Hai richiesto troppi codici. Riprova più tardi.'}, 429);
+      const now = Date.now(), code = randomToken(9), expiresAt = now + 10 * 60 * 1000;
+      await env.DB.batch([
+        env.DB.prepare("DELETE FROM atlas_auth_challenges WHERE owner=? AND purpose='sites-mcp-link' AND consumed_at IS NULL").bind(owner),
+        env.DB.prepare('INSERT INTO atlas_auth_challenges(id,challenge,purpose,owner,expires_at) VALUES(?,?,?,?,?)').bind(randomToken(24), await digest(code), 'sites-mcp-link', owner, expiresAt)
+      ]);
+      return json({code, expiresAt});
+    }
     if (path === '/api/auth/mcp/clients') {
       const owner = await accountAuth.resolveOwner(request, env);
       if (!owner) return json({error: 'Accesso richiesto.'}, 401);

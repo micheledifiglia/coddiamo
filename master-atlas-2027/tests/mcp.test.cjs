@@ -109,3 +109,35 @@ test('MCP limita a 20 per IP i tentativi di scambio token non validi',async()=>{
   assert.deepEqual(statuses,[...Array(20).fill(401),429]);
   db.close();
 });
+
+test('MCP Sites dichiara gli strumenti e li collega al solo profilo verificato',async()=>{
+  const{db,env}=database(),alice='alice-owner';
+  db.prepare('INSERT INTO atlas_accounts(id,username,created_at) VALUES(?,?,?)').run(alice,'alice','2026-01-01');
+  const auth={async resolveOwner(req){return(req.headers.get('cookie')||'').includes('session=alice')?alice:null}};
+  const handle=createHandler({},catalog,Core,auth,createMcpHandler(auth,Core,catalog));
+  const discover=await handle(request('/mcp',{method:'POST',body:{jsonrpc:'2.0',id:1,method:'server/discover'}}),env);
+  assert.deepEqual((await discover.json()).result.supportedVersions,['2026-07-28']);
+  const listed=await handle(request('/mcp',{method:'POST',body:{jsonrpc:'2.0',id:2,method:'tools/list'}}),env);
+  const tools=(await listed.json()).result.tools.map(item=>item.name);
+  assert.ok(tools.includes('get_my_atlas'));assert.ok(tools.includes('apply_atlas_plan'));assert.ok(tools.includes('link_my_atlas_profile'));
+
+  const deniedCode=await handle(request('/api/auth/mcp/site-link-code',{method:'POST'}),env);assert.equal(deniedCode.status,401);
+  const crossOrigin=await handle(request('/api/auth/mcp/site-link-code',{method:'POST',cookie:'session=alice',origin:'https://evil.example'}),env);assert.equal(crossOrigin.status,403);
+  const codeResponse=await handle(request('/api/auth/mcp/site-link-code',{method:'POST',cookie:'session=alice'}),env);
+  assert.equal(codeResponse.status,200);const{code,expiresAt}=await codeResponse.json();assert.match(code,/^[A-Za-z0-9_-]{12}$/);assert.ok(expiresAt>Date.now());
+  const stored=db.prepare("SELECT challenge,expires_at FROM atlas_auth_challenges WHERE purpose='sites-mcp-link'").get();
+  assert.notEqual(stored.challenge,code);assert.ok(stored.expires_at>Date.now());
+
+  const siteRequest=(name,args,siteId='chatgpt-user-alice')=>handle(request('/mcp',{method:'POST',headers:{'oai-authenticated-user-id':siteId},body:{jsonrpc:'2.0',id:3,method:'tools/call',params:{name,arguments:args}}}),env);
+  const unlinked=await siteRequest('get_my_atlas',{});assert.match(JSON.stringify((await unlinked.json()).result),/Profilo non collegato/);
+  const linked=await siteRequest('link_my_atlas_profile',{code});assert.equal((await linked.json()).result.structuredContent.linked,true);
+  const replay=await siteRequest('link_my_atlas_profile',{code});assert.match(JSON.stringify((await replay.json()).result),/scaduto o già utilizzato/);
+  assert.equal(db.prepare("SELECT owner FROM atlas_identities WHERE provider='sites-mcp' AND subject=?").get('chatgpt-user-alice').owner,alice);
+
+  const programId=catalog.programs[0].id;
+  const updated=await siteRequest('add_program_to_shortlist',{programId});assert.equal((await updated.json()).result.structuredContent.selected,true);
+  const accountState=await handle(request('/api/state',{cookie:'session=alice'}),env);
+  assert.ok((await accountState.json()).state.favorites.includes(programId),'l’app ChatGPT modifica lo stesso profilo autenticato sul sito');
+  const otherUser=await siteRequest('get_my_atlas',{},'chatgpt-user-bob');assert.match(JSON.stringify((await otherUser.json()).result),/Profilo non collegato/);
+  db.close();
+});
