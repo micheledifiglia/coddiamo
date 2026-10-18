@@ -460,11 +460,16 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
       if (request.method === 'GET') {
         const rows = await env.DB.prepare(`SELECT c.id,c.name,MIN(t.created_at) AS connected_at FROM atlas_mcp_tokens t
           JOIN atlas_mcp_clients c ON c.id=t.client_id WHERE t.owner=? AND t.expires_at>? GROUP BY c.id,c.name ORDER BY connected_at DESC`).bind(owner, Date.now()).all();
-        return json({clients: (rows.results || []).map(row => ({id: row.id, name: row.name, connectedAt: row.connected_at}))});
+        const siteIdentity = await env.DB.prepare("SELECT 1 AS linked FROM atlas_identities WHERE provider='sites-mcp' AND owner=? LIMIT 1").bind(owner).first();
+        return json({clients: (rows.results || []).map(row => ({id: row.id, name: row.name, connectedAt: row.connected_at})), siteMcpLinked: !!siteIdentity});
       }
       if (request.method !== 'DELETE') return json({error: 'Metodo non consentito.'}, 405);
       if (request.headers.get('origin') !== origin) return json({error: 'Origine non consentita.'}, 403);
       let input; try {input = await request.json()} catch {return json({error: 'Richiesta non valida.'}, 400)}
+      if (input.siteMcp === true) {
+        await env.DB.prepare("DELETE FROM atlas_identities WHERE provider='sites-mcp' AND owner=?").bind(owner).run();
+        return json({ok: true, siteMcpLinked: false});
+      }
       const clientId = typeof input.clientId === 'string' ? input.clientId.slice(0,100) : '';
       if (!clientId) return json({error: 'Collegamento non valido.'}, 400);
       await env.DB.batch([

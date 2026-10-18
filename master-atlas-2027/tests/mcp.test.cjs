@@ -86,7 +86,7 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   const atlas=(await visible.json()).result.structuredContent;assert.equal(atlas.selected[0].id,programId);assert.equal(atlas.compare[0].id,programId);assert.equal(atlas.customPrograms[0].university,'Università personale');
 
   const clients=await handle(request('/api/auth/mcp/clients',{cookie:'session=alice'}),env);
-  assert.equal((await clients.json()).clients.length,1);
+  const clientList=await clients.json();assert.equal(clientList.clients.length,1);assert.equal(clientList.siteMcpLinked,false);
   const revoked=await handle(request('/api/auth/mcp/clients',{method:'DELETE',cookie:'session=alice',body:{clientId:client.client_id}}),env);
   assert.equal(revoked.status,200);
   const denied=await mcpRequest({jsonrpc:'2.0',id:5,method:'tools/list',params:{}});
@@ -148,5 +148,11 @@ test('MCP Sites dichiara gli strumenti e li collega al solo profilo verificato',
   const accountState=await handle(request('/api/state',{cookie:'session=alice'}),env);
   assert.ok((await accountState.json()).state.favorites.includes(programId),'l’app ChatGPT modifica lo stesso profilo autenticato sul sito');
   const otherUser=await siteRequest('get_my_atlas',{},'chatgpt-user-bob');assert.match(JSON.stringify((await otherUser.json()).result),/Profilo non collegato/);
+  const linkedStatus=await handle(request('/api/auth/mcp/clients',{cookie:'session=alice'}),env);assert.equal((await linkedStatus.json()).siteMcpLinked,true);
+  const crossSiteUnlink=await handle(request('/api/auth/mcp/clients',{method:'DELETE',cookie:'session=alice',origin:'https://evil.example',body:{siteMcp:true}}),env);assert.equal(crossSiteUnlink.status,403);
+  const siteUnlink=await handle(request('/api/auth/mcp/clients',{method:'DELETE',cookie:'session=alice',body:{siteMcp:true}}),env);assert.deepEqual(await siteUnlink.json(),{ok:true,siteMcpLinked:false});
+  const unlinkedStatus=await handle(request('/api/auth/mcp/clients',{cookie:'session=alice'}),env);assert.equal((await unlinkedStatus.json()).siteMcpLinked,false);
+  assert.equal(db.prepare("SELECT COUNT(*) AS count FROM atlas_identities WHERE provider='sites-mcp' AND owner=?").get(alice).count,0);
+  const afterUnlink=await siteRequest('get_my_atlas',{});assert.match(JSON.stringify((await afterUnlink.json()).result),/Profilo non collegato/);
   db.close();
 });
