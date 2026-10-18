@@ -50,6 +50,8 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   const authorization=await handle(request('/oauth/authorize?'+query,{cookie:'session=alice'}),env);
   assert.equal(authorization.status,200);const page=await authorization.text();
   assert.match(page,/ai\.example/);assert.match(page,/Modificare il mio atlante/);assert.match(page,/consent-form/);assert.match(page,/dataset\.submitting/);assert.match(page,/target="_top"/,'il callback OAuth deve raggiungere la finestra principale del client');
+  assert.match(authorization.headers.get('content-security-policy'),/form-action 'self' https:\/\/ai\.example;/,'la policy deve consentire solo l’origine callback già verificata');
+  assert.doesNotMatch(authorization.headers.get('content-security-policy'),/form-action[^;]*\*/,'la policy non deve aprire il redirect verso origini arbitrarie');
   let submitHandler,restartHandler,recovery,reloaded=false;const deny={value:'deny',disabled:false,style:{},setAttribute(){},removeAttribute(){}};const approve={value:'approve',disabled:false,style:{},textContent:'Consenti',setAttribute(){},removeAttribute(){}};const buttons=[deny,approve],status={textContent:''},restart={hidden:true,addEventListener(type,handler){assert.equal(type,'click');restartHandler=handler}};
   const consentForm={dataset:{},isConnected:true,addEventListener(type,handler){assert.equal(type,'submit');submitHandler=handler},querySelectorAll(){return buttons}};
   const document={querySelector(selector){return selector==='#consent-form'?consentForm:selector==='#consent-status'?status:restart}};
