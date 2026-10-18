@@ -37,13 +37,15 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   const mcp=createMcpHandler(auth,Core,catalog),handle=createHandler({},catalog,Core,auth,mcp);
   const discovery=await handle(request('/.well-known/oauth-authorization-server'),env);
   assert.equal(discovery.status,200);assert.equal((await discovery.json()).authorization_endpoint,'https://atlas.test/oauth/authorize');
-  const unauth=await handle(request('/mcp',{method:'POST',body:{jsonrpc:'2.0',id:1,method:'initialize',params:{protocolVersion:'2025-11-25'}}}),env);
+  const resource=await handle(request('/.well-known/oauth-protected-resource'),env);
+  assert.equal((await resource.json()).resource,'https://atlas.test/api/atlas-mcp');
+  const unauth=await handle(request('/api/atlas-mcp',{method:'POST',body:{jsonrpc:'2.0',id:1,method:'initialize',params:{protocolVersion:'2025-11-25'}}}),env);
   assert.equal(unauth.status,401);assert.match(unauth.headers.get('www-authenticate'),/oauth-protected-resource/);
 
   const registered=await handle(request('/oauth/register',{method:'POST',body:{client_name:'Assistente test',redirect_uris:['https://ai.example/callback']}}),env);
   assert.equal(registered.status,201);const client=await registered.json();
   const {verifier,challenge}=await pkce();
-  const query=new URLSearchParams({response_type:'code',client_id:client.client_id,redirect_uri:'https://ai.example/callback',state:'stato-casuale',code_challenge:challenge,code_challenge_method:'S256',scope:'atlas:read atlas:write offline_access',resource:'https://atlas.test/mcp'});
+  const query=new URLSearchParams({response_type:'code',client_id:client.client_id,redirect_uri:'https://ai.example/callback',state:'stato-casuale',code_challenge:challenge,code_challenge_method:'S256',scope:'atlas:read atlas:write offline_access',resource:'https://atlas.test/api/atlas-mcp'});
   const authorization=await handle(request('/oauth/authorize?'+query,{cookie:'session=alice'}),env);
   assert.equal(authorization.status,200);const page=await authorization.text();
   assert.match(page,/ai\.example/);assert.match(page,/Modificare il mio atlante/);
@@ -51,12 +53,12 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   const form=new URLSearchParams({request_id:requestId,read:'1',write:'1',offline:'1',decision:'approve'});
   const consent=await handle(request('/oauth/consent',{method:'POST',cookie:'session=alice',contentType:'application/x-www-form-urlencoded',body:form.toString()}),env);
   assert.equal(consent.status,303);const consentTarget=new URL(consent.headers.get('location'));const authorizationCode=consentTarget.searchParams.get('code');assert.ok(authorizationCode);assert.equal(consentTarget.searchParams.get('iss'),'https://atlas.test');
-  const tokenForm=new URLSearchParams({grant_type:'authorization_code',client_id:client.client_id,code:authorizationCode,redirect_uri:'https://ai.example/callback',code_verifier:verifier,resource:'https://atlas.test/mcp'});
+  const tokenForm=new URLSearchParams({grant_type:'authorization_code',client_id:client.client_id,code:authorizationCode,redirect_uri:'https://ai.example/callback',code_verifier:verifier,resource:'https://atlas.test/api/atlas-mcp'});
   const tokenResponse=await handle(request('/oauth/token',{method:'POST',contentType:'application/x-www-form-urlencoded',body:tokenForm.toString()}),env);
   assert.equal(tokenResponse.status,200);const tokens=await tokenResponse.json();assert.ok(tokens.refresh_token);assert.equal(tokens.token_type,'Bearer');
   assert.equal(db.prepare('SELECT COUNT(*) n FROM atlas_mcp_tokens WHERE owner=? AND token_hash=?').get(alice,tokens.access_token).n,0,'il token viene archiviato solo come hash');
 
-  const mcpRequest=async(payload,cookieToken=tokens.access_token)=>handle(request('/mcp',{method:'POST',body:payload,headers:{authorization:`Bearer ${cookieToken}`}}),env);
+  const mcpRequest=async(payload,cookieToken=tokens.access_token)=>handle(request('/api/atlas-mcp',{method:'POST',body:payload,headers:{authorization:`Bearer ${cookieToken}`}}),env);
   const listed=await mcpRequest({jsonrpc:'2.0',id:2,method:'tools/list',params:{}});
   assert.equal(listed.status,200);const tools=(await listed.json()).result.tools.map(tool=>tool.name);
   assert.ok(tools.includes('apply_atlas_plan'));assert.ok(tools.includes('add_custom_program'));
@@ -88,7 +90,7 @@ test('MCP non accetta redirect non HTTPS o consenso da un’altra origine',async
 
 test('MCP limita a 20 per IP i tentativi di scambio token non validi',async()=>{
   const{db,env}=database();const auth={async resolveOwner(){return null}};const handle=createHandler({},catalog,Core,auth,createMcpHandler(auth,Core,catalog));
-  const body=new URLSearchParams({grant_type:'authorization_code',client_id:'client-inesistente',code:'codice-inesistente',redirect_uri:'https://ai.example/callback',code_verifier:'a'.repeat(43),resource:'https://atlas.test/mcp'}).toString();
+  const body=new URLSearchParams({grant_type:'authorization_code',client_id:'client-inesistente',code:'codice-inesistente',redirect_uri:'https://ai.example/callback',code_verifier:'a'.repeat(43),resource:'https://atlas.test/api/atlas-mcp'}).toString();
   const statuses=[];
   for(let i=0;i<21;i++){
     const response=await handle(request('/oauth/token',{method:'POST',contentType:'application/x-www-form-urlencoded',body,headers:{'cf-connecting-ip':'203.0.113.50'}}),env);

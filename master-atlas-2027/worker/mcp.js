@@ -4,6 +4,7 @@ const ACCESS_LIFETIME = 60 * 60 * 1000;
 const REFRESH_LIFETIME = 30 * 24 * 60 * 60 * 1000;
 const REQUEST_LIFETIME = 10 * 60 * 1000;
 const CODE_LIFETIME = 90 * 1000;
+const MCP_ENDPOINT = '/api/atlas-mcp';
 const utf8 = value => new TextEncoder().encode(value);
 const b64url = value => {
   const bytes = value instanceof Uint8Array ? value : new Uint8Array(value);
@@ -77,7 +78,7 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
     };
   }
   function resourceMetadata(origin) {
-    return {resource: `${origin}/mcp`, authorization_servers: [origin], bearer_methods_supported: ['header'], scopes_supported: ['atlas:read', 'atlas:write']};
+    return {resource: `${origin}${MCP_ENDPOINT}`, authorization_servers: [origin], bearer_methods_supported: ['header'], scopes_supported: ['atlas:read', 'atlas:write']};
   }
   async function register(request, env, origin) {
     if (!await rate(request, env, 'mcp-register', 20)) return json({error: 'Troppi tentativi. Riprova più tardi.'}, 429);
@@ -98,8 +99,8 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
     const challenge = q.get('code_challenge') || '';
     if (!/^[A-Za-z0-9_-]{43,128}$/.test(challenge)) return errorPage('La richiesta di sicurezza PKCE non è valida.');
     if (!state || state.length > 1024) return errorPage('La richiesta non contiene uno stato valido.');
-    const resource = q.get('resource') || `${origin}/mcp`;
-    if (resource !== `${origin}/mcp`) return errorPage('La risorsa richiesta non corrisponde a Master Atlas.');
+    const resource = q.get('resource') || `${origin}${MCP_ENDPOINT}`;
+    if (resource !== `${origin}${MCP_ENDPOINT}`) return errorPage('La risorsa richiesta non corrisponde a Master Atlas.');
     const requested = parseScopes(q.get('scope') || 'atlas:read atlas:write offline_access');
     if (!requested.includes('atlas:read')) requested.unshift('atlas:read');
     const owner = await accountAuth.resolveOwner(request, env);
@@ -151,8 +152,8 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
     const clientId = form.get('client_id') || '', grant = form.get('grant_type') || '';
     const client = await env.DB.prepare('SELECT id FROM atlas_mcp_clients WHERE id=?').bind(clientId).first();
     if (!client) return json({error: 'invalid_client'}, 401, {'access-control-allow-origin': '*'});
-    const resource = form.get('resource') || `${origin}/mcp`;
-    if (resource !== `${origin}/mcp`) return json({error: 'invalid_target'}, 400, {'access-control-allow-origin': '*'});
+    const resource = form.get('resource') || `${origin}${MCP_ENDPOINT}`;
+    if (resource !== `${origin}${MCP_ENDPOINT}`) return json({error: 'invalid_target'}, 400, {'access-control-allow-origin': '*'});
     if (grant === 'authorization_code') {
       const codeHash = await digest(form.get('code') || ''), row = await env.DB.prepare('SELECT * FROM atlas_mcp_authorization_codes WHERE code_hash=? AND client_id=? AND redirect_uri=? AND consumed_at IS NULL AND expires_at>?')
         .bind(codeHash, clientId, form.get('redirect_uri') || '', Date.now()).first();
@@ -183,7 +184,7 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
     const raw = request.headers.get('authorization') || '', token = raw.match(/^Bearer\s+(.+)$/i)?.[1] || '';
     if (!token || token.length > 256) return null;
     const row = await env.DB.prepare("SELECT owner,scopes,resource FROM atlas_mcp_tokens WHERE token_hash=? AND token_type='access' AND expires_at>?").bind(await digest(token), Date.now()).first();
-    return row && row.resource === `${origin}/mcp` ? row : null;
+    return row && row.resource === `${origin}${MCP_ENDPOINT}` ? row : null;
   }
   const toolDefinitions = [
     {name: 'get_my_atlas', description: 'Leggi le preferenze, i percorsi selezionati e le candidature dell’account Master Atlas collegato.', inputSchema: {type: 'object', properties: {}, additionalProperties: false}, annotations: {readOnlyHint: true}},
@@ -387,7 +388,7 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
   }
   return {async handle(request, env) {
     const url = new URL(request.url), path = url.pathname;
-    const mcpPaths = new Set(['/.well-known/oauth-protected-resource', '/.well-known/oauth-protected-resource/mcp', '/.well-known/oauth-authorization-server', '/oauth/register', '/oauth/authorize', '/oauth/consent', '/oauth/token', '/oauth/revoke', '/mcp', '/api/auth/mcp/clients']);
+    const mcpPaths = new Set(['/.well-known/oauth-protected-resource', '/.well-known/oauth-protected-resource/mcp', '/.well-known/oauth-authorization-server', '/oauth/register', '/oauth/authorize', '/oauth/consent', '/oauth/token', '/oauth/revoke', MCP_ENDPOINT, '/api/auth/mcp/clients']);
     if (!mcpPaths.has(path)) return null;
     if (!dbReady(env)) return json({error: 'Database non disponibile.'}, 503);
     const origin = expectedOrigin(request, env);
@@ -419,7 +420,7 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
     if (path === '/oauth/consent' && request.method === 'POST') return consent(request, env, origin);
     if (path === '/oauth/token' && request.method === 'POST') return token(request, env, origin);
     if (path === '/oauth/revoke' && request.method === 'POST') return revoke(request, env);
-    if (path === '/mcp') return mcp(request, env, origin);
+    if (path === MCP_ENDPOINT) return mcp(request, env, origin);
     return json({error: 'Metodo non consentito.'}, 405);
   }};
 }
