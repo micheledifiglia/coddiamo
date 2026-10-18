@@ -230,6 +230,24 @@ test('Aprendo i preferiti si azzerano i filtri del catalogo e si vedono quelli e
   vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8')+`;D=fixture;render=()=>{};view='programs';uni='Utrecht';query='Utrecht';region='Europa';state=AtlasCore.normalize({favorites:['4-1']},D);route();globalThis.visible=filtered().length;globalThis.activeRegion=region;`,sandbox);
   assert.equal(sandbox.visible,1);assert.equal(sandbox.activeRegion,'Tutte');
 });
+test('Catalogo personale: il profilo nuovo parte vuoto e mostra solo le voci aggiunte',()=>{
+  const main={innerHTML:''},el={open:false,addEventListener(){}};
+  const sandbox={fixture:JSON.parse(JSON.stringify(catalog)),AtlasCore:Core,main,document:{querySelector(selector){return selector==='#main'?main:el},querySelectorAll(){return []},addEventListener(){}},window:{addEventListener(){},scrollTo(){}},location:{hash:'#programs'},fetch:()=>new Promise(()=>{}),setTimeout,clearTimeout};
+  vm.createContext(sandbox);
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8')+`;D=fixture;basePrograms=D.programs.slice();baseUniversities=D.universities.slice();render=()=>{};view='programs';region='Tutte';state=AtlasCore.normalize(AtlasCore.empty(),D);syncPersonalCatalog(state);globalThis.newProfileCounts=[D.programs.length,D.universities.length];const program=basePrograms[0],university=baseUniversities[0];state.catalogPrograms[program.id]={included:true,updatedAt:10};state.catalogUniversities[university.id]={included:true,updatedAt:10};state.customPrograms.push({id:'custom-program-1',name:'Percorso personale',university:'Università personale',createdAt:10,updatedAt:10});state.customUniversities.push({id:'custom-uni-personale1',name:'Università personale',city:'Perugia',country:'Italia',region:'Europa',offer:'Biotecnologie',createdAt:10,updatedAt:10});syncPersonalCatalog(state);globalThis.selectedProgramIds=D.programs.map(p=>p.id);globalThis.selectedUniversityNames=D.universities.map(u=>u.name);view='universities';universities();globalThis.universityMarkup=main.innerHTML;state.catalogPrograms[program.id]={included:false,updatedAt:20};state.catalogUniversities[university.id]={included:false,updatedAt:20};syncPersonalCatalog(state);globalThis.afterRemoval=[D.programs.map(p=>p.id),D.universities.map(u=>u.name)];`,sandbox);
+  assert.deepEqual(Array.from(sandbox.newProfileCounts),[0,0],'un nuovo profilo non eredita il catalogo predefinito');
+  assert.deepEqual(Array.from(sandbox.selectedProgramIds),[catalog.programs[0].id,'custom-program-1']);
+  assert.deepEqual(Array.from(sandbox.selectedUniversityNames),[catalog.universities[0].name,'Università personale']);
+  assert.match(sandbox.universityMarkup,/Rimuovi dal mio catalogo/,'le università del profilo si possono eliminare dalla sezione');
+  assert.deepEqual(JSON.parse(JSON.stringify(sandbox.afterRemoval)),[['custom-program-1'],['Università personale']],'rimuovere una voce condivisa la toglie solo dal catalogo corrente');
+});
+test('Migrazione e merge: i profili esistenti conservano il catalogo e prevale la modifica più recente',()=>{
+  const program=catalog.programs[0].id,university=catalog.universities[0].id;
+  const legacy=Core.normalize({},catalog);assert.equal(legacy.catalogPrograms[program].included,true);assert.equal(legacy.catalogUniversities[university].included,true);
+  const old=Core.normalize({catalogPrograms:{[program]:{included:false,updatedAt:20}},catalogUniversities:{[university]:{included:false,updatedAt:20}}},catalog);
+  const newer=Core.normalize({catalogPrograms:{[program]:{included:true,updatedAt:30}},catalogUniversities:{[university]:{included:true,updatedAt:30}}},catalog);
+  const merged=Core.merge(old,newer);assert.equal(merged.catalogPrograms[program].included,true);assert.equal(merged.catalogUniversities[university].included,true);
+});
 test('Importazione: conflitti visibili e note attuali preservate per default',()=>{
   const a=Core.normalize({records:{[first]:{notes:'Nuova',updatedAt:20}}},catalog);
   const b=Core.normalize({records:{[first]:{notes:'Vecchia',updatedAt:10},[second]:{notes:'Da importare'}}},catalog);
@@ -271,6 +289,13 @@ test('Il client migra la v1 e crea una copia locale di recupero',()=>{
   const store=new sandbox.Store(catalog,()=>{},()=>{});
   assert.equal(store.state.records[first].notes,'Da preservare');assert.equal(store.snapshots().length,1);
   assert.ok(entries.has('master-atlas-2027-v1'));
+});
+test('Un account nuovo parte davvero da un catalogo vuoto, anche senza dati locali',()=>{
+  const entries=new Map([['master-atlas-2027-v2',JSON.stringify({favorites:[first],records:{[first]:{notes:'Profilo condiviso precedente'}}})]]);
+  const sandbox={AtlasCore:Core,ATLAS_CONFIG:{accounts:true,cloudSync:true},AtlasAuth:{currentUser:{id:'account-appena-creato'}},window:{addEventListener(){}},localStorage:{getItem:k=>entries.get(k)||null,setItem:(k,v)=>entries.set(k,v)},setTimeout,clearTimeout};
+  vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/storage.js'),'utf8')+';globalThis.Store=AtlasStore',sandbox);
+  const store=new sandbox.Store(catalog,()=>{},()=>{});
+  assert.deepEqual(store.state.catalogPrograms,{});assert.deepEqual(store.state.catalogUniversities,{});assert.deepEqual(store.state.favorites,[],'i dati locali non condivisi non migrano nel nuovo profilo');
 });
 test('Due dispositivi sincronizzano note diverse senza sovrascriverle',async()=>{
   const {env,db}=database();const handle=createHandler({},catalog,Core);

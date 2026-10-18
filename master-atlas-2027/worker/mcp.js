@@ -220,12 +220,19 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
   const toolDefinitions = [
     {name: 'get_my_atlas', description: 'Leggi le preferenze, i percorsi selezionati e le candidature dell’account Master Atlas collegato.', inputSchema: {type: 'object', properties: {}, additionalProperties: false}, annotations: {readOnlyHint: true}},
     {name: 'search_master_programs', description: 'Cerca esclusivamente nel catalogo pubblico dei master di Master Atlas. Non legge il profilo personale, i percorsi privati o le candidature.', inputSchema: {type: 'object', properties: {query: {type: 'string', minLength: 2, maxLength: 120}, limit: {type: 'integer', minimum: 1, maximum: 25}}, required: ['query'], additionalProperties: false}, annotations: {readOnlyHint: true}},
+    {name: 'search_master_universities', description: 'Cerca gli atenei del catalogo principale da aggiungere, se desiderato, al catalogo personale.', inputSchema: {type: 'object', properties: {query: {type: 'string', minLength: 2, maxLength: 120}, limit: {type: 'integer', minimum: 1, maximum: 25}}, required: ['query'], additionalProperties: false}, annotations: {readOnlyHint: true}},
     {name: 'search_my_custom_programs', description: 'Cerca esclusivamente nei percorsi personali salvati nel profilo Master Atlas collegato. Legge i dati personali del profilo e richiede il permesso di lettura.', inputSchema: {type: 'object', properties: {query: {type: 'string', minLength: 2, maxLength: 120}, limit: {type: 'integer', minimum: 1, maximum: 25}}, required: ['query'], additionalProperties: false}, annotations: {readOnlyHint: true}},
     {name: 'set_my_preferences', description: 'Aggiorna la descrizione personale degli obiettivi e dei criteri di ricerca dell’utente.', inputSchema: {type: 'object', properties: {preferences: {type: 'string', maxLength: 2000}}, required: ['preferences'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: true}},
     {name: 'apply_atlas_plan', description: 'Applica in una sola modifica coerente le scelte esplicite dell’utente: preferenze, shortlist completa o aggiunte/rimozioni, confronto, percorsi personali e candidature. Non inventare requisiti o scadenze e chiedi conferma all’utente se una modifica non è esplicita.', inputSchema: {type: 'object', properties: {preferences: {type: 'string', maxLength: 2000}, selectedProgramIds: {type: 'array', items: {type: 'string', maxLength: 100}, maxItems: 308}, addProgramIds: {type: 'array', items: {type: 'string', maxLength: 100}, maxItems: 308}, removeProgramIds: {type: 'array', items: {type: 'string', maxLength: 100}, maxItems: 308}, compareProgramIds: {type: 'array', items: {type: 'string', maxLength: 100}, maxItems: 4}, customProgramsToAdd: {type: 'array', maxItems: 30, items: {type: 'object', properties: {name: {type: 'string', minLength: 2, maxLength: 180}, university: {type: 'string', minLength: 2, maxLength: 140}, city: {type: 'string', maxLength: 100}, country: {type: 'string', maxLength: 100}, region: {type: 'string', enum: ['Europa', 'Extra-Europa']}, degree: {type: 'string', maxLength: 100}, field: {type: 'string', maxLength: 180}, url: {type: 'string', maxLength: 1200}, notes: {type: 'string', maxLength: 3000}}, required: ['name', 'university'], additionalProperties: false}}, applicationUpdates: {type: 'array', maxItems: 50, items: {type: 'object', properties: {programId: {type: 'string', maxLength: 100}, stage: {type: 'string', enum: ['', 'Da valutare', 'In preparazione', 'Inviata', 'Esito ricevuto']}, deadline: {type: 'string', pattern: '^$|^\\d{4}-\\d{2}-\\d{2}$'}, deadlineUrl: {type: 'string', maxLength: 1200}, notes: {type: 'string', maxLength: 5000}, checklist: {type: 'array', items: {type: 'integer', minimum: 0, maximum: 4}, maxItems: 5}}, required: ['programId'], additionalProperties: false}}}, additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: true}},
     {name: 'add_program_to_shortlist', description: 'Aggiungi al profilo un percorso esistente del catalogo o un percorso personale già salvato.', inputSchema: {type: 'object', properties: {programId: {type: 'string', maxLength: 100}}, required: ['programId'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: true}},
     {name: 'remove_program_from_shortlist', description: 'Rimuovi un percorso dalla shortlist personale senza cancellare il catalogo o le note.', inputSchema: {type: 'object', properties: {programId: {type: 'string', maxLength: 100}}, required: ['programId'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: true}},
+    {name: 'add_catalog_program_to_my_atlas', description: 'Aggiunge un percorso del catalogo principale al catalogo personale di questo profilo, senza cambiare il catalogo degli altri utenti.', inputSchema: {type: 'object', properties: {programId: {type: 'string', maxLength: 100}}, required: ['programId'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: true}},
+    {name: 'remove_catalog_program_from_my_atlas', description: 'Elimina un percorso condiviso dal catalogo personale di questo profilo e cancella preferito, confronto, candidatura e note associati. Non modifica il catalogo degli altri utenti.', inputSchema: {type: 'object', properties: {programId: {type: 'string', maxLength: 100}}, required: ['programId'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: true, idempotentHint: true}},
+    {name: 'add_catalog_university_to_my_atlas', description: 'Aggiunge un ateneo del catalogo principale alle università personali di questo profilo.', inputSchema: {type: 'object', properties: {universityId: {type: 'string', maxLength: 100}}, required: ['universityId'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: true}},
+    {name: 'remove_catalog_university_from_my_atlas', description: 'Elimina un ateneo condiviso dal catalogo personale di questo profilo. I percorsi associati restano nel catalogo personale e nel catalogo principale.', inputSchema: {type: 'object', properties: {universityId: {type: 'string', maxLength: 100}}, required: ['universityId'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: true}},
     {name: 'add_custom_program', description: 'Crea un percorso personale con i dati forniti dall’utente e lo aggiunge alla shortlist.', inputSchema: {type: 'object', properties: {name: {type: 'string', minLength: 2, maxLength: 180}, university: {type: 'string', minLength: 2, maxLength: 140}, city: {type: 'string', maxLength: 100}, country: {type: 'string', maxLength: 100}, region: {type: 'string', enum: ['Europa', 'Extra-Europa']}, degree: {type: 'string', maxLength: 100}, field: {type: 'string', maxLength: 180}, url: {type: 'string', maxLength: 1200}, notes: {type: 'string', maxLength: 3000}}, required: ['name', 'university'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: false}},
+    {name: 'add_custom_university', description: 'Aggiunge un ateneo personale alla sezione Università di questo profilo. Usa solo i dati forniti o verificati dall’utente; non viene aggiunto al catalogo condiviso né geolocalizzato automaticamente.', inputSchema: {type: 'object', properties: {name: {type: 'string', minLength: 2, maxLength: 140}, city: {type: 'string', maxLength: 100}, country: {type: 'string', maxLength: 100}, region: {type: 'string', enum: ['Europa', 'Extra-Europa']}, url: {type: 'string', maxLength: 1200}, offer: {type: 'string', maxLength: 500}}, required: ['name'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: false}},
+    {name: 'remove_custom_university', description: 'Rimuove un ateneo aggiunto personalmente da questo profilo e dalla sezione Università. Eventuali percorsi personali associati restano salvati; è possibile aggiungere di nuovo l’ateneo.', inputSchema: {type: 'object', properties: {name: {type: 'string', minLength: 2, maxLength: 140}}, required: ['name'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: true, idempotentHint: true}},
     {name: 'update_application', description: 'Aggiorna note, stato e scadenza personale per un percorso del profilo.', inputSchema: {type: 'object', properties: {programId: {type: 'string', maxLength: 100}, stage: {type: 'string', enum: ['', 'Da valutare', 'In preparazione', 'Inviata', 'Esito ricevuto']}, deadline: {type: 'string', pattern: '^$|^\d{4}-\d{2}-\d{2}$'}, deadlineUrl: {type: 'string', maxLength: 1200}, notes: {type: 'string', maxLength: 5000}, checklist: {type: 'array', items: {type: 'integer', minimum: 0, maximum: 4}, maxItems: 5}}, required: ['programId'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: true}},
     {name: 'remove_custom_program', description: 'Rimuovi un percorso creato personalmente dal tuo atlante e dalla shortlist.', inputSchema: {type: 'object', properties: {programId: {type: 'string', maxLength: 100}}, required: ['programId'], additionalProperties: false}, annotations: {readOnlyHint: false, destructiveHint: true, idempotentHint: true}}
   ];
@@ -257,10 +264,22 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
   function programExists(id, state) {
     return catalog.programs.some(program => program.id === id) || state.customPrograms.some(program => program.id === id && !program.deletedAt);
   }
+  function includeUniversityForCustomProgram(state, universityName, details, now) {
+    const key = Core.normalizeUniversityKey(universityName), existing = catalog.universities.find(item => Core.normalizeUniversityKey(item.name) === key);
+    if (existing) {state.catalogUniversities[existing.id] = {included:true,updatedAt:now};return;}
+    let item = state.customUniversities.find(value => Core.normalizeUniversityKey(value.name) === key);
+    if (!item) {item={id:`custom-uni-${crypto.randomUUID()}`,name:universityName,city:details.city||'',country:details.country||'',region:details.region||'Europa',url:'',offer:'',createdAt:now,updatedAt:now,deletedAt:0};state.customUniversities.push(item);}
+    else {item.deletedAt=0;item.updatedAt=now;if(!item.city)item.city=details.city||'';if(!item.country)item.country=details.country||'';}
+  }
+  function includeUniversitiesForProgram(state, program, now) {
+    const matches = catalog.universities.filter(university => Core.belongsTo(program, university.name));
+    if (matches.length) for (const university of matches) state.catalogUniversities[university.id] = {included:true,updatedAt:now};
+    else includeUniversityForCustomProgram(state, program.university, program, now);
+  }
   async function callTool(name, args, context, env) {
     const {owner, scopes} = context;
     if (!args || typeof args !== 'object' || Array.isArray(args)) return failedTool('Argomenti non validi.');
-    const read = name === 'get_my_atlas' || name === 'search_master_programs' || name === 'search_my_custom_programs';
+    const read = name === 'get_my_atlas' || name === 'search_master_programs' || name === 'search_master_universities' || name === 'search_my_custom_programs';
     if (!hasScope(scopes, read ? 'atlas:read' : 'atlas:write')) return failedTool(`Il collegamento non ha il permesso ${read ? 'di lettura' : 'di modifica'} necessario. Ricollega l’account concedendo il permesso richiesto.`);
     if (name === 'get_my_atlas') {
       const {state} = await readState(env, owner), active = state.customPrograms.filter(p => !p.deletedAt);
@@ -270,7 +289,7 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
       }).filter(Boolean);
       const byId = id => active.find(item => item.id === id) || catalog.programs.find(item => item.id === id);
       const compare = state.compare.map(id => byId(id)).filter(Boolean).map(program => ({id: program.id, name: program.name, university: program.university}));
-      return textResult({preferences: state.preferences, selected, compare, customPrograms: active, tracked: Object.entries(state.records).map(([programId, record]) => ({programId, ...record}))});
+      return textResult({preferences: state.preferences, selected, compare, catalogProgramIds:Object.entries(state.catalogPrograms).filter(([,item])=>item.included).map(([id])=>id), catalogUniversityIds:Object.entries(state.catalogUniversities).filter(([,item])=>item.included).map(([id])=>id), customPrograms: active, customUniversities: state.customUniversities.filter(item => !item.deletedAt), tracked: Object.entries(state.records).map(([programId, record]) => ({programId, ...record}))});
     }
     if (name === 'search_master_programs') {
       const query = typeof args.query === 'string' ? args.query.trim().toLocaleLowerCase() : '';
@@ -278,6 +297,13 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
       const results = catalog.programs.filter(p => [p.name, p.university, p.city, p.region, p.field, p.degree, ...(p.notes instanceof Array ? p.notes : [p.notes || ''])].join(' ').toLocaleLowerCase().includes(query))
         .slice(0, Math.max(1, Math.min(25, Number(args.limit) || 15))).map(p => ({id: p.id, name: p.name, university: p.university, city: p.city, region: p.region, field: p.field || '', degree: p.degree || '', url: p.url || '', custom: false}));
       return textResult({count: results.length, results});
+    }
+    if (name === 'search_master_universities') {
+      const query = typeof args.query === 'string' ? args.query.trim().toLocaleLowerCase() : '';
+      if (query.length < 2) return failedTool('Scrivi almeno due caratteri per cercare.');
+      const results = catalog.universities.filter(item => [item.name,item.city,item.region,item.offer].join(' ').toLocaleLowerCase().includes(query))
+        .slice(0,Math.max(1,Math.min(25,Number(args.limit)||15))).map(item=>({id:item.id,name:item.name,city:item.city,region:item.region,url:item.url||'',offer:item.offer||'',custom:false}));
+      return textResult({count:results.length,results});
     }
     if (name === 'search_my_custom_programs') {
       const query = typeof args.query === 'string' ? args.query.trim().toLocaleLowerCase() : '';
@@ -329,9 +355,13 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
         if (args.preferences !== undefined) {state.preferences = args.preferences.trim(); state.preferencesUpdatedAt = now;}
         for (const id of state.favorites) state.favoritesUpdated[id] = {selected: false, updatedAt: now};
         for (const id of selected) state.favoritesUpdated[id] = {selected: true, updatedAt: now};
+        for (const id of [...selected,...(args.compareProgramIds||[])]) {
+          const program=catalog.programs.find(item=>item.id===id);
+          if (program && !state.catalogPrograms[id]?.included) {state.catalogPrograms[id]={included:true,updatedAt:now};includeUniversitiesForProgram(state,program,now);}
+        }
         for (const item of customItems) {
           const program = {id: `custom-${crypto.randomUUID()}`, name: item.name.trim(), university: item.university.trim(), city: String(item.city || '').trim(), country: String(item.country || '').trim(), region: item.region === 'Extra-Europa' ? 'Extra-Europa' : 'Europa', degree: String(item.degree || '').trim(), field: String(item.field || '').trim(), url: String(item.url || '').trim(), notes: String(item.notes || '').trim(), createdAt: now, updatedAt: now, deletedAt: 0};
-          state.customPrograms.push(program); selected.push(program.id); state.favoritesUpdated[program.id] = {selected: true, updatedAt: now}; created.push(program.id);
+          state.customPrograms.push(program);includeUniversityForCustomProgram(state,program.university,program,now);selected.push(program.id); state.favoritesUpdated[program.id] = {selected: true, updatedAt: now}; created.push(program.id);
         }
         state.favorites = [...new Set(selected)];
         for (const item of applicationUpdates) {
@@ -349,11 +379,34 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
       const update = await updateState(env, owner, state => {
         if (!programExists(id, state)) return {error: 'Il percorso non esiste nel catalogo o nel tuo atlante.'};
         const selected = name === 'add_program_to_shortlist';
-        state.favoritesUpdated[id] = {selected, updatedAt: Date.now()};
+        const now=Date.now(),catalogProgram=catalog.programs.find(program=>program.id===id);if(selected&&catalogProgram&&!state.catalogPrograms[id]?.included){state.catalogPrograms[id]={included:true,updatedAt:now};includeUniversitiesForProgram(state,catalogProgram,now)}
+        state.favoritesUpdated[id] = {selected, updatedAt: now};
         state.favorites = [...new Set([...state.favorites.filter(value => value !== id), ...(selected ? [id] : [])])];
         return {programId: id, selected};
       });
       return update.error ? failedTool(update.error) : textResult(update.result);
+    }
+    if (name === 'add_catalog_program_to_my_atlas' || name === 'remove_catalog_program_from_my_atlas') {
+      const id = typeof args.programId === 'string' ? args.programId : '';
+      if (!catalog.programs.some(program => program.id === id)) return failedTool('Indica un percorso esistente del catalogo pubblico.');
+      const included = name === 'add_catalog_program_to_my_atlas', now=Date.now();
+      const update = await updateState(env, owner, state => {
+        state.catalogPrograms[id] = {included,updatedAt:now};
+        if(included)includeUniversitiesForProgram(state,catalog.programs.find(program=>program.id===id),now);
+        if (!included) {
+          state.favorites=state.favorites.filter(value=>value!==id);state.favoritesUpdated[id]={selected:false,updatedAt:now};
+          state.compare=state.compare.filter(value=>value!==id);state.compareUpdated=now;delete state.records[id];
+        }
+        return {programId:id,included,personalCatalog:true,removedPersonalData:!included};
+      });
+      return update.error ? failedTool(update.error) : textResult(update.result);
+    }
+    if (name === 'add_catalog_university_to_my_atlas' || name === 'remove_catalog_university_from_my_atlas') {
+      const id=typeof args.universityId==='string'?args.universityId:'',university=catalog.universities.find(item=>item.id===id);
+      if(!university)return failedTool('Indica un ateneo esistente del catalogo principale.');
+      const included=name==='add_catalog_university_to_my_atlas';
+      const update=await updateState(env,owner,state=>{state.catalogUniversities[id]={included,updatedAt:Date.now()};return{universityId:id,name:university.name,included,personalCatalog:true}});
+      return update.error?failedTool(update.error):textResult(update.result);
     }
     if (name === 'add_custom_program') {
       const textFields = ['name','university','city','country','degree','field','notes'];
@@ -364,9 +417,42 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
       const now = Date.now(), program = {id: `custom-${crypto.randomUUID()}`, name: args.name.trim(), university: args.university.trim(), city: String(args.city || '').trim(), country: String(args.country || '').trim(), region: args.region === 'Extra-Europa' ? 'Extra-Europa' : 'Europa', degree: String(args.degree || '').trim(), field: String(args.field || '').trim(), url, notes: String(args.notes || '').trim(), createdAt: now, updatedAt: now, deletedAt: 0};
       const update = await updateState(env, owner, state => {
         if (state.customPrograms.filter(item => !item.deletedAt).length >= 100) return {error: 'Il tuo atlante contiene già il massimo di 100 percorsi personali.'};
-        state.customPrograms.push(program); state.favorites.push(program.id); state.favorites = [...new Set(state.favorites)];
+        state.customPrograms.push(program);includeUniversityForCustomProgram(state,program.university,program,now); state.favorites.push(program.id); state.favorites = [...new Set(state.favorites)];
         state.favoritesUpdated[program.id] = {selected: true, updatedAt: now};
         return {program};
+      });
+      return update.error ? failedTool(update.error) : textResult(update.result);
+    }
+    if (name === 'add_custom_university') {
+      if (typeof args.name !== 'string' || args.name.trim().length < 2 || args.name.length > 140) return failedTool('Il nome dell’ateneo deve contenere da 2 a 140 caratteri.');
+      for (const [key,limit] of Object.entries({city:100,country:100,offer:500})) if (args[key] !== undefined && (typeof args[key] !== 'string' || args[key].length > limit)) return failedTool(`Il campo ${key} non è valido o supera ${limit} caratteri.`);
+      if (args.region !== undefined && !['Europa','Extra-Europa'].includes(args.region)) return failedTool('L’area deve essere Europa oppure Extra-Europa.');
+      let url = '';
+      if (args.url !== undefined && (typeof args.url !== 'string' || args.url.length > 1200)) return failedTool('Il link dell’ateneo può contenere al massimo 1.200 caratteri.');
+      if (args.url) {try {const parsed = new URL(args.url); if (parsed.protocol !== 'https:') throw Error(); url = parsed.toString().slice(0,1200);} catch {return failedTool('Il link dell’ateneo deve essere un indirizzo HTTPS valido.');}}
+      const now = Date.now(), nameValue = args.name.trim(), key = Core.normalizeUniversityKey(nameValue), existingCatalog = catalog.universities.find(item => Core.normalizeUniversityKey(item.name) === key);
+      const update = await updateState(env, owner, state => {
+        if (existingCatalog) {
+          state.catalogUniversities[existingCatalog.id]={included:true,updatedAt:now};
+          return {university:{id:existingCatalog.id,name:existingCatalog.name},added:true,custom:false};
+        }
+        let university = state.customUniversities.find(item => Core.normalizeUniversityKey(item.name) === key);
+        if (university && !university.deletedAt) return {error:'Questo ateneo è già presente nel tuo atlante.'};
+        if (!university && state.customUniversities.filter(item => !item.deletedAt).length >= 100) return {error:'Il tuo atlante contiene già il massimo di 100 atenei personali.'};
+        if (university) Object.assign(university,{city:String(args.city||'').trim(),country:String(args.country||'').trim(),region:args.region||'Europa',url,offer:String(args.offer||'').trim(),updatedAt:now,deletedAt:0});
+        else {university={id:`custom-uni-${crypto.randomUUID()}`,name:nameValue,city:String(args.city||'').trim(),country:String(args.country||'').trim(),region:args.region||'Europa',url,offer:String(args.offer||'').trim(),createdAt:now,updatedAt:now,deletedAt:0};state.customUniversities.push(university);}
+        return {university,added:true};
+      });
+      return update.error ? failedTool(update.error) : textResult(update.result);
+    }
+    if (name === 'remove_custom_university') {
+      if (typeof args.name !== 'string' || args.name.trim().length < 2 || args.name.length > 140) return failedTool('Indica il nome di un ateneo personale valido.');
+      const key = Core.normalizeUniversityKey(args.name), now = Date.now();
+      const update = await updateState(env, owner, state => {
+        const university = state.customUniversities.find(item => Core.normalizeUniversityKey(item.name) === key && !item.deletedAt);
+        if (!university) return {error:'L’ateneo personale non è stato trovato.'};
+        university.deletedAt = now; university.updatedAt = now;
+        return {name:university.name,removed:true,associatedProgramsPreserved:true};
       });
       return update.error ? failedTool(update.error) : textResult(update.result);
     }

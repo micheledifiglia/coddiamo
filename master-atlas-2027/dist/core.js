@@ -2,9 +2,10 @@
 (function (root) {
   'use strict';
   const stages = ['Da valutare', 'In preparazione', 'Inviata', 'Esito ricevuto'];
-  const empty = () => ({favorites: [], compare: [], records: {}, favoritesUpdated: {}, compareUpdated: 0, preferences: '', preferencesUpdatedAt: 0, customPrograms: []});
+  const empty = () => ({favorites: [], compare: [], records: {}, favoritesUpdated: {}, compareUpdated: 0, preferences: '', preferencesUpdatedAt: 0, customPrograms: [], customUniversities: [], catalogPrograms: {}, catalogUniversities: {}});
   const timestamp = v => Number.isFinite(Number(v)) && Number(v) >= 0 ? Number(v) : 0;
   const clean = (value, limit) => typeof value === 'string' ? value.trim().slice(0, limit) : '';
+  const normalizeUniversityKey = value => clean(value, 140).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').toLocaleLowerCase('it');
   function normalizeCustomPrograms(raw) {
     const rows = Array.isArray(raw) ? raw.slice(-100) : [], result = [], seen = new Set();
     for (const item of rows) {
@@ -25,12 +26,38 @@
     }
     return result;
   }
+  function normalizeCustomUniversities(raw) {
+    const rows = Array.isArray(raw) ? raw.slice(-100) : [], result = [], seenIds = new Set(), seenNames = new Set();
+    for (const item of rows) {
+      if (!item || typeof item !== 'object' || typeof item.id !== 'string' || !/^custom-uni-[a-z0-9_-]{6,64}$/i.test(item.id) || seenIds.has(item.id)) continue;
+      const name = clean(item.name, 140), key = normalizeUniversityKey(name);
+      if (!name || !key || seenNames.has(key)) continue;
+      let url = clean(item.url, 1200);
+      try { if (url && new URL(url).protocol !== 'https:') url = ''; } catch { url = ''; }
+      result.push({id:item.id, name, city:clean(item.city,100), country:clean(item.country,100), region:['Europa','Extra-Europa'].includes(item.region)?item.region:'Europa', url, offer:clean(item.offer,500), createdAt:timestamp(item.createdAt), updatedAt:timestamp(item.updatedAt), deletedAt:timestamp(item.deletedAt)});
+      seenIds.add(item.id); seenNames.add(key);
+    }
+    return result;
+  }
+  function normalizeCatalogMembership(raw, validIds, legacyIds) {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return Object.fromEntries(legacyIds.map(id => [id,{included:true,updatedAt:0}]));
+    const result = {};
+    for (const [id, value] of Object.entries(raw).slice(-400)) {
+      if (!validIds.has(id) || !value || typeof value !== 'object' || typeof value.included !== 'boolean') continue;
+      result[id] = {included:value.included,updatedAt:timestamp(value.updatedAt)};
+    }
+    return result;
+  }
   function normalize(raw, catalog) {
     raw = raw && typeof raw === 'object' ? raw : {};
     const result = empty();
     result.preferences = clean(raw.preferences, 2000);
     result.preferencesUpdatedAt = timestamp(raw.preferencesUpdatedAt);
     result.customPrograms = normalizeCustomPrograms(raw.customPrograms);
+    result.customUniversities = normalizeCustomUniversities(raw.customUniversities);
+    const catalogIds = new Set(catalog.programs.map(p => p.id)), universityIds = new Set(catalog.universities.map(u => u.id));
+    result.catalogPrograms = normalizeCatalogMembership(raw.catalogPrograms, catalogIds, catalog.programs.map(p => p.id));
+    result.catalogUniversities = normalizeCatalogMembership(raw.catalogUniversities, universityIds, catalog.universities.map(u => u.id));
     const activeCustom = result.customPrograms.filter(p => !p.deletedAt);
     const customIds = new Set(activeCustom.map(p => p.id));
     const ids = new Set([...catalog.programs.map(p => p.id), ...customIds]);
@@ -71,6 +98,16 @@
       if (!prior || timestamp(item.updatedAt) >= timestamp(prior.updatedAt)) custom.set(item.id, item);
     }
     result.customPrograms = [...custom.values()].slice(-100);
+    const universities = new Map((a.customUniversities || []).map(item => [item.id,item]));
+    for (const item of b.customUniversities || []) {
+      const prior = universities.get(item.id);
+      if (!prior || timestamp(item.updatedAt) >= timestamp(prior.updatedAt)) universities.set(item.id,item);
+    }
+    result.customUniversities = [...universities.values()].slice(-100);
+    for (const field of ['catalogPrograms','catalogUniversities']) {
+      result[field] = {...(a[field] || {})};
+      for (const [id,item] of Object.entries(b[field] || {})) if (!result[field][id] || timestamp(item.updatedAt) >= timestamp(result[field][id].updatedAt)) result[field][id] = item;
+    }
     result.records = {...a.records};
     for (const [id,r] of Object.entries(b.records)) {
       if (!result.records[id] || timestamp(r.updatedAt) > timestamp(result.records[id].updatedAt)) result.records[id] = r;
@@ -95,6 +132,13 @@
       if (!custom.has(item.id) || replace || timestamp(item.updatedAt) >= timestamp(custom.get(item.id).updatedAt)) custom.set(item.id, item);
     }
     result.customPrograms = [...custom.values()].slice(-100);
+    const universities = new Map((result.customUniversities || []).map(item => [item.id,item]));
+    for (const item of incoming.customUniversities || []) if (!universities.has(item.id) || replace || timestamp(item.updatedAt) >= timestamp(universities.get(item.id).updatedAt)) universities.set(item.id,item);
+    result.customUniversities = [...universities.values()].slice(-100);
+    for (const field of ['catalogPrograms','catalogUniversities']) {
+      result[field] ||= {};
+      for (const [id,item] of Object.entries(incoming[field] || {})) if (!result[field][id] || replace || timestamp(item.updatedAt) >= timestamp(result[field][id].updatedAt)) result[field][id] = item;
+    }
     for (const [id,r] of Object.entries(incoming.records)) {
       if (!result.records[id] || replace) result.records[id] = {...r, updatedAt: now};
     }
@@ -114,7 +158,7 @@
     const name = aliases[university] || university;
     return program.university === name || (program.partners || program.university.split(/[–—]/).map(s=>s.trim())).includes(name);
   }
-  const api = {empty,normalize,normalizeCustomPrograms,merge,importBackup,conflicts,belongsTo,stages};
+  const api = {empty,normalize,normalizeCustomPrograms,normalizeCustomUniversities,normalizeUniversityKey,merge,importBackup,conflicts,belongsTo,stages};
   root.AtlasCore = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(globalThis);

@@ -9,7 +9,7 @@ class AtlasStore {
     try {
       const current = localStorage.getItem(this.key);
       const legacy = current || (accountId?null:localStorage.getItem('master-atlas-2027-v1'));
-      this.state = AtlasCore.normalize(legacy ? JSON.parse(legacy) : {}, catalog);
+      this.state = AtlasCore.normalize(legacy ? JSON.parse(legacy) : AtlasCore.empty(), catalog);
       if (legacy && !current) this.snapshot(this.state,'Migrazione dalla prima versione');
     } catch { onStatus('Archivio locale non leggibile: usa un backup per recuperare i progressi.'); }
     this.writeLocal();
