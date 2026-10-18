@@ -37,9 +37,9 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   const auth={async resolveOwner(req){const cookie=req.headers.get('cookie')||'';return cookie.includes('session=alice')?alice:cookie.includes('session=bob')?bob:null}};
   const mcp=createMcpHandler(auth,Core,catalog),handle=createHandler({},catalog,Core,auth,mcp);
   const discovery=await handle(request('/.well-known/oauth-authorization-server'),env);
-  assert.equal(discovery.status,200);assert.equal((await discovery.json()).authorization_endpoint,'https://atlas.test/oauth/authorize');
+  assert.equal(discovery.status,200);const oauthMetadata=await discovery.json();assert.equal(oauthMetadata.issuer,'https://atlas.test');assert.equal(oauthMetadata.authorization_endpoint,'https://atlas.test/oauth/authorize');assert.ok(oauthMetadata.authorization_response_iss_parameter_supported);assert.ok(oauthMetadata.code_challenge_methods_supported.includes('S256'));
   const resource=await handle(request('/.well-known/oauth-protected-resource'),env);
-  assert.equal((await resource.json()).resource,'https://atlas.test/api/atlas-mcp');
+  const resourceMetadata=await resource.json();assert.equal(resourceMetadata.resource,'https://atlas.test/api/atlas-mcp');assert.deepEqual(resourceMetadata.authorization_servers,[oauthMetadata.issuer]);
   const unauth=await handle(request('/api/atlas-mcp',{method:'POST',body:{jsonrpc:'2.0',id:1,method:'initialize',params:{protocolVersion:'2025-11-25'}}}),env);
   assert.equal(unauth.status,401);assert.match(unauth.headers.get('www-authenticate'),/oauth-protected-resource/);
 
@@ -49,17 +49,19 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   const query=new URLSearchParams({response_type:'code',client_id:client.client_id,redirect_uri:'https://ai.example/callback',state:'stato-casuale',code_challenge:challenge,code_challenge_method:'S256',scope:'atlas:read atlas:write offline_access',resource:'https://atlas.test/api/atlas-mcp'});
   const authorization=await handle(request('/oauth/authorize?'+query,{cookie:'session=alice'}),env);
   assert.equal(authorization.status,200);const page=await authorization.text();
-  assert.match(page,/ai\.example/);assert.match(page,/Modificare il mio atlante/);assert.match(page,/consent-form/);assert.match(page,/dataset\.submitting/);
-  let submitHandler;const deny={value:'deny',disabled:false,style:{},setAttribute(){}};const approve={value:'approve',disabled:false,style:{},textContent:'Consenti',setAttribute(){}};const buttons=[deny,approve];
-  const consentForm={dataset:{},addEventListener(type,handler){assert.equal(type,'submit');submitHandler=handler},querySelectorAll(){return buttons}};
-  vm.runInNewContext(page.match(/<script>([\s\S]*?)<\/script>/)[1],{document:{querySelector(){return consentForm}}});
+  assert.match(page,/ai\.example/);assert.match(page,/Modificare il mio atlante/);assert.match(page,/consent-form/);assert.match(page,/dataset\.submitting/);assert.match(page,/target="_top"/,'il callback OAuth deve raggiungere la finestra principale del client');
+  let submitHandler,restartHandler,recovery,reloaded=false;const deny={value:'deny',disabled:false,style:{},setAttribute(){},removeAttribute(){}};const approve={value:'approve',disabled:false,style:{},textContent:'Consenti',setAttribute(){},removeAttribute(){}};const buttons=[deny,approve],status={textContent:''},restart={hidden:true,addEventListener(type,handler){assert.equal(type,'click');restartHandler=handler}};
+  const consentForm={dataset:{},isConnected:true,addEventListener(type,handler){assert.equal(type,'submit');submitHandler=handler},querySelectorAll(){return buttons}};
+  const document={querySelector(selector){return selector==='#consent-form'?consentForm:selector==='#consent-status'?status:restart}};
+  vm.runInNewContext(page.match(/<script>([\s\S]*?)<\/script>/)[1],{document,location:{reload(){reloaded=true}},setTimeout(callback,delay){assert.equal(delay,15000);recovery=callback}});
   let duplicateBlocked=false;submitHandler({submitter:approve,preventDefault(){duplicateBlocked=true}});
-  assert.equal(approve.disabled,false,'il pulsante approvato deve restare nel modulo inviato');assert.equal(deny.disabled,true);assert.equal(approve.style.pointerEvents,'none');
+  assert.equal(approve.disabled,false,'il pulsante approvato deve restare nel modulo inviato');assert.equal(deny.disabled,true);assert.equal(approve.style.pointerEvents,'none');assert.match(status.textContent,/riportando all’assistente/);
   submitHandler({submitter:approve,preventDefault(){duplicateBlocked=true}});assert.equal(duplicateBlocked,true,'un secondo invio deve essere fermato');
+  recovery();assert.equal(approve.disabled,false);assert.equal(deny.disabled,false);assert.equal(restart.hidden,false);assert.match(status.textContent,/ritorno all’assistente non è riuscito/,'se il client non torna, la pagina deve offrire un recupero visibile');restartHandler();assert.equal(reloaded,true);
   const requestId=page.match(/name="request_id" value="([^"]+)"/)?.[1];assert.ok(requestId);
   const form=new URLSearchParams({request_id:requestId,read:'1',write:'1',offline:'1',decision:'approve'});
   const consent=await handle(request('/oauth/consent',{method:'POST',cookie:'session=alice',contentType:'application/x-www-form-urlencoded',body:form.toString()}),env);
-  assert.equal(consent.status,303);const consentTarget=new URL(consent.headers.get('location'));const authorizationCode=consentTarget.searchParams.get('code');assert.ok(authorizationCode);assert.equal(consentTarget.searchParams.get('iss'),'https://atlas.test');
+  assert.equal(consent.status,303);const consentTarget=new URL(consent.headers.get('location'));const authorizationCode=consentTarget.searchParams.get('code');assert.ok(authorizationCode);assert.equal(consentTarget.origin,'https://ai.example');assert.equal(consentTarget.pathname,'/callback');assert.equal(consentTarget.searchParams.get('state'),'stato-casuale');assert.equal(consentTarget.searchParams.get('iss'),oauthMetadata.issuer);assert.equal(consentTarget.searchParams.get('error'),null);
   const duplicateConsent=await handle(request('/oauth/consent',{method:'POST',cookie:'session=alice',contentType:'application/x-www-form-urlencoded',body:form.toString()}),env);
   assert.equal(duplicateConsent.status,400);assert.match(await duplicateConsent.text(),/Questo consenso è già stato inviato/);
   const tokenForm=new URLSearchParams({grant_type:'authorization_code',client_id:client.client_id,code:authorizationCode,redirect_uri:'https://ai.example/callback',code_verifier:verifier,resource:'https://atlas.test/api/atlas-mcp'});
@@ -87,6 +89,11 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   assert.equal(revoked.status,200);
   const denied=await mcpRequest({jsonrpc:'2.0',id:5,method:'tools/list',params:{}});
   assert.equal(denied.status,401);
+
+  const secondPkce=await pkce(),secondQuery=new URLSearchParams({response_type:'code',client_id:client.client_id,redirect_uri:'https://ai.example/callback',state:'stato-annullato',code_challenge:secondPkce.challenge,code_challenge_method:'S256',scope:'atlas:read atlas:write',resource:'https://atlas.test/api/atlas-mcp'});
+  const secondAuthorization=await handle(request('/oauth/authorize?'+secondQuery,{cookie:'session=alice'}),env),secondPage=await secondAuthorization.text(),secondRequestId=secondPage.match(/name="request_id" value="([^"]+)"/)?.[1];assert.ok(secondRequestId);
+  const cancellation=await handle(request('/oauth/consent',{method:'POST',cookie:'session=alice',contentType:'application/x-www-form-urlencoded',body:new URLSearchParams({request_id:secondRequestId,decision:'deny'}).toString()}),env);
+  assert.equal(cancellation.status,303);const deniedTarget=new URL(cancellation.headers.get('location'));assert.equal(deniedTarget.searchParams.get('error'),'access_denied');assert.equal(deniedTarget.searchParams.get('state'),'stato-annullato');assert.equal(deniedTarget.searchParams.get('iss'),oauthMetadata.issuer);assert.equal(deniedTarget.searchParams.get('code'),null);
   db.close();
 });
 
