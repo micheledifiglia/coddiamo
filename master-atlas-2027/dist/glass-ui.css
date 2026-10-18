@@ -345,6 +345,14 @@ footer{border-color:rgba(109,128,155,.24);color:#758297}
 :root[data-theme="dark"] .profile-action{color:#e2eaf6}
 :root[data-theme="dark"] .profile-action:hover,:root[data-theme="dark"] .profile-action:focus-visible{background:rgba(108,126,190,.22)}
 :root[data-theme="dark"] .profile-action-icon{background:rgba(84,103,135,.4);color:#cad7ef}
+.profile-language{display:grid;grid-template-columns:minmax(0,1fr) minmax(112px,1fr);align-items:center;gap:10px;min-height:48px;padding:8px 11px;border-bottom:1px solid rgba(94,116,146,.15);color:#52637a;font-size:12px}
+.profile-language-label{display:flex;align-items:center;gap:9px;min-width:0}
+.profile-language-icon{width:20px;height:20px;flex:none;fill:none;stroke:#71839d;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.profile-language select{width:100%;min-width:0;min-height:36px;padding:6px 27px 6px 10px;border:1px solid rgba(126,148,178,.2);border-radius:11px;background:rgba(255,255,255,.55);color:#344760;font-size:12px;cursor:pointer}
+.profile-language select:focus-visible{outline:2px solid #7188ee;outline-offset:2px}
+:root[data-theme="dark"] .profile-language{border-color:rgba(210,226,247,.15);color:#c3cfe0}
+:root[data-theme="dark"] .profile-language-icon{stroke:#b9c8df}
+:root[data-theme="dark"] .profile-language select{border-color:rgba(214,231,255,.16);background:rgba(44,59,81,.72);color:#e7edf8;color-scheme:dark}
 
 /* Liquid-glass dashboard, inspired by native iPhone surfaces */
 .dashboard-grid{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(285px,.88fr);column-gap:20px;row-gap:20px;align-items:start}

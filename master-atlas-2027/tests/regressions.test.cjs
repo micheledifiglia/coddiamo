@@ -38,6 +38,54 @@ test('Le icone dell’interfaccia usano SVG coerenti su iOS e desktop',()=>{
   assert.match(css,/\.header-actions-glass \.theme-glyph\{display:none;width:22px;height:22px/);
   assert.match(css,/:root\[data-theme="dark"\].*\.theme-icon-sun,:root\[data-theme="light"\].*\.theme-icon-moon\{display:block\}/);
 });
+test('La lingua si cambia dal profilo e resta salvata tra le sessioni',()=>{
+  const html=fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8');
+  const i18n=fs.readFileSync(path.join(__dirname,'../dist/i18n.js'),'utf8');
+  const css=fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8');
+  const sw=fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8');
+  const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
+  assert.match(html,/class="profile-language"[^>]*for="language-select"[\s\S]*id="language-select" aria-label="Lingua"[\s\S]*<option value="it">Italiano<\/option>[\s\S]*<option value="en">English<\/option>[\s\S]*<option value="es">Español<\/option>[\s\S]*<option value="fr">Français<\/option>[\s\S]*<option value="de">Deutsch<\/option>/);
+  assert.ok(html.indexOf('src="i18n.js" defer')<html.indexOf('src="auth.js" defer'),'la lingua è pronta prima dei contenuti dinamici del profilo');
+  assert.match(i18n,/localStorage\.getItem\('atlas-language'\)/);
+  assert.match(i18n,/localStorage\.setItem\('atlas-language', locale\)/);
+  assert.match(i18n,/new MutationObserver/,'anche le schermate renderizzate in seguito vengono tradotte');
+  assert.match(css,/\.profile-language select\{[\s\S]*border-radius:11px/);
+  assert.match(css,/:root\[data-theme="dark"\] \.profile-language select/);
+  assert.match(app,/option value="\$\{esc\(s\)\}" \$\{r\.stage===s\?'selected':''\}/,'le traduzioni delle candidature non alterano il valore salvato');
+  const saved=new Map();const sandbox={localStorage:{getItem:key=>saved.get(key)||null,setItem:(key,value)=>saved.set(key,value)}};sandbox.globalThis=sandbox;
+  vm.runInNewContext(i18n,sandbox);
+  for(const [locale,expected] of [['en','Overview'],['es','Resumen'],['fr','Vue d’ensemble'],['de','Übersicht']]){
+    assert.equal(sandbox.AtlasI18n.translate('Panoramica',locale),expected);
+    assert.equal(sandbox.AtlasI18n.translate('Accedi',locale).length>0,true,`accesso tradotto in ${locale}`);
+  }
+  assert.equal(sandbox.AtlasI18n.translate('Cancer, Stem Cells', 'en'),'Cancer, Stem Cells','i nomi del catalogo restano invariati');
+  assert.equal(sandbox.AtlasI18n.setLocale('fr'),true);
+  assert.equal(saved.get('atlas-language'),'fr');
+  const runtimeStorage=new Map();let observer;
+  class FakeText{constructor(value,parent){this.nodeType=3;this.nodeValue=value;this.parentElement=parent}}
+  class FakeElement{
+    constructor(tag,attrs={}){this.nodeType=1;this.tagName=tag.toUpperCase();this.attrs=new Map(Object.entries(attrs));this.childNodes=[];this.listeners={};this.value='';}
+    append(...nodes){for(const node of nodes){if(node.nodeType===1)node.parentElement=this;else if(node.nodeType===3)node.parentElement=this;this.childNodes.push(node)}}
+    closest(){return null}
+    getAttribute(name){return this.attrs.has(name)?this.attrs.get(name):null}
+    setAttribute(name,value){this.attrs.set(name,String(value))}
+    addEventListener(name,callback){this.listeners[name]=callback}
+    querySelectorAll(){const found=[];const visit=node=>{for(const child of node.childNodes||[]){if(child.nodeType===1){found.push(child);visit(child)}}};visit(this);return found}
+  }
+  const body=new FakeElement('body'),rootText=new FakeText('Panoramica',body),select=new FakeElement('select',{'aria-label':'Lingua'});select.id='language-select';select.value='it';
+  body.append(rootText,select);
+  const document={body,documentElement:{lang:'it'},querySelector:selector=>selector==='#language-select'?select:null,createTreeWalker(root){const nodes=[];const visit=node=>{for(const child of node.childNodes||[]){if(child.nodeType===3)nodes.push(child);else if(child.nodeType===1)visit(child)}};visit(root);let index=-1;return{nextNode(){index++;return index<nodes.length?(this.currentNode=nodes[index],true):false}}}};
+  class FakeObserver{constructor(callback){observer=callback}observe(){}}
+  const runtime={document,NodeFilter:{SHOW_TEXT:4},MutationObserver:FakeObserver,localStorage:{getItem:key=>runtimeStorage.get(key)||null,setItem:(key,value)=>runtimeStorage.set(key,value)}};runtime.globalThis=runtime;
+  vm.runInNewContext(i18n,runtime);
+  select.value='en';select.listeners.change();
+  assert.equal(rootText.nodeValue,'Overview');assert.equal(document.documentElement.lang,'en-GB');
+  const dynamic=new FakeText('Aggiungi passkey',body);body.append(dynamic);observer([{type:'childList',addedNodes:[dynamic]}]);
+  assert.equal(dynamic.nodeValue,'Add passkey','anche gli elementi dinamici ricevono la lingua attiva');
+  select.value='fr';select.listeners.change();
+  assert.equal(rootText.nodeValue,'Vue d’ensemble');assert.equal(dynamic.nodeValue,'Ajouter une clé d’accès');
+  assert.equal(runtimeStorage.get('atlas-language'),'fr');
+});
 test('L’accesso offre password e passkey senza pulsanti di provider esterni',()=>{
   const html=fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8');
   const auth=fs.readFileSync(path.join(__dirname,'../dist/auth.js'),'utf8');
@@ -48,7 +96,7 @@ test('L’accesso offre password e passkey senza pulsanti di provider esterni',(
   assert.match(html,/id="account-add-passkey"/);
   assert.doesNotMatch(`${html}\n${auth}`,/Continua con Google|Continua con Apple|accounts\.google\.com|appleid\.apple\.com/);
   assert.ok(html.indexOf('href="glass-ui.css"')<html.indexOf('href="auth.css"'),'lo stile di accesso prevale sulle regole generali liquid glass');
-  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/master-atlas-shell-v8/,'la cache PWA viene invalidata dopo il cambio stile');
+  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/master-atlas-shell-v9/,'la cache PWA viene invalidata per caricare le lingue');
 });
 test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su telefono',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
@@ -117,7 +165,8 @@ test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8'),/src="globe\.js" defer><\/script><script src="app\.js" defer/);
   const serviceWorker=fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8');
   assert.match(serviceWorker,/\/globe\.js/);
-  assert.match(serviceWorker,/master-atlas-shell-v8/);
+  assert.match(serviceWorker,/master-atlas-shell-v9/);
+  assert.match(serviceWorker,/\/i18n\.js/);
 });
 
 test('La tipografia dell’interfaccia usa il sans-serif Manrope come nelle immagini di riferimento',()=>{
@@ -270,7 +319,7 @@ test('La build Pages contiene soltanto risorse pubbliche e disabilita il cloud',
   const run=spawnSync(process.execPath,[path.join(__dirname,'../scripts/build-pages.mjs')],{encoding:'utf8'});
   assert.equal(run.status,0,run.stderr);
   const dir=path.join(__dirname,'../_site');
-  assert.deepEqual(fs.readdirSync(dir).sort(),['.nojekyll','app.js','auth.css','auth.js','config.js','core.js','data.json','glass-ui.css','globe.js','icons','index.html','manifest.webmanifest','pwa.css','pwa.js','release.json','storage.js','style.css','sw.js'].sort());
+  assert.deepEqual(fs.readdirSync(dir).sort(),['.nojekyll','app.js','auth.css','auth.js','config.js','core.js','data.json','glass-ui.css','globe.js','i18n.js','icons','index.html','manifest.webmanifest','pwa.css','pwa.js','release.json','storage.js','style.css','sw.js'].sort());
   assert.deepEqual(fs.readdirSync(path.join(dir,'icons')).sort(),['atlas-180.png','atlas-192.png','atlas-512.png']);
   assert.ok(fs.readFileSync(path.join(dir,'icons/atlas-512.png')).subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])));
   const context={};vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(dir,'config.js'),'utf8'),context);

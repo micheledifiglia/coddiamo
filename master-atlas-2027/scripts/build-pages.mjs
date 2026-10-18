@@ -6,7 +6,7 @@ import {build as bundle} from 'esbuild';
 const root = path.resolve(import.meta.dirname,'..');
 const out = path.join(root,'_site');
 await bundle({entryPoints:[path.join(root,'scripts/globe-client.js')],bundle:true,minify:true,format:'iife',platform:'browser',target:'es2020',outfile:path.join(root,'dist/globe.js'),logLevel:'silent'});
-const files = ['index.html','style.css','glass-ui.css','app.js','globe.js','core.js','storage.js','config.js','auth.js','auth.css','pwa.js','pwa.css','sw.js','manifest.webmanifest','data.json','icons/atlas-180.png','icons/atlas-192.png','icons/atlas-512.png'];
+const files = ['index.html','style.css','glass-ui.css','app.js','globe.js','core.js','storage.js','config.js','i18n.js','auth.js','auth.css','pwa.js','pwa.css','sw.js','manifest.webmanifest','data.json','icons/atlas-180.png','icons/atlas-192.png','icons/atlas-512.png'];
 const allowed = new Set([...files,'.nojekyll','release.json']);
 fs.mkdirSync(out,{recursive:true});
 for(const file of fs.readdirSync(out)) {
