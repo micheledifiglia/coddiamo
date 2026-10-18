@@ -410,6 +410,7 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
     if (!siteUserId || siteUserId.length > 200) return json({jsonrpc: '2.0', id, result: failedTool('Non riesco a verificare l’identità ChatGPT di questa richiesta.')});
     try {
       if (name === 'link_my_atlas_profile') return json({jsonrpc: '2.0', id, result: await linkSiteProfile(env, siteUserId, args.code)});
+      if (name === 'search_master_programs') return json({jsonrpc: '2.0', id, result: await callTool(name, args, {owner: null, scopes: 'atlas:read'}, env)});
       const identity = await env.DB.prepare("SELECT owner FROM atlas_identities WHERE provider='sites-mcp' AND subject=?").bind(siteUserId).first();
       if (!identity?.owner) return json({jsonrpc: '2.0', id, result: failedTool('Profilo non collegato. Accedi a Master Atlas, apri Profilo → Personalizza con IA, genera un codice monouso e chiedimi di collegare il profilo.')});
       return json({jsonrpc: '2.0', id, result: await callTool(name, args, {owner: identity.owner, scopes: 'atlas:read atlas:write'}, env)});

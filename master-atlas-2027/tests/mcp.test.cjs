@@ -143,6 +143,10 @@ test('MCP Sites dichiara gli strumenti e li collega al solo profilo verificato',
 
   const siteRequest=(name,args,siteId='chatgpt-user-alice')=>handle(request('/mcp',{method:'POST',headers:{'oai-authenticated-user-id':siteId},body:{jsonrpc:'2.0',id:3,method:'tools/call',params:{name,arguments:args}}}),env);
   const unlinked=await siteRequest('get_my_atlas',{});assert.match(JSON.stringify((await unlinked.json()).result),/Profilo non collegato/);
+  const publicSearch=await siteRequest('search_master_programs',{query:catalog.programs[0].name.slice(0,4)});
+  const publicResults=(await publicSearch.json()).result.structuredContent;assert.ok(publicResults.count>0);assert.ok(publicResults.results.every(item=>item.custom===false));
+  assert.equal(db.prepare('SELECT COUNT(*) AS count FROM atlas_states').get().count,0,'la ricerca pubblica non inizializza né legge un profilo personale');
+  const privateSearch=await siteRequest('search_my_custom_programs',{query:'personale'});assert.match(JSON.stringify((await privateSearch.json()).result),/Profilo non collegato/);
   const linked=await siteRequest('link_my_atlas_profile',{code});assert.equal((await linked.json()).result.structuredContent.linked,true);
   const replay=await siteRequest('link_my_atlas_profile',{code});assert.match(JSON.stringify((await replay.json()).result),/scaduto o già utilizzato/);
   assert.equal(db.prepare("SELECT owner FROM atlas_identities WHERE provider='sites-mcp' AND subject=?").get('chatgpt-user-alice').owner,alice);
