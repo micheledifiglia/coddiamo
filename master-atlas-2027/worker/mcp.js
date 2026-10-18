@@ -55,10 +55,10 @@ const form=document.querySelector('#login'),message=document.querySelector('#mes
   function consentPage(clientName, requested, requestId, redirectUri) {
     const read = requested.includes('atlas:read'), write = requested.includes('atlas:write'), offline = requested.includes('offline_access');
     const callbackHost = new URL(redirectUri).host;
-    return html(htmlShell(`<h1>Collega ${esc(clientName)}</h1><p>Concedi a questa IA l’accesso al tuo spazio personale di Master Atlas. Le credenziali restano sul sito.</p><p class="fine">L’app riceverà il token all’indirizzo verificato <strong>${esc(callbackHost)}</strong>.</p><form method="post" action="/oauth/consent"><input type="hidden" name="request_id" value="${esc(requestId)}"><div class="permissions"><strong>Permessi richiesti</strong>
+    return html(htmlShell(`<h1>Collega ${esc(clientName)}</h1><p>Concedi a questa IA l’accesso al tuo spazio personale di Master Atlas. Le credenziali restano sul sito.</p><p class="fine">L’app riceverà il token all’indirizzo verificato <strong>${esc(callbackHost)}</strong>.</p><form id="consent-form" method="post" action="/oauth/consent"><input type="hidden" name="request_id" value="${esc(requestId)}"><div class="permissions"><strong>Permessi richiesti</strong>
 ${read ? `<label><input type="checkbox" name="read" value="1" checked required><span>Leggere il mio atlante<small>Preferenze, percorsi salvati e candidature.</small></span></label>` : ''}
 ${write ? `<label><input type="checkbox" name="write" value="1" checked><span>Modificare il mio atlante<small>Aggiungere percorsi, aggiornare shortlist, note e stati.</small></span></label>` : ''}
-${offline ? `<label><input type="checkbox" name="offline" value="1" checked><span>Mantenere il collegamento<small>Puoi revocarlo dal profilo in qualsiasi momento.</small></span></label>` : ''}</div><div class="buttons"><button name="decision" value="deny">Annulla</button><button class="primary" name="decision" value="approve">Consenti</button></div></form><p class="fine">L’IA vede soltanto questo profilo. Non può leggere i dati degli altri utenti.</p>`));
+${offline ? `<label><input type="checkbox" name="offline" value="1" checked><span>Mantenere il collegamento<small>Puoi revocarlo dal profilo in qualsiasi momento.</small></span></label>` : ''}</div><div class="buttons"><button name="decision" value="deny">Annulla</button><button class="primary" name="decision" value="approve">Consenti</button></div></form><p class="fine">L’IA vede soltanto questo profilo. Non può leggere i dati degli altri utenti.</p><script>const consentForm=document.querySelector('#consent-form');consentForm.addEventListener('submit',event=>{if(consentForm.dataset.submitting==='true'){event.preventDefault();return}consentForm.dataset.submitting='true';consentForm.querySelectorAll('button').forEach(button=>{button.disabled=true});if(event.submitter?.value==='approve')event.submitter.textContent='Collegamento in corso…'});</script>`));
   }
   function metadata(origin) {
     return {
@@ -119,7 +119,11 @@ ${offline ? `<label><input type="checkbox" name="offline" value="1" checked><spa
     const owner = await accountAuth.resolveOwner(request, env); if (!owner) return json({error: 'Accedi di nuovo al tuo profilo.'}, 401);
     const requestId = form.get('request_id') || '', now = Date.now();
     const row = await env.DB.prepare('UPDATE atlas_mcp_authorization_requests SET consumed_at=? WHERE id=? AND owner=? AND consumed_at IS NULL AND expires_at>? RETURNING *').bind(now, requestId, owner, now).first();
-    if (!row) return errorPage('La richiesta è scaduta. Torna all’IA e ricollega il tuo account.');
+    if (!row) {
+      const previous = await env.DB.prepare('SELECT consumed_at FROM atlas_mcp_authorization_requests WHERE id=? AND owner=?').bind(requestId, owner).first();
+      if (previous?.consumed_at) return errorPage('Questo consenso è già stato inviato. Torna all’IA per completare il collegamento; se l’errore continua, avvia una nuova connessione dall’app.');
+      return errorPage('La richiesta di collegamento non è più valida. Torna all’IA e avvia di nuovo il collegamento.');
+    }
     const requested = parseScopes(row.scopes), granted = [];
     if (requested.includes('atlas:read') && form.get('read') === '1') granted.push('atlas:read');
     if (requested.includes('atlas:write') && form.get('write') === '1') granted.push('atlas:write');

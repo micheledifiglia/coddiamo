@@ -48,11 +48,13 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   const query=new URLSearchParams({response_type:'code',client_id:client.client_id,redirect_uri:'https://ai.example/callback',state:'stato-casuale',code_challenge:challenge,code_challenge_method:'S256',scope:'atlas:read atlas:write offline_access',resource:'https://atlas.test/api/atlas-mcp'});
   const authorization=await handle(request('/oauth/authorize?'+query,{cookie:'session=alice'}),env);
   assert.equal(authorization.status,200);const page=await authorization.text();
-  assert.match(page,/ai\.example/);assert.match(page,/Modificare il mio atlante/);
+  assert.match(page,/ai\.example/);assert.match(page,/Modificare il mio atlante/);assert.match(page,/consent-form/);assert.match(page,/dataset\.submitting/);
   const requestId=page.match(/name="request_id" value="([^"]+)"/)?.[1];assert.ok(requestId);
   const form=new URLSearchParams({request_id:requestId,read:'1',write:'1',offline:'1',decision:'approve'});
   const consent=await handle(request('/oauth/consent',{method:'POST',cookie:'session=alice',contentType:'application/x-www-form-urlencoded',body:form.toString()}),env);
   assert.equal(consent.status,303);const consentTarget=new URL(consent.headers.get('location'));const authorizationCode=consentTarget.searchParams.get('code');assert.ok(authorizationCode);assert.equal(consentTarget.searchParams.get('iss'),'https://atlas.test');
+  const duplicateConsent=await handle(request('/oauth/consent',{method:'POST',cookie:'session=alice',contentType:'application/x-www-form-urlencoded',body:form.toString()}),env);
+  assert.equal(duplicateConsent.status,400);assert.match(await duplicateConsent.text(),/Questo consenso è già stato inviato/);
   const tokenForm=new URLSearchParams({grant_type:'authorization_code',client_id:client.client_id,code:authorizationCode,redirect_uri:'https://ai.example/callback',code_verifier:verifier,resource:'https://atlas.test/api/atlas-mcp'});
   const tokenResponse=await handle(request('/oauth/token',{method:'POST',contentType:'application/x-www-form-urlencoded',body:tokenForm.toString()}),env);
   assert.equal(tokenResponse.status,200);const tokens=await tokenResponse.json();assert.ok(tokens.refresh_token);assert.equal(tokens.token_type,'Bearer');
