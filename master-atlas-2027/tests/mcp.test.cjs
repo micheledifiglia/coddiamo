@@ -47,11 +47,27 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   assert.equal(registered.status,201);const client=await registered.json();
   const {verifier,challenge}=await pkce();
   const query=new URLSearchParams({response_type:'code',client_id:client.client_id,redirect_uri:'https://ai.example/callback',state:'stato-casuale',code_challenge:challenge,code_challenge_method:'S256',scope:'atlas:read atlas:write offline_access',resource:'https://atlas.test/api/atlas-mcp'});
+  const loginResponse=await handle(request('/oauth/authorize?'+query),env),loginHtml=await loginResponse.text();
+  assert.equal(loginResponse.status,200);assert.match(loginHtml,/Accedi per collegare l’IA/);assert.match(loginHtml,/Usa una passkey/,'il login OAuth deve permettere password o passkey');
+  assert.doesNotThrow(()=>new vm.Script(loginHtml.match(/<script>([\s\S]*?)<\/script>/)[1]),'lo script della pagina di accesso deve essere valido');
   const authorization=await handle(request('/oauth/authorize?'+query,{cookie:'session=alice'}),env);
-  assert.equal(authorization.status,200);const page=await authorization.text();
-  assert.match(page,/ai\.example/);assert.match(page,/Modificare il mio atlante/);assert.match(page,/consent-form/);assert.match(page,/dataset\.submitting/);assert.match(page,/target="_top"/,'il callback OAuth deve raggiungere la finestra principale del client');
-  assert.match(authorization.headers.get('content-security-policy'),/form-action 'self' https:\/\/ai\.example;/,'la policy deve consentire solo l’origine callback già verificata');
-  assert.doesNotMatch(authorization.headers.get('content-security-policy'),/form-action[^;]*\*/,'la policy non deve aprire il redirect verso origini arbitrarie');
+  assert.equal(authorization.status,200);const profileHtml=await authorization.text();
+  assert.match(profileHtml,/Verifica il profilo/);assert.match(profileHtml,/alice/);assert.match(profileHtml,/Accedi con un altro profilo/);assert.doesNotMatch(profileHtml,/consent-form/,'i permessi non devono apparire prima della verifica del profilo');
+  const profileScript=profileHtml.match(/<script>([\s\S]*?)<\/script>/)[1];assert.doesNotThrow(()=>new vm.Script(profileScript),'lo script per cambiare profilo deve essere valido');
+  let switchHandler,loginHandler,profileReloaded=false,loginPayload;const switchPanel={hidden:true},message={textContent:''},submitButton={disabled:false};
+  const switchForm={username:{value:'prova',focus(){}},password:{value:'password-di-prova'},addEventListener(type,handler){assert.equal(type,'submit');loginHandler=handler},querySelector(){return submitButton}};
+  const fakeDocument={querySelector(selector){if(selector==='#login')return switchForm;if(selector==='#message')return message;if(selector==='#switch-profile')return{addEventListener(type,handler){assert.equal(type,'click');switchHandler=handler}};if(selector==='#switch-panel')return switchPanel;if(selector==='#login-passkey')return{addEventListener(){}};return null}};
+  vm.runInNewContext(profileScript,{document:fakeDocument,location:{reload(){profileReloaded=true}},fetch:async(path,options)=>{loginPayload={path,body:JSON.parse(options.body)};return{ok:true,json:async()=>({user:{username:'prova'}})}}});
+  switchHandler();assert.equal(switchPanel.hidden,false,'il cambio account deve mostrare i controlli di accesso');await loginHandler({preventDefault(){}});
+  assert.equal(loginPayload.path,'/api/auth/password/login');assert.equal(loginPayload.body.username,'prova');assert.equal(profileReloaded,true,'dopo il login del profilo scelto la pagina OAuth deve ricaricarsi e rivalidare l’account');
+  const requestId=profileHtml.match(/name="request_id" value="([^"]+)"/)?.[1];assert.ok(requestId);
+  const wrongProfile=await handle(request('/oauth/confirm',{method:'POST',cookie:'session=bob',contentType:'application/x-www-form-urlencoded',body:new URLSearchParams({request_id:requestId}).toString()}),env);
+  assert.equal(wrongProfile.status,400);assert.match(await wrongProfile.text(),/profilo attivo non corrisponde/,'un altro profilo non può confermare la richiesta');
+  const confirmed=await handle(request('/oauth/confirm',{method:'POST',cookie:'session=alice',contentType:'application/x-www-form-urlencoded',body:new URLSearchParams({request_id:requestId}).toString()}),env);
+  assert.equal(confirmed.status,200);const page=await confirmed.text();
+  assert.match(page,/Profilo Master Atlas: <strong>alice<\/strong>/);assert.match(page,/ai\.example/);assert.match(page,/Modificare il mio atlante/);assert.match(page,/consent-form/);assert.match(page,/dataset\.submitting/);assert.match(page,/target="_top"/,'il callback OAuth deve raggiungere la finestra principale del client');
+  assert.match(confirmed.headers.get('content-security-policy'),/form-action 'self' https:\/\/ai\.example;/,'la policy della schermata permessi deve consentire solo l’origine callback già verificata');
+  assert.doesNotMatch(confirmed.headers.get('content-security-policy'),/form-action[^;]*\*/,'la policy non deve aprire il redirect verso origini arbitrarie');
   let submitHandler,restartHandler,recovery,reloaded=false;const deny={value:'deny',disabled:false,style:{},setAttribute(){},removeAttribute(){}};const approve={value:'approve',disabled:false,style:{},textContent:'Consenti',setAttribute(){},removeAttribute(){}};const buttons=[deny,approve],status={textContent:''},restart={hidden:true,addEventListener(type,handler){assert.equal(type,'click');restartHandler=handler}};
   const consentForm={dataset:{},isConnected:true,addEventListener(type,handler){assert.equal(type,'submit');submitHandler=handler},querySelectorAll(){return buttons}};
   const document={querySelector(selector){return selector==='#consent-form'?consentForm:selector==='#consent-status'?status:restart}};
@@ -60,7 +76,6 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   assert.equal(approve.disabled,false,'il pulsante approvato deve restare nel modulo inviato');assert.equal(deny.disabled,true);assert.equal(approve.style.pointerEvents,'none');assert.match(status.textContent,/riportando all’assistente/);
   submitHandler({submitter:approve,preventDefault(){duplicateBlocked=true}});assert.equal(duplicateBlocked,true,'un secondo invio deve essere fermato');
   recovery();assert.equal(approve.disabled,false);assert.equal(deny.disabled,false);assert.equal(restart.hidden,false);assert.match(status.textContent,/ritorno all’assistente non è riuscito/,'se il client non torna, la pagina deve offrire un recupero visibile');restartHandler();assert.equal(reloaded,true);
-  const requestId=page.match(/name="request_id" value="([^"]+)"/)?.[1];assert.ok(requestId);
   const form=new URLSearchParams({request_id:requestId,read:'1',write:'1',offline:'1',decision:'approve'});
   const consent=await handle(request('/oauth/consent',{method:'POST',cookie:'session=alice',contentType:'application/x-www-form-urlencoded',body:form.toString()}),env);
   assert.equal(consent.status,303);const consentTarget=new URL(consent.headers.get('location'));const authorizationCode=consentTarget.searchParams.get('code');assert.ok(authorizationCode);assert.equal(consentTarget.origin,'https://ai.example');assert.equal(consentTarget.pathname,'/callback');assert.equal(consentTarget.searchParams.get('state'),'stato-casuale');assert.equal(consentTarget.searchParams.get('iss'),oauthMetadata.issuer);assert.equal(consentTarget.searchParams.get('error'),null);
@@ -97,9 +112,36 @@ test('OAuth MCP: PKCE, consenso, modifica atomica per account, isolamento e revo
   assert.equal(denied.status,401);
 
   const secondPkce=await pkce(),secondQuery=new URLSearchParams({response_type:'code',client_id:client.client_id,redirect_uri:'https://ai.example/callback',state:'stato-annullato',code_challenge:secondPkce.challenge,code_challenge_method:'S256',scope:'atlas:read atlas:write',resource:'https://atlas.test/api/atlas-mcp'});
-  const secondAuthorization=await handle(request('/oauth/authorize?'+secondQuery,{cookie:'session=alice'}),env),secondPage=await secondAuthorization.text(),secondRequestId=secondPage.match(/name="request_id" value="([^"]+)"/)?.[1];assert.ok(secondRequestId);
+  const secondAuthorization=await handle(request('/oauth/authorize?'+secondQuery,{cookie:'session=alice'}),env),secondProfilePage=await secondAuthorization.text(),secondRequestId=secondProfilePage.match(/name="request_id" value="([^"]+)"/)?.[1];assert.ok(secondRequestId);assert.match(secondProfilePage,/Verifica il profilo/);
+  const secondConfirmation=await handle(request('/oauth/confirm',{method:'POST',cookie:'session=alice',contentType:'application/x-www-form-urlencoded',body:new URLSearchParams({request_id:secondRequestId}).toString()}),env);assert.equal(secondConfirmation.status,200);
   const cancellation=await handle(request('/oauth/consent',{method:'POST',cookie:'session=alice',contentType:'application/x-www-form-urlencoded',body:new URLSearchParams({request_id:secondRequestId,decision:'deny'}).toString()}),env);
   assert.equal(cancellation.status,303);const deniedTarget=new URL(cancellation.headers.get('location'));assert.equal(deniedTarget.searchParams.get('error'),'access_denied');assert.equal(deniedTarget.searchParams.get('state'),'stato-annullato');assert.equal(deniedTarget.searchParams.get('iss'),oauthMetadata.issuer);assert.equal(deniedTarget.searchParams.get('code'),null);
+  db.close();
+});
+
+test('MCP OAuth mostra e vincola il profilo scelto prima del consenso',async()=>{
+  const{db,env}=database(),alice='alice-owner',bob='bob-owner';
+  db.prepare('INSERT INTO atlas_accounts(id,username,created_at) VALUES(?,?,?)').run(alice,'alice','2026-01-01');
+  db.prepare('INSERT INTO atlas_accounts(id,username,created_at) VALUES(?,?,?)').run(bob,'prova','2026-01-01');
+  const auth={async resolveOwner(req){const cookie=req.headers.get('cookie')||'';return cookie.includes('session=alice')?alice:cookie.includes('session=bob')?bob:null}};
+  const handle=createHandler({},catalog,Core,auth,createMcpHandler(auth,Core,catalog));
+  const registered=await handle(request('/oauth/register',{method:'POST',body:{client_name:'ChatGPT',redirect_uris:['https://ai.example/callback']}}),env),client=await registered.json();
+  const {verifier,challenge}=await pkce(),query=new URLSearchParams({response_type:'code',client_id:client.client_id,redirect_uri:'https://ai.example/callback',state:'stato-prova',code_challenge:challenge,code_challenge_method:'S256',scope:'atlas:read',resource:'https://atlas.test/api/atlas-mcp'});
+  const alicePage=await handle(request('/oauth/authorize?'+query,{cookie:'session=alice'}),env),aliceHtml=await alicePage.text();
+  assert.match(aliceHtml,/alice/);assert.match(aliceHtml,/Continua come alice/);
+  const bobPage=await handle(request('/oauth/authorize?'+query,{cookie:'session=bob'}),env),bobHtml=await bobPage.text();
+  assert.match(bobHtml,/prova/);assert.match(bobHtml,/Continua come prova/);
+  const bobRequestId=bobHtml.match(/name="request_id" value="([^"]+)"/)?.[1];assert.ok(bobRequestId);
+  const crossAccount=await handle(request('/oauth/confirm',{method:'POST',cookie:'session=alice',contentType:'application/x-www-form-urlencoded',body:new URLSearchParams({request_id:bobRequestId}).toString()}),env);
+  assert.equal(crossAccount.status,400);assert.match(await crossAccount.text(),/profilo attivo non corrisponde/);
+  const confirmation=await handle(request('/oauth/confirm',{method:'POST',cookie:'session=bob',contentType:'application/x-www-form-urlencoded',body:new URLSearchParams({request_id:bobRequestId}).toString()}),env);
+  assert.equal(confirmation.status,200);assert.match(await confirmation.text(),/consent-form/);
+  const approved=await handle(request('/oauth/consent',{method:'POST',cookie:'session=bob',contentType:'application/x-www-form-urlencoded',body:new URLSearchParams({request_id:bobRequestId,read:'1',decision:'approve'}).toString()}),env);
+  assert.equal(approved.status,303);const code=new URL(approved.headers.get('location')).searchParams.get('code');assert.ok(code);
+  const token=await handle(request('/oauth/token',{method:'POST',contentType:'application/x-www-form-urlencoded',body:new URLSearchParams({grant_type:'authorization_code',client_id:client.client_id,code,redirect_uri:'https://ai.example/callback',code_verifier:verifier,resource:'https://atlas.test/api/atlas-mcp'}).toString()}),env);
+  assert.equal(token.status,200);await token.json();
+  assert.equal(db.prepare('SELECT COUNT(*) n FROM atlas_mcp_tokens WHERE owner=?').get(alice).n,0);
+  assert.equal(db.prepare('SELECT COUNT(*) n FROM atlas_mcp_tokens WHERE owner=?').get(bob).n,1,'la connessione del profilo di prova deve produrre un token solo per quel profilo');
   db.close();
 });
 
