@@ -249,6 +249,15 @@ test('Migrazione catalogo: i profili esistenti partono vuoti conservando i dati 
   const newer=Core.normalize({catalogVersion:1,catalogPrograms:{[program]:{included:true,updatedAt:30}},catalogUniversities:{[university]:{included:true,updatedAt:30}}},catalog);
   const merged=Core.merge(old,newer);assert.equal(merged.catalogPrograms[program].included,true);assert.equal(merged.catalogUniversities[university].included,true);
 });
+test('Preferiti e candidature precedenti restano consultabili fuori dal catalogo personale',()=>{
+  const program=catalog.programs[0],main={innerHTML:''},el={open:false,addEventListener(){}};
+  const sandbox={fixture:JSON.parse(JSON.stringify(catalog)),AtlasCore:Core,main,document:{querySelector(selector){return selector==='#main'?main:el},querySelectorAll(){return []},addEventListener(){}},window:{addEventListener(){},scrollTo(){}},location:{hash:'#favorites'},fetch:()=>new Promise(()=>{}),setTimeout,clearTimeout};
+  vm.createContext(sandbox);
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8')+`;D=fixture;basePrograms=D.programs.slice();baseUniversities=D.universities.slice();D.programs=[];D.universities=[];state=AtlasCore.normalize({favorites:[${JSON.stringify(program.id)}],records:{[${JSON.stringify(program.id)}]:{stage:'In preparazione',notes:'Nota conservata'}}},{programs:basePrograms,universities:baseUniversities,legacyIds:D.legacyIds});view='favorites';globalThis.previousFavorites=filtered().map(p=>p.id);globalThis.previousCard=card(find(${JSON.stringify(program.id)}));view='applications';applications();globalThis.previousApplication=main.innerHTML;`,sandbox);
+  assert.deepEqual(Array.from(sandbox.previousFavorites),[program.id]);
+  assert.match(sandbox.previousCard,/PRECEDENTE/);assert.match(sandbox.previousCard,/data-toggle-catalog-program/);
+  assert.match(sandbox.previousApplication,new RegExp(program.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));assert.match(sandbox.previousApplication,/In preparazione/);
+});
 test('Importazione: conflitti visibili e note attuali preservate per default',()=>{
   const a=Core.normalize({records:{[first]:{notes:'Nuova',updatedAt:20}}},catalog);
   const b=Core.normalize({records:{[first]:{notes:'Vecchia',updatedAt:10},[second]:{notes:'Da importare'}}},catalog);
