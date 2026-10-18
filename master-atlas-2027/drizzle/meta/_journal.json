@@ -36,6 +36,13 @@
       "when": 1792259904363,
       "tag": "0004_username_password_passkeys",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1792287174556,
+      "tag": "0005_wakeful_ulik",
+      "breakpoints": true
     }
   ]
 }

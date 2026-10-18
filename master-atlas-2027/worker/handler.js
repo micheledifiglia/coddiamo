@@ -1,8 +1,12 @@
 /* API authorization uses the identity supplied by Sites' authenticated dispatch. */
-function createHandler(assets, catalog, Core, accountAuth = null) {
+function createHandler(assets, catalog, Core, accountAuth = null, mcp = null) {
   const json = (value, status = 200) => new Response(JSON.stringify(value), {status, headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store','x-content-type-options':'nosniff'}});
   return async function handle(request, env) {
     const url = new URL(request.url);
+    if (mcp) {
+      const response = await mcp.handle(request,env);
+      if (response) return response;
+    }
     if (accountAuth && url.pathname.startsWith('/api/auth/')) return accountAuth.handle(request,env);
     if (!url.pathname.startsWith('/api/')) {
       if (!['GET','HEAD'].includes(request.method)) return new Response('Method not allowed',{status:405});

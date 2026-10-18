@@ -54,7 +54,7 @@ class AtlasStore {
     clearTimeout(this.timer);this.timer=setTimeout(()=>this.sync(),600);
     return local;
   }
-  async start() {if(!this.cloudSync){this.onStatus('Dati personali su questo browser');return;}await this.sync();this.interval=setInterval(()=>this.sync(),20000);}
+  async start() {if(!this.cloudSync){this.onStatus('Dati personali su questo browser');return;}await this.sync();this.interval=setInterval(()=>{if(!document.hidden)this.sync()},10000);window.addEventListener('focus',()=>this.sync());document.addEventListener('visibilitychange',()=>{if(!document.hidden)this.sync()});}
   async sync() {
     if(!this.cloudSync)return;
     if(this.busy)return;

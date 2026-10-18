@@ -63,3 +63,47 @@ export const authRateLimits = sqliteTable('atlas_auth_rate_limits', {
   windowStart: integer('window_start').notNull(),
   attempts: integer('attempts').notNull().default(0)
 });
+
+export const mcpClients = sqliteTable('atlas_mcp_clients', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull(),
+  redirectUris: text('redirect_uris').notNull(),
+  createdAt: text('created_at').notNull()
+});
+
+export const mcpAuthorizationRequests = sqliteTable('atlas_mcp_authorization_requests', {
+  id: text('id').primaryKey(),
+  owner: text('owner').notNull().references(() => accounts.id, {onDelete:'cascade'}),
+  clientId: text('client_id').notNull().references(() => mcpClients.id, {onDelete:'cascade'}),
+  redirectUri: text('redirect_uri').notNull(),
+  responseState: text('response_state').notNull(),
+  codeChallenge: text('code_challenge').notNull(),
+  scopes: text('scopes').notNull(),
+  resource: text('resource').notNull(),
+  expiresAt: integer('expires_at').notNull(),
+  consumedAt: integer('consumed_at')
+}, table => [index('atlas_mcp_auth_requests_owner_idx').on(table.owner)]);
+
+export const mcpAuthorizationCodes = sqliteTable('atlas_mcp_authorization_codes', {
+  codeHash: text('code_hash').primaryKey(),
+  owner: text('owner').notNull().references(() => accounts.id, {onDelete:'cascade'}),
+  clientId: text('client_id').notNull().references(() => mcpClients.id, {onDelete:'cascade'}),
+  redirectUri: text('redirect_uri').notNull(),
+  responseState: text('response_state').notNull(),
+  codeChallenge: text('code_challenge').notNull(),
+  scopes: text('scopes').notNull(),
+  resource: text('resource').notNull(),
+  expiresAt: integer('expires_at').notNull(),
+  consumedAt: integer('consumed_at')
+}, table => [index('atlas_mcp_auth_codes_owner_idx').on(table.owner)]);
+
+export const mcpTokens = sqliteTable('atlas_mcp_tokens', {
+  tokenHash: text('token_hash').primaryKey(),
+  owner: text('owner').notNull().references(() => accounts.id, {onDelete:'cascade'}),
+  clientId: text('client_id').notNull().references(() => mcpClients.id, {onDelete:'cascade'}),
+  tokenType: text('token_type').notNull(),
+  scopes: text('scopes').notNull(),
+  resource: text('resource').notNull(),
+  createdAt: integer('created_at').notNull(),
+  expiresAt: integer('expires_at').notNull()
+}, table => [index('atlas_mcp_tokens_owner_idx').on(table.owner), index('atlas_mcp_tokens_client_idx').on(table.clientId)]);

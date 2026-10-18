@@ -304,6 +304,9 @@ export function createPasskeyAuth(webauthn) {
           env.DB.prepare('DELETE FROM atlas_sessions WHERE owner=?').bind(user.id),
           env.DB.prepare('DELETE FROM atlas_passkeys WHERE owner=?').bind(user.id),
           env.DB.prepare('DELETE FROM atlas_auth_challenges WHERE owner=?').bind(user.id),
+          env.DB.prepare('DELETE FROM atlas_mcp_tokens WHERE owner=?').bind(user.id),
+          env.DB.prepare('DELETE FROM atlas_mcp_authorization_codes WHERE owner=?').bind(user.id),
+          env.DB.prepare('DELETE FROM atlas_mcp_authorization_requests WHERE owner=?').bind(user.id),
           env.DB.prepare('DELETE FROM atlas_accounts WHERE id=?').bind(user.id)
         ]);}catch{return json({error:'Non è stato possibile eliminare il profilo. Riprova.'},503);}
         return json({ok:true},200,{'set-cookie':clearCookie(SESSION_COOKIE)});

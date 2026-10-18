@@ -188,7 +188,7 @@ test('Profilo: eliminazione richiede la password e cancella solo i dati dell’a
   const deleted=await handle(request('/api/auth/profile/delete','POST',{confirm:'ELIMINA',password:'correct horse battery staple'},alice.cookie),env);
   assert.equal(deleted.status,200);
   assert.match(deleted.headers.get('set-cookie'),/Max-Age=0/);
-  for(const table of ['atlas_accounts','atlas_states','atlas_history','atlas_sessions','atlas_passkeys','atlas_auth_challenges']){
+  for(const table of ['atlas_accounts','atlas_states','atlas_history','atlas_sessions','atlas_passkeys','atlas_auth_challenges','atlas_mcp_tokens','atlas_mcp_authorization_codes','atlas_mcp_authorization_requests']){
     const column=table==='atlas_accounts'?'id':'owner';
     assert.equal(db.prepare(`SELECT COUNT(*) AS n FROM ${table} WHERE ${column}=?`).get(aliceId).n,0,table);
   }
