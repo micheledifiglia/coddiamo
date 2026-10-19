@@ -38,6 +38,23 @@ test('Le icone dell’interfaccia usano SVG coerenti su iOS e desktop',()=>{
   assert.match(css,/\.header-actions-glass \.theme-glyph\{display:none;width:22px;height:22px/);
   assert.match(css,/:root\[data-theme="dark"\].*\.theme-icon-sun,:root\[data-theme="light"\].*\.theme-icon-moon\{display:block\}/);
 });
+test('Il pulsante di accesso mantiene il contrasto WCAG AA sui due estremi del gradiente',()=>{
+  const css=fs.readFileSync(path.join(__dirname,'../dist/auth.css'),'utf8');
+  const gradient=css.match(/\.auth-actions \.button\.primary\{[^}]*background:linear-gradient\(135deg,(#[0-9a-f]{6}),(#[0-9a-f]{6})\)/i);
+  assert.ok(gradient,'gradiente principale del pulsante di accesso presente');
+  const luminance=hex=>{const channels=[1,3,5].map(index=>parseInt(hex.slice(index,index+2),16)/255).map(value=>value<=.04045?value/12.92:((value+.055)/1.055)**2.4);return .2126*channels[0]+.7152*channels[1]+.0722*channels[2]};
+  for(const background of gradient.slice(1))assert.ok(1.05/(luminance(background)+.05)>=4.5,`bianco su ${background} deve raggiungere almeno 4,5:1`);
+});
+test('Le etichette secondarie rispettano il contrasto minimo in modalità chiara e scura',()=>{
+  const css=fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8');
+  const luminance=hex=>{const channels=[1,3,5].map(index=>parseInt(hex.slice(index,index+2),16)/255).map(value=>value<=.04045?value/12.92:((value+.055)/1.055)**2.4);return .2126*channels[0]+.7152*channels[1]+.0722*channels[2]};
+  const contrast=(foreground,background)=>{const a=luminance(foreground),b=luminance(background);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)};
+  assert.match(css,/:root\{--muted:#5d697a\}/);
+  assert.ok(contrast('#5d697a','#eef3f9')>=4.5,'testo secondario su fondo chiaro');
+  assert.ok(contrast('#5d697a','#fbfcff')>=4.5,'testo secondario su scheda chiara');
+  assert.ok(contrast('#a6b3c5','#0c1422')>=4.5,'testo secondario su fondo scuro');
+  assert.ok(contrast('#596779','#eef2f8')>=4.5,'etichette dei badge su fondo grigio');
+});
 test('La lingua si cambia dal profilo e resta salvata tra le sessioni',()=>{
   const html=fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8');
   const i18n=fs.readFileSync(path.join(__dirname,'../dist/i18n.js'),'utf8');
@@ -52,10 +69,12 @@ test('La lingua si cambia dal profilo e resta salvata tra le sessioni',()=>{
   assert.match(i18n,/new MutationObserver/,'anche le schermate renderizzate in seguito vengono tradotte');
   assert.match(i18n,/Claude: add the connector on the web, then use it on iOS or Android/,'le istruzioni MCP spiegano il flusso mobile in inglese');
   assert.match(workerBuild,/['"]i18n\.js['"]:\s*['"]text\/javascript; charset=utf-8['"]/,'il Worker pubblica anche lo script delle traduzioni');
-  assert.match(sw,/master-atlas-shell-v11/,'la shell aggiorna la cache dopo la correzione del Worker');
+  assert.match(sw,/master-atlas-shell-v12/,'la shell aggiorna la cache dopo la correzione del Worker');
   assert.match(css,/\.profile-language select\{[\s\S]*border-radius:11px/);
   assert.match(css,/:root\[data-theme="dark"\] \.profile-language select/);
   assert.match(app,/option value="\$\{esc\(s\)\}" \$\{r\.stage===s\?'selected':''\}/,'le traduzioni delle candidature non alterano il valore salvato');
+  assert.match(html,/<option value="Europa">Europa<\/option><option value="Extra-Europa">Extra-Europa<\/option>/,'le opzioni geografiche mantengono valori stabili quando cambia la lingua');
+  assert.match(app,/map\(t=>`<option value="\$\{esc\(t\)\}" \$\{kind===t\?'selected':''\}>\$\{esc\(t\)\}<\/option>`\)/,'il filtro per tipologia conserva il valore originale indipendentemente dall’etichetta tradotta');
   const saved=new Map();const sandbox={localStorage:{getItem:key=>saved.get(key)||null,setItem:(key,value)=>saved.set(key,value)}};sandbox.globalThis=sandbox;
   vm.runInNewContext(i18n,sandbox);
   for(const [locale,expected] of [['en','Overview'],['es','Resumen'],['fr','Vue d’ensemble'],['de','Übersicht']]){
@@ -100,14 +119,14 @@ test('L’accesso offre password e passkey senza pulsanti di provider esterni',(
   assert.match(html,/id="account-add-passkey"/);
   assert.doesNotMatch(`${html}\n${auth}`,/Continua con Google|Continua con Apple|accounts\.google\.com|appleid\.apple\.com/);
   assert.ok(html.indexOf('href="glass-ui.css"')<html.indexOf('href="auth.css"'),'lo stile di accesso prevale sulle regole generali liquid glass');
-  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/master-atlas-shell-v11/,'la cache PWA viene invalidata per caricare le lingue e il modulo IA');
+  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/master-atlas-shell-v12/,'la cache PWA viene invalidata per caricare le lingue e il modulo IA');
 });
 test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su telefono',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
   const css=fs.readFileSync(path.join(__dirname,'../dist/glass-ui.css'),'utf8');
   assert.match(app,/class="dashboard-grid" aria-label="Riepilogo del tuo atlante"/);
-  assert.match(app,/<article class="dashboard-card atlas-hero-card" aria-label="Atlante e panoramica"><div class="atlas-hero-globe">\$\{globeCard\(\)\}<\/div>[\s\S]*?<section class="distribution-card" aria-label="Panoramica del dossier">[\s\S]*?<\/section><\/article>/,'atlante e panoramica condividono una sola hero card');
-  assert.match(app,/class="distribution-donut"[\s\S]*data-region-tab="Europa"/);
+  assert.match(app,/<article class="dashboard-card atlas-hero-card" aria-label="Atlante e panoramica"><div class="atlas-hero-globe">\$\{globeCard\(\)\}<\/div>[\s\S]*?<section class="distribution-card" aria-label="Panoramica del tuo atlante">[\s\S]*?<\/section><\/article>/,'atlante e panoramica condividono una sola hero card');
+  assert.match(app,/class="distribution-donut \$\{europe\+extra[\s\S]*data-region-tab="Europa"/);
   assert.match(app,/class="stage-list"/);assert.match(app,/class="dashboard-card shortlist-card"/);
   assert.match(app,/function globeCard\(\)[\s\S]*globeCoordinates[\s\S]*data-globe-focus/);
   assert.match(app,/mapSamples:16000[\s\S]*mapBrightness:1\.8[\s\S]*mapBaseBrightness:0\.01/);
@@ -169,7 +188,7 @@ test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8'),/src="globe\.js" defer><\/script><script src="ai\.js" defer><\/script><script src="app\.js" defer/);
   const serviceWorker=fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8');
   assert.match(serviceWorker,/\/globe\.js/);
-  assert.match(serviceWorker,/master-atlas-shell-v11/);
+  assert.match(serviceWorker,/master-atlas-shell-v12/);
   assert.match(serviceWorker,/\/i18n\.js/);
 });
 

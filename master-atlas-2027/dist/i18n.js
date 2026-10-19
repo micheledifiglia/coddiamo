@@ -9,6 +9,170 @@
     de: { name: 'Deutsch', tag: 'de-DE' },
   };
   const rows = [
+    ['ATLANTE DEI MASTER', 'MASTER ATLAS', 'ATLAS DE MÁSTERES', 'ATLAS DES MASTERS', 'MASTER-ATLAS'],
+    ['SCIENZE DELLA VITA', 'LIFE SCIENCES', 'CIENCIAS DE LA VIDA', 'SCIENCES DE LA VIE', 'BIOWISSENSCHAFTEN'],
+    ['Creato dal tuo dossier · Aggiornato al 16 ottobre 2026', 'Based on your dossier · Updated 16 October 2026', 'Basado en tu dosier · Actualizado el 16 de octubre de 2026', 'Fondé sur votre dossier · Mis à jour le 16 octobre 2026', 'Aus deinem Dossier · Aktualisiert am 16. Oktober 2026'],
+    ['Ricerca rapida', 'Quick search', 'Búsqueda rápida', 'Recherche rapide', 'Schnellsuche'],
+    ['naviga', 'navigate', 'navegar', 'naviguer', 'navigieren'],
+    ['Invio', 'Enter', 'Intro', 'Entrée', 'Eingabe'],
+    ['apri', 'open', 'abrir', 'ouvrir', 'öffnen'],
+    ['chiudi', 'close', 'cerrar', 'fermer', 'schließen'],
+    ['Copia indirizzo', 'Copy address', 'Copiar dirección', 'Copier l’adresse', 'Adresse kopieren'],
+    ['APP CHATGPT', 'CHATGPT APP', 'APP CHATGPT', 'APP CHATGPT', 'CHATGPT-APP'],
+    ['IL TUO CATALOGO, LE TUE SCELTE', 'YOUR CATALOGUE, YOUR CHOICES', 'TU CATÁLOGO, TUS DECISIONES', 'VOTRE CATALOGUE, VOS CHOIX', 'DEIN KATALOG, DEINE WAHL'],
+    ['Aggiungi o rimuovi percorsi', 'Add or remove programmes', 'Añadir o quitar programas', 'Ajouter ou retirer des formations', 'Studiengänge hinzufügen oder entfernen'],
+    ['Aggiungi o rimuovi università', 'Add or remove universities', 'Añadir o quitar universidades', 'Ajouter ou retirer des universités', 'Universitäten hinzufügen oder entfernen'],
+    ['Rimuovi il percorso?', 'Remove this programme?', '¿Quitar este programa?', 'Retirer cette formation ?', 'Diesen Studiengang entfernen?'],
+    ['Rimuovi l’università?', 'Remove this university?', '¿Quitar esta universidad?', 'Retirer cette université ?', 'Diese Universität entfernen?'],
+    ['Rimuovi percorso', 'Remove programme', 'Quitar programa', 'Retirer la formation', 'Studiengang entfernen'],
+    ['Rimuovi università', 'Remove university', 'Quitar universidad', 'Retirer l’université', 'Universität entfernen'],
+    ['Cerca nel catalogo principale', 'Search the main catalogue', 'Buscar en el catálogo principal', 'Rechercher dans le catalogue principal', 'Im Hauptkatalog suchen'],
+    ['Crea una voce personale', 'Create a personal entry', 'Crear una entrada personal', 'Créer une entrée personnelle', 'Eigenen Eintrag erstellen'],
+    ['Nome del percorso', 'Programme name', 'Nombre del programa', 'Nom de la formation', 'Name des Studiengangs'],
+    ['es. michele_bio', 'e.g. michele_bio', 'p. ej. michele_bio', 'p. ex. michele_bio', 'z. B. michele_bio'],
+    ['Città', 'City', 'Ciudad', 'Ville', 'Stadt'],
+    ['Paese', 'Country', 'País', 'Pays', 'Land'],
+    ['Area di studio', 'Field of study', 'Área de estudio', 'Domaine d’études', 'Fachgebiet'],
+    ['Titolo', 'Degree', 'Título', 'Diplôme', 'Abschluss'],
+    ['Area geografica', 'Geographic area', 'Zona geográfica', 'Zone géographique', 'Geografische Region'],
+    ['Link ufficiale (facoltativo)', 'Official link (optional)', 'Enlace oficial (opcional)', 'Lien officiel (facultatif)', 'Offizieller Link (optional)'],
+    ['Note (facoltative)', 'Notes (optional)', 'Notas (opcionales)', 'Notes (facultatives)', 'Notizen (optional)'],
+    ['Nome dell’università', 'University name', 'Nombre de la universidad', 'Nom de l’université', 'Name der Universität'],
+    ['Sito ufficiale (facoltativo)', 'Official website (optional)', 'Sitio oficial (opcional)', 'Site officiel (facultatif)', 'Offizielle Website (optional)'],
+    ['Percorsi o nota (facoltativi)', 'Programmes or note (optional)', 'Programas o nota (opcionales)', 'Formations ou note (facultatives)', 'Studiengänge oder Notiz (optional)'],
+    ['Aggiungi al mio catalogo', 'Add to my catalogue', 'Añadir a mi catálogo', 'Ajouter à mon catalogue', 'Zu meinem Katalog hinzufügen'],
+    ['IL TUO CATALOGO', 'YOUR CATALOGUE', 'TU CATÁLOGO', 'VOTRE CATALOGUE', 'DEIN KATALOG'],
+    ['Rimuovi dal tuo catalogo?', 'Remove from your catalogue?', '¿Quitar de tu catálogo ?', 'Retirer de votre catalogue ?', 'Aus deinem Katalog entfernen?'],
+    ['Rimuovi', 'Remove', 'Quitar', 'Retirer', 'Entfernen'],
+    ['Per esempio: mi interessano i master in neuroscienze, preferisco la ricerca sperimentale e voglio seguire solo le candidature in Italia e nel Regno Unito.', 'For example: I am interested in neuroscience, prefer experimental research, and want to track applications in Italy and the UK.', 'Por ejemplo: me interesan los másteres en neurociencia, prefiero la investigación experimental y quiero seguir solicitudes en Italia y Reino Unido.', 'Par exemple : je m’intéresse aux masters en neurosciences, préfère la recherche expérimentale et souhaite suivre mes candidatures en Italie et au Royaume-Uni.', 'Zum Beispiel: Ich interessiere mich für Neurowissenschaften, bevorzuge experimentelle Forschung und möchte Bewerbungen in Italien und Großbritannien verfolgen.'],
+    ['Indirizzo del connettore MCP', 'MCP connector address', 'Dirección del conector MCP', 'Adresse du connecteur MCP', 'Adresse des MCP-Konnektors'],
+    ['Nome, ateneo o città…', 'Name, university or city…', 'Nombre, universidad o ciudad…', 'Nom, université ou ville…', 'Name, Universität oder Stadt…'],
+    ['Aggiungi', 'Add', 'Añadir', 'Ajouter', 'Hinzufügen'],
+    ['Il pannello del catalogo non è disponibile. Ricarica la pagina e riprova.', 'The catalogue panel is unavailable. Reload the page and try again.', 'El panel del catálogo no está disponible. Recarga la página e inténtalo de nuevo.', 'Le panneau du catalogue est indisponible. Rechargez la page et réessayez.', 'Das Katalogfenster ist nicht verfügbar. Lade die Seite neu und versuche es erneut.'],
+    ['Non riesco ad aprire il catalogo. Ricarica la pagina e riprova.', 'I can’t open the catalogue. Reload the page and try again.', 'No puedo abrir el catálogo. Recarga la página e inténtalo de nuevo.', 'Impossible d’ouvrir le catalogue. Rechargez la page et réessayez.', 'Der Katalog lässt sich nicht öffnen. Lade die Seite neu und versuche es erneut.'],
+    ['Non riesco a trovare questa voce nel tuo catalogo.', 'I can’t find this entry in your catalogue.', 'No encuentro esta entrada en tu catálogo.', 'Cette entrée est introuvable dans votre catalogue.', 'Dieser Eintrag wurde in deinem Katalog nicht gefunden.'],
+    ['Non è stato possibile rimuovere il percorso.', 'The programme could not be removed.', 'No se pudo quitar el programa.', 'Impossible de retirer la formation.', 'Der Studiengang konnte nicht entfernt werden.'],
+    ['Percorso rimosso dal tuo catalogo', 'Programme removed from your catalogue', 'Programa eliminado de tu catálogo', 'Formation retirée de votre catalogue', 'Studiengang aus deinem Katalog entfernt'],
+    ['Università rimossa dal tuo catalogo', 'University removed from your catalogue', 'Universidad eliminada de tu catálogo', 'Université retirée de votre catalogue', 'Universität aus deinem Katalog entfernt'],
+    ['Percorso aggiunto al tuo catalogo', 'Programme added to your catalogue', 'Programa añadido a tu catálogo', 'Formation ajoutée à votre catalogue', 'Studiengang zu deinem Katalog hinzugefügt'],
+    ['Il link deve usare HTTPS', 'The link must use HTTPS', 'El enlace debe usar HTTPS', 'Le lien doit utiliser HTTPS', 'Der Link muss HTTPS verwenden'],
+    ['Inserisci il nome del percorso e l’università', 'Enter the programme and university names', 'Introduce el nombre del programa y de la universidad', 'Saisissez le nom de la formation et de l’université', 'Gib den Namen des Studiengangs und der Universität ein'],
+    ['Puoi salvare al massimo 100 percorsi personali', 'You can save up to 100 personal programmes', 'Puedes guardar hasta 100 programas personales', 'Vous pouvez enregistrer jusqu’à 100 formations personnelles', 'Du kannst bis zu 100 eigene Studiengänge speichern'],
+    ['Inserisci il nome dell’università', 'Enter the university name', 'Introduce el nombre de la universidad', 'Saisissez le nom de l’université', 'Gib den Namen der Universität ein'],
+    ['Questa università è già nel tuo catalogo', 'This university is already in your catalogue', 'Esta universidad ya está en tu catálogo', 'Cette université figure déjà dans votre catalogue', 'Diese Universität ist bereits in deinem Katalog'],
+    ['Percorso personale aggiunto', 'Personal programme added', 'Programa personal añadido', 'Formation personnelle ajoutée', 'Eigener Studiengang hinzugefügt'],
+    ['Università personale aggiunta', 'Personal university added', 'Universidad personal añadida', 'Université personnelle ajoutée', 'Eigene Universität hinzugefügt'],
+    ['Università aggiunta al tuo catalogo', 'University added to your catalogue', 'Universidad añadida a tu catálogo', 'Université ajoutée à votre catalogue', 'Universität zu deinem Katalog hinzugefügt'],
+    ['Modifica applicata, ma il salvataggio locale non è riuscito', 'Changes applied, but they could not be saved locally', 'Cambios aplicados, pero no se pudieron guardar localmente', 'Modifications appliquées, mais impossible de les enregistrer localement', 'Änderung angewendet, aber nicht lokal gespeichert'],
+    ['0 risultati nel catalogo principale', '0 results in the main catalogue', '0 resultados en el catálogo principal', '0 résultats dans le catalogue principal', '0 Ergebnisse im Hauptkatalog'],
+    ['0 risultati nel catalogo principale · mostrati i primi 60', '0 results in the main catalogue · showing the first 60', '0 resultados en el catálogo principal · se muestran los primeros 60', '0 résultats dans le catalogue principal · les 60 premiers sont affichés', '0 Ergebnisse im Hauptkatalog · die ersten 60 werden angezeigt'],
+    ['0 percorsi disponibili · mostra i primi 60 · cerca per nome, ateneo o città', '0 programmes available · showing the first 60 · search by name, university or city', '0 programas disponibles · se muestran los primeros 60 · busca por nombre, universidad o ciudad', '0 formations disponibles · les 60 premières sont affichées · recherchez par nom, université ou ville', '0 Studiengänge verfügbar · die ersten 60 werden angezeigt · suche nach Name, Universität oder Stadt'],
+    ['0 università disponibili · cerca per nome, area o percorso', '0 universities available · search by name, region or programme', '0 universidades disponibles · busca por nombre, zona o programa', '0 universités disponibles · recherchez par nom, région ou formation', '0 Universitäten verfügbar · suche nach Name, Region oder Studiengang'],
+    ['IL TUO SPAZIO', 'YOUR SPACE', 'TU ESPACIO', 'VOTRE ESPACE', 'DEIN BEREICH'],
+    ['0 DI 0 SELEZIONATE', '0 OF 0 SELECTED', '0 DE 0 SELECCIONADAS', '0 SUR 0 SÉLECTIONNÉES', '0 VON 0 AUSGEWÄHLT'],
+    ['Controlli del globo', 'Globe controls', 'Controles del globo', 'Commandes du globe', 'Globussteuerung'],
+    ['Riporta il nord in alto', 'Point north up', 'Orientar el norte arriba', 'Orienter le nord vers le haut', 'Norden nach oben ausrichten'],
+    ['Riduci zoom', 'Zoom out', 'Alejar', 'Dézoomer', 'Verkleinern'],
+    ['Ripristina visuale iniziale', 'Reset view', 'Restablecer vista', 'Réinitialiser la vue', 'Ansicht zurücksetzen'],
+    ['Aumenta zoom', 'Zoom in', 'Acercar', 'Zoomer', 'Vergrößern'],
+    ['Aggiungi percorsi ai preferiti per evidenziare gli atenei scelti.', 'Save programmes as favourites to highlight their universities.', 'Guarda programas como favoritos para destacar sus universidades.', 'Ajoutez des formations aux favoris pour mettre en évidence leurs universités.', 'Speichere Studiengänge als Favoriten, um ihre Universitäten hervorzuheben.'],
+    ['Panoramica del dossier', 'Dossier overview', 'Resumen del dosier', 'Vue d’ensemble du dossier', 'Dossierübersicht'],
+    ['Percorsi Europa', 'European programmes', 'Programas de Europa', 'Formations en Europe', 'Studiengänge in Europa'],
+    ['Percorsi extra-Europa', 'Programmes outside Europe', 'Programas fuera de Europa', 'Formations hors Europe', 'Studiengänge außerhalb Europas'],
+    ['Atenei Europa', 'European universities', 'Universidades de Europa', 'Universités en Europe', 'Universitäten in Europa'],
+    ['Atenei extra-Europa', 'Universities outside Europe', 'Universidades fuera de Europa', 'Universités hors Europe', 'Universitäten außerhalb Europas'],
+    ['La tua bussola.', 'Your compass.', 'Tu brújula.', 'Votre boussole.', 'Dein Kompass.'],
+    ['La tua direzione.', 'Your direction.', 'Tu dirección.', 'Votre direction.', 'Deine Richtung.'],
+    ['Descrivi all’IA cosa vuoi studiare: percorsi, università e candidature si adatteranno alle tue scelte.', 'Tell the AI what you want to study: programmes, universities and applications will follow your choices.', 'Cuéntale a la IA qué quieres estudiar: programas, universidades y solicitudes se adaptarán a tus elecciones.', 'Décrivez à l’IA ce que vous souhaitez étudier : formations, universités et candidatures suivront vos choix.', 'Beschreibe der KI, was du studieren möchtest: Studiengänge, Universitäten und Bewerbungen richten sich nach deiner Wahl.'],
+    ['Obiettivi', 'Goals', 'Objetivos', 'Objectifs', 'Ziele'],
+    ['Interessi', 'Interests', 'Intereses', 'Centres d’intérêt', 'Interessen'],
+    ['Apri candidature', 'Open applications', 'Abrir solicitudes', 'Ouvrir les candidatures', 'Bewerbungen öffnen'],
+    ['Organizza il tuo piano', 'Organize your plan', 'Organiza tu plan', 'Organisez votre plan', 'Plane organisieren'],
+    ['Apri il tuo piano', 'Open your plan', 'Abre tu plan', 'Ouvrez votre plan', 'Deinen Plan öffnen'],
+    ['Apri shortlist', 'Open shortlist', 'Abrir selección', 'Ouvrir la sélection', 'Auswahl öffnen'],
+    ['SCELTI PER TE', 'PICKED FOR YOU', 'ELEGIDOS PARA TI', 'CHOISIS POUR VOUS', 'FÜR DICH AUSGEWÄHLT'],
+    ['Esplora tutti i 27 atenei', 'Explore all 27 universities', 'Explorar las 27 universidades', 'Explorer les 27 universités', 'Alle 27 Universitäten entdecken'],
+    ['Nessun percorso nel tuo catalogo. Aggiungine uno dal catalogo principale.', 'No programmes in your catalogue yet. Add one from the main catalogue.', 'Todavía no hay programas en tu catálogo. Añade uno del catálogo principal.', 'Aucune formation dans votre catalogue. Ajoutez-en une depuis le catalogue principal.', 'Noch keine Studiengänge in deinem Katalog. Füge einen aus dem Hauptkatalog hinzu.'],
+    ['Esplora gli atenei del tuo atlante', 'Explore the universities in your atlas', 'Explora las universidades de tu atlas', 'Explorez les universités de votre atlas', 'Universitäten in deinem Atlas entdecken'],
+    ['Il tuo catalogo è vuoto. Aggiungi percorsi o università dal catalogo principale per iniziare.', 'Your catalogue is empty. Add programmes or universities from the main catalogue to get started.', 'Tu catálogo está vacío. Añade programas o universidades del catálogo principal para empezar.', 'Votre catalogue est vide. Ajoutez des formations ou des universités depuis le catalogue principal.', 'Dein Katalog ist leer. Füge Studiengänge oder Universitäten aus dem Hauptkatalog hinzu.'],
+    ['IL TUO ATLANTE', 'YOUR ATLAS', 'TU ATLAS', 'VOTRE ATLAS', 'DEIN ATLAS'],
+    ['percorsi', 'programmes', 'programas', 'formations', 'Studiengänge'],
+    ['nel tuo catalogo', 'in your catalogue', 'en tu catálogo', 'dans votre catalogue', 'in deinem Katalog'],
+    ['Aggiungi dal catalogo principale', 'Add from the main catalogue', 'Añadir del catálogo principal', 'Ajouter depuis le catalogue principal', 'Aus dem Hauptkatalog hinzufügen'],
+    ['Crea voce personale', 'Create a personal entry', 'Crear entrada personal', 'Créer une entrée personnelle', 'Eigenen Eintrag erstellen'],
+    ['Nessun percorso corrisponde alla ricerca.', 'No programmes match your search.', 'Ningún programa coincide con la búsqueda.', 'Aucune formation ne correspond à votre recherche.', 'Keine Studiengänge entsprechen deiner Suche.'],
+    ['Nessuna università corrisponde alla ricerca.', 'No universities match your search.', 'Ninguna universidad coincide con la búsqueda.', 'Aucune université ne correspond à votre recherche.', 'Keine Universitäten entsprechen deiner Suche.'],
+    ['Rimuovi dal mio catalogo', 'Remove from my catalogue', 'Quitar de mi catálogo', 'Retirer de mon catalogue', 'Aus meinem Katalog entfernen'],
+    ['Il tuo catalogo di università è vuoto.', 'Your university catalogue is empty.', 'Tu catálogo de universidades está vacío.', 'Votre catalogue d’universités est vide.', 'Dein Universitätskatalog ist leer.'],
+    ['Aggiungi gli atenei che ti interessano o crea una voce personale.', 'Add universities that interest you or create a personal entry.', 'Añade universidades que te interesen o crea una entrada personal.', 'Ajoutez les universités qui vous intéressent ou créez une entrée personnelle.', 'Füge interessante Universitäten hinzu oder erstelle einen eigenen Eintrag.'],
+    ['Aggiungi università dal catalogo', 'Add universities from the catalogue', 'Añadir universidades del catálogo', 'Ajouter des universités du catalogue', 'Universitäten aus dem Katalog hinzufügen'],
+    ['Crea università personale', 'Create a personal university', 'Crear universidad personal', 'Créer une université personnelle', 'Eigene Universität erstellen'],
+    ['Scegli un percorso', 'Choose a programme', 'Elige un programa', 'Choisissez une formation', 'Studiengang auswählen'],
+    ['Scarica dossier .md', 'Download dossier .md', 'Descargar dosier .md', 'Télécharger le dossier .md', 'Dossier .md herunterladen'],
+    ['Esporta backup JSON', 'Export JSON backup', 'Exportar copia JSON', 'Exporter la sauvegarde JSON', 'JSON-Backup exportieren'],
+    ['Importa backup JSON', 'Import JSON backup', 'Importar copia JSON', 'Importer la sauvegarde JSON', 'JSON-Backup importieren'],
+    ['Percorso aggiunto al tuo atlante. Verifica le informazioni e il sito ufficiale prima di candidarti.', 'Programme added to your atlas. Check the details and official website before applying.', 'Programa añadido a tu atlas. Comprueba la información y el sitio oficial antes de solicitar plaza.', 'Formation ajoutée à votre atlas. Vérifiez les informations et le site officiel avant de candidater.', 'Studiengang zum Atlas hinzugefügt. Prüfe die Angaben und die offizielle Website vor der Bewerbung.'],
+    ['Le posizioni sono separate per area geografica', 'Ranks are separate for each geographic area', 'Las posiciones se separan por zona geográfica', 'Les rangs sont séparés par zone géographique', 'Die Rangplätze sind nach geografischer Region getrennt'],
+    ['TROVA LA TUA DIREZIONE', 'FIND YOUR DIRECTION', 'ENCUENTRA TU CAMINO', 'TROUVEZ VOTRE VOIE', 'FINDE DEINEN WEG'],
+    ['Un mondo di possibilità.', 'A world of possibilities.', 'Un mundo de posibilidades.', 'Un monde de possibilités.', 'Eine Welt voller Möglichkeiten.'],
+    ['LE POSSIBILITÀ CHE CONTANO', 'THE OPTIONS THAT MATTER', 'LAS OPCIONES QUE IMPORTAN', 'LES OPTIONS QUI COMPTENT', 'DIE OPTIONEN, DIE ZÄHLEN'],
+    ['La mia selezione.', 'My shortlist.', 'Mi selección.', 'Ma sélection.', 'Meine Auswahl.'],
+    ['I tuoi percorsi preferiti, con note e candidature sempre a portata di mano.', 'Your favourite programmes, with notes and applications close at hand.', 'Tus programas favoritos, con notas y solicitudes siempre a mano.', 'Vos formations favorites, avec notes et candidatures à portée de main.', 'Deine bevorzugten Studiengänge mit Notizen und Bewerbungen auf einen Blick.'],
+    ['Filtra tipo', 'Filter type', 'Filtrar tipo', 'Filtrer le type', 'Typ filtern'],
+    ['Filtra condizioni', 'Filter requirements', 'Filtrar requisitos', 'Filtrer les conditions', 'Voraussetzungen filtern'],
+    ['Ordina risultati', 'Sort results', 'Ordenar resultados', 'Trier les résultats', 'Ergebnisse sortieren'],
+    ['Nessuna sigla', 'No code', 'Sin código', 'Aucun code', 'Kein Kürzel'],
+    ['DE · Tedesco', 'DE · German', 'DE · Alemán', 'DE · Allemand', 'DE · Deutsch'],
+    ['L · Lingua da verificare', 'L · Language to check', 'L · Idioma por verificar', 'L · Langue à vérifier', 'L · Sprache prüfen'],
+    ['E · Piano in inglese', 'E · English study plan', 'E · Plan en inglés', 'E · Parcours en anglais', 'E · Englischer Studienplan'],
+    ['A · Accesso particolare', 'A · Special admission', 'A · Acceso especial', 'A · Admission particulière', 'A · Besondere Zulassung'],
+    ['? · 2027 da confermare', '? · Confirm for 2027', '? · Confirmar para 2027', '? · À confirmer pour 2027', '? · Für 2027 prüfen'],
+    ['CN · In Cina', 'CN · In China', 'CN · En China', 'CN · En Chine', 'CN · In China'],
+    ['Ordine del dossier', 'Dossier order', 'Orden del dosier', 'Ordre du dossier', 'Dossierreihenfolge'],
+    ['Nome A–Z', 'Name A–Z', 'Nombre A–Z', 'Nom A–Z', 'Name A–Z'],
+    ['Università A–Z', 'University A–Z', 'Universidad A–Z', 'Université A–Z', 'Universität A–Z'],
+    ['Vista schede', 'Card view', 'Vista de tarjetas', 'Vue cartes', 'Kartenansicht'],
+    ['Vista tabella', 'Table view', 'Vista de tabla', 'Vue tableau', 'Tabellenansicht'],
+    ['Schede', 'Cards', 'Tarjetas', 'Cartes', 'Karten'],
+    ['Tabella', 'Table', 'Tabla', 'Tableau', 'Tabelle'],
+    ['Solo preferiti', 'Favourites only', 'Solo favoritos', 'Favoris uniquement', 'Nur Favoriten'],
+    ['Il tuo catalogo di percorsi è vuoto.', 'Your programme catalogue is empty.', 'Tu catálogo de programas está vacío.', 'Votre catalogue de formations est vide.', 'Dein Studiengangkatalog ist leer.'],
+    ['Aggiungi percorsi del catalogo principale o crea i tuoi con la tua IA collegata a Master Atlas.', 'Add programmes from the main catalogue or create your own with AI connected to Master Atlas.', 'Añade programas del catálogo principal o crea los tuyos con una IA conectada a Master Atlas.', 'Ajoutez des formations du catalogue principal ou créez les vôtres avec une IA connectée à Master Atlas.', 'Füge Studiengänge aus dem Hauptkatalog hinzu oder erstelle eigene mit einer mit Master Atlas verbundenen KI.'],
+    ['La tua shortlist inizia da una curiosità.', 'Your shortlist starts with curiosity.', 'Tu selección empieza con una curiosidad.', 'Votre sélection commence par la curiosité.', 'Deine Auswahl beginnt mit Neugier.'],
+    ['Salva i percorsi con il cuore per ritrovarli qui.', 'Save programmes with the heart to find them here.', 'Guarda programas con el corazón para encontrarlos aquí.', 'Ajoutez des formations avec le cœur pour les retrouver ici.', 'Speichere Studiengänge mit dem Herzsymbol, um sie hier wiederzufinden.'],
+    ['QUATTRO CLASSIFICHE · ATENEI', 'FOUR RANKINGS · UNIVERSITIES', 'CUATRO CLASIFICACIONES · UNIVERSIDADES', 'QUATRE CLASSEMENTS · UNIVERSITÉS', 'VIER RANGLISTEN · UNIVERSITÄTEN'],
+    ['I luoghi delle tue idee.', 'Where your ideas can grow.', 'Donde crecen tus ideas.', 'Les lieux de vos idées.', 'Wo deine Ideen wachsen.'],
+    ['AFFIANCA LE TUE POSSIBILITÀ', 'COMPARE YOUR OPTIONS', 'COMPARA TUS OPCIONES', 'COMPAREZ VOS OPTIONS', 'VERGLEICHE DEINE OPTIONEN'],
+    ['Una scelta più chiara.', 'A clearer choice.', 'Una elección más clara.', 'Un choix plus clair.', 'Eine klarere Entscheidung.'],
+    ['Confronta fino a quattro percorsi. Le posizioni appartengono alle rispettive classifiche.', 'Compare up to four programmes. Ranks refer to their respective lists.', 'Compara hasta cuatro programas. Las posiciones pertenecen a sus respectivas listas.', 'Comparez jusqu’à quatre formations. Les rangs correspondent à leurs classements respectifs.', 'Vergleiche bis zu vier Studiengänge. Die Rangplätze beziehen sich auf ihre jeweilige Liste.'],
+    ['Scegli i percorsi', 'Choose programmes', 'Elegir programas', 'Choisir des formations', 'Studiengänge auswählen'],
+    ['DALLE IDEE AI PROSSIMI PASSI', 'FROM IDEAS TO NEXT STEPS', 'DE LAS IDEAS A LOS PRÓXIMOS PASOS', 'DES IDÉES AUX PROCHAINES ÉTAPES', 'VON IDEEN ZU NÄCHSTEN SCHRITTEN'],
+    ['Le tue candidature.', 'Your applications.', 'Tus solicitudes.', 'Vos candidatures.', 'Deine Bewerbungen.'],
+    ['Organizza il percorso, aggiungi scadenze e tieni traccia dei documenti.', 'Organize your plan, add deadlines and keep track of documents.', 'Organiza tu plan, añade plazos y lleva el control de los documentos.', 'Organisez votre parcours, ajoutez des échéances et suivez vos documents.', 'Plane deinen Weg, füge Fristen hinzu und behalte Unterlagen im Blick.'],
+    ['LE BASI DEL TUO ATLANTE', 'THE BASIS OF YOUR ATLAS', 'LAS BASES DE TU ATLAS', 'LES BASES DE VOTRE ATLAS', 'DIE GRUNDLAGEN DEINES ATLAS'],
+    ['Copie di recupero', 'Recovery copies', 'Copias de recuperación', 'Copies de récupération', 'Sicherungskopien'],
+    ['Note sui programmi', 'Programme notes', 'Notas sobre programas', 'Notes sur les formations', 'Notizen zu Studiengängen'],
+    ['Offerte storiche e sole mobilità', 'Historical offers and mobility only', 'Ofertas históricas y solo movilidad', 'Offres historiques et mobilités seules', 'Frühere Angebote und reine Mobilität'],
+    ['contenitori di Master, track, M1/M2 e varianti sono conservati con il loro tipo. I 27 atenei principali possono partecipare ad accordi con altri partner. Le classifiche seguono l’ateneo di riferimento del dossier: la sede fisica può essere in un altro continente.', 'Master programmes, tracks, M1/M2 and variants retain their type. The 27 main universities may have partner agreements. Rankings follow the university named in the dossier; the actual campus may be on another continent.', 'Los programas de máster, itinerarios, M1/M2 y variantes conservan su tipo. Las 27 universidades principales pueden colaborar con otras instituciones. Las clasificaciones siguen la universidad del dosier; el campus puede estar en otro continente.', 'Les masters, parcours, M1/M2 et variantes conservent leur type. Les 27 universités principales peuvent avoir des partenaires. Les classements suivent l’université du dossier ; le campus peut se trouver sur un autre continent.', 'Masterprogramme, Tracks, M1/M2 und Varianten behalten ihren Typ. Die 27 Hauptuniversitäten können Partnerschaften haben. Die Ranglisten folgen der Universität im Dossier; der Studienort kann auf einem anderen Kontinent liegen.'],
+    ['Preferiti, note e candidature vengono sincronizzati nel tuo spazio privato dopo l’accesso al tuo profilo. Una copia locale permette di lavorare offline. Sono disponibili copie di recupero automatiche locali e cloud.', 'Favourites, notes and applications sync to your private space after you sign in. A local copy lets you work offline. Automatic local and cloud recovery copies are available.', 'Favoritos, notas y solicitudes se sincronizan en tu espacio privado al iniciar sesión. Una copia local permite trabajar sin conexión. Hay copias automáticas de recuperación locales y en la nube.', 'Favoris, notes et candidatures se synchronisent dans votre espace privé après connexion. Une copie locale permet de travailler hors ligne. Des sauvegardes automatiques locales et cloud sont disponibles.', 'Favoriten, Notizen und Bewerbungen werden nach der Anmeldung in deinem privaten Bereich synchronisiert. Eine lokale Kopie ermöglicht Offline-Arbeit. Automatische lokale und Cloud-Sicherungen sind verfügbar.'],
+    ['Master autonomo o contenitore. La ricerca dipende anche dal laboratorio.', 'Independent or umbrella Master’s programme. Research opportunities also depend on the laboratory.', 'Máster independiente o programa marco. La investigación depende también del laboratorio.', 'Master autonome ou programme cadre. La recherche dépend aussi du laboratoire.', 'Eigenständiger oder übergreifender Master. Forschungsmöglichkeiten hängen auch vom Labor ab.'],
+    ['Track, major o concentrazione interna: non un titolo autonomo.', 'Track, major or internal specialization: not a separate degree.', 'Itinerario, especialidad o concentración interna: no es un título independiente.', 'Parcours, majeure ou spécialisation interne : pas un diplôme autonome.', 'Track, Schwerpunkt oder interne Spezialisierung: kein eigenständiger Abschluss.'],
+    ['Primo anno francese; normalmente è il punto di ingresso dopo L-2.', 'First year of a French Master’s degree; usually the entry point after L-2.', 'Primer año francés; suele ser el punto de entrada tras L-2.', 'Première année française ; généralement le point d’entrée après L-2.', 'Erstes französisches Masterjahr; meist der Einstieg nach L-2.'],
+    ['Secondo anno francese; accesso diretto dopo L-2 non automatico.', 'Second year of a French Master’s degree; direct entry after L-2 is not automatic.', 'Segundo año francés; el acceso directo tras L-2 no es automático.', 'Deuxième année française ; l’accès direct après L-2 n’est pas automatique.', 'Zweites französisches Masterjahr; ein direkter Einstieg nach L-2 ist nicht automatisch möglich.'],
+    ['Titolo congiunto.', 'Joint degree.', 'Título conjunto.', 'Diplôme conjoint.', 'Gemeinsamer Abschluss.'],
+    ['Doppio o multiplo titolo.', 'Double or multiple degree.', 'Doble o múltiple titulación.', 'Double ou multiple diplôme.', 'Doppel- oder Mehrfachabschluss.'],
+    ['Collaborazione didattica: doppio titolo non verificato.', 'Teaching partnership: a double degree has not been confirmed.', 'Colaboración docente: no se ha confirmado una doble titulación.', 'Partenariat pédagogique : le double diplôme n’est pas confirmé.', 'Lehrkooperation: ein Doppelabschluss ist nicht bestätigt.'],
+    ['Mobilità strutturata.', 'Structured mobility.', 'Movilidad estructurada.', 'Mobilité structurée.', 'Strukturierte Mobilität.'],
+    ['Tedesco richiesto.', 'German required.', 'Se requiere alemán.', 'Allemand requis.', 'Deutsch erforderlich.'],
+    ['Lingua da verificare; intero percorso in inglese non confermato.', 'Check the language; a fully English-taught programme is not confirmed.', 'Idioma por verificar; no se ha confirmado que todo el programa sea en inglés.', 'Langue à vérifier ; un parcours entièrement en anglais n’est pas confirmé.', 'Sprache prüfen; ein vollständig englischsprachiger Studiengang ist nicht bestätigt.'],
+    ['Piano in inglese da costruire e confermare nei moduli.', 'An English-taught study plan must be built and confirmed module by module.', 'Hay que elaborar y confirmar un plan en inglés módulo por módulo.', 'Le parcours en anglais doit être construit et confirmé module par module.', 'Ein englischsprachiger Studienplan muss für jedes Modul erstellt und bestätigt werden.'],
+    ['Accesso particolare o equivalenza L-2 da verificare.', 'Special admission or L-2 equivalence to check.', 'Acceso especial o equivalencia L-2 por verificar.', 'Admission particulière ou équivalence L-2 à vérifier.', 'Besondere Zulassung oder L-2-Gleichwertigkeit prüfen.'],
+    ['Offerta, struttura o ingresso 2027 da riconfermare.', 'Confirm the offer, structure or 2027 entry.', 'Volver a confirmar la oferta, estructura o entrada de 2027.', 'Offre, structure ou admission 2027 à reconfirmer.', 'Angebot, Struktur oder Einstieg 2027 erneut prüfen.'],
+    ['Ateneo europeo, programma in Cina.', 'European university, programme in China.', 'Universidad europea, programa en China.', 'Université européenne, programme en Chine.', 'Europäische Universität, Studiengang in China.'],
+    ['Preferiti, note e candidature vengono sincronizzati nel tuo spazio privato dopo l’accesso al tuo profilo. Una copia locale permette di lavorare offline. Sono disponibili copie di recupero automatiche locali e cloud. Il CSV contiene i risultati della selezione corrente.', 'Favourites, notes and applications sync to your private space after you sign in. A local copy lets you work offline. Automatic local and cloud recovery copies are available. The CSV contains the current selection results.', 'Favoritos, notas y solicitudes se sincronizan en tu espacio privado al iniciar sesión. Una copia local permite trabajar sin conexión. Hay copias automáticas locales y en la nube. El CSV contiene los resultados de la selección actual.', 'Favoris, notes et candidatures se synchronisent dans votre espace privé après connexion. Une copie locale permet de travailler hors ligne. Des sauvegardes automatiques locales et cloud sont disponibles. Le CSV contient les résultats de la sélection actuelle.', 'Favoriten, Notizen und Bewerbungen werden nach der Anmeldung in deinem privaten Bereich synchronisiert. Eine lokale Kopie ermöglicht Offline-Arbeit. Automatische lokale und Cloud-Sicherungen sind verfügbar. Die CSV-Datei enthält die Ergebnisse der aktuellen Auswahl.'],
+    ['Esporta risultati CSV', 'Export CSV results', 'Exportar resultados CSV', 'Exporter les résultats CSV', 'CSV-Ergebnisse exportieren'],
+    ['0 percorsi nel tuo catalogo personale: aggiungi voci dal dossier o crea percorsi tuoi.', '0 programmes in your personal catalogue: add entries from the dossier or create your own.', '0 programas en tu catálogo personal: añade entradas del dosier o crea las tuyas.', '0 formations dans votre catalogue personnel : ajoutez des entrées du dossier ou créez les vôtres.', '0 Studiengänge in deinem persönlichen Katalog: Füge Einträge aus dem Dossier hinzu oder erstelle eigene.'],
+    ['0 università nel tuo catalogo personale; aggiungi atenei dal dossier o crea i tuoi.', '0 universities in your personal catalogue; add universities from the dossier or create your own.', '0 universidades en tu catálogo personal; añade universidades del dosier o crea las tuyas.', '0 universités dans votre catalogue personnel ; ajoutez des universités du dossier ou créez les vôtres.', '0 Universitäten in deinem persönlichen Katalog; füge Universitäten aus dem Dossier hinzu oder erstelle eigene.'],
     ['Lingua', 'Language', 'Idioma', 'Langue', 'Sprache'],
     ['Personalizza con IA', 'Personalize with AI', 'Personalizar con IA', 'Personnaliser avec l’IA', 'Mit KI personalisieren'],
     ['IL TUO ATLANTE, LE TUE REGOLE', 'YOUR ATLAS, YOUR RULES', 'TU ATLAS, TUS REGLAS', 'VOTRE ATLAS, VOS RÈGLES', 'DEIN ATLAS, DEINE REGELN'],
@@ -241,11 +405,81 @@
     ['Aggiornamento…', 'Updating…', 'Actualizando…', 'Mise à jour…', 'Wird aktualisiert…'],
     ['Nome utente aggiornato.', 'Username updated.', 'Nombre de usuario actualizado.', 'Nom d’utilisateur mis à jour.', 'Benutzername aktualisiert.'],
     ['Non è stato possibile rinominare il profilo.', 'Could not rename the profile.', 'No se ha podido cambiar el nombre del perfil.', 'Impossible de renommer le profil.', 'Das Profil konnte nicht umbenannt werden.'],
-    ['Scrivi ELIMINA per confermare.', 'Type DELETE to confirm.', 'Escribe ELIMINAR para confirmar.', 'Saisissez SUPPRIMER pour confirmer.', 'Gib LÖSCHEN zur Bestätigung ein.'],
+    ['Scrivi ELIMINA per confermare.', 'Type ELIMINA to confirm.', 'Escribe ELIMINA para confirmar.', 'Saisissez ELIMINA pour confirmer.', 'Gib ELIMINA zur Bestätigung ein.'],
     ['Eliminazione in corso…', 'Deleting…', 'Eliminando…', 'Suppression…', 'Wird gelöscht…'],
-    ['Eliminare definitivamente il profilo e tutti i dati sincronizzati? Questa azione non si può annullare.', 'Permanently delete the profile and all synced data? This cannot be undone.', '¿Eliminar definitivamente el perfil y todos los datos sincronizados? Esta acción no se puede deshacer.', 'Supprimer définitivement le profil et toutes les données synchronisées ? Cette action est irréversible.', 'Profil und alle synchronisierten Daten endgültig löschen? Dies kann nicht rückgängig gemacht werden.'],
+    ['Eliminare definitivamente il profilo e tutti i dati sincronizzati? Questa azione non si può annullare.', 'Permanently delete your profile and all synced data? This action cannot be undone.', '¿Eliminar definitivamente tu perfil y todos los datos sincronizados? Esta acción no se puede deshacer.', 'Supprimer définitivement votre profil et toutes les données synchronisées ? Cette action est irréversible.', 'Profil und alle synchronisierten Daten endgültig löschen? Dieser Schritt kann nicht rückgängig gemacht werden.'],
     ['Passkey aggiunta al profilo.', 'Passkey added to profile.', 'Clave de acceso añadida al perfil.', 'Clé d’accès ajoutée au profil.', 'Passkey zum Profil hinzugefügt.'],
     ['Non è stato possibile aggiungere la passkey.', 'Could not add the passkey.', 'No se ha podido añadir la clave de acceso.', 'Impossible d’ajouter la clé d’accès.', 'Passkey konnte nicht hinzugefügt werden.'],
+    ['Questa passkey non appartiene a questo profilo.', 'This passkey does not belong to this profile.', 'Esta clave de acceso no pertenece a este perfil.', 'Cette clé d’accès n’appartient pas à ce profil.', 'Dieser Passkey gehört nicht zu diesem Profil.'],
+    ['Verifica della passkey non riuscita. Riprova.', 'Passkey verification failed. Try again.', 'No se pudo verificar la clave de acceso. Inténtalo de nuevo.', 'Échec de la vérification de la clé d’accès. Réessayez.', 'Passkey-Prüfung fehlgeschlagen. Versuche es erneut.'],
+    ['La passkey non è stata verificata. Riprova.', 'The passkey could not be verified. Try again.', 'No se pudo verificar la clave de acceso. Inténtalo de nuevo.', 'La clé d’accès n’a pas pu être vérifiée. Réessayez.', 'Der Passkey konnte nicht verifiziert werden. Versuche es erneut.'],
+    ['La passkey non è stata verificata.', 'The passkey could not be verified.', 'No se pudo verificar la clave de acceso.', 'La clé d’accès n’a pas pu être vérifiée.', 'Der Passkey konnte nicht verifiziert werden.'],
+    ['La passkey non è stata verificata. Riprova la registrazione.', 'The passkey could not be verified. Try registering again.', 'No se pudo verificar la clave de acceso. Intenta registrarla de nuevo.', 'La clé d’accès n’a pas pu être vérifiée. Réessayez de l’enregistrer.', 'Der Passkey konnte nicht verifiziert werden. Versuche die Registrierung erneut.'],
+    ['Questa passkey è già collegata a un profilo.', 'This passkey is already linked to a profile.', 'Esta clave de acceso ya está vinculada a un perfil.', 'Cette clé d’accès est déjà associée à un profil.', 'Dieser Passkey ist bereits mit einem Profil verknüpft.'],
+    ['Questo profilo non ha passkey registrate.', 'No passkeys are registered for this profile.', 'Este perfil no tiene claves de acceso registradas.', 'Aucune clé d’accès n’est enregistrée pour ce profil.', 'Für dieses Profil sind keine Passkeys registriert.'],
+    ['Richiesta scaduta. Riprova.', 'Request expired. Try again.', 'La solicitud ha caducado. Inténtalo de nuevo.', 'La demande a expiré. Réessayez.', 'Die Anfrage ist abgelaufen. Versuche es erneut.'],
+    ['Servizio non disponibile', 'Service unavailable', 'Servicio no disponible', 'Service indisponible', 'Dienst nicht verfügbar'],
+    ['Accesso richiesto', 'Sign-in required', 'Se requiere iniciar sesión', 'Connexion requise', 'Anmeldung erforderlich'],
+    ['Metodo non consentito', 'Method not allowed', 'Método no permitido', 'Méthode non autorisée', 'Methode nicht zulässig'],
+    ['Metodo non consentito.', 'Method not allowed.', 'Método no permitido.', 'Méthode non autorisée.', 'Methode nicht zulässig.'],
+    ['Scegli un nome utente di 3–32 caratteri: lettere, numeri, punto, trattino o underscore.', 'Choose a 3–32 character username using letters, numbers, periods, hyphens or underscores.', 'Elige un nombre de usuario de 3–32 caracteres con letras, números, puntos, guiones o guiones bajos.', 'Choisissez un nom d’utilisateur de 3 à 32 caractères : lettres, chiffres, points, tirets ou traits de soulignement.', 'Wähle einen Benutzernamen mit 3–32 Zeichen aus Buchstaben, Zahlen, Punkt, Bindestrich oder Unterstrich.'],
+    ['La password deve contenere da 12 a 128 caratteri.', 'Your password must contain 12–128 characters.', 'La contraseña debe tener entre 12 y 128 caracteres.', 'Le mot de passe doit contenir de 12 à 128 caractères.', 'Dein Passwort muss 12 bis 128 Zeichen enthalten.'],
+    ['Troppi tentativi. Riprova tra 15 minuti.', 'Too many attempts. Try again in 15 minutes.', 'Demasiados intentos. Inténtalo de nuevo en 15 minutos.', 'Trop de tentatives. Réessayez dans 15 minutes.', 'Zu viele Versuche. Versuche es in 15 Minuten erneut.'],
+    ['Questo nome utente è già in uso.', 'This username is already in use.', 'Este nombre de usuario ya está en uso.', 'Ce nom d’utilisateur est déjà utilisé.', 'Dieser Benutzername ist bereits vergeben.'],
+    ['Nome utente o password non corretti.', 'Incorrect username or password.', 'Nombre de usuario o contraseña incorrectos.', 'Nom d’utilisateur ou mot de passe incorrect.', 'Benutzername oder Passwort ist falsch.'],
+    ['Richiesta di registrazione scaduta. Riprova.', 'Registration request expired. Try again.', 'La solicitud de registro ha caducado. Inténtalo de nuevo.', 'La demande d’inscription a expiré. Réessayez.', 'Die Registrierungsanfrage ist abgelaufen. Versuche es erneut.'],
+    ['Non è stato possibile creare il profilo. Il nome potrebbe essere già in uso.', 'Could not create the profile. The username may already be in use.', 'No se pudo crear el perfil. Es posible que el nombre de usuario ya esté en uso.', 'Impossible de créer le profil. Le nom d’utilisateur est peut-être déjà utilisé.', 'Das Profil konnte nicht erstellt werden. Der Benutzername ist möglicherweise bereits vergeben.'],
+    ['Inserisci il nome utente del profilo.', 'Enter your profile username.', 'Introduce el nombre de usuario del perfil.', 'Saisissez le nom d’utilisateur du profil.', 'Gib den Benutzernamen deines Profils ein.'],
+    ['Profilo o passkey non riconosciuto.', 'Profile or passkey not recognised.', 'No se reconoce el perfil o la clave de acceso.', 'Profil ou clé d’accès non reconnu.', 'Profil oder Passkey nicht erkannt.'],
+    ['Accedi per aggiungere un passkey.', 'Sign in to add a passkey.', 'Inicia sesión para añadir una clave de acceso.', 'Connectez-vous pour ajouter une clé d’accès.', 'Melde dich an, um einen Passkey hinzuzufügen.'],
+    ['Hai già raggiunto il limite di cinque passkey.', 'You have reached the five-passkey limit.', 'Ya has alcanzado el límite de cinco claves de acceso.', 'Vous avez atteint la limite de cinq clés d’accès.', 'Du hast das Limit von fünf Passkeys erreicht.'],
+    ['Accedi per rinominare il profilo.', 'Sign in to rename your profile.', 'Inicia sesión para cambiar el nombre del perfil.', 'Connectez-vous pour renommer votre profil.', 'Melde dich an, um dein Profil umzubenennen.'],
+    ['Il nome deve contenere 3–32 caratteri: lettere, numeri, punto, trattino o underscore.', 'The name must contain 3–32 characters: letters, numbers, periods, hyphens or underscores.', 'El nombre debe tener entre 3 y 32 caracteres: letras, números, puntos, guiones o guiones bajos.', 'Le nom doit contenir de 3 à 32 caractères : lettres, chiffres, points, tirets ou traits de soulignement.', 'Der Name muss 3–32 Zeichen enthalten: Buchstaben, Zahlen, Punkt, Bindestrich oder Unterstrich.'],
+    ['Scegli un nome utente diverso da quello attuale.', 'Choose a different username from the current one.', 'Elige un nombre de usuario distinto del actual.', 'Choisissez un nom d’utilisateur différent de l’actuel.', 'Wähle einen anderen Benutzernamen als den aktuellen.'],
+    ['Password non corretta.', 'Incorrect password.', 'Contraseña incorrecta.', 'Mot de passe incorrect.', 'Falsches Passwort.'],
+    ['Accesso richiesto.', 'Sign-in required.', 'Se requiere iniciar sesión.', 'Connexion requise.', 'Anmeldung erforderlich.'],
+    ['Non è stato possibile rinominare il profilo. Riprova.', 'Could not rename the profile. Try again.', 'No se pudo cambiar el nombre del perfil. Inténtalo de nuevo.', 'Impossible de renommer le profil. Réessayez.', 'Das Profil konnte nicht umbenannt werden. Versuche es erneut.'],
+    ['Non è stato possibile eliminare il profilo. Riprova.', 'Could not delete the profile. Try again.', 'No se pudo eliminar el perfil. Inténtalo de nuevo.', 'Impossible de supprimer le profil. Réessayez.', 'Das Profil konnte nicht gelöscht werden. Versuche es erneut.'],
+    ['Endpoint non trovato', 'Endpoint not found', 'No se encontró el endpoint', 'Point de terminaison introuvable', 'Endpunkt nicht gefunden'],
+    ['Richiesta non valida.', 'Invalid request.', 'Solicitud no válida.', 'Requête invalide.', 'Ungültige Anfrage.'],
+    ['Risposta non valida.', 'Invalid response.', 'Respuesta no válida.', 'Réponse invalide.', 'Ungültige Antwort.'],
+    ['Troppi tentativi. Riprova più tardi.', 'Too many attempts. Try again later.', 'Demasiados intentos. Inténtalo de nuevo más tarde.', 'Trop de tentatives. Réessayez plus tard.', 'Zu viele Versuche. Versuche es später erneut.'],
+    ['JSON non valido.', 'Invalid JSON.', 'JSON no válido.', 'JSON invalide.', 'Ungültiges JSON.'],
+    ['Specifica da uno a dodici indirizzi di ritorno HTTPS validi.', 'Specify one to twelve valid HTTPS redirect URLs.', 'Indica entre una y doce URL de redirección HTTPS válidas.', 'Indiquez de une à douze URL de redirection HTTPS valides.', 'Gib ein bis zwölf gültige HTTPS-Weiterleitungsadressen an.'],
+    ['Origine non consentita.', 'Origin not allowed.', 'Origen no permitido.', 'Origine non autorisée.', 'Ursprung nicht zulässig.'],
+    ['Accedi di nuovo al tuo profilo.', 'Sign in to your profile again.', 'Vuelve a iniciar sesión en tu perfil.', 'Reconnectez-vous à votre profil.', 'Melde dich erneut bei deinem Profil an.'],
+    ['Il profilo è stato modificato contemporaneamente. Riprova.', 'The profile changed at the same time. Try again.', 'El perfil se modificó al mismo tiempo. Inténtalo de nuevo.', 'Le profil a été modifié simultanément. Réessayez.', 'Das Profil wurde gleichzeitig geändert. Versuche es erneut.'],
+    ['Il tuo atlante contiene già il massimo di 100 percorsi personali.', 'Your atlas already contains the maximum of 100 personal programmes.', 'Tu atlas ya contiene el máximo de 100 programas personales.', 'Votre atlas contient déjà le maximum de 100 formations personnelles.', 'Dein Atlas enthält bereits die Höchstzahl von 100 eigenen Studiengängen.'],
+    ['Uno dei percorsi indicati non esiste nel tuo atlante.', 'One of the specified programmes is not in your atlas.', 'Uno de los programas indicados no está en tu atlas.', 'L’une des formations indiquées ne figure pas dans votre atlas.', 'Einer der angegebenen Studiengänge ist nicht in deinem Atlas.'],
+    ['Il confronto contiene un percorso che non esiste nel tuo atlante.', 'The comparison includes a programme that is not in your atlas.', 'La comparación incluye un programa que no está en tu atlas.', 'La comparaison contient une formation absente de votre atlas.', 'Der Vergleich enthält einen Studiengang, der nicht in deinem Atlas ist.'],
+    ['La shortlist contiene un percorso che non esiste nel tuo atlante.', 'The shortlist includes a programme that is not in your atlas.', 'La selección incluye un programa que no está en tu atlas.', 'La sélection contient une formation absente de votre atlas.', 'Die Auswahl enthält einen Studiengang, der nicht in deinem Atlas ist.'],
+    ['Una candidatura indica un percorso che non esiste nel tuo atlante.', 'An application refers to a programme that is not in your atlas.', 'Una solicitud hace referencia a un programa que no está en tu atlas.', 'Une candidature concerne une formation absente de votre atlas.', 'Eine Bewerbung bezieht sich auf einen Studiengang, der nicht in deinem Atlas ist.'],
+    ['Il percorso non esiste nel catalogo o nel tuo atlante.', 'The programme is not in the catalogue or your atlas.', 'El programa no está en el catálogo ni en tu atlas.', 'La formation ne figure ni dans le catalogue ni dans votre atlas.', 'Der Studiengang ist weder im Katalog noch in deinem Atlas.'],
+    ['Questo ateneo è già presente nel tuo atlante.', 'This university is already in your atlas.', 'Esta universidad ya está en tu atlas.', 'Cette université figure déjà dans votre atlas.', 'Diese Universität ist bereits in deinem Atlas.'],
+    ['Il tuo atlante contiene già il massimo di 100 atenei personali.', 'Your atlas already contains the maximum of 100 personal universities.', 'Tu atlas ya contiene el máximo de 100 universidades personales.', 'Votre atlas contient déjà le maximum de 100 universités personnelles.', 'Dein Atlas enthält bereits die Höchstzahl von 100 eigenen Universitäten.'],
+    ['L’ateneo personale non è stato trovato.', 'The personal university was not found.', 'No se encontró la universidad personal.', 'L’université personnelle est introuvable.', 'Die eigene Universität wurde nicht gefunden.'],
+    ['Il percorso non esiste nel tuo atlante.', 'The programme is not in your atlas.', 'El programa no está en tu atlas.', 'La formation ne figure pas dans votre atlas.', 'Der Studiengang ist nicht in deinem Atlas.'],
+    ['Il percorso personale non è stato trovato.', 'The personal programme was not found.', 'No se encontró el programa personal.', 'La formation personnelle est introuvable.', 'Der eigene Studiengang wurde nicht gefunden.'],
+    ['Usa POST per le richieste MCP.', 'Use POST for MCP requests.', 'Usa POST para las solicitudes MCP.', 'Utilisez POST pour les requêtes MCP.', 'Verwende POST für MCP-Anfragen.'],
+    ['Richiesta troppo grande.', 'Request is too large.', 'La solicitud es demasiado grande.', 'La requête est trop volumineuse.', 'Die Anfrage ist zu groß.'],
+    ['JSON-RPC non valido.', 'Invalid JSON-RPC.', 'JSON-RPC no válido.', 'JSON-RPC invalide.', 'Ungültiges JSON-RPC.'],
+    ['Richiesta JSON-RPC non valida.', 'Invalid JSON-RPC request.', 'Solicitud JSON-RPC no válida.', 'Requête JSON-RPC invalide.', 'Ungültige JSON-RPC-Anfrage.'],
+    ['Accesso OAuth richiesto.', 'OAuth sign-in required.', 'Se requiere acceso mediante OAuth.', 'Connexion OAuth requise.', 'OAuth-Anmeldung erforderlich.'],
+    ['Permesso atlas:read mancante.', 'Missing atlas:read permission.', 'Falta el permiso atlas:read.', 'Autorisation atlas:read manquante.', 'Berechtigung atlas:read fehlt.'],
+    ['Database non disponibile.', 'Database unavailable.', 'Base de datos no disponible.', 'Base de données indisponible.', 'Datenbank nicht verfügbar.'],
+    ['Origine del sito non valida.', 'Invalid site origin.', 'El origen del sitio no es válido.', 'Origine du site invalide.', 'Ungültiger Website-Ursprung.'],
+    ['Accedi al tuo profilo per generare un codice.', 'Sign in to your profile to generate a code.', 'Inicia sesión en tu perfil para generar un código.', 'Connectez-vous à votre profil pour générer un code.', 'Melde dich bei deinem Profil an, um einen Code zu erstellen.'],
+    ['Hai richiesto troppi codici. Riprova più tardi.', 'You have requested too many codes. Try again later.', 'Has solicitado demasiados códigos. Inténtalo de nuevo más tarde.', 'Vous avez demandé trop de codes. Réessayez plus tard.', 'Du hast zu viele Codes angefordert. Versuche es später erneut.'],
+    ['Collegamento non valido.', 'Invalid connection.', 'Conexión no válida.', 'Connexion invalide.', 'Ungültige Verbindung.'],
+    ['Accesso ChatGPT richiesto', 'ChatGPT sign-in required', 'Se requiere iniciar sesión en ChatGPT', 'Connexion ChatGPT requise', 'ChatGPT-Anmeldung erforderlich'],
+    ['Database non disponibile', 'Database unavailable', 'Base de datos no disponible', 'Base de données indisponible', 'Datenbank nicht verfügbar'],
+    ['Origine non consentita', 'Origin not allowed', 'Origen no permitido', 'Origine non autorisée', 'Ursprung nicht zulässig'],
+    ['Backup non trovato', 'Backup not found', 'No se encontró la copia de seguridad', 'Sauvegarde introuvable', 'Backup nicht gefunden'],
+    ['Non trovato', 'Not found', 'No encontrado', 'Introuvable', 'Nicht gefunden'],
+    ['Dati troppo grandi', 'Data is too large', 'Los datos son demasiado grandes', 'Les données sont trop volumineuses', 'Die Daten sind zu groß'],
+    ['JSON non valido', 'Invalid JSON', 'JSON no válido', 'JSON invalide', 'Ungültiges JSON'],
+    ['Formato non valido', 'Invalid format', 'Formato no válido', 'Format invalide', 'Ungültiges Format'],
+    ['Salvataggio remoto temporaneamente indisponibile', 'Remote saving is temporarily unavailable', 'El guardado remoto no está disponible temporalmente', 'L’enregistrement à distance est temporairement indisponible', 'Das Speichern auf dem Server ist vorübergehend nicht verfügbar'],
     ['Server non raggiungibile. Riprova tra poco.', 'Server unavailable. Try again shortly.', 'Servidor no disponible. Vuelve a intentarlo en breve.', 'Serveur inaccessible. Réessayez dans quelques instants.', 'Server nicht erreichbar. Versuche es gleich noch einmal.'],
     ['Backup importato · copia di recupero disponibile', 'Backup imported · recovery copy available', 'Copia importada · copia de recuperación disponible', 'Sauvegarde importée · copie de récupération disponible', 'Backup importiert · Wiederherstellungskopie verfügbar'],
     ['Copia cloud non disponibile', 'Cloud copy unavailable', 'Copia en la nube no disponible', 'Copie cloud indisponible', 'Cloud-Kopie nicht verfügbar'],
@@ -281,6 +515,10 @@
     locale,
     Object.fromEntries(rows.map(row => [row[0], row[column] || row[0]])),
   ]));
+  const sourceByTranslation = new Map();
+  for (const row of rows) for (const translated of row.slice(1)) {
+    if (translated && translated !== row[0] && !sourceByTranslation.has(translated)) sourceByTranslation.set(translated, row[0]);
+  }
   const textSources = new WeakMap();
   const attributeSources = new WeakMap();
   const textOutputs = new WeakMap();
@@ -292,7 +530,8 @@
   } catch {}
 
   function translate(value, language = locale) {
-    const key = String(value).trim();
+    const original = String(value).trim();
+    const key = sourceByTranslation.get(original) || original;
     if (!key) return String(value);
     const dictionary = dictionaries[language] || dictionaries.it;
     let result = dictionary[key] || key;
@@ -304,6 +543,97 @@
         fr: `${count} formations à comparer`, de: `${count} Studiengänge vergleichen`,
       })[language] || key;
     }
+    match = key.match(/^(\d+) DI (\d+) SELEZIONATE$/);
+    if (match) result = ({
+      en: `${match[1]} OF ${match[2]} SELECTED`, es: `${match[1]} DE ${match[2]} SELECCIONADAS`,
+      fr: `${match[1]} SUR ${match[2]} SÉLECTIONNÉES`, de: `${match[1]} VON ${match[2]} AUSGEWÄHLT`,
+    })[language] || key;
+    match = key.match(/^(\d+) atenei nella tua selezione$/);
+    if (match) result = ({
+      en: `${match[1]} universities in your shortlist`, es: `${match[1]} universidades en tu selección`,
+      fr: `${match[1]} universités dans votre sélection`, de: `${match[1]} Universitäten in deiner Auswahl`,
+    })[language] || key;
+    match = key.match(/^(\d+) percorsi Europa e (\d+) extra-Europa$/);
+    if (match) result = ({
+      en: `${match[1]} European programmes and ${match[2]} outside Europe`,
+      es: `${match[1]} programas en Europa y ${match[2]} fuera de Europa`,
+      fr: `${match[1]} formations en Europe et ${match[2]} hors Europe`,
+      de: `${match[1]} Studiengänge in Europa und ${match[2]} außerhalb Europas`,
+    })[language] || key;
+    match = key.match(/^Esplora tutti i (\d+) atenei$/);
+    if (match) result = ({
+      en: `Explore all ${match[1]} universities`, es: `Explorar las ${match[1]} universidades`,
+      fr: `Explorer les ${match[1]} universités`, de: `Alle ${match[1]} Universitäten entdecken`,
+    })[language] || key;
+    match = key.match(/^(\d+) risultati nel catalogo principale$/);
+    if (match) result = ({
+      en: `${match[1]} results in the main catalogue`, es: `${match[1]} resultados en el catálogo principal`,
+      fr: `${match[1]} résultats dans le catalogue principal`, de: `${match[1]} Ergebnisse im Hauptkatalog`,
+    })[language] || key;
+    match = key.match(/^(\d+) risultati nel catalogo principale · mostrati i primi 60$/);
+    if (match) result = ({
+      en: `${match[1]} results in the main catalogue · showing the first 60`,
+      es: `${match[1]} resultados en el catálogo principal · se muestran los primeros 60`,
+      fr: `${match[1]} résultats dans le catalogue principal · les 60 premiers sont affichés`,
+      de: `${match[1]} Ergebnisse im Hauptkatalog · die ersten 60 werden angezeigt`,
+    })[language] || key;
+    match = key.match(/^(\d+) percorsi disponibili · mostra i primi 60 · cerca per nome, ateneo o città$/);
+    if (match) result = ({
+      en: `${match[1]} programmes available · showing the first 60 · search by name, university or city`,
+      es: `${match[1]} programas disponibles · se muestran los primeros 60 · busca por nombre, universidad o ciudad`,
+      fr: `${match[1]} formations disponibles · les 60 premières sont affichées · recherchez par nom, université ou ville`,
+      de: `${match[1]} Studiengänge verfügbar · die ersten 60 werden angezeigt · suche nach Name, Universität oder Stadt`,
+    })[language] || key;
+    match = key.match(/^(\d+) università disponibili · cerca per nome, area o percorso$/);
+    if (match) result = ({
+      en: `${match[1]} universities available · search by name, region or programme`,
+      es: `${match[1]} universidades disponibles · busca por nombre, zona o programa`,
+      fr: `${match[1]} universités disponibles · recherchez par nom, région ou formation`,
+      de: `${match[1]} Universitäten verfügbar · suche nach Name, Region oder Studiengang`,
+    })[language] || key;
+    match = key.match(/^Rimuovere “(.+)” dal tuo catalogo personale\? Saranno rimosse anche shortlist, confronto e candidatura associate\.$/);
+    if (match) result = ({
+      en: `Remove “${match[1]}” from your personal catalogue? Its shortlist, comparison and application will also be removed.`,
+      es: `¿Quitar “${match[1]}” de tu catálogo personal? También se eliminarán su selección, comparación y solicitud.`,
+      fr: `Retirer « ${match[1]} » de votre catalogue personnel ? Sa sélection, sa comparaison et sa candidature seront également supprimées.`,
+      de: `„${match[1]}“ aus deinem persönlichen Katalog entfernen? Auswahl, Vergleich und Bewerbung werden ebenfalls entfernt.`,
+    })[language] || key;
+    match = key.match(/^Rimuovere “(.+)” dalle tue università\? I percorsi associati restano nel tuo catalogo\.$/);
+    if (match) result = ({
+      en: `Remove “${match[1]}” from your universities? Its programmes will remain in your catalogue.`,
+      es: `¿Quitar “${match[1]}” de tus universidades? Sus programas seguirán en tu catálogo.`,
+      fr: `Retirer « ${match[1]} » de vos universités ? Ses formations resteront dans votre catalogue.`,
+      de: `„${match[1]}“ aus deinen Universitäten entfernen? Die zugehörigen Studiengänge bleiben in deinem Katalog.`,
+    })[language] || key;
+    match = key.match(/^Rimuovi (.+) dal tuo catalogo$/);
+    if (match) result = ({
+      en: `Remove ${match[1]} from your catalogue`, es: `Quitar ${match[1]} de tu catálogo`,
+      fr: `Retirer ${match[1]} de votre catalogue`, de: `${match[1]} aus deinem Katalog entfernen`,
+    })[language] || key;
+    match = key.match(/^Revocare l’accesso di (.+) a questo profilo\?$/);
+    if (match) result = ({
+      en: `Revoke ${match[1]}’s access to this profile?`,
+      es: `¿Revocar el acceso de ${match[1]} a este perfil?`,
+      fr: `Révoquer l’accès de ${match[1]} à ce profil ?`,
+      de: `${match[1]} den Zugriff auf dieses Profil entziehen?`,
+    })[language] || key;
+    match = key.match(/^Atlante aggiornato · (\d+) nuovi percorsi personali$/);
+    if (match) result = ({
+      en: `Atlas updated · ${match[1]} new personal programmes`,
+      es: `Atlas actualizado · ${match[1]} nuevos programas personales`,
+      fr: `Atlas mis à jour · ${match[1]} nouvelles formations personnelles`,
+      de: `Atlas aktualisiert · ${match[1]} neue eigene Studiengänge`,
+    })[language] || key;
+    match = key.match(/^([＋+↓↑↺▦☷])\s*(.+)$/);
+    if (match) result = `${match[1]} ${translate(match[2], language)}`;
+    match = key.match(/^(.+?)\s*↗$/);
+    if (match) result = `${translate(match[1], language)} ↗`;
+    match = key.match(/^(.+?)\s*·\s*(\d+)$/);
+    if (match) result = `${translate(match[1], language)} · ${match[2]}`;
+    match = key.match(/^(\d+) percorsi · (Le posizioni sono separate per area geografica)$/);
+    if (match) result = `${match[1]} ${translate('percorsi', language)} · ${translate(match[2], language)}`;
+    match = key.match(/^(\d+) (percorsi nel tuo catalogo personale: aggiungi voci dal dossier o crea percorsi tuoi\.|università nel tuo catalogo personale; aggiungi atenei dal dossier o crea i tuoi\.)$/);
+    if (match) result = (dictionary[`0 ${match[2]}`] || key).replace(/^0/, match[1]);
     match = key.match(/^(Stato della candidatura) (.+)$/);
     if (match) {
       const prefix = dictionaries[language]['Stato della candidatura'] || match[1];
@@ -317,7 +647,7 @@
       const noun = ({ en: 'favourites', es: 'favoritos', fr: 'favoris', de: 'Favoriten' })[language];
       if (verb && noun) result = `${verb} ${noun}: ${match[2]}`;
     }
-    if (String(value) === key) return result;
+    if (String(value) === original) return result;
     const leading = String(value).match(/^\s*/)?.[0] || '';
     const trailing = String(value).match(/\s*$/)?.[0] || '';
     return `${leading}${result}${trailing}`;

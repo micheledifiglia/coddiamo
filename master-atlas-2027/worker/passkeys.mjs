@@ -112,11 +112,11 @@ export function createPasskeyAuth(webauthn) {
     const flow=await consumeChallenge(env,input.flowId,purpose);
     if(!flow||flow.owner!==user.id||!input.response?.id)return {error:json({error:'Richiesta scaduta. Riprova.'},400)};
     const row=await env.DB.prepare('SELECT credential_id,public_key,counter,transports FROM atlas_passkeys WHERE credential_id=? AND owner=?').bind(input.response.id,user.id).first();
-    if(!row)return {error:json({error:'Il passkey non appartiene a questo profilo.'},401)};
+    if(!row)return {error:json({error:'Questa passkey non appartiene a questo profilo.'},401)};
     let verification;
     try{verification=await webauthn.verifyAuthenticationResponse({response:input.response,expectedChallenge:flow.challenge,expectedOrigin:authConfig.origin,expectedRPID:authConfig.rpID,requireUserVerification:true,credential:{id:row.credential_id,publicKey:fromBase64url(row.public_key),counter:row.counter,transports:JSON.parse(row.transports)}});}
-    catch{return {error:json({error:'Verifica del passkey non riuscita. Riprova.'},401)};}
-    if(!verification.verified)return {error:json({error:'Verifica del passkey non riuscita. Riprova.'},401)};
+    catch{return {error:json({error:'Verifica della passkey non riuscita. Riprova.'},401)};}
+    if(!verification.verified)return {error:json({error:'Verifica della passkey non riuscita. Riprova.'},401)};
     return {flow,row,verification};
   }
   async function handle(request,env) {
@@ -177,8 +177,8 @@ export function createPasskeyAuth(webauthn) {
         if(!flow?.owner||!flow.username)return json({error:'Richiesta di registrazione scaduta. Riprova.'},400);
         let verification;
         try{verification=await webauthn.verifyRegistrationResponse({response:input.response,expectedChallenge:flow.challenge,expectedOrigin:authConfig.origin,expectedRPID:authConfig.rpID,requireUserVerification:true});}
-        catch{return json({error:'Il passkey non è stato verificato. Riprova la registrazione.'},400);}
-        if(!verification.verified||!verification.registrationInfo)return json({error:'Il passkey non è stato verificato.'},400);
+        catch{return json({error:'La passkey non è stata verificata. Riprova la registrazione.'},400);}
+        if(!verification.verified||!verification.registrationInfo)return json({error:'La passkey non è stata verificata.'},400);
         const info=verification.registrationInfo, credential=info.credential, now=new Date().toISOString();
         try{
           await env.DB.batch([
@@ -241,12 +241,12 @@ export function createPasskeyAuth(webauthn) {
         if(count.count>=5)return json({error:'Hai già raggiunto il limite di cinque passkey.'},409);
         let verification;
         try{verification=await webauthn.verifyRegistrationResponse({response:input.response,expectedChallenge:flow.challenge,expectedOrigin:authConfig.origin,expectedRPID:authConfig.rpID,requireUserVerification:true});}
-        catch{return json({error:'Il passkey non è stato verificato. Riprova.'},400);}
-        if(!verification.verified||!verification.registrationInfo)return json({error:'Il passkey non è stato verificato.'},400);
+        catch{return json({error:'La passkey non è stata verificata. Riprova.'},400);}
+        if(!verification.verified||!verification.registrationInfo)return json({error:'La passkey non è stata verificata.'},400);
         const info=verification.registrationInfo, credential=info.credential;
         try{await env.DB.prepare('INSERT INTO atlas_passkeys(credential_id,owner,public_key,counter,transports,device_type,backed_up,created_at) VALUES(?,?,?,?,?,?,?,?)')
           .bind(credential.id,user.id,toBase64url(credential.publicKey),credential.counter,JSON.stringify(credential.transports||[]),info.credentialDeviceType,info.credentialBackedUp?1:0,new Date().toISOString()).run();}
-        catch{return json({error:'Questo passkey è già collegato a un profilo.'},409);}
+        catch{return json({error:'Questa passkey è già collegata a un profilo.'},409);}
         return json({ok:true});
       }
       if(route==='/api/auth/profile/rename/options'){
