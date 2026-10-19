@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "Master Atlas",
-  "short_name": "Master Atlas",
+  "name": "Marea",
+  "short_name": "Marea",
   "description": "Il tuo atlante personale per esplorare percorsi magistrali in bioscienze.",
   "lang": "it",
   "start_url": "/",
@@ -11,6 +11,6 @@
   "theme_color": "#eef3f9",
   "prefer_related_applications": false,
   "icons": [
-    { "src": "/icons/master-atlas-logo-v3.png", "sizes": "1254x1254", "type": "image/png", "purpose": "any" }
+    { "src": "/icons/marea-icon.png", "sizes": "1254x1254", "type": "image/png", "purpose": "any" }
   ]
 }

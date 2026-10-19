@@ -1,8 +1,8 @@
 'use strict';
-const CACHE='master-atlas-shell-v17';
-const SHELL=['/','/index.html','/style.css','/auth.css','/glass-ui.css','/pwa.css','/config.js','/i18n.js','/auth.js','/core.js','/storage.js','/globe.js','/ai.js','/app.js','/pwa.js','/manifest.webmanifest','/data.json','/icons/master-atlas-logo-v3.png'];
+const CACHE='marea-shell-v18';
+const SHELL=['/','/index.html','/style.css','/auth.css','/glass-ui.css','/pwa.css','/config.js','/i18n.js','/auth.js','/core.js','/storage.js','/globe.js','/ai.js','/app.js','/pwa.js','/manifest.webmanifest','/data.json','/icons/marea-icon.png'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));});
-self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('master-atlas-shell-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()));});
+self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>(key.startsWith('master-atlas-shell-')||key.startsWith('marea-shell-'))&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',event=>{
   const request=event.request,url=new URL(request.url);
   if(request.method!=='GET'||url.origin!==self.location.origin||url.pathname.startsWith('/api/'))return;
@@ -12,6 +12,6 @@ self.addEventListener('fetch',event=>{
     return response;
   }).catch(async()=>{
     const cached=await caches.match(request)||await caches.match(url.pathname==='/index.html'?'/':'/index.html');
-    return cached||new Response('Sei offline. Riconnettiti per usare Master Atlas.',{status:503,headers:{'content-type':'text/plain; charset=utf-8'}});
+    return cached||new Response('Sei offline. Riconnettiti per usare Marea.',{status:503,headers:{'content-type':'text/plain; charset=utf-8'}});
   }));
 });

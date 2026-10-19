@@ -1,6 +1,6 @@
 # Contribuire
 
-Grazie per voler migliorare Master Atlas. Mantieni le correzioni circoscritte, spiegane il motivo e verifica il comportamento interessato prima di aprire una pull request.
+Grazie per voler migliorare Marea. Mantieni le correzioni circoscritte, spiegane il motivo e verifica il comportamento interessato prima di aprire una pull request.
 
 ## Modifiche al catalogo
 

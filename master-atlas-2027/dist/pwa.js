@@ -11,7 +11,7 @@
     if(dialog.open)return;
     const ua=navigator.userAgent;
     const apple=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-    document.querySelector('#install-intro').textContent=apple?'Da Safari, aggiungi Master Atlas alla schermata Home e aprilo come app.':'Dal menu del browser scegli “Installa app” o “Aggiungi a schermata Home”.';
+    document.querySelector('#install-intro').textContent=apple?'Da Safari, aggiungi Marea alla schermata Home e aprilo come app.':'Dal menu del browser scegli “Installa app” o “Aggiungi a schermata Home”.';
     renderSteps(apple?['Apri questo sito in Safari e tocca Condividi.','Scegli “Aggiungi alla schermata Home”.','Attiva “Apri come app web”, poi tocca Aggiungi.']:['Apri il menu ⋮ del browser.','Tocca “Installa app” o “Aggiungi a schermata Home”.','Conferma l’installazione.']);
     if(typeof dialog.showModal==='function')dialog.showModal();else dialog.setAttribute('open','');
   };

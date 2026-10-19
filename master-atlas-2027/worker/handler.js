@@ -31,7 +31,7 @@ function createHandler(assets, catalog, Core, accountAuth = null, mcp = null) {
       const backup = /^\/api\/backups\/(\d+)$/.exec(url.pathname);
       if (backup && request.method === 'GET') {
         const r = await env.DB.prepare('SELECT body FROM atlas_history WHERE owner = ? AND revision = ?').bind(owner,Number(backup[1])).first();
-        return r ? json({app:'master-atlas-2027',version:2,state:JSON.parse(r.body)}) : json({error:'Backup non trovato'},404);
+        return r ? json({app:'marea',version:2,state:JSON.parse(r.body)}) : json({error:'Backup non trovato'},404);
       }
       if (url.pathname !== '/api/state' || request.method !== 'PUT') return json({error:'Non trovato'},404);
       if (Number(request.headers.get('content-length') || 0) > 2000000) return json({error:'Dati troppo grandi'},413);

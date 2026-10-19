@@ -1,5 +1,5 @@
 {
-  "name": "master-atlas-2027",
+  "name": "marea",
   "private": true,
   "scripts": {
     "db:generate": "drizzle-kit generate",

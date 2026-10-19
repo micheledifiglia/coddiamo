@@ -168,7 +168,7 @@ export function createPasskeyAuth(webauthn) {
         const existing=await env.DB.prepare('SELECT id FROM atlas_accounts WHERE username=?').bind(username).first();
         if(existing)return json({error:'Questo nome utente è già in uso.'},409);
         const userID=crypto.randomUUID();
-        const options=await webauthn.generateRegistrationOptions({rpName:'Master Atlas 2027',rpID:authConfig.rpID,userID:text(userID),userName:username,userDisplayName:username,attestationType:'none',authenticatorSelection:{residentKey:'required',userVerification:'required'}});
+        const options=await webauthn.generateRegistrationOptions({rpName:'Marea',rpID:authConfig.rpID,userID:text(userID),userName:username,userDisplayName:username,attestationType:'none',authenticatorSelection:{residentKey:'required',userVerification:'required'}});
         const flow=await saveChallenge(env,options.challenge,'register',userID,username);
         return json({flowId:flow.id,publicKey:options});
       }
@@ -228,7 +228,7 @@ export function createPasskeyAuth(webauthn) {
         if(!user)return json({error:'Accedi per aggiungere un passkey.'},401);
         const rows=await env.DB.prepare('SELECT credential_id,transports FROM atlas_passkeys WHERE owner=?').bind(user.id).all();
         if(rows.results.length>=5)return json({error:'Hai già raggiunto il limite di cinque passkey.'},409);
-        const options=await webauthn.generateRegistrationOptions({rpName:'Master Atlas 2027',rpID:authConfig.rpID,userID:text(user.id),userName:user.username,userDisplayName:user.username,attestationType:'none',excludeCredentials:rows.results.map(row=>({id:row.credential_id,transports:JSON.parse(row.transports)})),authenticatorSelection:{residentKey:'required',userVerification:'required'}});
+        const options=await webauthn.generateRegistrationOptions({rpName:'Marea',rpID:authConfig.rpID,userID:text(user.id),userName:user.username,userDisplayName:user.username,attestationType:'none',excludeCredentials:rows.results.map(row=>({id:row.credential_id,transports:JSON.parse(row.transports)})),authenticatorSelection:{residentKey:'required',userVerification:'required'}});
         const flow=await saveChallenge(env,options.challenge,'add-passkey',user.id,user.username);
         return json({flowId:flow.id,publicKey:options});
       }
