@@ -19,7 +19,8 @@ Scope: published PWA, primary navigation, quick search, browser console/network,
 - Before: English labels with Italian descriptions such as “La tua home · riepilogo e classifiche”.
 - Fix: added reversible translations for every quick-search description in `master-atlas-2027/dist/i18n.js`.
 - Regression coverage: `master-atlas-2027/tests/i18n.regression-1.test.cjs`.
-- Status: fixed; regression test and full test suite pass.
+- Fix commit: `82ce7c2f23dab13a04da78a8f5a785ccf40171ea`; regression-test commit: `ad7b191610b54080d945d49db1fe85c58bfda9f5`.
+- Status: fixed; regression test, full test suite and production build pass. Published as Sites version 59 (`d3d12038c0cd46be42768ffac4bd3ad3cd68396f`); deployment succeeded and the live browser shows all seven descriptions in English.
 
 ## Health score
 
