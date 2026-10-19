@@ -11,6 +11,6 @@
   "theme_color": "#eef3f9",
   "prefer_related_applications": false,
   "icons": [
-    { "src": "/icons/master-atlas-logo-v2.png", "sizes": "1254x1254", "type": "image/png", "purpose": "any" }
+    { "src": "/icons/master-atlas-logo-v3.png", "sizes": "1254x1254", "type": "image/png", "purpose": "any" }
   ]
 }

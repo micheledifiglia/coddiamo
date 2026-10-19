@@ -28,7 +28,7 @@ for(const file of files){
   fs.mkdirSync(path.dirname(dest),{recursive:true});
   fs.copyFileSync(path.join(source,file),dest);
 }
-for(const icon of ['atlas-180.png','atlas-192.png','atlas-512.png','atlas-app-180.png','atlas-app-192.png','atlas-app-512.png','master-atlas-logo.png'])fs.rmSync(path.join(target,'dist/icons',icon),{force:true});
+for(const icon of ['atlas-180.png','atlas-192.png','atlas-512.png','atlas-app-180.png','atlas-app-192.png','atlas-app-512.png','master-atlas-logo.png','master-atlas-logo-v2.png'])fs.rmSync(path.join(target,'dist/icons',icon),{force:true});
 fs.writeFileSync(targetConfigPath,JSON.stringify(targetConfig,null,2)+'\n');
 fs.writeFileSync(path.join(target,'.openai/release.json'),JSON.stringify({github_commit:sha,prepared_at:new Date().toISOString(),mode:'public-password-passkey-accounts'},null,2)+'\n');
 console.log(JSON.stringify({project_id:targetConfig.project_id,github_commit:sha,checkout:target,files:files.length}));
