@@ -12,6 +12,7 @@
     ['ATLANTE DEI MASTER', 'MAREA', 'ATLAS DE MÁSTERES', 'ATLAS DES MASTERS', 'MAREA'],
     ['SCIENZE DELLA VITA', 'LIFE SCIENCES', 'CIENCIAS DE LA VIDA', 'SCIENCES DE LA VIE', 'BIOWISSENSCHAFTEN'],
     ['Creato dal tuo dossier · Aggiornato al 16 ottobre 2026', 'Based on your dossier · Updated 16 October 2026', 'Basado en tu dosier · Actualizado el 16 de octubre de 2026', 'Fondé sur votre dossier · Mis à jour le 16 octobre 2026', 'Aus deinem Dossier · Aktualisiert am 16. Oktober 2026'],
+    ['© 2026 Michele Di Figlia · Tutti i diritti riservati', '© 2026 Michele Di Figlia · All rights reserved', '© 2026 Michele Di Figlia · Todos los derechos reservados', '© 2026 Michele Di Figlia · Tous droits réservés', '© 2026 Michele Di Figlia · Alle Rechte vorbehalten'],
     ['Ricerca rapida', 'Quick search', 'Búsqueda rápida', 'Recherche rapide', 'Schnellsuche'],
     ['La tua home · riepilogo e classifiche', 'Your home · overview and rankings', 'Tu inicio · resumen y clasificaciones', 'Votre accueil · aperçu et classements', 'Deine Startseite · Überblick und Ranglisten'],
     ['208 programmi · ricerca e filtri', '208 programmes · search and filters', '208 programas · búsqueda y filtros', '208 formations · recherche et filtres', '208 Studiengänge · Suche und Filter'],

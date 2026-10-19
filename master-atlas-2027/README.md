@@ -2,7 +2,7 @@
 
 App per esplorare 208 percorsi e seguire le candidature. Il sito pubblico ufficiale è:
 
-**© 2026 Michele Di Figlia. Tutti i diritti riservati** per il codice e gli asset originali. Consulta la [licenza del progetto](../LICENSE); componenti e contenuti di terzi restano soggetti ai propri termini.
+**© 2026 Michele Di Figlia. Tutti i diritti riservati in tutto il mondo** per il codice e gli asset originali. Consulta la [licenza del progetto](../LICENSE); componenti e contenuti di terzi restano soggetti ai propri termini.
 
 - **Profili pubblici Sites:** https://master-atlas-profili-2027.fair-swan-2763.chatgpt.site/ — profili personali, accesso con nome utente e password o passkey e sincronizzazione cloud separata.
 

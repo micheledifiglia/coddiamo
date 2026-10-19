@@ -77,4 +77,4 @@ Il catalogo deriva dal dossier aggiornato al **16 ottobre 2026** e conserva le s
 
 ## Licenza
 
-Il codice e gli asset originali di Marea sono **tutti i diritti riservati**: la pubblicazione del repository e del sito non concede il permesso di copiarli, modificarli o riutilizzarli. Consulta [`LICENSE`](LICENSE). Software, dati e contenuti di terzi restano soggetti ai rispettivi termini.
+Il codice e gli asset originali di Marea sono **tutti i diritti riservati in tutto il mondo**: pubblicare repository o sito non concede il permesso di copiarli, modificarli o riutilizzarli. Consulta [`LICENSE`](LICENSE). Software, dati e contenuti di terzi restano soggetti ai rispettivi termini.
