@@ -6,9 +6,10 @@ import {build as bundle} from 'esbuild';
 const root = path.resolve(import.meta.dirname,'..');
 const out = path.join(root,'_site');
 await bundle({entryPoints:[path.join(root,'scripts/globe-client.js')],bundle:true,minify:true,format:'iife',platform:'browser',target:'es2020',outfile:path.join(root,'dist/globe.js'),logLevel:'silent'});
-const files = ['index.html','style.css','glass-ui.css','app.js','ai.js','globe.js','core.js','storage.js','config.js','i18n.js','auth.js','auth.css','pwa.js','pwa.css','sw.js','manifest.webmanifest','data.json','icons/atlas-180.png','icons/atlas-192.png','icons/atlas-512.png'];
+const files = ['index.html','style.css','glass-ui.css','app.js','ai.js','globe.js','core.js','storage.js','config.js','i18n.js','auth.js','auth.css','pwa.js','pwa.css','sw.js','manifest.webmanifest','data.json','icons/atlas-app-180.png','icons/atlas-app-192.png','icons/atlas-app-512.png'];
 const allowed = new Set([...files,'.nojekyll','release.json']);
 fs.mkdirSync(out,{recursive:true});
+for(const icon of ['atlas-180.png','atlas-192.png','atlas-512.png'])fs.rmSync(path.join(out,'icons',icon),{force:true});
 for(const file of fs.readdirSync(out)) {
   const target=path.join(out,file),stat=fs.lstatSync(target);
   if(file==='icons'&&stat.isDirectory()){

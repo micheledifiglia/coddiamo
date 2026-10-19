@@ -1,23 +1,25 @@
-.install-app{padding:9px 13px;font-size:11px;border-color:#d8e6a2;background:#eef3df;color:#245c48}
-.install-app[hidden]{display:none}
-.install-dialog{width:min(440px,calc(100vw - 32px));padding:0;border:1px solid #e3e7de;border-radius:14px;color:#20332d;box-shadow:0 24px 70px #172c2440}
-.install-dialog::backdrop{background:#12241dcc;backdrop-filter:blur(3px)}
-.install-dialog .dialog-head{padding:22px 25px 13px;border-bottom:1px solid #e3e7de}
-.install-dialog .dialog-head h2{font:30px/1.05 var(--serif);margin:0}
-.install-dialog-content{padding:9px 25px 22px}
-.install-dialog-content>p{font-size:12px;line-height:1.7;color:#657168}
-.install-steps{display:grid;gap:5px;margin:17px 0}
-.install-steps p{display:flex;gap:12px;align-items:center;margin:0;padding:10px 0;font-size:12px;line-height:1.5}
-.install-step-number{flex:none;width:25px;height:25px;display:grid;place-items:center;border-radius:50%;background:#edf2e8;color:#245c48;font-weight:700}
-.install-dialog-content .install-note{padding-top:12px;border-top:1px solid #e3e7de;font-size:10px}
-@media(max-width:520px){.header-right{gap:12px}.install-app{padding:8px 10px;font-size:10px}.install-dialog .dialog-head{padding:20px}.install-dialog-content{padding:8px 20px 19px}}
-
-/* Installazione coordinata con il visual system dell'atlante. */
-.install-app{border-color:#c4ad79;background:#eaddbb;color:#37332a;border-radius:2px}
-.install-dialog{border-color:#bdb3a3;border-radius:2px;background:#fbf8f0;color:#242b29;box-shadow:0 20px 80px #191c1a40}
-.install-dialog::backdrop{background:#202926ad;backdrop-filter:blur(2px)}
-.install-dialog .dialog-head{background:#e9e2d6;border-color:#d8d1c5}
-.install-dialog .dialog-head h2{color:#242b29}
-.install-dialog-content>p{color:#686a63}
-.install-step-number{border-radius:2px;background:#e4ddcf;color:#34463f}
-.install-dialog-content .install-note{border-color:#d8d1c5}
+.profile-action.install-app{padding:8px 13px;border:1px solid rgba(88,111,220,.24);border-radius:999px;background:linear-gradient(145deg,#fff,#edf1ff);color:#4056bd;box-shadow:0 5px 16px rgba(48,67,133,.1),inset 0 1px 0 #fff;font-weight:700;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+.profile-action.install-app:hover{transform:translateY(-1px);background:linear-gradient(145deg,#fff,#e5eaff);box-shadow:0 8px 20px rgba(48,67,133,.16),inset 0 1px 0 #fff}
+.profile-action.install-app:active{transform:translateY(0)}
+.install-app[hidden]{display:none!important}
+.install-dialog{width:min(460px,calc(100vw - 32px - env(safe-area-inset-left) - env(safe-area-inset-right)));max-width:460px;max-height:calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow:auto;padding:0;border:1px solid rgba(133,151,184,.28);border-radius:26px;background:linear-gradient(145deg,rgba(251,253,255,.97),rgba(236,241,251,.96));color:#25364e;box-shadow:0 28px 90px rgba(13,25,45,.28),inset 0 1px 0 rgba(255,255,255,.95);backdrop-filter:blur(28px) saturate(165%);-webkit-backdrop-filter:blur(28px) saturate(165%)}
+.install-dialog::backdrop{background:rgba(10,18,31,.48);backdrop-filter:blur(5px)}
+.install-dialog .dialog-head{align-items:center;padding:22px 24px 15px;border-bottom:1px solid rgba(94,115,151,.14);background:linear-gradient(135deg,rgba(232,238,255,.88),rgba(248,249,255,.55))}
+.install-dialog .dialog-head h2{margin:0;color:#263852;font:700 25px/1.15 'Manrope',system-ui,sans-serif;letter-spacing:-.7px}
+.install-dialog-content{padding:16px 24px 23px}
+.install-dialog-content>p{font-size:13px;line-height:1.65;color:#65748a}
+.install-steps{display:grid;gap:5px;margin:15px 0 18px}
+.install-steps p{display:flex;gap:12px;align-items:center;margin:0;padding:8px 0;font-size:13px;line-height:1.5;color:#3e4e65}
+.install-step-number{display:grid;flex:none;width:29px;height:29px;place-items:center;border:1px solid rgba(103,126,224,.2);border-radius:10px;background:linear-gradient(145deg,#fff,#e9edff);color:#5269d5;font-size:12px;font-weight:800;box-shadow:0 3px 9px rgba(48,67,133,.08)}
+.install-dialog-content .install-note{margin:0;padding-top:14px;border-top:1px solid rgba(94,115,151,.14);font-size:11px;color:#718098}
+:root[data-theme="dark"] .profile-action.install-app{border-color:rgba(147,164,255,.28);background:linear-gradient(145deg,rgba(57,74,115,.9),rgba(42,56,91,.86));color:#e3eaff;box-shadow:0 6px 18px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.12)}
+:root[data-theme="dark"] .profile-action.install-app:hover{background:linear-gradient(145deg,#435682,#34466f)}
+:root[data-theme="dark"] .install-dialog{border-color:rgba(198,215,244,.2);background:linear-gradient(145deg,rgba(29,43,64,.98),rgba(18,30,48,.98));color:#e4edf9}
+:root[data-theme="dark"] .install-dialog .dialog-head{border-color:rgba(215,230,250,.12);background:linear-gradient(135deg,rgba(53,70,104,.8),rgba(31,44,66,.7))}
+:root[data-theme="dark"] .install-dialog .dialog-head h2,:root[data-theme="dark"] .install-steps p{color:#edf3fb}
+:root[data-theme="dark"] .install-dialog-content>p,:root[data-theme="dark"] .install-dialog-content .install-note{color:#aab8ca}
+:root[data-theme="dark"] .install-dialog-content .install-note{border-color:rgba(215,230,250,.12)}
+:root[data-theme="dark"] .install-step-number{border-color:rgba(170,188,255,.2);background:linear-gradient(145deg,#354a73,#263853);color:#d9e2ff}
+@media(max-width:520px){.install-dialog{width:calc(100vw - 20px - env(safe-area-inset-left) - env(safe-area-inset-right));max-height:calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom));border-radius:23px}.install-dialog .dialog-head{padding:19px 19px 14px}.install-dialog-content{padding:13px 19px 19px}.install-dialog-content>p,.install-steps p{font-size:12px}.profile-action.install-app{padding:8px 10px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){.profile-action.install-app{transition:none}.profile-action.install-app:hover{transform:none}}
+@media(prefers-reduced-transparency:reduce){.install-dialog{backdrop-filter:none;-webkit-backdrop-filter:none;background:#f3f6fd}:root[data-theme="dark"] .install-dialog{background:#17263c}}
