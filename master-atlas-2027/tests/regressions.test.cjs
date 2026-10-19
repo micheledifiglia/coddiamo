@@ -297,9 +297,10 @@ function database(){
   return {env,db};
 }
 test('API: accesso, isolamento utenti, controllo revisione, copie di recupero',async()=>{
-  const {env,db}=database();const handle=createHandler({},catalog,Core);
-  const request=(owner,method='GET',value,route='/api/state',origin='https://atlas.test')=>new Request('https://atlas.test'+route,{method,headers:{...(owner?{'oai-authenticated-user-id':owner}:{}),...(method==='PUT'?{'origin':origin,'content-type':'application/json'}:{})},...(value?{body:JSON.stringify(value)}:{})});
+  const {env,db}=database();const auth={async resolveOwner(request){return request.headers.get('x-test-owner')}};const handle=createHandler({},catalog,Core,auth);
+  const request=(owner,method='GET',value,route='/api/state',origin='https://atlas.test')=>new Request('https://atlas.test'+route,{method,headers:{...(owner?{'x-test-owner':owner}:{}),...(method==='PUT'?{'origin':origin,'content-type':'application/json'}:{})},...(value?{body:JSON.stringify(value)}:{})});
   assert.equal((await handle(request(null),env)).status,401);
+  assert.equal((await handle(new Request('https://atlas.test/api/state',{headers:{'oai-authenticated-user-id':'alice'}}),env)).status,401,'il vecchio header di Sites non autentica più gli account');
   assert.equal((await handle(request('alice','PUT',{state:{},revision:0},'/api/state','https://evil.test'),env)).status,403);
   const a=await (await handle(request('alice'),env)).json();assert.equal(a.revision,0);
   const state=Core.normalize({records:{[first]:{notes:'Privata',updatedAt:1}}},catalog);
@@ -327,11 +328,11 @@ test('Un account nuovo parte davvero da un catalogo vuoto, anche senza dati loca
   assert.deepEqual(store.state.catalogPrograms,{});assert.deepEqual(store.state.catalogUniversities,{});assert.deepEqual(store.state.favorites,[],'i dati locali non condivisi non migrano nel nuovo profilo');
 });
 test('Due dispositivi sincronizzano note diverse senza sovrascriverle',async()=>{
-  const {env,db}=database();const handle=createHandler({},catalog,Core);
+  const {env,db}=database();const auth={async resolveOwner(request){return request.headers.get('x-test-owner')}};const handle=createHandler({},catalog,Core,auth);
   const devices=[];
   for(let i=0;i<2;i++){
     const values=new Map();
-    const fetch=async(url,init={})=>handle(new Request('https://atlas.test'+url,{...init,headers:{...init.headers,'oai-authenticated-user-id':'alice',origin:'https://atlas.test'}}),env);
+    const fetch=async(url,init={})=>handle(new Request('https://atlas.test'+url,{...init,headers:{...init.headers,'x-test-owner':'alice',origin:'https://atlas.test'}}),env);
     const sandbox={AtlasCore:Core,window:{addEventListener(){}},localStorage:{getItem:k=>values.get(k)||null,setItem:(k,v)=>values.set(k,v)},fetch,setTimeout,clearTimeout,AbortSignal};
     vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/storage.js'),'utf8')+';globalThis.Store=AtlasStore',sandbox);
     devices.push(new sandbox.Store(catalog,()=>{},()=>{}));
@@ -373,7 +374,18 @@ test('Le modifiche in schede pubbliche diverse vengono unite e persistite localm
   assert.equal(JSON.parse(entries.get('master-atlas-2027-v2')).records[first].notes,'Nota dalla prima scheda');
   assert.equal(JSON.parse(entries.get('master-atlas-2027-v2')).records[second].notes,'Nota dalla seconda scheda');
 });
-test('La build Pages contiene soltanto risorse pubbliche e disabilita il cloud',()=>{
+test('La build Sites predefinita usa il progetto pubblico e gli account cloud',()=>{
+  const hosting=JSON.parse(fs.readFileSync(path.join(__dirname,'../.openai/hosting.json'),'utf8'));
+  const config={};vm.createContext(config);vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/config.js'),'utf8'),config);
+  assert.equal(hosting.project_id,'appgprj_6ad2db63aac88191a21dd2a0d4e56d56');
+  assert.equal(hosting.d1,'DB');
+  assert.deepEqual({...config.ATLAS_CONFIG},{public:true,cloudSync:true,accounts:true});
+  const packageJson=JSON.parse(fs.readFileSync(path.join(__dirname,'../package.json'),'utf8'));
+  assert.equal(packageJson.scripts.build,'node scripts/build.mjs');
+  assert.equal(packageJson.scripts['build:accounts'],undefined);
+  assert.ok(fs.readFileSync(path.join(__dirname,'../scripts/build.mjs'),'utf8').includes('worker/accounts-entry.mjs'));
+});
+test('La build Pages locale contiene soltanto risorse pubbliche e disabilita il cloud',()=>{
   const run=spawnSync(process.execPath,[path.join(__dirname,'../scripts/build-pages.mjs')],{encoding:'utf8'});
   assert.equal(run.status,0,run.stderr);
   const dir=path.join(__dirname,'../_site');

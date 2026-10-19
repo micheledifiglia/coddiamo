@@ -1,5 +1,8 @@
 {
-  "project_id": "appgprj_6ad2c39e980c8191a2fd5b66c480845d",
+  "project_id": "appgprj_6ad2db63aac88191a21dd2a0d4e56d56",
   "d1": "DB",
-  "r2": null
+  "r2": null,
+  "capabilities": [
+    "mcp"
+  ]
 }

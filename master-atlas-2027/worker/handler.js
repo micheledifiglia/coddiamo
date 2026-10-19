@@ -15,9 +15,7 @@ function createHandler(assets, catalog, Core, accountAuth = null, mcp = null) {
       const body=asset.body?.encoding==='base64' ? Uint8Array.from(atob(asset.body.value),char=>char.charCodeAt(0)) : asset.body;
       return new Response(request.method === 'HEAD' ? null : body, {headers:{'content-type':asset.type,'cache-control':'no-cache','x-content-type-options':'nosniff'}});
     }
-    const owner = accountAuth
-      ? await accountAuth.resolveOwner(request,env)
-      : request.headers.get('oai-authenticated-user-id');
+    const owner = accountAuth ? await accountAuth.resolveOwner(request,env) : null;
     if (!owner) return json({error:'Accesso ChatGPT richiesto'},401);
     if (!env.DB) return json({error:'Database non disponibile'},503);
     if (!['GET','PUT'].includes(request.method)) return json({error:'Metodo non consentito'},405);

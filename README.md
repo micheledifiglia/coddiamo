@@ -31,23 +31,23 @@ Le graduatorie sono valutazioni personali e qualitative: **non sono ranking uffi
 - Importare ed esportare un backup dei propri progressi.
 - Consultare il dossier, le note originali e la legenda delle sigle.
 
-## Versioni e dati personali
+## Sito e dati personali
 
-Il [sito pubblico su Sites](https://master-atlas-profili-2027.fair-swan-2763.chatgpt.site/) offre profili personali con passkey e sincronizzazione cloud. Il catalogo è pubblico; i dati di ciascun profilo sono isolati e non visibili agli altri utenti. La [copia privata](https://master-atlas-michele-2027.fair-swan-2763.chatgpt.site/) resta riservata al proprietario.
+Master Atlas ha un solo sito, [pubblico su Sites](https://master-atlas-profili-2027.fair-swan-2763.chatgpt.site/), con profili personali, passkey e sincronizzazione cloud. Il catalogo è pubblico; preferiti, candidature e note restano isolati nel rispettivo profilo e non sono visibili agli altri utenti.
 
 ## Avvio locale
 
-Servono **Python 3.12** e **Node.js 24**. Dalla cartella del progetto:
+Servono **Python 3.12** e **Node.js 24**. Dalla cartella del repository:
 
 ```powershell
 cd master-atlas-2027
-python parse_data.py
-node --test tests/*.test.cjs
-node scripts/build-pages.mjs
-python -m http.server 8000 --directory _site
+npm ci
+npm test
+npm run build
+npm run preview
 ```
 
-Apri poi `http://localhost:8000`. Per generare il Worker privato, usa `npm ci` e `npm run build`; lo sviluppo dello schema D1 usa `npm run db:generate`. Dettagli, migrazioni e procedure di pubblicazione sono nella [guida tecnica](master-atlas-2027/README.md).
+Apri `http://127.0.0.1:8790`. L’anteprima usa un database locale separato dal sito pubblico. Lo sviluppo dello schema D1 usa `npm run db:generate`. I dettagli sono nella [guida tecnica](master-atlas-2027/README.md).
 
 ## Struttura
 
@@ -62,7 +62,7 @@ Apri poi `http://localhost:8000`. Per generare il Worker privato, usa `npm ci` e
     ├── dist/                # sorgenti frontend e catalogo generato
     ├── scripts/             # build, anteprima e rilascio Sites
     ├── tests/               # test di regressione
-    └── worker/              # API autenticata della copia privata
+    └── worker/              # API pubblica con profili e dati isolati per account
 ```
 
 Il file autorevole dei contenuti è `master-atlas-2027/data/dossier.md`. Il catalogo in `master-atlas-2027/dist/data.json` viene rigenerato dal parser. Gli identificativi storici in `master-atlas-2027/data/legacy-ids.json` preservano i dati già salvati: non rigenerarli quando cambia l’ordine della classifica.

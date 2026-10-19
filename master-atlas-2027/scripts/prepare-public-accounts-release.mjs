@@ -1,4 +1,4 @@
-/* Copies a clean GitHub source state into the distinct public accounts Site checkout. */
+/* Copies a clean GitHub source state into the public accounts Site checkout. */
 import fs from 'node:fs';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
@@ -7,13 +7,13 @@ const source=path.resolve(import.meta.dirname,'..');
 const repository=execFileSync('git',['-C',path.resolve(source,'..'),'rev-parse','--show-toplevel'],{encoding:'utf8'}).trim();
 const target=path.resolve(process.argv[2]||'');
 const readJson=file=>JSON.parse(fs.readFileSync(file,'utf8'));
-if(!process.argv[2]||target===source||!fs.existsSync(path.join(target,'.git')))throw Error('Indica il checkout separato del nuovo Site, già aperto con site-workflow.');
+if(!process.argv[2]||target===source||!fs.existsSync(path.join(target,'.git')))throw Error('Indica il checkout separato del Site pubblico esistente, già aperto con site-workflow.');
 const sourceConfig=readJson(path.join(source,'.openai/hosting.json'));
 const targetConfigPath=path.join(target,'.openai/hosting.json');
-if(!fs.existsSync(targetConfigPath))throw Error('Il checkout del nuovo Site non contiene .openai/hosting.json.');
+if(!fs.existsSync(targetConfigPath))throw Error('Il checkout del Site pubblico non contiene .openai/hosting.json.');
 const targetConfig=readJson(targetConfigPath);
-if(!sourceConfig.project_id||!targetConfig.project_id||sourceConfig.project_id===targetConfig.project_id)throw Error('Il Site account deve avere un project_id distinto dal Site privato.');
-if(targetConfig.d1&&targetConfig.d1!=='DB')throw Error('Il binding D1 del nuovo Site non è DB; correggere la configurazione prima del rilascio.');
+if(!sourceConfig.project_id||!targetConfig.project_id||sourceConfig.project_id!==targetConfig.project_id)throw Error('Il checkout deve corrispondere al progetto Sites pubblico configurato.');
+if(targetConfig.d1&&targetConfig.d1!=='DB')throw Error('Il binding D1 del Site pubblico non è DB; correggere la configurazione prima del rilascio.');
 targetConfig.d1='DB';
 targetConfig.r2=null;
 const git=args=>execFileSync('git',args,{cwd:repository,encoding:'utf8'}).trim();

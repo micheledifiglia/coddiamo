@@ -6,7 +6,6 @@
     "build": "node scripts/build.mjs",
     "test": "node --test tests/*.test.cjs",
     "preview": "node scripts/preview.mjs",
-    "build:accounts": "node scripts/build.mjs --accounts",
     "prepare:public-accounts-release": "node scripts/prepare-public-accounts-release.mjs"
   },
   "devDependencies": {
