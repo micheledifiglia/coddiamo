@@ -1,5 +1,5 @@
 'use strict';
-const CACHE='master-atlas-shell-v16';
+const CACHE='master-atlas-shell-v17';
 const SHELL=['/','/index.html','/style.css','/auth.css','/glass-ui.css','/pwa.css','/config.js','/i18n.js','/auth.js','/core.js','/storage.js','/globe.js','/ai.js','/app.js','/pwa.js','/manifest.webmanifest','/data.json','/icons/master-atlas-logo-v3.png'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('master-atlas-shell-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()));});

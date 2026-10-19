@@ -69,7 +69,7 @@ test('La lingua si cambia dal profilo e resta salvata tra le sessioni',()=>{
   assert.match(i18n,/new MutationObserver/,'anche le schermate renderizzate in seguito vengono tradotte');
   assert.match(i18n,/Claude: add the connector on the web, then use it on iOS or Android/,'le istruzioni MCP spiegano il flusso mobile in inglese');
   assert.match(workerBuild,/['"]i18n\.js['"]:\s*['"]text\/javascript; charset=utf-8['"]/,'il Worker pubblica anche lo script delle traduzioni');
-  assert.match(sw,/master-atlas-shell-v16/,'la shell aggiorna la cache dopo la sostituzione del logo');
+  assert.match(sw,/master-atlas-shell-v17/,'la shell aggiorna la cache dopo la sostituzione del logo');
   assert.match(css,/\.profile-language select\{[\s\S]*border-radius:11px/);
   assert.match(css,/:root\[data-theme="dark"\] \.profile-language select/);
   assert.match(app,/option value="\$\{esc\(s\)\}" \$\{r\.stage===s\?'selected':''\}/,'le traduzioni delle candidature non alterano il valore salvato');
@@ -119,7 +119,7 @@ test('L’accesso offre password e passkey senza pulsanti di provider esterni',(
   assert.match(html,/id="account-add-passkey"/);
   assert.doesNotMatch(`${html}\n${auth}`,/Continua con Google|Continua con Apple|accounts\.google\.com|appleid\.apple\.com/);
   assert.ok(html.indexOf('href="glass-ui.css"')<html.indexOf('href="auth.css"'),'lo stile di accesso prevale sulle regole generali liquid glass');
-  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/master-atlas-shell-v16/,'la cache PWA viene invalidata per aggiornare installazione e icone');
+  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/master-atlas-shell-v17/,'la cache PWA viene invalidata per aggiornare installazione e icone');
 });
 test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su telefono',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
@@ -188,7 +188,7 @@ test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8'),/src="globe\.js" defer><\/script><script src="ai\.js" defer><\/script><script src="app\.js" defer/);
   const serviceWorker=fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8');
   assert.match(serviceWorker,/\/globe\.js/);
-  assert.match(serviceWorker,/master-atlas-shell-v16/);
+  assert.match(serviceWorker,/master-atlas-shell-v17/);
   assert.match(serviceWorker,/\/i18n\.js/);
   assert.match(serviceWorker,/\/icons\/master-atlas-logo-v3\.png/);
   assert.doesNotMatch(serviceWorker,/\/icons\/(?:atlas|atlas-app)-(?:180|192|512)\.png/);
