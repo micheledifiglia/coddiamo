@@ -13,6 +13,36 @@ function renderCommandResults(){const output=$('#command-results'),input=$('#com
 function openCommandPalette(){const dialog=$('#command-palette');if(!dialog)return;if(!dialog.open)dialog.showModal();const input=$('#command-search');if(input){input.value='';renderCommandResults();requestAnimationFrame(()=>input.focus())}}
 const legend={M:'Master autonomo o contenitore. La ricerca dipende anche dal laboratorio.',T:'Track, major o concentrazione interna: non un titolo autonomo.',M1:'Primo anno francese; normalmente è il punto di ingresso dopo L-2.',M2:'Secondo anno francese; accesso diretto dopo L-2 non automatico.',J:'Titolo congiunto.',D:'Doppio o multiplo titolo.',C:'Collaborazione didattica: doppio titolo non verificato.','·M':'Mobilità strutturata.',DE:'Tedesco richiesto.',L:'Lingua da verificare; intero percorso in inglese non confermato.',E:'Piano in inglese da costruire e confermare nei moduli.',A:'Accesso particolare o equivalenza L-2 da verificare.','?':'Offerta, struttura o ingresso 2027 da riconfermare.',CN:'Ateneo europeo, programma in Cina.'};
 let D,state={favorites:[],compare:[],records:{}},basePrograms=[],baseUniversities=[],aiPending=null,catalogManagerKind='programs',view='overview',homeTab='3',region='Tutte',query='',uni='',kind='',condition='',sort='name',favoritesOnly=false,layout='cards',toastTimer;
+const overviewRankings={
+  '3':[
+    {rank:1,name:'Cancer, Stem Cells and Developmental Biology',university:'Utrecht',city:'Utrecht'},
+    {rank:2,name:'Molecular and Cellular Life Sciences — Molecules & Cells / Genes to Organisms / Biophysics & Molecular Imaging',university:'Utrecht',city:'Utrecht'},
+    {rank:3,name:'From Fundamental Molecular Biosciences to Biotherapies',university:'Sorbonne',city:'Parigi + partner scelto'},
+    {rank:4,name:'Cell Biology, Development, Cancer: from stem cells to organisms',university:'Sorbonne',city:'Parigi'},
+    {rank:5,name:'Biology — Molecular and Cellular Biology',university:'UZH',city:'Zurigo'}
+  ],
+  '4':[
+    {rank:1,name:'Cell and Developmental Biology',university:'UBC',city:'Vancouver'},
+    {rank:2,name:'Biochemistry and Molecular Biology',university:'UBC',city:'Vancouver'},
+    {rank:3,name:'Cell and Systems Biology',university:'Toronto',city:'Toronto'},
+    {rank:4,name:'Molecular Genetics',university:'Toronto',city:'Toronto'},
+    {rank:5,name:'Medical Biophysics',university:'Toronto',city:'Toronto'}
+  ],
+  '1':[
+    {rank:1,name:'Utrecht',offer:'CSDB, MCLS, RMT, Biofabrication',city:'Utrecht / Eindhoven'},
+    {rank:2,name:'Sorbonne',offer:'BMC, Biosciences to Biotherapies, staminali e sviluppo',city:'Parigi + partner internazionali'},
+    {rank:3,name:'UZH',offer:'Biology cellulare/sviluppo, Biochemistry',city:'Zurigo'},
+    {rank:4,name:'Basel',offer:'Molecular Biology, ricerca cellulare e rigenerativa',city:'Basilea'},
+    {rank:5,name:'ETH',offer:'Biotechnology, Biology, Molecular Bioengineering',city:'Zurigo / Basilea'}
+  ],
+  '2':[
+    {rank:1,name:'UBC',offer:'Cell and Developmental Biology, Biochemistry and Molecular Biology',city:'Vancouver'},
+    {rank:2,name:'Toronto',offer:'Cell and Systems Biology, Molecular Genetics, Medical Biophysics',city:'Toronto / Mississauga'},
+    {rank:3,name:'Melbourne',offer:'Biomedical Science, BioSciences',city:'Melbourne'},
+    {rank:4,name:'Monash',offer:'Rigenerazione e staminali, Biotechnology',city:'Melbourne / Clayton'},
+    {rank:5,name:'Queensland — UQ',offer:'Biotechnology Research Extensive e Molecular Biology Research Extensive',city:'Brisbane'}
+  ]
+};
 const save=()=>store ? store.save(state) : false;
 function toast(t){$('#toast').textContent=t;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),3500)}
 let draftDirty=false, draftTimer;
@@ -73,15 +103,14 @@ function overview(){
   const programs=D.programs||[],universities=uniquePersonalUniversities(),tracked=programs.filter(p=>rec(p.id).stage),shortlist=state.favorites.map(find).filter(Boolean).slice(0,3);
   const europe=programs.filter(p=>p.region==='Europa').length,extra=programs.filter(p=>p.region==='Extra-Europa').length,total=europe+extra,europeShare=total?Math.round(europe/total*100):0;
   const statusRows=stages.map(stage=>{const count=tracked.filter(p=>rec(p.id).stage===stage).length;return `<div class="stage-row"><span>${esc(stage)}</span><div class="stage-track"><i style="--stage-fill:${tracked.length?Math.max(6,Math.round(count/tracked.length*100)):0}%"></i></div><strong>${count}</strong></div>`}).join('');
-  const programRows=programs.slice(0,4).map(p=>`<button class="top-row" type="button" data-detail="${esc(p.id)}"><span class="rank">↗</span><div class="row-body"><h3>${esc(p.name)}</h3><p>${esc([p.university,p.city].filter(Boolean).join(' · ')||'Percorso personale')}</p></div><span aria-hidden="true">›</span></button>`).join('');
-  const universityRows=universities.slice(0,3).map(u=>`<div class="shortlist-row"><span class="shortlist-rank">⌂</span><span><strong>${esc(u.name)}</strong><small>${esc([u.city,u.country].filter(Boolean).join(' · ')||'Università personale')}</small></span></div>`).join('');
+  const rankingRows=(overviewRankings[homeTab]||[]).map(p=>`<div class="top-row"><span class="rank">${String(p.rank).padStart(2,'0')}</span><div class="row-body"><h3>${esc(p.name)}</h3><p>${esc([p.university||p.offer,p.city].filter(Boolean).join(' · '))}</p></div></div>`).join('');
   $('#main').innerHTML=title('IL TUO SPAZIO','Il tuo atlante.','Percorsi, università e candidature raccolti in un unico spazio.',`<button class="button primary" data-open-custom-catalog="programs">＋ Crea un percorso</button>`)+`<section class="dashboard-grid" aria-label="Riepilogo del tuo spazio personale">
     <article class="dashboard-card atlas-hero-card" aria-label="Atlante e panoramica"><div class="atlas-hero-globe">${globeCard()}</div>
       <section class="distribution-card" aria-label="Panoramica del tuo spazio"><div class="dashboard-card-head"><div><span class="eyebrow">IL TUO SPAZIO</span><h2>Una panoramica.</h2></div><span class="glass-chip">PERSONALE</span></div>
         <div class="distribution-content"><div class="distribution-donut ${total?'':'is-empty'}" style="--europe-share:${europeShare}%" role="img" aria-label="${total} percorsi personali"><div><strong>${total}</strong><small>percorsi</small></div></div><div class="distribution-legend"><div class="distribution-key"><i class="key-dot europe-dot"></i><span>Europa</span><strong>${europe}</strong><small>${europeShare}%</small></div><div class="distribution-key"><i class="key-dot extra-dot"></i><span>Extra-Europa</span><strong>${extra}</strong><small>${total?100-europeShare:0}%</small></div></div></div>
         <div class="dashboard-metrics"><a href="#programs"><span>Percorsi</span><strong>${String(programs.length).padStart(2,'0')}</strong><small>nel tuo spazio</small></a><a href="#universities"><span>Università</span><strong>${String(universities.length).padStart(2,'0')}</strong><small>aggiunte da te</small></a><a href="#applications"><span>Candidature</span><strong>${String(tracked.length).padStart(2,'0')}</strong><small>che stai seguendo</small></a></div>
       </section></article>
-    <div class="dashboard-main"><article class="dashboard-card ranking-card"><div class="dashboard-card-head"><div><span class="eyebrow">IL TUO SPAZIO</span><h2>I tuoi percorsi.</h2></div><a class="subtle-link" href="#programs">Apri i percorsi <span aria-hidden="true">↗</span></a></div><div class="dashboard-ranking-list">${programRows||'<p class="dashboard-empty">I percorsi che aggiungi appariranno qui. Crea la tua prima voce per iniziare.</p>'}</div>${programs.length>4?'<a class="focus-link" href="#programs">Mostra tutti i percorsi <span aria-hidden="true">↗</span></a>':''}</article></div>
+    <div class="dashboard-main"><article class="dashboard-card ranking-card"><div class="dashboard-card-head"><div><span class="eyebrow">SCELTI PER TE</span><h2>Le classifiche.</h2></div><a class="subtle-link" href="#programs">Tutti i percorsi <span aria-hidden="true">↗</span></a></div><div class="ranking-tabs">${[['3','Percorsi Europa'],['4','Percorsi extra-Europa'],['1','Atenei Europa'],['2','Atenei extra-Europa']].map(([id,label])=>`<button class="tab ${homeTab===id?'active':''}" type="button" data-home-tab="${id}" aria-pressed="${homeTab===id}">${label}</button>`).join('')}</div><div class="dashboard-ranking-list">${rankingRows||'<p class="dashboard-empty">Classifica non disponibile.</p>'}</div><p class="dashboard-footnote">Le classifiche mostrate sono qualitative: non sono ranking ufficiali né probabilità di ammissione.</p></article></div>
     <aside class="dashboard-rail"><article class="dashboard-card activity-card"><div class="dashboard-card-head"><div><span class="eyebrow">IL PROSSIMO PASSO</span><h2>Candidature.</h2></div><a class="round-link" href="#applications" aria-label="Apri candidature">↗</a></div><div class="stage-list">${statusRows}</div><p class="dashboard-empty">${tracked.length?`${tracked.length} percorsi con uno stato di candidatura.`:'Quando vorrai, potrai aggiungere stati e scadenze ai tuoi percorsi.'}</p><a class="focus-link" href="#applications">${tracked.length?'Apri il tuo piano':'Organizza il tuo piano'} <span aria-hidden="true">↗</span></a></article>
       <article class="dashboard-card shortlist-card"><div class="dashboard-card-head"><div><span class="eyebrow">DA TENERE VICINO</span><h2>La selezione.</h2></div><a class="round-link" href="#favorites" aria-label="Apri la selezione">↗</a></div>${shortlist.length?shortlist.map(p=>`<button class="shortlist-row" type="button" data-detail="${esc(p.id)}"><span class="shortlist-rank">♡</span><span><strong>${esc(p.name)}</strong><small>${esc([p.university,p.city].filter(Boolean).join(' · ')||'Percorso personale')}</small></span><span aria-hidden="true">↗</span></button>`).join(''):'<p class="dashboard-empty">Le voci che aggiungi alla selezione compariranno qui.</p>'}</article>
       </aside>
