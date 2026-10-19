@@ -31,10 +31,9 @@ test('Le icone dell’interfaccia usano SVG coerenti su iOS e desktop',()=>{
   assert.match(html,/id="theme-toggle"[\s\S]*<svg class="theme-glyph theme-icon-sun"[\s\S]*<svg class="theme-glyph theme-icon-moon"/);
   assert.match(app,/button\.title=theme==='dark'\?'Passa al tema chiaro':'Passa al tema scuro'/);
   assert.doesNotMatch(app,/\.theme-glyph',button\)\.innerHTML/,'le icone del tema restano SVG statiche per compatibilità Safari');
-  assert.match(app,/class="focus-orbit"[\s\S]*<svg viewBox="0 0 48 48"/);
+  assert.doesNotMatch(app,/class="focus-card"|LA TUA BUSSOLA|YOUR COMPASS/,'la sezione bussola è stata rimossa dalla panoramica');
   assert.doesNotMatch(`${html}\n${app}`,/⚙|↪|⌑|✳|☀|◐/,'le icone non dipendono dai font emoji di sistema');
   assert.match(css,/\.profile-action-icon\{display:block;width:23px;height:23px/);
-  assert.match(css,/\.focus-orbit svg\{position:relative;width:29px;height:29px/);
   assert.match(css,/\.header-actions-glass \.theme-glyph\{display:none;width:22px;height:22px/);
   assert.match(css,/:root\[data-theme="dark"\].*\.theme-icon-sun,:root\[data-theme="light"\].*\.theme-icon-moon\{display:block\}/);
 });
