@@ -7,7 +7,7 @@ const {DatabaseSync}=require('node:sqlite');
 const Core=require('../dist/core.js');
 const {createHandler}=require('../worker/handler.js');
 const {createMcpHandler}=require('../worker/mcp.js');
-const catalog=JSON.parse(fs.readFileSync(path.join(__dirname,'../dist/data.json'),'utf8'));
+const catalog={legacyIds:{},retiredProgramIds:[],programs:[{id:'p-example-002',name:'Secondo percorso di prova',university:'Ateneo di prova',city:'Città di prova',region:'Europa',type:'M',conditions:'—',notes:[],partners:['Ateneo di prova']},{id:'p-example-001',name:'Percorso di prova',university:'Ateneo di prova',city:'Città di prova',region:'Europa',type:'M',conditions:'—',notes:[],partners:['Ateneo di prova']}],universities:[{id:'u-example-001',name:'Ateneo di prova',city:'Città di prova',region:'Europa',offer:'',custom:false}]};
 
 function database(){
   const db=new DatabaseSync(':memory:');

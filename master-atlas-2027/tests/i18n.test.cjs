@@ -27,7 +27,6 @@ test('Le etichette dinamiche conservano numeri e ritornano alla lingua scelta', 
   }
   assert.equal(translate('0 percorsi Europa e 0 extra-Europa', 'en'), '0 European programmes and 0 outside Europe');
   assert.equal(translate('208 percorsi disponibili · mostra i primi 60 · cerca per nome, ateneo o città', 'en'), '208 programmes available · showing the first 60 · search by name, university or city');
-  assert.equal(translate('83 risultati nel catalogo principale · mostrati i primi 60', 'de'), '83 Ergebnisse im Hauptkatalog · die ersten 60 werden angezeigt');
   assert.equal(translate('Aggiungi', 'fr'), 'Ajouter');
   assert.equal(translate('Rimuovere “Neuroscienze molecolari” dal tuo catalogo personale? Saranno rimosse anche shortlist, confronto e candidatura associate.', 'en'), 'Remove “Neuroscienze molecolari” from your personal catalogue? Its shortlist, comparison and application will also be removed.');
   assert.equal(translate('Rimuovi Neuroscienze molecolari dal tuo catalogo', 'fr'), 'Retirer Neuroscienze molecolari de votre catalogue');

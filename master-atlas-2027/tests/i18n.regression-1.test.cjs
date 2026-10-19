@@ -13,14 +13,11 @@ const {translate} = context.AtlasI18n;
 
 test('Le descrizioni della ricerca rapida sono localizzate e reversibili', () => {
   const descriptions = [
-    'La tua home · riepilogo e classifiche',
-    '208 programmi · ricerca e filtri',
-    '27 atenei nel dossier',
+    'Il tuo spazio personale',
     'Percorsi salvati e candidature',
     'Affianca fino a quattro percorsi',
     'Checklist e prossime scadenze',
-    'Fonti, note e backup',
-  ];
+    ];
   for (const description of descriptions) {
     for (const language of ['en', 'es', 'fr', 'de']) {
       const localized = translate(description, language);

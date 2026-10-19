@@ -64,7 +64,7 @@
     result.catalogUniversities = normalizeCatalogMembership(hasPersonalCatalog ? raw.catalogUniversities : null, universityIds);
     const activeCustom = result.customPrograms.filter(p => !p.deletedAt);
     const customIds = new Set(activeCustom.map(p => p.id));
-    const ids = new Set([...catalog.programs.map(p => p.id), ...customIds]);
+    const ids = new Set([...catalog.programs.map(p => p.id), ...(catalog.retiredProgramIds || []), ...customIds]);
     const map = id => ids.has(id) ? id : catalog.legacyIds?.[id];
     for (const field of ['favorites','compare']) {
       result[field] = [...new Set((Array.isArray(raw[field]) ? raw[field] : []).map(map).filter(id => ids.has(id)))];

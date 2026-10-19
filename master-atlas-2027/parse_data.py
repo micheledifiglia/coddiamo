@@ -1,7 +1,7 @@
 import re,json,pathlib,hashlib,argparse
 root=pathlib.Path(__file__).parent
-parser=argparse.ArgumentParser(description='Rigenera il catalogo dal dossier versionato.')
-parser.add_argument('--source',type=pathlib.Path,default=root/'data'/'dossier.md')
+parser=argparse.ArgumentParser(description='Genera un catalogo da una sorgente Markdown specificata.')
+parser.add_argument('--source',type=pathlib.Path,required=True)
 parser.add_argument('--output',type=pathlib.Path,default=root/'dist'/'data.json')
 args=parser.parse_args()
 src=args.source.read_text(encoding='utf-8-sig')

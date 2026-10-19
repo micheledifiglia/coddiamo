@@ -3,7 +3,7 @@ const assert=require('node:assert/strict');
 const Core=require('../dist/core.js');
 const AI=require('../dist/ai.js');
 const fs=require('node:fs');
-const catalog=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'../dist/data.json'),'utf8'));
+const catalog={legacyIds:{},retiredProgramIds:[],programs:[{id:'p-example-002',name:'Secondo percorso di prova',university:'Ateneo di prova',city:'Città di prova',region:'Europa',type:'M',conditions:'—',notes:[],partners:['Ateneo di prova']},{id:'p-example-001',name:'Percorso di prova',university:'Ateneo di prova',city:'Città di prova',region:'Europa',type:'M',conditions:'—',notes:[],partners:['Ateneo di prova']}],universities:[{id:'u-example-001',name:'Ateneo di prova',city:'Città di prova',region:'Europa',offer:'',custom:false}]};
 
 test('Prompt personale: include il catalogo e convalida un piano importato prima del salvataggio',()=>{
   const program=catalog.programs[0],other=catalog.programs[1];
