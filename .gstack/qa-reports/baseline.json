@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-19",
+  "app": "Marea",
+  "score": 95,
+  "method": "Qualitative QA heuristic; 100 minus 5 points for the one low-severity localization issue found.",
+  "issues": [
+    {
+      "id": "ISSUE-001",
+      "severity": "low",
+      "category": "localization",
+      "description": "Quick-search section descriptions remained Italian when English was selected."
+    }
+  ]
+}
