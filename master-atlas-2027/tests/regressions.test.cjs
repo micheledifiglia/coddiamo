@@ -1,6 +1,7 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),vm=require('node:vm');
+const crypto=require('node:crypto');
 const {spawnSync}=require('node:child_process');
 const Core=require('../dist/core.js');
 const {createHandler}=require('../worker/handler.js');
@@ -11,7 +12,7 @@ test('La testata resta essenziale e le azioni profilo sono raccolte nel menu',()
   const header=html.match(/<header class="app-header">([\s\S]*?)<\/header>/)?.[1];
   assert.ok(header,'testata applicazione presente');
   const left=header.split('<div class="header-right">')[0],right=header.split('<div class="header-right">')[1];
-  assert.match(left,/id="profile-toggle"[^>]*aria-label="Apri profilo"[\s\S]*class="brand-mark app-profile-icon"/);
+  assert.match(left,/id="profile-toggle"[^>]*aria-label="Apri profilo"[\s\S]*class="app-logo app-profile-icon"/);
   assert.doesNotMatch(left,/id="command-toggle"|id="theme-toggle"|Cerca percorsi/);
   assert.match(right,/href="#programs" aria-label="Esplora e aggiungi percorsi"/);
   assert.match(right,/id="command-toggle"[^>]*aria-label="Apri ricerca rapida"[\s\S]*id="theme-toggle"/);
@@ -68,7 +69,7 @@ test('La lingua si cambia dal profilo e resta salvata tra le sessioni',()=>{
   assert.match(i18n,/new MutationObserver/,'anche le schermate renderizzate in seguito vengono tradotte');
   assert.match(i18n,/Claude: add the connector on the web, then use it on iOS or Android/,'le istruzioni MCP spiegano il flusso mobile in inglese');
   assert.match(workerBuild,/['"]i18n\.js['"]:\s*['"]text\/javascript; charset=utf-8['"]/,'il Worker pubblica anche lo script delle traduzioni');
-  assert.match(sw,/master-atlas-shell-v13/,'la shell aggiorna la cache dopo la correzione del Worker');
+  assert.match(sw,/master-atlas-shell-v14/,'la shell aggiorna la cache dopo la sostituzione del logo');
   assert.match(css,/\.profile-language select\{[\s\S]*border-radius:11px/);
   assert.match(css,/:root\[data-theme="dark"\] \.profile-language select/);
   assert.match(app,/option value="\$\{esc\(s\)\}" \$\{r\.stage===s\?'selected':''\}/,'le traduzioni delle candidature non alterano il valore salvato');
@@ -118,7 +119,7 @@ test('L’accesso offre password e passkey senza pulsanti di provider esterni',(
   assert.match(html,/id="account-add-passkey"/);
   assert.doesNotMatch(`${html}\n${auth}`,/Continua con Google|Continua con Apple|accounts\.google\.com|appleid\.apple\.com/);
   assert.ok(html.indexOf('href="glass-ui.css"')<html.indexOf('href="auth.css"'),'lo stile di accesso prevale sulle regole generali liquid glass');
-  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/master-atlas-shell-v13/,'la cache PWA viene invalidata per aggiornare installazione e icone');
+  assert.match(fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8'),/master-atlas-shell-v14/,'la cache PWA viene invalidata per aggiornare installazione e icone');
 });
 test('La panoramica usa schede liquid glass e mantiene una griglia leggibile su telefono',()=>{
   const app=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
@@ -187,10 +188,10 @@ test('Il globo copre con coordinate valide tutti i 27 atenei del dossier',()=>{
   assert.match(fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8'),/src="globe\.js" defer><\/script><script src="ai\.js" defer><\/script><script src="app\.js" defer/);
   const serviceWorker=fs.readFileSync(path.join(__dirname,'../dist/sw.js'),'utf8');
   assert.match(serviceWorker,/\/globe\.js/);
-  assert.match(serviceWorker,/master-atlas-shell-v13/);
+  assert.match(serviceWorker,/master-atlas-shell-v14/);
   assert.match(serviceWorker,/\/i18n\.js/);
-  assert.match(serviceWorker,/\/icons\/atlas-app-180\.png[\s\S]*\/icons\/atlas-app-192\.png[\s\S]*\/icons\/atlas-app-512\.png/);
-  assert.doesNotMatch(serviceWorker,/\/icons\/atlas-(?:180|192|512)\.png/);
+  assert.match(serviceWorker,/\/icons\/master-atlas-logo\.png/);
+  assert.doesNotMatch(serviceWorker,/\/icons\/(?:atlas|atlas-app)-(?:180|192|512)\.png/);
 });
 
 test('La tipografia dell’interfaccia usa il sans-serif Manrope come nelle immagini di riferimento',()=>{
@@ -211,16 +212,19 @@ test('Le risorse PWA sono servite dal Worker con manifest e icone PNG validi',as
   const manifest=JSON.parse(fs.readFileSync(path.join(__dirname,'../dist/manifest.webmanifest'),'utf8'));
   assert.equal(manifest.id,'/');assert.equal(manifest.name,'Master Atlas');assert.equal(manifest.display,'standalone');assert.equal(manifest.start_url,'/');
   assert.equal(manifest.background_color,'#eef3f9');assert.equal(manifest.theme_color,'#eef3f9');
-  assert.ok(manifest.icons.some(icon=>icon.sizes==='180x180'&&icon.src==='/icons/atlas-app-180.png'));
-  assert.ok(manifest.icons.some(icon=>icon.sizes==='192x192'&&icon.src==='/icons/atlas-app-192.png'));
-  assert.ok(manifest.icons.some(icon=>icon.sizes==='512x512'&&icon.src==='/icons/atlas-app-512.png'&&icon.purpose==='any'));
-  assert.deepEqual(fs.readdirSync(path.join(__dirname,'../dist/icons')).sort(),['atlas-app-180.png','atlas-app-192.png','atlas-app-512.png']);
+  assert.deepEqual(manifest.icons,[{src:'/icons/master-atlas-logo.png',sizes:'1254x1254',type:'image/png',purpose:'any'}]);
+  assert.deepEqual(fs.readdirSync(path.join(__dirname,'../dist/icons')).sort(),['master-atlas-logo.png']);
+  const png=fs.readFileSync(path.join(__dirname,'../dist/icons/master-atlas-logo.png'));
+  assert.equal(crypto.createHash('sha256').update(png).digest('hex'),'4b61f8354b12dbd8218605308784fc0484f197fe30842b6ae3131899fac0600c','il logo resta byte per byte identico al file definitivo allegato');
   const html=fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8');
-  assert.match(html,/rel="icon" sizes="192x192" href="\/icons\/atlas-app-192\.png"/);
-  assert.match(html,/rel="apple-touch-icon" sizes="180x180" href="\/icons\/atlas-app-180\.png"/);
+  assert.match(html,/rel="icon" sizes="1254x1254" href="\/icons\/master-atlas-logo\.png"/);
+  assert.match(html,/rel="apple-touch-icon" href="\/icons\/master-atlas-logo\.png"/);
+  assert.equal((html.match(/src="\/icons\/master-atlas-logo\.png"/g)||[]).length,2,'testata e pulsante profilo usano la stessa immagine');
+  const auth=fs.readFileSync(path.join(__dirname,'../dist/auth.js'),'utf8');
+  assert.match(auth,/<img class="auth-mark" src="\/icons\/master-atlas-logo\.png" alt="">/);
   assert.match(html,/rel="stylesheet" href="pwa\.css"\s*><\/head>/);
   const assets={'/manifest.webmanifest':{type:'application/manifest+json',body:JSON.stringify(manifest)}};
-  for(const icon of manifest.icons){const size=Number(icon.sizes.split('x')[0]),file=path.join(__dirname,'../dist',icon.src.slice(1));const png=fs.readFileSync(file);assert.deepEqual([...png.subarray(0,8)],[137,80,78,71,13,10,26,10]);assert.equal(png.readUInt32BE(16),size);assert.equal(png.readUInt32BE(20),size);assets[icon.src]={type:'image/png',body:{encoding:'base64',value:png.toString('base64')}}}
+  for(const icon of manifest.icons){const size=Number(icon.sizes.split('x')[0]),file=path.join(__dirname,'../dist',icon.src.slice(1)),png=fs.readFileSync(file);assert.deepEqual([...png.subarray(0,8)],[137,80,78,71,13,10,26,10]);assert.equal(png.readUInt32BE(16),size);assert.equal(png.readUInt32BE(20),size);assets[icon.src]={type:'image/png',body:{encoding:'base64',value:png.toString('base64')}}}
   const handle=createHandler(assets,catalog,Core);
   const json=await handle(new Request('https://atlas.test/manifest.webmanifest'),{});
   assert.match(json.headers.get('content-type'),/application\/manifest\+json/);
@@ -397,8 +401,8 @@ test('La build Pages locale contiene soltanto risorse pubbliche e disabilita il 
   assert.equal(run.status,0,run.stderr);
   const dir=path.join(__dirname,'../_site');
   assert.deepEqual(fs.readdirSync(dir).sort(),['.nojekyll','ai.js','app.js','auth.css','auth.js','config.js','core.js','data.json','glass-ui.css','globe.js','i18n.js','icons','index.html','manifest.webmanifest','pwa.css','pwa.js','release.json','storage.js','style.css','sw.js'].sort());
-  assert.deepEqual(fs.readdirSync(path.join(dir,'icons')).sort(),['atlas-app-180.png','atlas-app-192.png','atlas-app-512.png']);
-  assert.ok(fs.readFileSync(path.join(dir,'icons/atlas-app-512.png')).subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])));
+  assert.deepEqual(fs.readdirSync(path.join(dir,'icons')).sort(),['master-atlas-logo.png']);
+  assert.ok(fs.readFileSync(path.join(dir,'icons/master-atlas-logo.png')).subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])));
   const context={};vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(dir,'config.js'),'utf8'),context);
   assert.equal(context.ATLAS_CONFIG.cloudSync,false);assert.equal(context.ATLAS_CONFIG.public,true);
   const html=fs.readFileSync(path.join(dir,'index.html'),'utf8');assert.ok(html.includes('Sito pubblico'));assert.ok(!html.includes('Spazio privato'));assert.ok(html.includes('glass-ui.css'));assert.ok(html.includes('command-palette'));

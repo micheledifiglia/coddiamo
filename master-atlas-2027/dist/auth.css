@@ -47,3 +47,5 @@
 .auth-actions .button:not(.primary){background:color-mix(in srgb,var(--paper) 86%,#e8eefc);border-color:var(--line);color:var(--ink)}
 :root[data-theme="dark"] .auth-actions .button:not(.primary){background:#26364d;border-color:rgba(208,226,249,.22);color:#eef3fb}
 .profile-message{color:#245c48}
+
+.auth-mark{display:block;object-fit:contain;width:48px;height:48px;margin-bottom:24px;border:0;border-radius:0;padding:0;background:none;box-shadow:none}
