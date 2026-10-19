@@ -2,7 +2,7 @@
 
 App per esplorare 208 percorsi e seguire le candidature. Il sito pubblico ufficiale è:
 
-- **Profili pubblici Sites:** https://marea-profili-2027.fair-swan-2763.chatgpt.site/ — profili personali, accesso con nome utente e password o passkey e sincronizzazione cloud separata.
+- **Profili pubblici Sites:** https://master-atlas-profili-2027.fair-swan-2763.chatgpt.site/ — profili personali, accesso con nome utente e password o passkey e sincronizzazione cloud separata.
 
 Il sito pubblico Sites è la sola versione destinata ai visitatori. GitHub Pages è stato disattivato; il repository resta pubblico come codice sorgente. Ogni persona crea un profilo con nome utente e password, poi può aggiungere una passkey per accedere con il metodo sicuro del proprio dispositivo. Le password sono conservate nel database soltanto come hash PBKDF2-SHA-256 con sale univoco. La sessione persistente si rinnova mentre usi l’app e resta attiva su questo dispositivo finché non esci o cancelli i cookie. Una password dimenticata non può essere recuperata: aggiungi una passkey sincronizzata o salva la password in un gestore sicuro.
 

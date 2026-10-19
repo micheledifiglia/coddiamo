@@ -233,6 +233,9 @@ test('Le risorse PWA sono servite dal Worker con manifest e icone PNG validi',as
   const json=await handle(new Request('https://atlas.test/manifest.webmanifest'),{});
   assert.match(json.headers.get('content-type'),/application\/manifest\+json/);
   for(const iconPath of manifest.icons.map(icon=>icon.src)){const icon=await handle(new Request(`https://atlas.test${iconPath}`),{});assert.equal(icon.headers.get('content-type'),'image/png');assert.equal(new Uint8Array(await icon.arrayBuffer()).length,fs.statSync(path.join(__dirname,'../dist',iconPath.slice(1))).size)}
+  const favicon=await handle(new Request('https://atlas.test/favicon.ico'),{});
+  assert.equal(favicon.status,200);assert.equal(favicon.headers.get('content-type'),'image/png');
+  assert.deepEqual(Buffer.from(await favicon.arrayBuffer()),png);
 });
 test('Migrazione v1 preserva note, candidature, preferiti e confronto',()=>{
   const out=Core.normalize({favorites:['3-1'],compare:['4-1'],records:{'3-1':{notes:'Le mie note',stage:'In preparazione',checklist:[0,4]}}},catalog);
